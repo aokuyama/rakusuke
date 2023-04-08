@@ -1,0 +1,40 @@
+{
+  "name": "next-template",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write .",
+    "fix": "turbo run lint -- --fix",
+    "type-check": "turbo run type-check",
+    "prepare": "husky install",
+    "w": "yarn workspace"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "latest",
+    "turbo": "^1.6.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.19",
+  "lint-staged": {
+    "**/*.ts*": [
+      "bash -c 'yarn type-check'"
+    ],
+    "*.{js,jsx,ts,tsx,css,md}": [
+      "eslint --fix"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "workshop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "test-storybook",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "lint": "TIMING=1 eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.2",
+    "ui": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@emotion/babel-plugin": "^11.10.5",
+    "@storybook/addon-actions": "^7.0.2",
+    "@storybook/addon-essentials": "^7.0.2",
+    "@storybook/addon-interactions": "^7.0.2",
+    "@storybook/addon-links": "^7.0.2",
+    "@storybook/addon-mdx-gfm": "^7.0.2",
+    "@storybook/jest": "^0.1.0",
+    "@storybook/react": "^7.0.2",
+    "@storybook/react-vite": "^7.0.2",
+    "@storybook/test-runner": "^0.10.0",
+    "@storybook/testing-library": "^0.1.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.0.0",
+    "babel-loader": "^9.1.2",
+    "eslint-config-custom": "*",
+    "jest": "^29.5.0",
+    "tsconfig": "*",
+    "typescript": "^4.9.5",
+    "vite": "^4.0.0"
+  }
+}

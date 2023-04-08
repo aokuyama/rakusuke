@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/workspaces
+      - node_modules:/workspaces/node_modules
+      - app_web_next:/workspaces/apps/web/.next
+    working_dir: /workspaces
+    tty: true
+    ports:
+      - ${DEV_PORT_WEB:-3000}:3000
+      - ${DEV_PORT_STORYBOOK:-6006}:6006
+
+volumes:
+  node_modules:
+  app_web_next:
