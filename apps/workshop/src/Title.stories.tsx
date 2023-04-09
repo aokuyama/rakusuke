@@ -4,7 +4,7 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
 export default {
-  title: "Example/Title",
+  title: "Basic/Title",
   component: Title,
   argTypes: {
     backgroundColor: { control: "color" },

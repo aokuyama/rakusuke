@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@acab/reset.css": "^0.5.3",
-    "@emotion/react": "^11.10.5"
+    "@emotion/react": "^11.10.5",
+    "@types/react-calendar": "^3.9.0",
+    "react-calendar": "^4.2.1"
   }
 }
