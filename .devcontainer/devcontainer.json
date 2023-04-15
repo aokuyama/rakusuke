@@ -33,7 +33,11 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": ["styled-components.vscode-styled-components"]
+      "extensions": [
+        "styled-components.vscode-styled-components",
+        "dbaeumer.vscode-eslint",
+        "rvest.vs-code-prettier-eslint"
+      ]
     }
   }
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
