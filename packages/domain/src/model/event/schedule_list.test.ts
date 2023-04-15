@@ -23,3 +23,16 @@ test("同じ日付のスケジュールは消える", () => {
   expect(list1.length()).toBe(1);
   expect(list1.getDateStrings()).toEqual(["2023/04/16"]);
 });
+
+test("日付順にソートされる", () => {
+  const list = new ScheduleList();
+  const list3 = list
+    .toggleByDate(new Date("2023/04/15"))
+    .toggleByDate(new Date("2023/04/14"))
+    .toggleByDate(new Date("2023/04/16"));
+  expect(list3.getDateStrings()).toEqual([
+    "2023/04/14",
+    "2023/04/15",
+    "2023/04/16",
+  ]);
+});

@@ -16,6 +16,7 @@ export class Date {
     return format(this.date, "yyyy/MM/dd");
   };
   isEqual = (date: Date): boolean => isSameDay(this.date, date.date);
+  unixtime = (): number => this.date.getTime();
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());

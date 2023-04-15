@@ -5,6 +5,7 @@ export class ScheduleList {
   private readonly schedules: Schedule[];
   constructor(schedules: Schedule[] = []) {
     this.schedules = schedules;
+    this.schedules.sort((a, b) => a.date.unixtime() - b.date.unixtime());
   }
   toggleByDate = (date: Date | globalThis.Date): ScheduleList => {
     const newSchedules = [];

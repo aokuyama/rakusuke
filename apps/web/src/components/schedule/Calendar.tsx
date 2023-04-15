@@ -1,29 +1,23 @@
 import { FC, useState } from "react";
 import { MultiSelectCalendar } from "ui/src/components/MultiSelectCalendar";
 import { ScheduleList } from "domain/src/model/event/schedule_list";
+import React from "react";
 
-export const Calendar: FC = () => {
-  const [scheduleList, setSchedule] = useState<ScheduleList>(
-    new ScheduleList()
-  );
+interface Props {
+  scheduleList: ScheduleList;
+  setSchedule: React.Dispatch<React.SetStateAction<ScheduleList>>;
+}
+
+export const Calendar: FC<Props> = ({ scheduleList, setSchedule }) => {
   const onChange = (d: Date) => {
     setSchedule(scheduleList.toggleByDate(d));
   };
-  const selectedStr = scheduleList
-    .getDateStrings()
-    .map((d) => {
-      return d.toString();
-    })
-    .join(",");
 
   return (
-    <>
-      <MultiSelectCalendar
-        selectedDates={scheduleList.getGlobalThisDates()}
-        locale={"ja-JP"}
-        onChangeFunc={onChange}
-      />
-      <div>{selectedStr}</div>
-    </>
+    <MultiSelectCalendar
+      selectedDates={scheduleList.getGlobalThisDates()}
+      locale={"ja-JP"}
+      onChangeFunc={onChange}
+    />
   );
 };
