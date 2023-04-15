@@ -1,8 +1,8 @@
-import { ScheduleList } from "./schedule_list";
+import { DateList } from "./date_list";
 import { Date } from "./date";
 
 test("日付からスケジュール追加", () => {
-  const list = new ScheduleList();
+  const list = new DateList();
   const list1 = list.toggleByDate(new Date("2023/04/15"));
   expect(list1.length()).toBe(1);
   expect(list.length()).toBe(0);
@@ -15,7 +15,7 @@ test("日付からスケジュール追加", () => {
 });
 
 test("同じ日付のスケジュールは消える", () => {
-  const list = new ScheduleList();
+  const list = new DateList();
   const list2 = list
     .toggleByDate(new Date("2023/04/15"))
     .toggleByDate(new Date("2023/04/16"));
@@ -25,7 +25,7 @@ test("同じ日付のスケジュールは消える", () => {
 });
 
 test("日付順にソートされる", () => {
-  const list = new ScheduleList();
+  const list = new DateList();
   const list3 = list
     .toggleByDate(new Date("2023/04/15"))
     .toggleByDate(new Date("2023/04/14"))
