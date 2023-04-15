@@ -4,4 +4,4 @@ RUN echo "deb http://ftp.us.debian.org/debian buster main non-free" >> /etc/apt/
     npx playwright install-deps chromium  && \
     npx playwright install chromium
 
-RUN yarn global add turbo
+RUN yarn global add turbo prisma

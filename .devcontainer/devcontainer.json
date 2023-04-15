@@ -36,7 +36,8 @@
       "extensions": [
         "styled-components.vscode-styled-components",
         "dbaeumer.vscode-eslint",
-        "rvest.vs-code-prettier-eslint"
+        "rvest.vs-code-prettier-eslint",
+        "Prisma.prisma"
       ]
     }
   }

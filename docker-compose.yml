@@ -13,7 +13,23 @@ services:
     ports:
       - ${DEV_PORT_WEB:-3000}:3000
       - ${DEV_PORT_STORYBOOK:-6006}:6006
+      - ${DEV_PORT_PRISMA_STUDIO:-5555}:5555
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres?schema=public&connect_timeout=10
+    depends_on:
+      db:
+        condition: service_started
+  db:
+    image: postgres:14.1
+    ports:
+      - 5432:5432
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
 
 volumes:
   node_modules:
   app_web_next:
+  db-store:
