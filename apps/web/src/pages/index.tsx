@@ -1,4 +1,4 @@
-import { Page } from "@/components/pages/top/Page";
+import { Page } from "@/components/pages/create_event/Page";
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC } from "react";
