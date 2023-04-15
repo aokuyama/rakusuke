@@ -3,29 +3,45 @@ import { Calendar as ReactCalendar } from "react-calendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css, Global } from "@emotion/react";
 import { mainColor } from "../styles/color";
-import CalendarCSS from "react-calendar/dist/Calendar.css";
+import { format } from "date-fns";
 
 type Props = {
-  value?: Date | undefined;
+  selectedDates: Date[];
+  locale: string;
   onChangeFunc: OnChangeFunc | undefined;
   defaultActiveStartDate?: Date | undefined;
 };
 
-export const Calendar: FC<Props> = ({
-  value,
+export const MultiSelectCalendar: FC<Props> = ({
+  selectedDates,
+  locale,
   onChangeFunc,
   defaultActiveStartDate,
 }) => {
+  const cssList = selectedDates.map((date) => {
+    const label = dateLabelFormat(undefined, date);
+    return css`
+      button:has(abbr[aria-label="${label}"]) {
+        background-color: ${mainColor.default};
+      }
+    `;
+  });
+  cssList.push(calendar);
+
   return (
     <>
-      <Global styles={CalendarCSS} />
+      <Global
+        styles={css`
+          ${require("react-calendar/dist/Calendar.css")};
+        `}
+      />
       <ReactCalendar
-        css={calendar}
-        locale="ja-JP"
-        value={value}
+        css={cssList}
+        locale={locale}
         onClickDay={onChangeFunc}
         defaultActiveStartDate={defaultActiveStartDate}
         minDate={defaultActiveStartDate}
+        formatLongDate={dateLabelFormat}
       />
     </>
   );
@@ -39,3 +55,6 @@ const calendar = css`
     background-color: ${mainColor.default};
   }
 `;
+
+const dateLabelFormat = (_locale: string | undefined, date: Date): string =>
+  format(date, "yyyyMMdd");

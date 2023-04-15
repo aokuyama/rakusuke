@@ -2,8 +2,10 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { mainColor } from "../styles/color";
 
+export type Item = { id: string | number; name: string };
+
 type Props = {
-  items: { id: string | number; name: string }[];
+  items: Item[];
 };
 
 export const List: FC<Props> = ({ items }) => {

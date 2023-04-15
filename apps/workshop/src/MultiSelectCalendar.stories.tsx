@@ -1,22 +1,22 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { Calendar } from "ui/src/components/Calendar";
+import { MultiSelectCalendar } from "ui/src/components/MultiSelectCalendar";
 import { within } from "@storybook/testing-library";
 
 export default {
-  title: "Basic/Calendar",
-  component: Calendar,
+  title: "Basic/MultiSelectCalendar",
+  component: MultiSelectCalendar,
   argTypes: {
     value: {
       control: "date",
     },
   },
-} as Meta<typeof Calendar>;
+} as Meta<typeof MultiSelectCalendar>;
 
-export type Calendar = StoryObj<typeof Calendar>;
+export type Calendar = StoryObj<typeof MultiSelectCalendar>;
 
 export const Default: Calendar = {
   args: {
-    value: new Date("2023/04/08"),
+    selectedDates: [],
     defaultActiveStartDate: new Date("2023/04/08"),
   },
   play: async ({ canvasElement }) => {
