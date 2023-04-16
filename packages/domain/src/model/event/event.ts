@@ -1,20 +1,20 @@
 import { Date } from "./date";
 
-export class Event {
-  private readonly id: string;
-  private readonly name: string;
-  private readonly description?: string;
-  private readonly schedules: Schedule[];
+export class NewEvent {
+  readonly path: string;
+  readonly name: string;
+  readonly description?: string;
+  readonly dates: Date[];
   constructor(
-    id: string,
+    path: string,
     name: string,
-    schedules: Schedule[],
+    dates: string[],
     description?: string | undefined
   ) {
-    this.id = id;
+    this.path = path;
     this.name = name;
     this.description = description;
-    this.schedules = schedules;
+    this.dates = dates.map((d) => new Date(d));
   }
 }
 
