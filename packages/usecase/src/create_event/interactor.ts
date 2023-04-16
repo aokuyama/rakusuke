@@ -6,7 +6,6 @@ import type {
   CreateEventUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
-import { createEventPath } from "domain/src/model/event/path";
 import { NewEvent } from "domain/src/model/event/event";
 
 @injectable()
@@ -20,8 +19,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
 
   handle = async (input: CreateEventInput) => {
     // TODO 天文学的な確率で失敗した時のリトライを入れる
-    const reservedPath = createEventPath();
-    const event = new NewEvent(reservedPath, input.name, input.dates);
+    const event = new NewEvent(input.name, input.dates);
     const path = await this.repository.createEvent(event);
     await this.presenter.render({ path: path });
   };

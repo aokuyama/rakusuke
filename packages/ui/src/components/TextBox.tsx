@@ -1,16 +1,33 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { css } from "@emotion/react";
 
 type Props = {
   label?: string;
   placeholder?: string;
+  value?: string;
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const TextBox: FC<Props> = (props) => {
+export const TextBox: FC<Props> = ({ label, placeholder, value, setValue }) => {
+  const onChange = setValue
+    ? (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!(e.target instanceof HTMLInputElement)) {
+          return;
+        }
+        setValue(e.target.value);
+      }
+    : undefined;
+
   return (
     <label>
-      <span css={label}>{props.label}</span>
-      <input type="text" css={textbox} placeholder={props.placeholder} />
+      <span css={label}>{label}</span>
+      <input
+        type="text"
+        css={textbox}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </label>
   );
 };

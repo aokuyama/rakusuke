@@ -6,17 +6,18 @@ import { DateList } from "domain/src/model/event/date_list";
 import { client } from "infra/src/client/trpc";
 
 export const EventCreate: FC = () => {
+  const [name, setName] = useState<string>("");
   const [dateList, setDateList] = useState<DateList>(new DateList([]));
   const publish = async () => {
-    const path = await client.createEvent.mutate({
-      name: "test",
+    const _path = await client.createEvent.mutate({
+      name: name,
       dates: dateList.getDateStrings(),
     });
   };
 
   return (
     <>
-      <TextBox />
+      <TextBox value={name} setValue={setName} />
       <DatePicker dateList={dateList} setDateList={setDateList} />
       <Button
         onClick={() => {
