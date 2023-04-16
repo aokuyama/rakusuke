@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { DependencyContainer } from "tsyringe";
 ///import { CreateEventInteractor } from "usecase/src/create_event/interactor";
 import { PrismaEventRepository } from "infra/src/db/prisma/event";

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "test-storybook",
-    "dev": "storybook dev -p 6006",
+    "dev": "storybook dev -p 6006 --no-open",
     "build": "storybook build",
     "lint": "TIMING=1 eslint .",
     "type-check": "tsc --noEmit"
