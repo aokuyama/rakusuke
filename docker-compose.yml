@@ -12,28 +12,11 @@ services:
     tty: true
     ports:
       - ${DEV_PORT_WEB:-3000}:3000
+      - ${DEV_PORT_SERVER:-3001}:3001
       - ${DEV_PORT_STORYBOOK:-6006}:6006
       - ${DEV_PORT_PRISMA_STUDIO:-5555}:5555
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres?schema=public&connect_timeout=10
-    depends_on:
-      server:
-        condition: service_started
-      db:
-        condition: service_started
-  server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/workspaces
-      - node_modules:/workspaces/node_modules
-    working_dir: /workspaces
-    ports:
-      - ${DEV_PORT_SERVER:-3001}:3001
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres?schema=public&connect_timeout=10
-    command: "yarn workspace server start"
     depends_on:
       db:
         condition: service_started

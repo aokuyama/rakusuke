@@ -1,24 +1,18 @@
 import { initTRPC } from "@trpc/server";
-
+import { createEvent } from "../registry/create_event";
 import z from "zod";
-/**
- * Initialization of tRPC backend
- * Should be done only once per backend!
- */
+
 const t = initTRPC.create();
 
-/**
- * Export reusable router and procedure helpers
- * that cane be used throughout the router
- */
 export const router = t.router;
 export const publicProcedure = t.procedure;
 
 export const appRouter = router({
-  eventCreate: publicProcedure
-    .input(z.object({ name: z.string() }))
+  createEvent: publicProcedure
+    .input(z.object({ name: z.string(), dates: z.array(z.string()) }))
     .mutation(async (opts) => {
       const { input } = opts;
+      await createEvent.handle({ name: input.name, dates: input.dates });
 
       //     const input: {
       //     name: string;
@@ -37,6 +31,4 @@ export const appRouter = router({
   }),
 });
 
-// Export type router type signature,
-// NOT the router itself.
 export type AppRouter = typeof appRouter;
