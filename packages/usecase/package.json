@@ -8,12 +8,13 @@
     "lint": "TIMING=1 eslint .",
     "type-check": "tsc --noEmit"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "domain": "*",
     "eslint-config-custom": "*",
+    "reflect-metadata": "^0.1.13",
     "tsconfig": "*",
+    "tsyringe": "^4.7.0",
     "typescript": "^4.9.5"
   }
 }

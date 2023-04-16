@@ -1,3 +1,4 @@
+import { container } from "./registry";
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { appRouter } from "infra/src/trpc";
 import cors from "cors";
@@ -13,4 +14,5 @@ const server = createHTTPServer({
   router: appRouter,
 });
 
+container.register("dummy", { useValue: "" });
 server.listen(3001);

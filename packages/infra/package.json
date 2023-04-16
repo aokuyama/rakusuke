@@ -9,14 +9,15 @@
     "lint": "TIMING=1 eslint .",
     "type-check": "tsc --noEmit"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "@trpc/client": "^10.20.0",
     "@trpc/server": "^10.20.0",
     "domain": "*",
     "eslint-config-custom": "*",
+    "reflect-metadata": "^0.1.13",
     "tsconfig": "*",
+    "tsyringe": "^4.7.0",
     "typescript": "^4.9.5",
     "zod": "^3.21.4"
   }
