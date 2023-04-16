@@ -19,6 +19,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
   ) {}
 
   handle = async (input: CreateEventInput) => {
+    // TODO 天文学的な確率で失敗した時のリトライを入れる
     const reservedPath = createEventPath();
     const event = new NewEvent(reservedPath, input.name, input.dates);
     const path = await this.repository.createEvent(event);
