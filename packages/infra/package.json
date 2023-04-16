@@ -1,0 +1,23 @@
+{
+  "name": "infra",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "lint": "TIMING=1 eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "@trpc/client": "^10.20.0",
+    "@trpc/server": "^10.20.0",
+    "domain": "*",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.5",
+    "zod": "^3.21.4"
+  }
+}
