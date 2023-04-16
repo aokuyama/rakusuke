@@ -3,7 +3,7 @@ import { Date } from "./date";
 
 export class DateList {
   private readonly schedules: Schedule[];
-  constructor(schedules: Schedule[] = []) {
+  constructor(schedules: Schedule[]) {
     this.schedules = schedules;
     this.schedules.sort((a, b) => a.date.unixtime() - b.date.unixtime());
   }

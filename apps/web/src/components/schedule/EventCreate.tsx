@@ -3,15 +3,28 @@ import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
 import { DatePicker } from "@/components/schedule/DatePicker";
 import { DateList } from "domain/src/model/event/date_list";
+import { client } from "infra/src/client/trpc";
 
 export const EventCreate: FC = () => {
-  const [dateList, setDateList] = useState<DateList>(new DateList());
+  const [dateList, setDateList] = useState<DateList>(new DateList([]));
+  const publish = async () => {
+    const path = await client.createEvent.mutate({
+      name: "test",
+      dates: dateList.getDateStrings(),
+    });
+  };
 
   return (
     <>
       <TextBox />
       <DatePicker dateList={dateList} setDateList={setDateList} />
-      <Button>作成</Button>
+      <Button
+        onClick={() => {
+          publish();
+        }}
+      >
+        作成
+      </Button>
     </>
   );
 };

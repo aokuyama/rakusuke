@@ -4,10 +4,15 @@ import { mainColor, white } from "../styles/color";
 
 type Props = {
   children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
-export const Button: FC<Props> = ({ children }) => {
-  return <button css={button}>{children}</button>;
+export const Button: FC<Props> = ({ children, onClick }) => {
+  return (
+    <button onClick={onClick} css={button}>
+      {children}
+    </button>
+  );
 };
 
 const button = css`
