@@ -6,7 +6,15 @@ export class PrismaEventRepository implements EventRepository {
   createEvent = async (event: NewEvent) => {
     const r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
-        data: { name: event.name, path: event.path },
+        data: {
+          name: event.name,
+          path: event.path,
+          schedules: {
+            create: event.dates.map((d) => {
+              return { datetime: d.getGlobalThisDate() };
+            }),
+          },
+        },
       });
       return saveEvent;
     });

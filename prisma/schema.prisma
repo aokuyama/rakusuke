@@ -11,7 +11,17 @@ datasource db {
 }
 
 model event {
-  id   Int    @id @default(autoincrement())
-  path String @unique
-  name String
+  id        Int        @id @default(autoincrement())
+  path      String     @unique
+  name      String
+  schedules schedule[]
+}
+
+model schedule {
+  id       Int      @id @default(autoincrement())
+  event_id Int
+  datetime DateTime
+  event    event    @relation(fields: [event_id], references: [id])
+
+  @@unique([event_id, datetime])
 }
