@@ -6,7 +6,7 @@ export class Date {
     if (date instanceof globalThis.Date) {
       date = format(date, "yyyy/MM/dd");
     }
-    this.date = parse(date, "yyyy/MM/dd", new globalThis.Date());
+    this.date = Object.freeze(parse(date, "yyyy/MM/dd", new globalThis.Date()));
     if (isInvalidDate(this.date)) {
       throw new Error("invalid date:" + date);
     }
