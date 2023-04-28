@@ -1,4 +1,3 @@
-import { Schedule } from "./event";
 import { Date } from "./date";
 
 export class DateList {
@@ -27,4 +26,11 @@ export class DateList {
   getDateStrings = (): string[] => this.schedules.map((s) => s.date.toString());
   getGlobalThisDates = (): globalThis.Date[] =>
     this.schedules.map((s) => s.date.getGlobalThisDate());
+}
+
+class Schedule {
+  readonly date: Date;
+  constructor(date: Date) {
+    this.date = date;
+  }
 }

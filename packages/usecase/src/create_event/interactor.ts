@@ -6,7 +6,7 @@ import type {
   CreateEventUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
-import { NewEvent } from "domain/src/model/event/event";
+import { NewEvent } from "domain/src/model/event";
 
 @injectable()
 export class CreateEventInteractor implements CreateEventUsecase {

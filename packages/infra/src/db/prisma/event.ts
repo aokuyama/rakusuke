@@ -1,4 +1,4 @@
-import { NewEvent } from "domain/src/model/event/event";
+import { Event, NewEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 
@@ -19,5 +19,8 @@ export class PrismaEventRepository implements EventRepository {
       return saveEvent;
     });
     return r.path;
+  };
+  getEventByPath = async (path: string): Promise<Event | null> => {
+    throw new Error("unimplemented");
   };
 }

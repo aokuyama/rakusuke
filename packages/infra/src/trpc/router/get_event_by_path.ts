@@ -1,17 +1,28 @@
 import "reflect-metadata";
 import { container } from "../../registry";
 import {
-  CreateEventInteractor,
-  CreateEventOutput,
-} from "usecase/src/create_event";
-import { Event } from "domain/src/model/event/event";
+  GetEventByPathInteractor,
+  GetEventByPathOutput,
+} from "usecase/src/get_event_by_path";
+import { Event } from "domain/src/model/event";
 import z from "zod";
-import { publicProcedure } from "..";
+import { publicProcedure } from "../";
 
 export const getEventByPath = publicProcedure
   .input(z.string())
   .query(async (opts) => {
-    //   const { input } = opts;
+    const { input } = opts;
+    let e: Event | null = null;
 
-    return { event: {} };
+    container.register("GetEventByPathPresenter", {
+      useValue: {
+        render: async (output: GetEventByPathOutput): Promise<void> => {
+          e = output.event;
+        },
+      },
+    });
+    const GetEventByPath = container.resolve(GetEventByPathInteractor);
+    await GetEventByPath.handle({ path: input });
+
+    return { event: e };
   });

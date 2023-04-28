@@ -1,4 +1,4 @@
-import { NewEvent } from "./event";
+import { NewEvent } from "./new_event";
 
 describe("イベント作成", () => {
   it("イベントが正しく作成できる", () => {
