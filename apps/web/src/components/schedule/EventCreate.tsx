@@ -9,7 +9,7 @@ export const EventCreate: FC = () => {
   const [name, setName] = useState<string>("");
   const [dateList, setDateList] = useState<DateList>(new DateList([]));
   const publish = async () => {
-    const _path = await client.createEvent.mutate({
+    const result = await client.event.createEvent.mutate({
       name: name,
       dates: dateList.getDateStrings(),
     });
