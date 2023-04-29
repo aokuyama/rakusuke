@@ -4,7 +4,7 @@ import {
   GetEventByPathInteractor,
   GetEventByPathOutput,
 } from "usecase/src/get_event_by_path";
-import { Event } from "domain/src/model/event";
+import { UpcomingEvent } from "domain/src/model/event";
 import z from "zod";
 import { publicProcedure } from "../";
 
@@ -12,7 +12,7 @@ export const getEventByPath = publicProcedure
   .input(z.string())
   .query(async (opts) => {
     const { input } = opts;
-    let e: Event | null = null;
+    let e: UpcomingEvent | null = null;
 
     container.register("GetEventByPathPresenter", {
       useValue: {

@@ -1,4 +1,4 @@
-import { Event } from "domain/src/model/event";
+import { UpcomingEvent } from "domain/src/model/event";
 
 export * from "./interactor";
 
@@ -7,7 +7,7 @@ export type GetEventByPathInput = {
 };
 
 export type GetEventByPathOutput = {
-  event: Event | null;
+  event: UpcomingEvent | null;
 };
 
 export interface GetEventByPathUsecase {

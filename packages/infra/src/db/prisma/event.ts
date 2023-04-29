@@ -1,4 +1,4 @@
-import { Event, NewEvent } from "domain/src/model/event";
+import { UpcomingEvent, NewEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 
@@ -20,7 +20,7 @@ export class PrismaEventRepository implements EventRepository {
     });
     return r.path;
   };
-  getEventByPath = async (path: string): Promise<Event | null> => {
+  loadEventByPath = async (path: string): Promise<UpcomingEvent | null> => {
     throw new Error("unimplemented");
   };
 }

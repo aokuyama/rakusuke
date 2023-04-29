@@ -2,21 +2,23 @@ import { Date } from "./date";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 
-export class Event {
+interface UpcomingEventArgs {
+  path: string;
+  name: string;
+  schedules: { date: string }[];
+  description?: string | undefined;
+}
+
+export class UpcomingEvent {
   readonly _path: EventPath;
   readonly _name: EventName;
   readonly description: string | undefined;
   readonly schedules: Schedule[];
-  constructor(
-    path: string,
-    name: string,
-    schedules: { date: string }[],
-    description?: string | undefined
-  ) {
-    this._path = new EventPath(path);
-    this._name = new EventName(name);
-    this.schedules = schedules.map((d) => new Schedule(d.date));
-    this.description = description;
+  constructor(args: UpcomingEventArgs) {
+    this._path = new EventPath(args.path);
+    this._name = new EventName(args.name);
+    this.schedules = args.schedules.map((d) => new Schedule(d.date));
+    this.description = args.description;
   }
   get name(): string {
     return this._name.value;
