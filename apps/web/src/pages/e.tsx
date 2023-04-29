@@ -7,16 +7,16 @@ import { UpcomingEvent } from "domain/src/model/event";
 
 export const Schedule: FC = () => {
   const router = useRouter();
+  const { e } = router.query;
   const [event, setEvent] = useState<UpcomingEvent | null | undefined>();
 
   useEffect(() => {
     const load = async () => {
-      const { e } = router.query;
       const ev = await loadEvent(Array.isArray(e) ? e[0] : e ? e : "");
       setEvent(ev);
     };
     load();
-  }, [event, router.query]);
+  }, [e]);
 
   if (event === undefined) {
     return <>loading...</>;
@@ -30,7 +30,7 @@ export const Schedule: FC = () => {
       <Head>
         <title>{event.name}</title>
       </Head>
-      <Layout>aa</Layout>
+      <Layout>{event.name}</Layout>
     </>
   );
 };

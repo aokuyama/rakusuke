@@ -6,6 +6,7 @@ import type {
   GetEventByPathUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
+import { EventPath } from "domain/src/model/event/path";
 
 @injectable()
 export class GetEventByPathInteractor implements GetEventByPathUsecase {
@@ -17,7 +18,8 @@ export class GetEventByPathInteractor implements GetEventByPathUsecase {
   ) {}
 
   handle = async (input: GetEventByPathInput) => {
-    const event = await this.repository.loadEventByPath(input.path);
+    const path = new EventPath(input.path);
+    const event = await this.repository.loadEventByPath(path);
     await this.presenter.render({ event: event });
   };
 }
