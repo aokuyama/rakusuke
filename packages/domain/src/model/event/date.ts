@@ -1,22 +1,31 @@
 import { parse, format, isSameDay } from "date-fns";
+import { AbstractValueObject } from "../valueobject";
 
-export class Date {
-  private readonly date: globalThis.Date;
-  constructor(date: string | globalThis.Date) {
-    if (date instanceof globalThis.Date) {
-      date = format(date, "yyyy/MM/dd");
-    }
-    this.date = Object.freeze(parse(date, "yyyy/MM/dd", new globalThis.Date()));
-    if (isInvalidDate(this.date)) {
-      throw new Error("invalid date:" + date);
+export class Date extends AbstractValueObject<globalThis.Date> {
+  protected validate(value: globalThis.Date): void {
+    if (isInvalidDate(value)) {
+      throw new Error("invalid date:" + value);
     }
   }
-  getGlobalThisDate = (): globalThis.Date => this.date;
+  constructor(value: string | globalThis.Date) {
+    if (value instanceof globalThis.Date) {
+      value = format(value, "yyyy/MM/dd");
+    }
+    super(parse(value, "yyyy/MM/dd", new globalThis.Date()));
+  }
+  get value(): globalThis.Date {
+    return this._value;
+  }
+
+  getGlobalThisDate = (): globalThis.Date => this.value;
   toString = (): string => {
-    return format(this.date, "yyyy/MM/dd");
+    return format(this.value, "yyyy/MM/dd");
   };
-  isEqual = (date: Date): boolean => isSameDay(this.date, date.date);
-  unixtime = (): number => this.date.getTime();
+  isEqual = (date: Date): boolean => isSameDay(this.value, date.value);
+  unixtime = (): number => this.value.getTime();
+  serialize(): string {
+    return this.toString();
+  }
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());

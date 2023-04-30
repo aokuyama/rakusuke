@@ -12,7 +12,7 @@ export const getEventByPath = publicProcedure
   .input(z.string())
   .query(async (opts) => {
     const { input } = opts;
-    let e: UpcomingEvent | null = null;
+    let e: UpcomingEvent | null | undefined;
 
     container.register("GetEventByPathPresenter", {
       useValue: {
@@ -24,5 +24,5 @@ export const getEventByPath = publicProcedure
     const GetEventByPath = container.resolve(GetEventByPathInteractor);
     await GetEventByPath.handle({ path: input });
 
-    return { event: e };
+    return { event: e?.serialize() };
   });

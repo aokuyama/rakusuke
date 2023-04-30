@@ -1,36 +1,74 @@
+import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { Date } from "./date";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 
-interface UpcomingEventArgs {
+export interface UpcomingEventArgs {
   path: string;
   name: string;
-  schedules: { date: string }[];
+  schedules: { date: string | globalThis.Date }[];
   description?: string | undefined;
 }
 
-export class UpcomingEvent {
-  readonly _path: EventPath;
-  readonly _name: EventName;
+interface UpcomingEventProps {
+  readonly path: EventPath;
+  readonly name: EventName;
   readonly description: string | undefined;
-  readonly schedules: Schedule[];
-  constructor(args: UpcomingEventArgs) {
-    this._path = new EventPath(args.path);
-    this._name = new EventName(args.name);
-    this.schedules = args.schedules.map((d) => new Schedule(d.date));
-    this.description = args.description;
+  readonly schedules: Schedules;
+}
+
+export class UpcomingEvent extends StructValueObject<
+  UpcomingEventProps,
+  UpcomingEventArgs
+> {
+  protected validate(value: UpcomingEventProps): void {
+    // throw new Error("Method not implemented.");
   }
-  get name(): string {
-    return this._name.value;
+  static new(args: UpcomingEventArgs): UpcomingEvent {
+    return new UpcomingEvent({
+      name: new EventName(args.name),
+      path: new EventPath(args.path),
+      schedules: new Schedules(args.schedules),
+      description: args.description,
+    });
   }
-  get path(): string {
-    return this._path.value;
+  get name(): EventName {
+    return this._value.name;
+  }
+  get path(): EventPath {
+    return this._value.path;
+  }
+  get schedules(): Schedules {
+    return this._value.schedules;
   }
 }
 
-class Schedule {
+interface ScheduleProps {
   readonly date: Date;
-  constructor(date: string) {
-    this.date = new Date(date);
+}
+interface ScheduleArgs {
+  readonly date: string;
+}
+
+class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
+  static new(args: ScheduleArgs): Schedule {
+    return new Schedule({
+      date: new Date(args.date),
+    });
+  }
+  protected validate(value: ScheduleProps): void {
+    // throw new Error("Method not implemented.");
+  }
+  get date(): string {
+    return this.date.toString();
+  }
+}
+
+class Schedules extends ArrayValueObject<Schedule, ScheduleProps> {
+  constructor(value: any[]) {
+    super(value.map((v) => Schedule.new(v)));
+  }
+  protected validate(value: Schedule[]): void {
+    // throw new Error("Method not implemented.");
   }
 }

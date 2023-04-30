@@ -28,19 +28,24 @@ export const Schedule: FC = () => {
   return (
     <>
       <Head>
-        <title>{event.name}</title>
+        <title>{event.name.value}</title>
       </Head>
-      <Layout>{event.name}</Layout>
+      <Layout>{event.name.value}</Layout>
     </>
   );
 };
 
 export default Schedule;
 
-const loadEvent = async (path: string): Promise<UpcomingEvent | null> => {
+const loadEvent = async (
+  path: string
+): Promise<UpcomingEvent | null | undefined> => {
   if (path.length == 0) {
     return null;
   }
   const result = await client.event.getEventByPath.query(path);
-  return result.event;
+  if (!result.event) {
+    return null;
+  }
+  return UpcomingEvent.new(result.event);
 };

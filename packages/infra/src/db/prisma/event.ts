@@ -34,9 +34,9 @@ export class PrismaEventRepository implements EventRepository {
       return null;
     }
     const schedules = event.schedules.map((s) => {
-      return { date: s.datetime.toDateString() };
+      return { date: s.datetime };
     });
-    return new UpcomingEvent({
+    return UpcomingEvent.new({
       name: event.name,
       path: event.path,
       schedules: schedules,
