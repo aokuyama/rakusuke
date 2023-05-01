@@ -39,6 +39,9 @@ export abstract class PrimitiveValueObject<T> extends AbstractValueObject<T> {
 }
 
 export abstract class ArrayValueObject<T, U> extends AbstractValueObject<T[]> {
+  get value(): T[] {
+    return this._value.map((v) => serialize(v));
+  }
   serialize(): U[] {
     return this._value.map((v) => serialize(v));
   }

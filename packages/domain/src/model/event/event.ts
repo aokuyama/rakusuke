@@ -1,4 +1,5 @@
 import { ArrayValueObject, StructValueObject } from "../valueobject";
+import { AttendanceList } from "./attendance";
 import { Date } from "./date";
 import { EventName } from "./name";
 import { EventPath } from "./path";
@@ -32,15 +33,23 @@ export class UpcomingEvent extends StructValueObject<
       description: args.description,
     });
   }
-  get name(): EventName {
-    return this._value.name;
+  get name(): string {
+    return this._value.name.value;
   }
-  get path(): EventPath {
-    return this._value.path;
+  get path(): string {
+    return this._value.path.value;
   }
-  get schedules(): Schedules {
-    return this._value.schedules;
+  get schedules() {
+    return this._value.schedules.value;
   }
+  dateItems = () => this._value.schedules.dateItems();
+  newAttendance = () => {
+    return new AttendanceList(
+      this._value.schedules.dates().map((date) => {
+        return { date: date, attend: false };
+      })
+    );
+  };
 }
 
 interface ScheduleProps {
@@ -60,7 +69,10 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
     // throw new Error("Method not implemented.");
   }
   get date(): string {
-    return this.date.toString();
+    return this._date.toString();
+  }
+  get _date(): Date {
+    return this._value.date;
   }
 }
 
@@ -71,4 +83,12 @@ class Schedules extends ArrayValueObject<Schedule, ScheduleProps> {
   protected validate(value: Schedule[]): void {
     // throw new Error("Method not implemented.");
   }
+  dateItems = () =>
+    this._value.map((s) => {
+      return { id: s.date, name: s.date };
+    });
+  dates = () =>
+    this._value.map((s) => {
+      return s._date;
+    });
 }

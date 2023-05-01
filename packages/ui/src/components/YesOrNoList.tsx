@@ -4,7 +4,7 @@ import { YesOrNo } from "./YesOrNo";
 import { mainColor } from "../styles/color";
 
 type Item = {
-  id: string | number;
+  id: string;
   name: string;
   checked: boolean;
 };
@@ -22,7 +22,7 @@ export const YesOrNoList: FC<Props> = ({ items, onChange }) => {
           <li key={item.id}>
             <div>{item.name}</div>
             <YesOrNo
-              name={item.name}
+              name={item.id}
               checked={item.checked}
               onChange={onChange}
             />

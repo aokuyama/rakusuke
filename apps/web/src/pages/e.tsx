@@ -4,6 +4,8 @@ import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { client } from "infra/src/client/trpc";
 import { UpcomingEvent } from "domain/src/model/event";
+import { Page } from "@/components/pages/view_event/Page";
+import { Site } from "@/lib/site";
 
 export const Schedule: FC = () => {
   const router = useRouter();
@@ -18,19 +20,14 @@ export const Schedule: FC = () => {
     load();
   }, [e]);
 
-  if (event === undefined) {
-    return <>loading...</>;
-  }
-  if (!event) {
-    return <>event not found</>;
-  }
-
   return (
     <>
       <Head>
-        <title>{event.name.value}</title>
+        <title>{title(event)}</title>
       </Head>
-      <Layout>{event.name.value}</Layout>
+      <Layout>
+        <Page event={event} />
+      </Layout>
     </>
   );
 };
@@ -48,4 +45,11 @@ const loadEvent = async (
     return null;
   }
   return UpcomingEvent.new(result.event);
+};
+
+const title = (event: UpcomingEvent | null | undefined): string => {
+  if (event) {
+    return event.name + " by " + Site.name;
+  }
+  return Site.name;
 };

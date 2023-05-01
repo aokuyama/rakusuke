@@ -40,9 +40,7 @@ class EventDates {
       throw new Error("dates must be 20 num or less");
     }
     this._value = Object.freeze(value.map((d) => new Date(d)));
-    if (
-      new Set(this._value.map((d) => d.toString())).size != this._value.length
-    ) {
+    if (new Set(this._value.map((d) => d.id())).size != this._value.length) {
       throw new Error("duplicate date");
     }
   }

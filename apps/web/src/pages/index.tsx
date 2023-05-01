@@ -2,12 +2,13 @@ import { Page } from "@/components/pages/create_event/Page";
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC } from "react";
+import { Site } from "@/lib/site";
 
 export const Top: FC = () => {
   return (
     <>
       <Head>
-        <title>Title</title>
+        <title>{Site.name}</title>
       </Head>
       <Layout>
         <Page />

@@ -18,14 +18,13 @@ export class Date extends AbstractValueObject<globalThis.Date> {
   }
 
   getGlobalThisDate = (): globalThis.Date => this.value;
-  toString = (): string => {
-    return format(this.value, "yyyy/MM/dd");
-  };
+  toString = (): string => format(this.value, "yyyy/MM/dd");
   isEqual = (date: Date): boolean => isSameDay(this.value, date.value);
   unixtime = (): number => this.value.getTime();
   serialize(): string {
     return this.toString();
   }
+  id = (): string => format(this.value, "yyyyMMdd");
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());
