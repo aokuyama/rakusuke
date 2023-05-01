@@ -5,7 +5,7 @@ interface AttendanceProps {
   readonly date: Date;
   readonly attend: boolean;
 }
-interface AttendanceArgs {
+export interface AttendanceArgs {
   readonly date: string;
   readonly attend: boolean;
 }
