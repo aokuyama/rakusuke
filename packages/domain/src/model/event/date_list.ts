@@ -1,36 +1,46 @@
+import { ArrayValueObject } from "../valueobject";
 import { Date } from "./date";
 
-export class DateList {
-  private readonly schedules: Schedule[];
-  constructor(schedules: Schedule[]) {
-    this.schedules = schedules;
-    this.schedules.sort((a, b) => a.date.unixtime() - b.date.unixtime());
+export class DateList extends ArrayValueObject<Date, string> {
+  protected limit(): number {
+    return 20;
   }
-  toggleByDate = (date: Date | globalThis.Date): DateList => {
-    const newSchedules = [];
+  protected validate(value: Date[]): void {
+    if (value.length > this.limit()) {
+      throw new Error("dates must be 20 num or less");
+    }
+    if (new Set(value.map((d) => d.id())).size != value.length) {
+      throw new Error("duplicate date");
+    }
+  }
+  isLimit = (): boolean => this.length() == this.limit();
+}
+
+export class EventDateListPickUp extends DateList {
+  constructor(args: Date[]) {
+    args.sort((a, b) => a.unixtime() - b.unixtime());
+    super(args);
+  }
+
+  globalThisDates = (): globalThis.Date[] => this._value.map((d) => d.value);
+
+  toggleByDate = (date: Date | globalThis.Date): EventDateListPickUp => {
+    const dates = [];
     if (date instanceof globalThis.Date) {
       date = new Date(date);
     }
-    for (const schedule of this.schedules) {
-      if (schedule.date.isEqual(date)) {
+    for (const d of this._value) {
+      if (d.isEqual(date)) {
         continue;
       }
-      newSchedules.push(schedule);
+      dates.push(d);
     }
-    if (newSchedules.length == this.schedules.length) {
-      newSchedules.push(new Schedule(date));
+    if (dates.length == this.length()) {
+      dates.push(date);
+      if (dates.length > this.limit()) {
+        return this;
+      }
     }
-    return new DateList(newSchedules);
+    return new EventDateListPickUp(dates);
   };
-  length = (): number => this.schedules.length;
-  getDateStrings = (): string[] => this.schedules.map((s) => s.date.toString());
-  getGlobalThisDates = (): globalThis.Date[] =>
-    this.schedules.map((s) => s.date.getGlobalThisDate());
-}
-
-class Schedule {
-  readonly date: Date;
-  constructor(date: Date) {
-    this.date = date;
-  }
 }

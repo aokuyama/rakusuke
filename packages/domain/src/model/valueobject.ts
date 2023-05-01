@@ -45,4 +45,5 @@ export abstract class ArrayValueObject<T, U> extends AbstractValueObject<T[]> {
   serialize(): U[] {
     return this._value.map((v) => serialize(v));
   }
+  length = (): number => this._value.length;
 }

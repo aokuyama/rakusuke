@@ -1,5 +1,6 @@
-import { ArrayValueObject, StructValueObject } from "../valueobject";
+import { StructValueObject } from "../valueobject";
 import { Date } from "./date";
+import { DateList } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 
@@ -39,7 +40,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   }
 }
 
-class EventDates extends ArrayValueObject<Date, string> {
+class EventDates extends DateList {
   static new(args: string[]): EventDates {
     return new EventDates(args.map((d) => new Date(d)));
   }
@@ -47,11 +48,6 @@ class EventDates extends ArrayValueObject<Date, string> {
     if (value.length == 0) {
       throw new Error("at least one date is required");
     }
-    if (value.length > 20) {
-      throw new Error("dates must be 20 num or less");
-    }
-    if (new Set(value.map((d) => d.id())).size != value.length) {
-      throw new Error("duplicate date");
-    }
+    super.validate(value);
   }
 }
