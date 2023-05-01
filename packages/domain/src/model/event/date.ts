@@ -25,6 +25,7 @@ export class Date extends AbstractValueObject<globalThis.Date> {
     return this.toString();
   }
   id = (): string => format(this.value, "yyyyMMdd");
+  idIs = (id: string): boolean => id === this.id();
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());
