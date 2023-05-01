@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon -w . -w ../../packages src/index.ts",
     "lint": "TIMING=1 eslint .",
     "type-check": "tsc --noEmit"
   },
