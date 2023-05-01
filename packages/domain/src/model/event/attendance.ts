@@ -45,7 +45,7 @@ export class Attendance extends StructValueObject<
 
 export class AttendanceList extends ArrayValueObject<
   Attendance,
-  AttendanceProps
+  AttendanceArgs
 > {
   static new(args: AttendanceArgs[]) {
     return new AttendanceList(args.map((v) => Attendance.new(v)));

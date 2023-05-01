@@ -76,7 +76,7 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   }
 }
 
-class Schedules extends ArrayValueObject<Schedule, ScheduleProps> {
+class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   constructor(value: any[]) {
     super(value.map((v) => Schedule.new(v)));
   }
