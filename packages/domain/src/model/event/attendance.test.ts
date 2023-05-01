@@ -17,7 +17,7 @@ describe("出席票", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   it("正しく生成できる", () => {
-    const attendanceList = AttendanceList.new([
+    const attendanceList = AttendanceList.create([
       {
         date: date1,
         attend: true,
@@ -41,7 +41,7 @@ describe("出席票", () => {
 
   it("日付に重複があると失敗する", () => {
     expect(() => {
-      AttendanceList.new([
+      AttendanceList.create([
         {
           date: date1,
           attend: true,
@@ -59,7 +59,7 @@ describe("出席票スイッチ", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   const date3 = new Date("2023/04/18");
-  const attendanceList = AttendanceList.new([
+  const attendanceList = AttendanceList.create([
     {
       date: date1,
       attend: false,

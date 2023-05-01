@@ -6,7 +6,7 @@ interface AttendanceProps {
   readonly attend: boolean;
 }
 interface AttendanceArgs {
-  readonly date: Date;
+  readonly date: string;
   readonly attend: boolean;
 }
 
@@ -16,7 +16,7 @@ export class Attendance extends StructValueObject<
 > {
   static new(args: AttendanceArgs): Attendance {
     return new Attendance({
-      date: args.date,
+      date: new Date(args.date),
       attend: args.attend,
     });
   }
@@ -49,6 +49,9 @@ export class AttendanceList extends ArrayValueObject<
 > {
   static new(args: AttendanceArgs[]) {
     return new AttendanceList(args.map((v) => Attendance.new(v)));
+  }
+  static create(args: AttendanceProps[]) {
+    return new AttendanceList(args.map((v) => new Attendance(v)));
   }
   protected validate(value: Attendance[]): void {
     if (value.length == 0) {

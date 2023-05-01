@@ -44,7 +44,7 @@ export class UpcomingEvent extends StructValueObject<
   }
   dateItems = () => this._value.schedules.dateItems();
   newAttendance = () => {
-    return AttendanceList.new(
+    return AttendanceList.create(
       this._value.schedules.dates().map((date) => {
         return { date: date, attend: false };
       })
