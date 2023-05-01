@@ -8,5 +8,9 @@
     "target": "ES2020",
     "module": "ESNext",
     "sourceMap": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   }
 }

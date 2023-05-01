@@ -5,8 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-loader=ts-node/esm --es-module-specifier-resolution=node src/index.ts",
-    "dev": "yarn start",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
     "lint": "TIMING=1 eslint .",
     "type-check": "tsc --noEmit"
   },
