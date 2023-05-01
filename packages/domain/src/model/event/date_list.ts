@@ -14,6 +14,7 @@ export class DateList extends ArrayValueObject<Date, string> {
     }
   }
   isLimit = (): boolean => this.length() == this.limit();
+  globalThisDates = (): globalThis.Date[] => this._value.map((d) => d.value);
 }
 
 export class EventDateListPickUp extends DateList {
@@ -21,8 +22,6 @@ export class EventDateListPickUp extends DateList {
     args.sort((a, b) => a.unixtime() - b.unixtime());
     super(args);
   }
-
-  globalThisDates = (): globalThis.Date[] => this._value.map((d) => d.value);
 
   toggleByDate = (date: Date | globalThis.Date): EventDateListPickUp => {
     const dates = [];

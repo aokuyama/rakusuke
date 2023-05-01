@@ -38,6 +38,9 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   get dates(): string[] {
     return this._value.dates.value;
   }
+  get _dates(): EventDates {
+    return this._value.dates;
+  }
 }
 
 class EventDates extends DateList {

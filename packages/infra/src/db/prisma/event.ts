@@ -11,8 +11,8 @@ export class PrismaEventRepository implements EventRepository {
           name: event.name,
           path: event.path,
           schedules: {
-            create: event._dates._value.map((d) => {
-              return { datetime: d.getGlobalThisDate() };
+            create: event._dates.globalThisDates().map((d) => {
+              return { datetime: d };
             }),
           },
         },
