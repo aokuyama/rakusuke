@@ -4,30 +4,24 @@ import { EventPath } from "../event/path";
 import { Date } from "../event/date";
 
 interface GuestProps {
-  readonly eventPath: EventPath;
   readonly name: GuestName;
   readonly attendance: AttendanceList;
 }
 
 interface GuestArgs {
-  readonly eventPath: string;
   readonly name: string;
   readonly attendance: AttendanceArgs[];
 }
 
-export class Guest extends StructValueObject<GuestProps, GuestArgs> {
-  static create(args: GuestArgs): Guest {
-    return new Guest({
-      eventPath: new EventPath(args.eventPath),
+export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
+  static new(args: GuestArgs): NewGuest {
+    return new NewGuest({
       name: new GuestName(args.name),
       attendance: AttendanceList.new(args.attendance),
     });
   }
   protected validate(value: GuestProps): void {
     // throw new Error("Method not implemented.");
-  }
-  get eventPath(): string {
-    return this._value.eventPath.value;
   }
   get name(): string {
     return this._value.name.value;

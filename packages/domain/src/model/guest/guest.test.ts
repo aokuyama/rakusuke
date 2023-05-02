@@ -1,10 +1,9 @@
-import { Guest } from "./guest";
+import { NewGuest } from "./guest";
 import { Date } from "../event/date";
 
 describe("ゲスト", () => {
   it("正しく生成できる", () => {
-    const guest = Guest.create({
-      eventPath: "12345678901234567890123456789012",
+    const guest = NewGuest.new({
       name: "ゲスト",
       attendance: [
         {
@@ -28,15 +27,13 @@ describe("ゲスト", () => {
           date: "2023/05/02",
         },
       ],
-      eventPath: "12345678901234567890123456789012",
       name: "ゲスト",
     });
   });
 
   it("名前がない場合失敗する", () => {
     expect(() => {
-      Guest.create({
-        eventPath: "12345678901234567890123456789012",
+      NewGuest.new({
         name: "",
         attendance: [
           {
@@ -54,53 +51,16 @@ describe("ゲスト", () => {
 
   it("回答がひとつもない場合失敗する", () => {
     expect(() => {
-      Guest.create({
-        eventPath: "12345678901234567890123456789012",
+      NewGuest.new({
         name: "guest",
         attendance: [],
       });
     }).toThrow("at least one answer is required");
   });
-
-  it("イベント指定が不正な場合失敗する", () => {
-    expect(() => {
-      Guest.create({
-        eventPath: "123456789012345678901234567890123",
-        name: "ゲスト",
-        attendance: [
-          {
-            date: "2023/05/01",
-            attend: true,
-          },
-          {
-            date: "2023/05/02",
-            attend: false,
-          },
-        ],
-      });
-    }).toThrow("path must be 32 characters");
-    expect(() => {
-      Guest.create({
-        eventPath: "",
-        name: "ゲスト",
-        attendance: [
-          {
-            date: "2023/05/01",
-            attend: true,
-          },
-          {
-            date: "2023/05/02",
-            attend: false,
-          },
-        ],
-      });
-    }).toThrow("path must be 32 characters");
-  });
 });
 
 describe("回答が存在するか", () => {
-  const guest = Guest.create({
-    eventPath: "12345678901234567890123456789012",
+  const guest = NewGuest.new({
     name: "ゲスト",
     attendance: [
       {
@@ -124,8 +84,7 @@ describe("回答が存在するか", () => {
 });
 
 describe("回答を取得", () => {
-  const guest = Guest.create({
-    eventPath: "12345678901234567890123456789012",
+  const guest = NewGuest.new({
     name: "ゲスト",
     attendance: [
       {

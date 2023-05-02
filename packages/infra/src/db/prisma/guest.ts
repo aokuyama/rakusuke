@@ -1,12 +1,16 @@
-import { Guest, GuestNumber, GuestRepository } from "domain/src/model/guest";
+import { NewGuest, GuestNumber, GuestRepository } from "domain/src/model/guest";
 import { client } from "./client";
 import { Date } from "domain/src/model/event/date";
+import { EventPath } from "domain/src/model/event/path";
 
 export class PrismaGuestRepository implements GuestRepository {
-  create = async (guest: Guest): Promise<GuestNumber> => {
+  create = async (
+    eventPath: EventPath,
+    guest: NewGuest
+  ): Promise<GuestNumber> => {
     const r = await client.$transaction(async (prisma) => {
       const event = await prisma.event.findUnique({
-        where: { path: guest.eventPath },
+        where: { path: eventPath.value },
         include: { guests: { select: { guest_number: true } }, schedules: {} },
       });
       if (!event) {

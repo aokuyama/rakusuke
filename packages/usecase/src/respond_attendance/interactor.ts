@@ -5,7 +5,8 @@ import type {
   RespondAttendancePresenter,
   RespondAttendanceUsecase,
 } from ".";
-import { Guest, GuestRepository } from "domain/src/model/guest";
+import { NewGuest, GuestRepository } from "domain/src/model/guest";
+import { EventPath } from "domain/src/model/event/path";
 
 @injectable()
 export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
@@ -17,12 +18,12 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
   ) {}
 
   handle = async (input: RespondAttendanceInput) => {
-    const attendance = Guest.create({
-      eventPath: input.eventPath,
+    const guest = NewGuest.new({
       name: input.name,
       attendance: input.attendance,
     });
-    const id = await this.repository.create(attendance);
+    const eventPath = new EventPath(input.eventPath);
+    const id = await this.repository.create(eventPath, guest);
     await this.presenter.render({ id: id.value });
   };
 }
