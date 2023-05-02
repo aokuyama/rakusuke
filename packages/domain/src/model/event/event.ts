@@ -46,16 +46,35 @@ export class UpcomingEvent extends StructValueObject<
   get schedules() {
     return this._value.schedules.value;
   }
+  protected get _schedules(): Schedules {
+    return this._value.schedules;
+  }
   get guests() {
     return this._value.guests.value;
   }
-  dateItems = () => this._value.schedules.dateItems();
+  protected get _guests(): EventGuestList {
+    return this._value.guests;
+  }
   newAttendance = () => {
     return AttendanceList.create(
       this._value.schedules.dates().map((date) => {
         return { date: date, attend: false };
       })
     );
+  };
+  dateMap = (): {
+    dates: { id: string; date: string }[];
+    guests: {
+      id: string;
+      name: string;
+      attendance: { id: string; attend: boolean | undefined }[];
+    }[];
+  } => {
+    const _dates = this._schedules.dates();
+    const dates = _dates.map((date) => {
+      return { id: date.id(), date: date.toString() };
+    });
+    return { dates: dates, guests: this._guests.dateMap(_dates) };
   };
 }
 
@@ -90,10 +109,6 @@ class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   protected validate(value: Schedule[]): void {
     // throw new Error("Method not implemented.");
   }
-  dateItems = () =>
-    this._value.map((s) => {
-      return { id: s.date, name: s.date };
-    });
   dates = () =>
     this._value.map((s) => {
       return s._date;
