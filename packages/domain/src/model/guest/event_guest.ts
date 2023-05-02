@@ -4,6 +4,12 @@ import { GuestNumber } from "./number";
 import { GuestName } from "./guest";
 import { Date } from "../event/date";
 
+export interface EventGuestDateMap {
+  id: string;
+  name: string;
+  attendance: { id: string; attend: boolean | undefined }[];
+}
+
 interface EventGuestProps {
   readonly number: GuestNumber;
   readonly name: GuestName;
@@ -33,6 +39,10 @@ export class EventGuest extends StructValueObject<
   get number(): number {
     return this._value.number.value;
   }
+  protected get _number(): GuestNumber {
+    return this._value.number;
+  }
+  sameIdAs = (guest: EventGuest): boolean => this._number.equals(guest._number);
   get name(): string {
     return this._value.name.value;
   }
@@ -53,12 +63,6 @@ export class EventGuest extends StructValueObject<
     this._attendance.exists(date) ? this._attendance.isAttend(date) : undefined;
 }
 
-export interface EventGuestDateMap {
-  id: string;
-  name: string;
-  attendance: { id: string; attend: boolean | undefined }[];
-}
-
 export class EventGuestList extends ArrayValueObject<
   EventGuest,
   EventGuestArgs
@@ -67,8 +71,35 @@ export class EventGuestList extends ArrayValueObject<
     return new EventGuestList(args.map((v) => EventGuest.new(v)));
   }
   protected validate(value: EventGuest[]): void {
-    //
+    if (new Set(value.map((g) => g.number)).size != value.length) {
+      throw new Error("duplicate number");
+    }
   }
   dateMap = (dates: Date[]): EventGuestDateMap[] =>
     this._value.map((g) => g.dateMap(dates));
+
+  push = (guest: EventGuest): EventGuestList => {
+    const newList = [];
+    for (const g of this._value) {
+      newList.push(g);
+    }
+    newList.push(guest);
+    return new EventGuestList(newList);
+  };
+  replace = (guest: EventGuest): EventGuestList => {
+    const newList = [];
+    let isReplace = false;
+    for (const g of this._value) {
+      if (g.sameIdAs(guest)) {
+        newList.push(guest);
+        isReplace = true;
+      } else {
+        newList.push(g);
+      }
+    }
+    if (!isReplace) {
+      throw new Error("guest not found. number: " + guest.number);
+    }
+    return new EventGuestList(newList);
+  };
 }

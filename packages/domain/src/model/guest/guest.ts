@@ -1,6 +1,5 @@
 import { PrimitiveValueObject, StructValueObject } from "../valueobject";
 import { AttendanceArgs, AttendanceList } from "../event/attendance";
-import { EventPath } from "../event/path";
 import { Date } from "../event/date";
 
 interface GuestProps {

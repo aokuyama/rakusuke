@@ -5,6 +5,8 @@ export abstract class AbstractValueObject<T> {
     this.validate(_value);
     this._value = Object.freeze(_value);
   }
+  equals = (value: AbstractValueObject<T>): boolean =>
+    this._value === value._value;
   protected abstract validate(value: T): void;
   abstract serialize(): any;
 }
