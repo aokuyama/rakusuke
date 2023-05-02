@@ -16,8 +16,8 @@ export type YesOrNoList = StoryObj<typeof YesOrNoList>;
 export const Default: YesOrNoList = {
   args: {
     items: [
-      { id: 1, name: "2023/05/01", checked: false },
-      { id: 2, name: "2023/05/02", checked: true },
+      { id: "1", name: "2023/05/01", checked: false },
+      { id: "2", name: "2023/05/02", checked: true },
     ],
   },
   play: async ({ canvasElement }) => {
