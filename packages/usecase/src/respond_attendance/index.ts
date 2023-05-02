@@ -9,7 +9,7 @@ export type RespondAttendanceInput = {
 };
 
 export type RespondAttendanceOutput = {
-  id: string;
+  id: number;
 };
 
 export interface RespondAttendanceUsecase {

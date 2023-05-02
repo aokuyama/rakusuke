@@ -33,13 +33,13 @@ describe("出席票", () => {
     expect(attendanceList.value[1].attend).toBe(false);
   });
 
-  it("日付が空の場合失敗する", () => {
+  it("回答が空の場合失敗する", () => {
     expect(() => {
       new AttendanceList([]);
-    }).toThrow("at least one date is required");
+    }).toThrow("at least one answer is required");
   });
 
-  it("日付に重複があると失敗する", () => {
+  it("回答の日付に重複があると失敗する", () => {
     expect(() => {
       AttendanceList.create([
         {

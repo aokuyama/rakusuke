@@ -1,6 +1,7 @@
 import { PrimitiveValueObject, StructValueObject } from "../valueobject";
 import { AttendanceArgs, AttendanceList } from "../event/attendance";
 import { EventPath } from "../event/path";
+import { Date } from "../event/date";
 
 interface GuestProps {
   readonly eventPath: EventPath;
@@ -25,6 +26,21 @@ export class Guest extends StructValueObject<GuestProps, GuestArgs> {
   protected validate(value: GuestProps): void {
     // throw new Error("Method not implemented.");
   }
+  get eventPath(): string {
+    return this._value.eventPath.value;
+  }
+  get name(): string {
+    return this._value.name.value;
+  }
+  get _attendance(): AttendanceList {
+    return this._value.attendance;
+  }
+  isAnswering = (date: Date): boolean => {
+    return this._attendance.exists(date);
+  };
+  isAttend = (date: Date): boolean => {
+    return this._attendance.isAttend(date);
+  };
 }
 
 export class GuestName extends PrimitiveValueObject<string> {
@@ -34,17 +50,6 @@ export class GuestName extends PrimitiveValueObject<string> {
     }
     if (value.length > 30) {
       throw new Error("name must be 30 characters or less");
-    }
-  }
-}
-
-export class GuestID extends PrimitiveValueObject<string> {
-  protected validate(value: string): void {
-    if (value.length == 0) {
-      throw new Error("guest must have a id");
-    }
-    if (value.length > 30) {
-      throw new Error("id must be 30 characters or less");
     }
   }
 }

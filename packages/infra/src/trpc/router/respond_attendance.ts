@@ -17,7 +17,7 @@ export const respondAttendance = publicProcedure
   )
   .mutation(async (opts) => {
     const { input } = opts;
-    let guestId: string | undefined;
+    let guestId: number | undefined;
 
     container.register("RespondAttendancePresenter", {
       useValue: {

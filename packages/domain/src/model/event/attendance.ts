@@ -55,7 +55,7 @@ export class AttendanceList extends ArrayValueObject<
   }
   protected validate(value: Attendance[]): void {
     if (value.length == 0) {
-      throw new Error("at least one date is required");
+      throw new Error("at least one answer is required");
     }
     if (new Set(value.map((a) => a._date.id())).size != value.length) {
       throw new Error("duplicate date");
@@ -84,5 +84,21 @@ export class AttendanceList extends ArrayValueObject<
       return new AttendanceList(ats);
     }
     throw new Error(args.id + " is not found");
+  };
+  exists = (date: Date): boolean => {
+    for (const a of this._value) {
+      if (a._date.isEqual(date)) {
+        return true;
+      }
+    }
+    return false;
+  };
+  isAttend = (date: Date): boolean => {
+    for (const a of this._value) {
+      if (a._date.isEqual(date)) {
+        return a.attend;
+      }
+    }
+    throw new Error("not found date: " + date.toString());
   };
 }
