@@ -26,7 +26,7 @@ export class EventDateListPickUp extends DateList {
   toggleByDate = (date: Date | globalThis.Date): EventDateListPickUp => {
     const dates = [];
     if (date instanceof globalThis.Date) {
-      date = new Date(date);
+      date = Date.convert(date);
     }
     for (const d of this._value) {
       if (d.isEqual(date)) {

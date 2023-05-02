@@ -1,3 +1,4 @@
+import { EventGuestArgs, EventGuestList } from "../guest";
 import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { AttendanceList } from "./attendance";
 import { Date } from "./date";
@@ -7,7 +8,8 @@ import { EventPath } from "./path";
 export interface UpcomingEventArgs {
   path: string;
   name: string;
-  schedules: { date: string | globalThis.Date }[];
+  schedules: { date: string }[];
+  guests: EventGuestArgs[];
   description?: string | undefined;
 }
 
@@ -16,6 +18,7 @@ interface UpcomingEventProps {
   readonly name: EventName;
   readonly description: string | undefined;
   readonly schedules: Schedules;
+  readonly guests: EventGuestList;
 }
 
 export class UpcomingEvent extends StructValueObject<
@@ -30,6 +33,7 @@ export class UpcomingEvent extends StructValueObject<
       name: new EventName(args.name),
       path: new EventPath(args.path),
       schedules: new Schedules(args.schedules),
+      guests: EventGuestList.new(args.guests),
       description: args.description,
     });
   }
@@ -41,6 +45,9 @@ export class UpcomingEvent extends StructValueObject<
   }
   get schedules() {
     return this._value.schedules.value;
+  }
+  get guests() {
+    return this._value.guests.value;
   }
   dateItems = () => this._value.schedules.dateItems();
   newAttendance = () => {
@@ -77,7 +84,7 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
 }
 
 class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
-  constructor(value: any[]) {
+  constructor(value: ScheduleArgs[]) {
     super(value.map((v) => Schedule.new(v)));
   }
   protected validate(value: Schedule[]): void {

@@ -21,7 +21,7 @@ export class PrismaGuestRepository implements GuestRepository {
       );
       const schedules: Attendance[] = [];
       for (const schedule of event.schedules) {
-        const date = new Date(schedule.datetime);
+        const date = Date.convert(schedule.datetime);
         if (!guest.isAnswering(date)) {
           continue;
         }

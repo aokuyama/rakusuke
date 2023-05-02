@@ -7,11 +7,17 @@ export class Date extends AbstractValueObject<globalThis.Date> {
       throw new Error("invalid date:" + value);
     }
   }
-  constructor(value: string | globalThis.Date) {
-    if (value instanceof globalThis.Date) {
-      value = format(value, "yyyy/MM/dd");
-    }
+  constructor(value: string) {
+    //if (value instanceof globalThis.Date) {
+    //value = format(value, "yyyy/MM/dd");
+    //    }
     super(parse(value, "yyyy/MM/dd", new globalThis.Date()));
+  }
+  static convert(value: globalThis.Date): Date {
+    return new Date(Date.formatString(value));
+  }
+  static formatString(value: globalThis.Date): string {
+    return format(value, "yyyy/MM/dd");
   }
   get value(): globalThis.Date {
     return this._value;
