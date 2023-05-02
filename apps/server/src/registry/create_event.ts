@@ -1,7 +1,6 @@
 import { DependencyContainer } from "tsyringe";
-///import { CreateEventInteractor } from "usecase/src/create_event/interactor";
 import { PrismaEventRepository } from "infra/src/db/prisma/event";
-import { PrismaAttendeeRepository } from "infra/src/db/prisma/attendee";
+import { PrismaGuestRepository } from "infra/src/db/prisma/guest";
 
 const presenter = {
   render: async (output: any): Promise<void> => {
@@ -11,7 +10,7 @@ const presenter = {
 export const registerEvent = (container: DependencyContainer) => {
   container.register("CreateEventPresenter", { useValue: presenter });
   container.register("EventRepository", { useClass: PrismaEventRepository });
-  container.register("AttendeeRepository", {
-    useClass: PrismaAttendeeRepository,
+  container.register("GuestRepository", {
+    useClass: PrismaGuestRepository,
   });
 };
