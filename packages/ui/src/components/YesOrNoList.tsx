@@ -11,10 +11,18 @@ type Item = {
 
 type Props = {
   items: Item[];
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChangeCallback?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const YesOrNoList: FC<Props> = ({ items, onChange }) => {
+export const YesOrNoList: FC<Props> = ({ items, onChangeCallback }) => {
+  const onChange = onChangeCallback
+    ? (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target) {
+          return;
+        }
+        onChangeCallback(e);
+      }
+    : undefined;
   return (
     <ul css={list}>
       {items.map((item) => {

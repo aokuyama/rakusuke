@@ -31,13 +31,21 @@ export const NewSheet: FC<Props> = ({ event, setEvent }) => {
     }
   };
 
+  const onCheckListChangeCallback = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setAttendance(
+      attendance.switch({ id: e.target.name, attend: e.target.checked })
+    );
+  };
+
   return (
     <Form
       name={name}
       setName={setName}
       attendance={attendance}
-      setAttendance={setAttendance}
       onClick={publish}
+      onCheckListChangeCallback={onCheckListChangeCallback}
     />
   );
 };

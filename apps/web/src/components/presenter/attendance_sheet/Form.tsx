@@ -8,30 +8,26 @@ interface Props {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
   attendance: AttendanceList;
-  setAttendance: React.Dispatch<React.SetStateAction<AttendanceList>>;
   onClick: () => Promise<void>;
+  onCheckListChangeCallback?: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export const Form: FC<Props> = ({
   name,
   setName,
   attendance,
-  setAttendance,
   onClick,
+  onCheckListChangeCallback,
 }) => {
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target) {
-      return;
-    }
-    setAttendance(
-      attendance.switch({ id: e.target.name, attend: e.target.checked })
-    );
-  };
-
   return (
     <>
       <TextBox value={name} setValue={setName} />
-      <YesOrNoList items={attendance.list()} onChange={onChange} />
+      <YesOrNoList
+        items={attendance.list()}
+        onChangeCallback={onCheckListChangeCallback}
+      />
       <Button
         onClick={() => {
           onClick();
