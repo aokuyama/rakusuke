@@ -1,7 +1,7 @@
 import { EventPath } from "../event/path";
+import { EventGuest } from "./event_guest";
 import { NewGuest } from "./guest";
-import { GuestNumber } from "./number";
 
 export interface GuestRepository {
-  create: (eventPath: EventPath, guest: NewGuest) => Promise<GuestNumber>;
+  create: (eventPath: EventPath, guest: NewGuest) => Promise<EventGuest>;
 }

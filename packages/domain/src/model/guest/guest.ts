@@ -25,6 +25,9 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
   get name(): string {
     return this._value.name.value;
   }
+  get _name(): GuestName {
+    return this._value.name;
+  }
   get _attendance(): AttendanceList {
     return this._value.attendance;
   }

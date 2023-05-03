@@ -3,12 +3,16 @@ import { UpcomingEvent } from "domain/src/model/event";
 import { Title } from "ui/src/components/Title";
 import { Table } from "ui/src/components/Table";
 import { Answer } from "@/components/schedule/Answer";
+import { AttendanceList } from "domain/src/model/event/attendance";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
+  setEvent: React.Dispatch<
+    React.SetStateAction<UpcomingEvent | null | undefined>
+  >;
 }
 
-export const Page: FC<Props> = ({ event }) => {
+export const Page: FC<Props> = ({ event, setEvent }) => {
   if (event === undefined) {
     return <>loading...</>;
   }
@@ -38,7 +42,7 @@ export const Page: FC<Props> = ({ event }) => {
     <>
       <Title>{event.name}</Title>
       <Table header={header} dataList={dataList} />
-      <Answer event={event} />
+      <Answer event={event} setEvent={setEvent} />
     </>
   );
 };

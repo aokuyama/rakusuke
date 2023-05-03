@@ -5,12 +5,16 @@ import { AttendanceList } from "domain/src/model/event/attendance";
 import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
 import { client } from "infra/src/client/trpc";
+import { EventGuest } from "domain/src/model/guest";
 
 interface Props {
   event: UpcomingEvent;
+  setEvent: React.Dispatch<
+    React.SetStateAction<UpcomingEvent | null | undefined>
+  >;
 }
 
-export const Answer: FC<Props> = ({ event }) => {
+export const Answer: FC<Props> = ({ event, setEvent }) => {
   const [name, setName] = useState<string>("");
   const [attendance, setAttendance] = useState<AttendanceList>(
     event.newAttendance()
@@ -31,7 +35,11 @@ export const Answer: FC<Props> = ({ event }) => {
       name: name,
       attendance: attendance.value,
     });
-    console.warn(result.guestId);
+    if (result.guest) {
+      setEvent(event.pushGuest(EventGuest.new(result.guest)));
+    } else {
+      console.error(result);
+    }
   };
 
   return (

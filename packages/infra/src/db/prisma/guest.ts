@@ -1,4 +1,9 @@
-import { NewGuest, GuestNumber, GuestRepository } from "domain/src/model/guest";
+import {
+  NewGuest,
+  GuestNumber,
+  GuestRepository,
+  EventGuest,
+} from "domain/src/model/guest";
 import { client } from "./client";
 import { Date } from "domain/src/model/event/date";
 import { EventPath } from "domain/src/model/event/path";
@@ -7,7 +12,7 @@ export class PrismaGuestRepository implements GuestRepository {
   create = async (
     eventPath: EventPath,
     guest: NewGuest
-  ): Promise<GuestNumber> => {
+  ): Promise<EventGuest> => {
     const r = await client.$transaction(async (prisma) => {
       const event = await prisma.event.findUnique({
         where: { path: eventPath.value },
@@ -19,13 +24,13 @@ export class PrismaGuestRepository implements GuestRepository {
       const guestNumber = GuestNumber.generate(
         event.guests.map((g) => g.guest_number)
       );
-      const schedules: Attendance[] = [];
+      const attendance: Attendance[] = [];
       for (const schedule of event.schedules) {
         const date = Date.convert(schedule.datetime);
         if (!guest.isAnswering(date)) {
           continue;
         }
-        schedules.push({ id: schedule.id, enabled: guest.isAttend(date) });
+        attendance.push({ id: schedule.id, enabled: guest.isAttend(date) });
       }
       const newGuest = await prisma.guest.create({
         data: {
@@ -35,17 +40,21 @@ export class PrismaGuestRepository implements GuestRepository {
         },
       });
       await prisma.attendance.createMany({
-        data: schedules.map((s) => {
+        data: attendance.map((a) => {
           return {
             guest_id: newGuest.id,
-            schedule_id: s.id,
-            enabled: s.enabled,
+            schedule_id: a.id,
+            enabled: a.enabled,
           };
         }),
       });
-      return newGuest.id;
+      return new EventGuest({
+        number: new GuestNumber(newGuest.id),
+        name: guest._name,
+        attendance: guest._attendance,
+      });
     });
-    return new GuestNumber(r);
+    return r;
   };
 }
 

@@ -9,7 +9,9 @@ export type RespondAttendanceInput = {
 };
 
 export type RespondAttendanceOutput = {
-  id: number;
+  number: number;
+  name: string;
+  attendance: { date: string; attend: boolean }[];
 };
 
 export interface RespondAttendanceUsecase {

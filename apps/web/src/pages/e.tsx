@@ -26,7 +26,7 @@ export const Schedule: FC = () => {
         <title>{title(event)}</title>
       </Head>
       <Layout>
-        <Page event={event} />
+        <Page event={event} setEvent={setEvent} />
       </Layout>
     </>
   );
@@ -41,6 +41,9 @@ const loadEvent = async (
     return null;
   }
   const result = await client.event.getEventByPath.query(path);
+  if (result.event === undefined) {
+    return undefined;
+  }
   if (!result.event) {
     return null;
   }

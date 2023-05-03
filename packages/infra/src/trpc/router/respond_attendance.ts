@@ -17,12 +17,12 @@ export const respondAttendance = publicProcedure
   )
   .mutation(async (opts) => {
     const { input } = opts;
-    let guestId: number | undefined;
+    let guest: RespondAttendanceOutput | undefined;
 
     container.register("RespondAttendancePresenter", {
       useValue: {
         render: async (output: RespondAttendanceOutput): Promise<void> => {
-          guestId = output.id;
+          guest = output;
         },
       },
     });
@@ -33,5 +33,7 @@ export const respondAttendance = publicProcedure
       attendance: input.attendance,
     });
 
-    return { guestId: guestId };
+    return {
+      guest: guest,
+    };
   });

@@ -1,4 +1,4 @@
-import { EventGuestArgs, EventGuestList } from "../guest";
+import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
 import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { AttendanceList } from "./attendance";
 import { Date } from "./date";
@@ -40,8 +40,14 @@ export class UpcomingEvent extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
+  protected get _name(): EventName {
+    return this._value.name;
+  }
   get path(): string {
     return this._value.path.value;
+  }
+  protected get _path(): EventPath {
+    return this._value.path;
   }
   get schedules() {
     return this._value.schedules.value;
@@ -75,6 +81,15 @@ export class UpcomingEvent extends StructValueObject<
       return { id: date.id(), date: date.toString() };
     });
     return { dates: dates, guests: this._guests.dateMap(_dates) };
+  };
+  pushGuest = (guest: EventGuest): UpcomingEvent => {
+    return new UpcomingEvent({
+      name: this._name,
+      path: this._path,
+      schedules: this._schedules,
+      guests: this._guests.push(guest),
+      description: this._value.description,
+    });
   };
 }
 
