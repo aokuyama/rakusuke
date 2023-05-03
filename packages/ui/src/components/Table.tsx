@@ -1,19 +1,28 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
 
-export type Item = { id: string | number; name: string };
+export type Item = { id: string | number; name: ReactNode };
 export type Data = { id: string | number; items: Item[] };
 
 type Props = {
   header: Item[];
   dataList: Data[];
+  clickIdHandler?: (id: string | number) => void;
 };
 
-export const Table: FC<Props> = ({ header, dataList }) => {
+export const Table: FC<Props> = ({ header, dataList, clickIdHandler }) => {
   return (
     <table css={table}>
       <thead>
-        <tr>
+        <tr
+          onClick={
+            clickIdHandler
+              ? () => {
+                  clickIdHandler(0);
+                }
+              : undefined
+          }
+        >
           {header.map((item) => {
             return <th key={item.id}>{item.name}</th>;
           })}
@@ -22,7 +31,16 @@ export const Table: FC<Props> = ({ header, dataList }) => {
       <tbody>
         {dataList.map((data) => {
           return (
-            <tr key={data.id}>
+            <tr
+              key={data.id}
+              onClick={
+                clickIdHandler
+                  ? () => {
+                      clickIdHandler(data.id);
+                    }
+                  : undefined
+              }
+            >
               {data.items.map((item) => {
                 return <td key={item.id}>{item.name}</td>;
               })}

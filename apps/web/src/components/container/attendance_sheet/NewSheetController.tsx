@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { UpdateSheet } from "./UpdateSheet";
 import { EventGuest } from "domain/src/model/guest";
+import { NewSheet } from "./NewSheet";
 
 interface Props {
   guest: EventGuest | null;
@@ -11,21 +11,10 @@ interface Props {
   >;
 }
 
-export const UpdateSheetController: FC<Props> = ({
-  guest,
-  event,
-  setEvent,
-}) => {
-  if (!guest) {
+export const NewSheetController: FC<Props> = ({ guest, event, setEvent }) => {
+  if (guest) {
     return <></>;
   }
 
-  return (
-    <UpdateSheet
-      key={guest.number}
-      guest={guest}
-      event={event}
-      setEvent={setEvent}
-    />
-  );
+  return <NewSheet event={event} setEvent={setEvent} />;
 };

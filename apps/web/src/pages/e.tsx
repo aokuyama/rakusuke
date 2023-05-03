@@ -6,12 +6,13 @@ import { client } from "infra/src/client/trpc";
 import { UpcomingEvent } from "domain/src/model/event";
 import { Page } from "@/components/pages/view_event/Page";
 import { Site } from "@/lib/site";
+import { EventGuest } from "domain/src/model/guest";
 
 export const Schedule: FC = () => {
   const router = useRouter();
   const { e } = router.query;
   const [event, setEvent] = useState<UpcomingEvent | null | undefined>();
-  const [guestNumber, setGuestNumber] = useState<number | null>(null);
+  const [targetGuest, setTargetGuest] = useState<EventGuest | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -30,8 +31,8 @@ export const Schedule: FC = () => {
         <Page
           event={event}
           setEvent={setEvent}
-          guestNumber={guestNumber}
-          setGuestNumber={setGuestNumber}
+          targetGuest={targetGuest}
+          setTargetGuest={setTargetGuest}
         />
       </Layout>
     </>

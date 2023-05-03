@@ -2,19 +2,25 @@ import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
 import { Title } from "ui/src/components/Title";
 import { Table } from "ui/src/components/Table";
-import { NewSheet } from "@/components/container/attendance_sheet/NewSheet";
 import { UpdateSheetController } from "@/components/container/attendance_sheet/UpdateSheetController";
+import { EventGuest } from "domain/src/model/guest";
+import { NewSheetController } from "@/components/container/attendance_sheet/NewSheetController";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
   setEvent: React.Dispatch<
     React.SetStateAction<UpcomingEvent | null | undefined>
   >;
-  guestNumber: number | null;
-  setGuestNumber: React.Dispatch<React.SetStateAction<number | null>>;
+  targetGuest: EventGuest | null;
+  setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
-export const Page: FC<Props> = ({ event, setEvent, guestNumber }) => {
+export const Page: FC<Props> = ({
+  event,
+  setEvent,
+  targetGuest,
+  setTargetGuest,
+}) => {
   if (event === undefined) {
     return <>loading...</>;
   }
@@ -39,13 +45,30 @@ export const Page: FC<Props> = ({ event, setEvent, guestNumber }) => {
     return { id: g.id, items: items };
   });
 
+  const tableTrClickIdHandler = (id: number | string) => {
+    const number = parseInt(String(id));
+    if (number) {
+      const guest = event.getGuestByNumber(number);
+      setTargetGuest(guest);
+    } else {
+      setTargetGuest(null);
+    }
+  };
   return (
     <>
       <Title>{event.name}</Title>
-      <Table header={header} dataList={dataList} />
-      <NewSheet event={event} setEvent={setEvent} />
+      <Table
+        header={header}
+        dataList={dataList}
+        clickIdHandler={tableTrClickIdHandler}
+      />
+      <NewSheetController
+        guest={targetGuest}
+        event={event}
+        setEvent={setEvent}
+      />
       <UpdateSheetController
-        guestNumber={guestNumber}
+        guest={targetGuest}
         event={event}
         setEvent={setEvent}
       />
