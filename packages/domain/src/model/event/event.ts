@@ -91,6 +91,8 @@ export class UpcomingEvent extends StructValueObject<
       description: this._value.description,
     });
   };
+  getGuestByNumber = (number: number): EventGuest =>
+    this._guests.getByNumber(number);
 }
 
 interface ScheduleProps {

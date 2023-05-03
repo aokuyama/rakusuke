@@ -42,7 +42,8 @@ export class EventGuest extends StructValueObject<
   protected get _number(): GuestNumber {
     return this._value.number;
   }
-  sameIdAs = (guest: EventGuest): boolean => this._number.equals(guest._number);
+  sameIdAs = (guest: EventGuest): boolean => this.numberIs(guest._number);
+  numberIs = (number: GuestNumber): boolean => this._number.equals(number);
   get name(): string {
     return this._value.name.value;
   }
@@ -74,6 +75,15 @@ export class EventGuestList extends ArrayValueObject<
     if (new Set(value.map((g) => g.number)).size != value.length) {
       throw new Error("duplicate number");
     }
+  }
+  getByNumber(number: number): EventGuest {
+    const n = new GuestNumber(number);
+    for (const guest of this._value) {
+      if (guest.numberIs(n)) {
+        return guest;
+      }
+    }
+    throw new Error("guest not found. number: " + number);
   }
   dateMap = (dates: Date[]): EventGuestDateMap[] =>
     this._value.map((g) => g.dateMap(dates));

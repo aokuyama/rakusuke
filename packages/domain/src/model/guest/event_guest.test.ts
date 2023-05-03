@@ -3,7 +3,7 @@ import { Date } from "../event/date";
 
 const guest1s = {
   number: 1,
-  name: "ゲスト",
+  name: "ゲスト1",
   attendance: [
     {
       date: "2023/05/01",
@@ -17,7 +17,7 @@ const guest1s = {
 };
 const guest2s = {
   number: 2,
-  name: "ゲスト",
+  name: "ゲスト2",
   attendance: [
     {
       date: "2023/05/01",
@@ -31,7 +31,7 @@ const guest2s = {
 };
 const guest3s = {
   number: 3,
-  name: "ゲスト",
+  name: "ゲスト3",
   attendance: [
     {
       date: "2023/05/01",
@@ -228,5 +228,21 @@ describe("同じIDのゲストを差し替える", () => {
     expect(() => {
       guests2.replace(EventGuest.new(guest1s));
     }).toThrow("guest not found. number: 1");
+  });
+});
+
+describe("ゲストの取得", () => {
+  const guests = EventGuestList.new([guest1s, guest3s]);
+  it("正しく取得できる", () => {
+    expect(guests.getByNumber(3).name).toBe("ゲスト3");
+    expect(guests.getByNumber(1).name).toBe("ゲスト1");
+  });
+  it("取得しようとしたゲストが存在しないとエラーになる", () => {
+    expect(() => {
+      guests.getByNumber(2);
+    }).toThrow("guest not found. number: 2");
+    expect(() => {
+      guests.getByNumber(4);
+    }).toThrow("guest not found. number: 4");
   });
 });
