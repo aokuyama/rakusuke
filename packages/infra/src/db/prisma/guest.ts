@@ -56,6 +56,14 @@ export class PrismaGuestRepository implements GuestRepository {
     });
     return r;
   };
+  update = async (
+    eventPath: EventPath,
+    guest: EventGuest
+  ): Promise<EventGuest> => {
+    console.error("Unimplemented");
+    console.error(guest.serialize());
+    return guest;
+  };
 }
 
 type Attendance = { id: number; enabled: boolean };

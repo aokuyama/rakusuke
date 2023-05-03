@@ -1,5 +1,3 @@
-import { UpcomingEvent } from "domain/src/model/event";
-
 export * from "./interactor";
 
 export type RespondAttendanceInput = {
