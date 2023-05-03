@@ -2,24 +2,25 @@ import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
 import { Title } from "ui/src/components/Title";
 import { Table } from "ui/src/components/Table";
-import { Answer } from "@/components/schedule/Answer";
-import { AttendanceList } from "domain/src/model/event/attendance";
+import { NewSheet } from "@/components/container/attendance_sheet/NewSheet";
+import { UpdateSheetController } from "@/components/container/attendance_sheet/UpdateSheetController";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
   setEvent: React.Dispatch<
     React.SetStateAction<UpcomingEvent | null | undefined>
   >;
+  guestNumber: number | null;
+  setGuestNumber: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-export const Page: FC<Props> = ({ event, setEvent }) => {
+export const Page: FC<Props> = ({ event, setEvent, guestNumber }) => {
   if (event === undefined) {
     return <>loading...</>;
   }
   if (!event) {
     return <>event not found</>;
   }
-
   const { dates, guests } = event.dateMap();
 
   const header = dates.map((d) => {
@@ -42,7 +43,12 @@ export const Page: FC<Props> = ({ event, setEvent }) => {
     <>
       <Title>{event.name}</Title>
       <Table header={header} dataList={dataList} />
-      <Answer event={event} setEvent={setEvent} />
+      <NewSheet event={event} setEvent={setEvent} />
+      <UpdateSheetController
+        guestNumber={guestNumber}
+        event={event}
+        setEvent={setEvent}
+      />
     </>
   );
 };

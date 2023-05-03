@@ -47,7 +47,7 @@ export class EventGuest extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
-  protected get _attendance(): AttendanceList {
+  get _attendance(): AttendanceList {
     return this._value.attendance;
   }
   dateMap = (dates: Date[]): EventGuestDateMap => {

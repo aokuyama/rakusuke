@@ -91,6 +91,15 @@ export class UpcomingEvent extends StructValueObject<
       description: this._value.description,
     });
   };
+  replaceGuest = (guest: EventGuest): UpcomingEvent => {
+    return new UpcomingEvent({
+      name: this._name,
+      path: this._path,
+      schedules: this._schedules,
+      guests: this._guests.replace(guest),
+      description: this._value.description,
+    });
+  };
   getGuestByNumber = (number: number): EventGuest =>
     this._guests.getByNumber(number);
 }

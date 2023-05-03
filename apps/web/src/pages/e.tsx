@@ -11,6 +11,7 @@ export const Schedule: FC = () => {
   const router = useRouter();
   const { e } = router.query;
   const [event, setEvent] = useState<UpcomingEvent | null | undefined>();
+  const [guestNumber, setGuestNumber] = useState<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -26,7 +27,12 @@ export const Schedule: FC = () => {
         <title>{title(event)}</title>
       </Head>
       <Layout>
-        <Page event={event} setEvent={setEvent} />
+        <Page
+          event={event}
+          setEvent={setEvent}
+          guestNumber={guestNumber}
+          setGuestNumber={setGuestNumber}
+        />
       </Layout>
     </>
   );
