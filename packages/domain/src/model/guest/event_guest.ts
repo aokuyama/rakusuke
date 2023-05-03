@@ -62,6 +62,12 @@ export class EventGuest extends StructValueObject<
   };
   isAttendOrUndefined = (date: Date): boolean | undefined =>
     this._attendance.exists(date) ? this._attendance.isAttend(date) : undefined;
+  isAnswering = (date: Date): boolean => {
+    return this._attendance.exists(date);
+  };
+  isAttend = (date: Date): boolean => {
+    return this._attendance.isAttend(date);
+  };
 }
 
 export class EventGuestList extends ArrayValueObject<
