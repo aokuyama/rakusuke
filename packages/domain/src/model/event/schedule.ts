@@ -29,6 +29,10 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
 
 export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   private _eventDates: EventDates | undefined = undefined;
+  constructor(args: Schedule[]) {
+    args.sort((a, b) => a._date.unixtime() - b._date.unixtime());
+    super(args);
+  }
   static new(value: ScheduleArgs[]): Schedules {
     return new Schedules(value.map((v) => Schedule.new(v)));
   }

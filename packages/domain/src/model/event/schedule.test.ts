@@ -59,6 +59,15 @@ describe("スケジュール作成", () => {
       ]);
     }).toThrow("duplicate date");
   });
+
+  it("スケジュールは日付順に作成される", () => {
+    const schedules = Schedules.new([
+      { date: "2023/04/18" },
+      { date: "2023/04/15" },
+      { date: "2023/04/16" },
+    ]);
+    expect(schedules.value).toStrictEqual(schedulesRows);
+  });
 });
 
 describe("スケジュール更新", () => {
