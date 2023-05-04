@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { AttendanceList } from "domain/src/model/event/attendance";
+import { NewAttendanceList } from "domain/src/model/event/attendance";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
 import { Form } from "@/components/presenter/attendance_sheet/Form";
@@ -14,7 +14,7 @@ interface Props {
 
 export const NewSheet: FC<Props> = ({ event, setEvent }) => {
   const [name, setName] = useState<string>("");
-  const [attendance, setAttendance] = useState<AttendanceList>(
+  const [attendance, setAttendance] = useState<NewAttendanceList>(
     event.newAttendance()
   );
 

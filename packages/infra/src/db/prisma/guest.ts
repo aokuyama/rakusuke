@@ -45,7 +45,7 @@ export class PrismaGuestRepository implements GuestRepository {
       return new EventGuest({
         number: new GuestNumber(newGuest.id),
         name: guest._name,
-        attendance: guest._attendance,
+        attendance: guest.getCurrentAttendanceList(),
       });
     });
     return r;

@@ -1,4 +1,8 @@
-import { Attendance, AttendanceList } from "./attendance";
+import {
+  Attendance,
+  CurrentAttendanceList,
+  NewAttendanceList,
+} from "./attendance";
 import { Date } from "./date";
 
 describe("出欠", () => {
@@ -17,7 +21,7 @@ describe("出席票", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   it("正しく生成できる", () => {
-    const attendanceList = AttendanceList.newByDates([
+    const attendanceList = NewAttendanceList.newByDates([
       {
         date: date1,
         attend: true,
@@ -35,13 +39,17 @@ describe("出席票", () => {
 
   it("回答が空の場合失敗する", () => {
     expect(() => {
-      new AttendanceList([]);
+      new NewAttendanceList([]);
     }).toThrow("at least one answer is required");
+  });
+
+  it("既存の回答リストはが空でも失敗しない", () => {
+    expect(new CurrentAttendanceList([]).length()).toBe(0);
   });
 
   it("回答の日付に重複があると失敗する", () => {
     expect(() => {
-      AttendanceList.newByDates([
+      NewAttendanceList.newByDates([
         {
           date: date1,
           attend: true,
@@ -59,7 +67,7 @@ describe("出席票スイッチ", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   const date3 = new Date("2023/04/18");
-  const attendanceList = AttendanceList.newByDates([
+  const attendanceList = NewAttendanceList.newByDates([
     {
       date: date1,
       attend: false,

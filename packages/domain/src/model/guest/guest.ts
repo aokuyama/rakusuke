@@ -1,10 +1,14 @@
 import { PrimitiveValueObject, StructValueObject } from "../valueobject";
-import { AttendanceArgs, AttendanceList } from "../event/attendance";
+import {
+  AttendanceArgs,
+  CurrentAttendanceList,
+  NewAttendanceList,
+} from "../event/attendance";
 import { Date } from "../event/date";
 
 interface GuestProps {
   readonly name: GuestName;
-  readonly attendance: AttendanceList;
+  readonly attendance: NewAttendanceList;
 }
 
 interface GuestArgs {
@@ -16,7 +20,7 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
   static new(args: GuestArgs): NewGuest {
     return new NewGuest({
       name: new GuestName(args.name),
-      attendance: AttendanceList.new(args.attendance),
+      attendance: NewAttendanceList.new(args.attendance),
     });
   }
   protected validate(value: GuestProps): void {
@@ -28,7 +32,7 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
   get _name(): GuestName {
     return this._value.name;
   }
-  get _attendance(): AttendanceList {
+  protected get _attendance(): NewAttendanceList {
     return this._value.attendance;
   }
   isAnswering = (date: Date): boolean => {
@@ -37,6 +41,8 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
   isAttend = (date: Date): boolean => {
     return this._attendance.isAttend(date);
   };
+  getCurrentAttendanceList = (): CurrentAttendanceList =>
+    this._attendance.toCurrentAttendanceList();
 }
 
 export class GuestName extends PrimitiveValueObject<string> {

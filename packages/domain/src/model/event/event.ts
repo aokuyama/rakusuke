@@ -1,6 +1,6 @@
 import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
 import { StructValueObject } from "../valueobject";
-import { AttendanceList } from "./attendance";
+import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
 import { Date } from "./date";
 import { EventDateListPickUp } from "./date_list";
 import { EventName } from "./name";
@@ -62,7 +62,7 @@ export class UpcomingEvent extends StructValueObject<
     return this._value.guests;
   }
   newAttendance = () => {
-    return AttendanceList.newByDates(
+    return NewAttendanceList.newByDates(
       this._value.schedules.dates().map((date) => {
         return { date: date, attend: false };
       })
@@ -128,7 +128,7 @@ export class UpcomingEvent extends StructValueObject<
     };
   };
   checkList = (
-    attendance: AttendanceList
+    attendance: CurrentAttendanceList | NewAttendanceList
   ): {
     id: string;
     name: string;

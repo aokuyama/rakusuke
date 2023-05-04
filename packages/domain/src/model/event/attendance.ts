@@ -43,25 +43,22 @@ export class Attendance extends StructValueObject<
   };
 }
 
-export class AttendanceList extends ArrayValueObject<
+export class CurrentAttendanceList extends ArrayValueObject<
   Attendance,
   AttendanceArgs
 > {
-  static new(args: AttendanceArgs[]) {
-    return new AttendanceList(args.map((v) => Attendance.new(v)));
+  static new(args: AttendanceArgs[]): CurrentAttendanceList {
+    return new CurrentAttendanceList(args.map((v) => Attendance.new(v)));
   }
-  static newByDates(args: AttendanceProps[]) {
-    return new AttendanceList(args.map((v) => new Attendance(v)));
+  static newByDates(args: AttendanceProps[]): CurrentAttendanceList {
+    return new CurrentAttendanceList(args.map((v) => new Attendance(v)));
   }
   protected validate(value: Attendance[]): void {
-    if (value.length == 0) {
-      throw new Error("at least one answer is required");
-    }
     if (new Set(value.map((a) => a._date.id())).size != value.length) {
       throw new Error("duplicate date");
     }
   }
-  switch = (args: { id: string; attend: boolean }): AttendanceList => {
+  switch = (args: { id: string; attend: boolean }): CurrentAttendanceList => {
     const ats = [];
     let isFound = false;
     for (const a of this._value) {
@@ -77,7 +74,7 @@ export class AttendanceList extends ArrayValueObject<
       }
     }
     if (isFound) {
-      return new AttendanceList(ats);
+      return new CurrentAttendanceList(ats);
     }
     throw new Error(args.id + " is not found");
   };
@@ -97,4 +94,62 @@ export class AttendanceList extends ArrayValueObject<
     }
     throw new Error("not found date: " + date.toString());
   };
+}
+
+export class NewAttendanceList extends ArrayValueObject<
+  Attendance,
+  AttendanceArgs
+> {
+  static new(args: AttendanceArgs[]): NewAttendanceList {
+    return new NewAttendanceList(args.map((v) => Attendance.new(v)));
+  }
+  static newByDates(args: AttendanceProps[]): NewAttendanceList {
+    return new NewAttendanceList(args.map((v) => new Attendance(v)));
+  }
+  protected validate(value: Attendance[]): void {
+    if (value.length == 0) {
+      throw new Error("at least one answer is required");
+    }
+    if (new Set(value.map((a) => a._date.id())).size != value.length) {
+      throw new Error("duplicate date");
+    }
+  }
+  switch = (args: { id: string; attend: boolean }): NewAttendanceList => {
+    const ats = [];
+    let isFound = false;
+    for (const a of this._value) {
+      if (a._date.idIs(args.id)) {
+        if (a.attend == args.attend) {
+          return this;
+        } else {
+          ats.push(a.switch(args.attend));
+          isFound = true;
+        }
+      } else {
+        ats.push(a);
+      }
+    }
+    if (isFound) {
+      return new NewAttendanceList(ats);
+    }
+    throw new Error(args.id + " is not found");
+  };
+  exists = (date: Date): boolean => {
+    for (const a of this._value) {
+      if (a._date.isEqual(date)) {
+        return true;
+      }
+    }
+    return false;
+  };
+  isAttend = (date: Date): boolean => {
+    for (const a of this._value) {
+      if (a._date.isEqual(date)) {
+        return a.attend;
+      }
+    }
+    throw new Error("not found date: " + date.toString());
+  };
+  toCurrentAttendanceList = (): CurrentAttendanceList =>
+    new CurrentAttendanceList(this._value);
 }

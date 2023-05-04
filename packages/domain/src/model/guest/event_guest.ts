@@ -1,5 +1,5 @@
 import { ArrayValueObject, StructValueObject } from "../valueobject";
-import { AttendanceArgs, AttendanceList } from "../event/attendance";
+import { AttendanceArgs, CurrentAttendanceList } from "../event/attendance";
 import { GuestNumber } from "./number";
 import { GuestName } from "./guest";
 import { Date } from "../event/date";
@@ -13,7 +13,7 @@ export interface EventGuestDateMap {
 interface EventGuestProps {
   readonly number: GuestNumber;
   readonly name: GuestName;
-  readonly attendance: AttendanceList;
+  readonly attendance: CurrentAttendanceList;
 }
 
 export interface EventGuestArgs {
@@ -30,7 +30,7 @@ export class EventGuest extends StructValueObject<
     return new EventGuest({
       number: new GuestNumber(args.number),
       name: new GuestName(args.name),
-      attendance: AttendanceList.new(args.attendance),
+      attendance: CurrentAttendanceList.new(args.attendance),
     });
   }
   protected validate(value: EventGuestProps): void {
@@ -47,7 +47,7 @@ export class EventGuest extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
-  get _attendance(): AttendanceList {
+  get _attendance(): CurrentAttendanceList {
     return this._value.attendance;
   }
   dateMap = (dates: Date[]): EventGuestDateMap => {
