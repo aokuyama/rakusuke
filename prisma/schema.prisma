@@ -22,7 +22,7 @@ model schedule {
   id         Int          @id @default(autoincrement())
   event_id   Int
   datetime   DateTime
-  event      event        @relation(fields: [event_id], references: [id])
+  event      event        @relation(fields: [event_id], references: [id], onDelete: Cascade)
   attendance attendance[]
 
   @@unique([event_id, datetime])
@@ -33,7 +33,7 @@ model guest {
   event_id     Int
   guest_number Int
   name         String
-  event        event        @relation(fields: [event_id], references: [id])
+  event        event        @relation(fields: [event_id], references: [id], onDelete: Cascade)
   attendance   attendance[]
 
   @@unique([event_id, guest_number])
@@ -42,9 +42,9 @@ model guest {
 model attendance {
   id          Int      @id @default(autoincrement())
   guest_id    Int
-  guest       guest    @relation(fields: [guest_id], references: [id])
+  guest       guest    @relation(fields: [guest_id], references: [id], onDelete: Cascade)
   schedule_id Int
-  schedule    schedule @relation(fields: [schedule_id], references: [id])
+  schedule    schedule @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
   enabled      Boolean
 
   @@unique([guest_id, schedule_id])
