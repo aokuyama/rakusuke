@@ -77,9 +77,25 @@ export class PrismaEventRepository implements EventRepository {
     if (!currentEvent) {
       throw new Error("event not found");
     }
-    console.error("unimplemented");
-    console.error(event.serialize());
-    const { updatedEvent, addedDates } = currentEvent.update(event);
+    const { updatedEvent, addedDates, removedDates } =
+      currentEvent.update(event);
+    if (removedDates.length) {
+      throw new Error("date deletion unimplemented");
+    }
+    const _r = await client.$transaction(async (prisma) => {
+      const saveEvent = await prisma.event.update({
+        where: { path: event._path.value },
+        data: {
+          name: updatedEvent.name,
+          schedules: {
+            create: addedDates.map((d) => {
+              return { datetime: d.getGlobalThisDate() };
+            }),
+          },
+        },
+      });
+      return saveEvent;
+    });
     return updatedEvent;
   };
 }
