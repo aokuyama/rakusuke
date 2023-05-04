@@ -79,6 +79,7 @@ export class PrismaEventRepository implements EventRepository {
     }
     console.error("unimplemented");
     console.error(event.serialize());
-    return currentEvent;
+    const { updatedEvent, addedDates } = currentEvent.update(event);
+    return updatedEvent;
   };
 }

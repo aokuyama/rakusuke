@@ -35,6 +35,9 @@ export class UpdateEvent extends StructValueObject<
   get _path(): EventPath {
     return this._value.path;
   }
+  get _name(): EventName {
+    return this._value.name;
+  }
   get _dates(): EventDates {
     return this._value.dates;
   }

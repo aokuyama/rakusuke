@@ -1,13 +1,12 @@
 import { FC } from "react";
-import { YesOrNoList } from "ui/src/components/YesOrNoList";
-import { AttendanceList } from "domain/src/model/event/attendance";
+import { Item, YesOrNoList } from "ui/src/components/YesOrNoList";
 import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
 
 interface Props {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
-  attendance: AttendanceList;
+  items: Item[];
   onClick: () => Promise<void>;
   onCheckListChangeCallback?: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -17,17 +16,14 @@ interface Props {
 export const Form: FC<Props> = ({
   name,
   setName,
-  attendance,
+  items,
   onClick,
   onCheckListChangeCallback,
 }) => {
   return (
     <>
       <TextBox value={name} setValue={setName} />
-      <YesOrNoList
-        items={attendance.list()}
-        onChangeCallback={onCheckListChangeCallback}
-      />
+      <YesOrNoList items={items} onChangeCallback={onCheckListChangeCallback} />
       <Button
         onClick={() => {
           onClick();

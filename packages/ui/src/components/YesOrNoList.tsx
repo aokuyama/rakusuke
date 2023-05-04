@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { YesOrNo } from "./YesOrNo";
 import { mainColor } from "../styles/color";
 
-type Item = {
+export type Item = {
   id: string;
   name: string;
   checked: boolean;

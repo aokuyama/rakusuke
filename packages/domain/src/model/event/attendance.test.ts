@@ -17,7 +17,7 @@ describe("出席票", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   it("正しく生成できる", () => {
-    const attendanceList = AttendanceList.create([
+    const attendanceList = AttendanceList.newByDates([
       {
         date: date1,
         attend: true,
@@ -41,7 +41,7 @@ describe("出席票", () => {
 
   it("回答の日付に重複があると失敗する", () => {
     expect(() => {
-      AttendanceList.create([
+      AttendanceList.newByDates([
         {
           date: date1,
           attend: true,
@@ -59,7 +59,7 @@ describe("出席票スイッチ", () => {
   const date1 = new Date("2023/04/15");
   const date2 = new Date("2023/04/16");
   const date3 = new Date("2023/04/18");
-  const attendanceList = AttendanceList.create([
+  const attendanceList = AttendanceList.newByDates([
     {
       date: date1,
       attend: false,
@@ -74,50 +74,50 @@ describe("出席票スイッチ", () => {
     },
   ]);
   it("正しくオンオフできる", () => {
-    expect(attendanceList.list()).toStrictEqual([
-      { checked: false, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: false, id: "20230418", name: "2023/04/18" },
+    expect(attendanceList.value).toStrictEqual([
+      { attend: false, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: false, date: "2023/04/18" },
     ]);
     let newList = attendanceList.switch({ id: "20230415", attend: true });
-    expect(newList.list()).toStrictEqual([
-      { checked: true, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: false, id: "20230418", name: "2023/04/18" },
+    expect(newList.value).toStrictEqual([
+      { attend: true, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: false, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230418", attend: true });
-    expect(newList.list()).toStrictEqual([
-      { checked: true, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: true, id: "20230418", name: "2023/04/18" },
+    expect(newList.value).toStrictEqual([
+      { attend: true, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: true, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230415", attend: false });
-    expect(newList.list()).toStrictEqual([
-      { checked: false, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: true, id: "20230418", name: "2023/04/18" },
+    expect(newList.value).toStrictEqual([
+      { attend: false, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: true, date: "2023/04/18" },
     ]);
 
-    expect(attendanceList.list()).toStrictEqual([
-      { checked: false, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: false, id: "20230418", name: "2023/04/18" },
+    expect(attendanceList.value).toStrictEqual([
+      { attend: false, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: false, date: "2023/04/18" },
     ]);
   });
 
   it("二重押ししてもエラーにはならない", () => {
     let newList = attendanceList.switch({ id: "20230415", attend: false });
-    expect(newList.list()).toStrictEqual([
-      { checked: false, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: false, id: "20230418", name: "2023/04/18" },
+    expect(newList.value).toStrictEqual([
+      { attend: false, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: false, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230418", attend: true });
     newList = newList.switch({ id: "20230418", attend: true });
-    expect(newList.list()).toStrictEqual([
-      { checked: false, id: "20230415", name: "2023/04/15" },
-      { checked: false, id: "20230416", name: "2023/04/16" },
-      { checked: true, id: "20230418", name: "2023/04/18" },
+    expect(newList.value).toStrictEqual([
+      { attend: false, date: "2023/04/15" },
+      { attend: false, date: "2023/04/16" },
+      { attend: true, date: "2023/04/18" },
     ]);
   });
 

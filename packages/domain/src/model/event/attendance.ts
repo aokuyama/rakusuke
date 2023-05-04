@@ -50,7 +50,7 @@ export class AttendanceList extends ArrayValueObject<
   static new(args: AttendanceArgs[]) {
     return new AttendanceList(args.map((v) => Attendance.new(v)));
   }
-  static create(args: AttendanceProps[]) {
+  static newByDates(args: AttendanceProps[]) {
     return new AttendanceList(args.map((v) => new Attendance(v)));
   }
   protected validate(value: Attendance[]): void {
@@ -61,10 +61,6 @@ export class AttendanceList extends ArrayValueObject<
       throw new Error("duplicate date");
     }
   }
-  list = () =>
-    this._value.map((s) => {
-      return { id: s._date.id(), name: s.date, checked: s.attend };
-    });
   switch = (args: { id: string; attend: boolean }): AttendanceList => {
     const ats = [];
     let isFound = false;
