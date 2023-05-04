@@ -135,7 +135,7 @@ export class UpcomingEvent extends StructValueObject<
     checked: boolean;
   }[] =>
     this._schedules.dates().map((d) => {
-      const checked = attendance.exists(d) && attendance.isAttend(d);
+      const checked = attendance.existsDate(d) && attendance.isAttend(d);
       return { id: d.id(), name: d.toString(), checked: checked };
     });
 }

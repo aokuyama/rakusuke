@@ -36,7 +36,7 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
     return this._value.attendance;
   }
   isAnswering = (date: Date): boolean => {
-    return this._attendance.exists(date);
+    return this._attendance.existsDate(date);
   };
   isAttend = (date: Date): boolean => {
     return this._attendance.isAttend(date);
