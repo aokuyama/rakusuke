@@ -2,26 +2,28 @@ import { FC, useState } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
 import { DatePicker } from "./DatePicker";
-import { EventDateListPickUp } from "domain/src/model/event";
+import { EventDateListPickUp, UpcomingEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 
 interface Props {
-  eventCreatedHandler: (path: string) => void;
+  event: UpcomingEvent;
+  eventUpdatedHandler: (event: UpcomingEvent) => void;
 }
 
-export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
-  const [name, setName] = useState<string>("");
+export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
+  const [name, setName] = useState<string>(event.name);
   const [dateList, setDateList] = useState<EventDateListPickUp>(
-    new EventDateListPickUp([])
+    event.createDateListPickUp()
   );
 
   const publish = async () => {
-    const result = await client.event.createEvent.mutate({
+    const result = await client.event.updateEvent.mutate({
+      path: event.path,
       name: name,
       dates: dateList.value,
     });
-    if (result.path) {
-      eventCreatedHandler(result.path);
+    if (result.event) {
+      eventUpdatedHandler(UpcomingEvent.new(result.event));
     } else {
       console.error(result);
     }
@@ -36,7 +38,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
           publish();
         }}
       >
-        作成
+        更新
       </Button>
     </>
   );

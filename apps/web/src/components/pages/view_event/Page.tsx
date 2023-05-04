@@ -5,6 +5,7 @@ import { Table } from "ui/src/components/Table";
 import { UpdateSheetController } from "@/components/container/attendance_sheet/UpdateSheetController";
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetController } from "@/components/container/attendance_sheet/NewSheetController";
+import { EventUpdateForm } from "@/components/container/event_setting/EventUpdateForm";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -54,6 +55,11 @@ export const Page: FC<Props> = ({
       setTargetGuest(null);
     }
   };
+
+  const eventUpdatedHandler = (event: UpcomingEvent) => {
+    setEvent(event);
+  };
+
   return (
     <>
       <Title>{event.name}</Title>
@@ -71,6 +77,10 @@ export const Page: FC<Props> = ({
         guest={targetGuest}
         event={event}
         setEvent={setEvent}
+      />
+      <EventUpdateForm
+        event={event}
+        eventUpdatedHandler={eventUpdatedHandler}
       />
     </>
   );
