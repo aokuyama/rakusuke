@@ -1,14 +1,18 @@
-export abstract class AbstractValueObject<T> {
+export abstract class AbstractValueObjectIf {
+  abstract equals(value: AbstractValueObjectIf): boolean;
+  abstract serialize(): any;
+}
+export abstract class AbstractValueObject<T> extends AbstractValueObjectIf {
   protected readonly _value: T;
 
   constructor(_value: T) {
+    super();
     this.validate(_value);
     this._value = Object.freeze(_value);
   }
   equals = (value: AbstractValueObject<T>): boolean =>
     this._value === value._value;
   protected abstract validate(value: T): void;
-  abstract serialize(): any;
 }
 
 interface StructValueObjectProps {
@@ -40,7 +44,10 @@ export abstract class PrimitiveValueObject<T> extends AbstractValueObject<T> {
   }
 }
 
-export abstract class ArrayValueObject<T, U> extends AbstractValueObject<T[]> {
+export abstract class ArrayValueObject<
+  T extends AbstractValueObjectIf,
+  U
+> extends AbstractValueObject<T[]> {
   get value(): U[] {
     return this._value.map((v) => serialize(v));
   }
@@ -48,4 +55,12 @@ export abstract class ArrayValueObject<T, U> extends AbstractValueObject<T[]> {
     return this._value.map((v) => serialize(v));
   }
   length = (): number => this._value.length;
+  includes = (value: T): boolean => {
+    for (const v of this._value) {
+      if (value.equals(v)) {
+        return true;
+      }
+    }
+    return false;
+  };
 }

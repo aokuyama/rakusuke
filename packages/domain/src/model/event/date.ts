@@ -8,9 +8,6 @@ export class Date extends AbstractValueObject<globalThis.Date> {
     }
   }
   constructor(value: string) {
-    //if (value instanceof globalThis.Date) {
-    //value = format(value, "yyyy/MM/dd");
-    //    }
     super(parse(value, "yyyy/MM/dd", new globalThis.Date()));
   }
   static convert(value: globalThis.Date): Date {
@@ -32,6 +29,9 @@ export class Date extends AbstractValueObject<globalThis.Date> {
   }
   id = (): string => format(this.value, "yyyyMMdd");
   idIs = (id: string): boolean => id === this.id();
+  // TODO 良くない比較の仕方。DateのValueオブジェクト型を見直す
+  equals = (value: AbstractValueObject<globalThis.Date>): boolean =>
+    this.serialize() === value.serialize();
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());

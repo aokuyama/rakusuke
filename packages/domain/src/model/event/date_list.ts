@@ -54,4 +54,7 @@ export class EventDates extends DateList {
     }
     super.validate(value);
   }
+  get _dates(): Date[] {
+    return this._value;
+  }
 }

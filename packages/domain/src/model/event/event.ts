@@ -1,10 +1,12 @@
 import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
-import { ArrayValueObject, StructValueObject } from "../valueobject";
+import { StructValueObject } from "../valueobject";
 import { AttendanceList } from "./attendance";
 import { Date } from "./date";
 import { EventDateListPickUp } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
+import { Schedules } from "./schedule";
+import { UpdateEvent } from "./update_event";
 
 export interface UpcomingEventArgs {
   path: string;
@@ -33,7 +35,7 @@ export class UpcomingEvent extends StructValueObject<
     return new UpcomingEvent({
       name: new EventName(args.name),
       path: new EventPath(args.path),
-      schedules: new Schedules(args.schedules),
+      schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
       description: args.description,
     });
@@ -49,9 +51,6 @@ export class UpcomingEvent extends StructValueObject<
   }
   protected get _path(): EventPath {
     return this._value.path;
-  }
-  get schedules() {
-    return this._value.schedules.value;
   }
   protected get _schedules(): Schedules {
     return this._value.schedules;
@@ -106,41 +105,20 @@ export class UpcomingEvent extends StructValueObject<
   createDateListPickUp = (): EventDateListPickUp => {
     return new EventDateListPickUp(this._schedules.dates());
   };
-}
-
-interface ScheduleProps {
-  readonly date: Date;
-}
-interface ScheduleArgs {
-  readonly date: string;
-}
-
-class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
-  static new(args: ScheduleArgs): Schedule {
-    return new Schedule({
-      date: new Date(args.date),
-    });
-  }
-  protected validate(value: ScheduleProps): void {
-    // throw new Error("Method not implemented.");
-  }
-  get date(): string {
-    return this._date.toString();
-  }
-  get _date(): Date {
-    return this._value.date;
-  }
-}
-
-class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
-  constructor(value: ScheduleArgs[]) {
-    super(value.map((v) => Schedule.new(v)));
-  }
-  protected validate(value: Schedule[]): void {
-    // throw new Error("Method not implemented.");
-  }
-  dates = () =>
-    this._value.map((s) => {
-      return s._date;
-    });
+  update = (
+    event: UpdateEvent
+  ): {
+    updatedEvent: UpcomingEvent;
+    addedDates: Date[];
+    removedDates: Date[];
+  } => {
+    const { schedules, addedDates, removedDates } = this._schedules.updateDates(
+      event._dates
+    );
+    return {
+      updatedEvent: this,
+      addedDates: addedDates,
+      removedDates: removedDates,
+    };
+  };
 }
