@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { CurrentAttendanceList } from "domain/src/model/event/attendance";
+import { NewAttendanceList } from "domain/src/model/event/attendance";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
 import { Form } from "@/components/presenter/attendance_sheet/Form";
@@ -15,8 +15,8 @@ interface Props {
 
 export const UpdateSheet: FC<Props> = ({ guest, event, setEvent }) => {
   const [name, setName] = useState<string>(guest.name);
-  const [attendance, setAttendance] = useState<CurrentAttendanceList>(
-    guest._attendance
+  const [attendance, setAttendance] = useState<NewAttendanceList>(
+    event.newAttendanceByGuest(guest)
   );
 
   const publish = async () => {

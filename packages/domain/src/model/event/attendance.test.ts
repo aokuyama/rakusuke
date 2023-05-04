@@ -136,8 +136,5 @@ describe("出席票スイッチ", () => {
     expect(() => {
       attendanceList.switch({ id: "", attend: true });
     }).toThrow(" is not found");
-    expect(() => {
-      CurrentAttendanceList.new([]).switch({ id: "20220416", attend: true });
-    }).toThrow("20220416 is not found");
   });
 });

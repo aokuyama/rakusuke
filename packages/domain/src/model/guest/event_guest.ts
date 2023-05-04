@@ -47,9 +47,10 @@ export class EventGuest extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
-  get _attendance(): CurrentAttendanceList {
+  protected get _attendance(): CurrentAttendanceList {
     return this._value.attendance;
   }
+  getAttendance = (): CurrentAttendanceList => this._attendance;
   dateMap = (dates: Date[]): EventGuestDateMap => {
     const attendance = dates.map((date) => {
       return { id: date.id(), attend: this.isAttendOrUndefined(date) };

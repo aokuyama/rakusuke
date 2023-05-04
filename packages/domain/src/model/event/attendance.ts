@@ -97,16 +97,6 @@ export class CurrentAttendanceList extends AttendanceList {
   static new(args: AttendanceArgs[]): CurrentAttendanceList {
     return new CurrentAttendanceList(args.map((v) => Attendance.new(v)));
   }
-  static newByDates(args: AttendanceProps[]): CurrentAttendanceList {
-    return new CurrentAttendanceList(args.map((v) => new Attendance(v)));
-  }
-  switch = (args: { id: string; attend: boolean }): CurrentAttendanceList => {
-    const list = this.switchdList(args);
-    if (list === null) {
-      return this;
-    }
-    return new CurrentAttendanceList(list);
-  };
 }
 
 export class NewAttendanceList extends AttendanceList {

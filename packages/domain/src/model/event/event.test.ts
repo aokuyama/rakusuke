@@ -63,11 +63,5 @@ describe("チェックリスト作成", () => {
       { id: "20230416", name: "2023/04/16", checked: false },
       { id: "20230417", name: "2023/04/17", checked: false },
     ]);
-    const attendance3 = CurrentAttendanceList.new([]);
-    expect(event.checkList(attendance3)).toStrictEqual([
-      { id: "20230415", name: "2023/04/15", checked: false },
-      { id: "20230416", name: "2023/04/16", checked: false },
-      { id: "20230417", name: "2023/04/17", checked: false },
-    ]);
   });
 });
