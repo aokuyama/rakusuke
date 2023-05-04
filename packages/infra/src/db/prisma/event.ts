@@ -1,11 +1,11 @@
-import { UpcomingEvent, NewEvent } from "domain/src/model/event";
+import { UpcomingEvent, NewEvent, UpdateEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 import { EventPath } from "domain/src/model/event/path";
 import { Date } from "domain/src/model/event/date";
 
 export class PrismaEventRepository implements EventRepository {
-  createEvent = async (event: NewEvent) => {
+  createEvent = async (event: NewEvent): Promise<string> => {
     const r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
         data: {
@@ -22,6 +22,7 @@ export class PrismaEventRepository implements EventRepository {
     });
     return r.path;
   };
+
   loadEventByPath = async (path: EventPath): Promise<UpcomingEvent | null> => {
     const event = await client.event.findUnique({
       where: {
@@ -69,5 +70,15 @@ export class PrismaEventRepository implements EventRepository {
       schedules: schedules,
       guests: guests,
     });
+  };
+
+  updateEvent = async (event: UpdateEvent): Promise<UpcomingEvent> => {
+    const currentEvent = await this.loadEventByPath(event._path);
+    if (!currentEvent) {
+      throw new Error("event not found");
+    }
+    console.error("unimplemented");
+    console.error(event.serialize());
+    return currentEvent;
   };
 }

@@ -43,3 +43,15 @@ export class EventDateListPickUp extends DateList {
     return new EventDateListPickUp(dates);
   };
 }
+
+export class EventDates extends DateList {
+  static new(args: string[]): EventDates {
+    return new EventDates(args.map((d) => new Date(d)));
+  }
+  protected validate(value: Date[]): void {
+    if (value.length == 0) {
+      throw new Error("at least one date is required");
+    }
+    super.validate(value);
+  }
+}

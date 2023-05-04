@@ -3,41 +3,36 @@ import { EventDates } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 
-interface NewEventArgs {
+interface UpdateEventArgs {
+  path: string;
   name: string;
   dates: string[];
   description?: string | undefined;
 }
 
-interface NewEventProps {
+interface UpdateEventProps {
   readonly path: EventPath;
   readonly name: EventName;
   readonly description?: string;
   readonly dates: EventDates;
 }
 
-export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
-  protected validate(value: NewEventProps): void {
+export class UpdateEvent extends StructValueObject<
+  UpdateEventProps,
+  UpdateEventArgs
+> {
+  protected validate(value: UpdateEventProps): void {
     //throw new Error("Method not implemented.");
   }
-  static create(args: NewEventArgs): NewEvent {
-    return new NewEvent({
-      path: EventPath.create(),
+  static new(args: UpdateEventArgs): UpdateEvent {
+    return new UpdateEvent({
+      path: new EventPath(args.path),
       name: new EventName(args.name),
       description: args.description,
       dates: EventDates.new(args.dates),
     });
   }
-  get name(): string {
-    return this._value.name.value;
-  }
-  get path(): string {
-    return this._value.path.value;
-  }
-  get dates(): string[] {
-    return this._value.dates.value;
-  }
-  get _dates(): EventDates {
-    return this._value.dates;
+  get _path(): EventPath {
+    return this._value.path;
   }
 }
