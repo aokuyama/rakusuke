@@ -68,9 +68,9 @@ export class UpcomingEvent extends StructValueObject<
       })
     );
   newAttendanceByGuest = (guest: EventGuest) =>
-    this.newAttendanceByAttendanceList(guest.getAttendance());
+    this.newAttendanceByCurrentAttendance(guest.getAttendance());
 
-  protected newAttendanceByAttendanceList = (
+  newAttendanceByCurrentAttendance = (
     attendance: NewAttendanceList | CurrentAttendanceList
   ) => {
     return NewAttendanceList.newByDates(
@@ -140,16 +140,4 @@ export class UpcomingEvent extends StructValueObject<
       removedDates: removedDates,
     };
   };
-  checkList = (
-    attendance: NewAttendanceList
-  ): {
-    id: string;
-    name: string;
-    checked: boolean;
-  }[] =>
-    this._schedules.dates().map((d) => {
-      const diff = this.newAttendanceByAttendanceList(attendance);
-      const checked = attendance.existsDate(d) && attendance.isAttend(d);
-      return { id: d.id(), name: d.toString(), checked: checked };
-    });
 }

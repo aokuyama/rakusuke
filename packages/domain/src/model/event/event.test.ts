@@ -1,4 +1,4 @@
-import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
+import { NewAttendanceList } from "./attendance";
 import { UpcomingEvent } from "./event";
 
 const eventProps = {
@@ -28,20 +28,24 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/16", attend: true },
       { date: "2023/04/17", attend: false },
     ]);
-    expect(event.checkList(attendance)).toStrictEqual([
-      { id: "20230415", name: "2023/04/15", checked: false },
-      { id: "20230416", name: "2023/04/16", checked: true },
-      { id: "20230417", name: "2023/04/17", checked: false },
+    expect(
+      event.newAttendanceByCurrentAttendance(attendance).value
+    ).toStrictEqual([
+      { date: "2023/04/15", attend: false },
+      { date: "2023/04/16", attend: true },
+      { date: "2023/04/17", attend: false },
     ]);
     const attendance2 = NewAttendanceList.new([
       { date: "2023/04/15", attend: true },
       { date: "2023/04/16", attend: true },
       { date: "2023/04/17", attend: true },
     ]);
-    expect(event.checkList(attendance2)).toStrictEqual([
-      { id: "20230415", name: "2023/04/15", checked: true },
-      { id: "20230416", name: "2023/04/16", checked: true },
-      { id: "20230417", name: "2023/04/17", checked: true },
+    expect(
+      event.newAttendanceByCurrentAttendance(attendance2).value
+    ).toStrictEqual([
+      { date: "2023/04/15", attend: true },
+      { date: "2023/04/16", attend: true },
+      { date: "2023/04/17", attend: true },
     ]);
   });
   it("出欠リストにない場合、falseで補完する", () => {
@@ -50,18 +54,22 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/15", attend: true },
       { date: "2023/04/17", attend: false },
     ]);
-    expect(event.checkList(attendance)).toStrictEqual([
-      { id: "20230415", name: "2023/04/15", checked: true },
-      { id: "20230416", name: "2023/04/16", checked: false },
-      { id: "20230417", name: "2023/04/17", checked: false },
+    expect(
+      event.newAttendanceByCurrentAttendance(attendance).value
+    ).toStrictEqual([
+      { date: "2023/04/15", attend: true },
+      { date: "2023/04/16", attend: false },
+      { date: "2023/04/17", attend: false },
     ]);
     const attendance2 = NewAttendanceList.new([
       { date: "2023/04/14", attend: true },
     ]);
-    expect(event.checkList(attendance2)).toStrictEqual([
-      { id: "20230415", name: "2023/04/15", checked: false },
-      { id: "20230416", name: "2023/04/16", checked: false },
-      { id: "20230417", name: "2023/04/17", checked: false },
+    expect(
+      event.newAttendanceByCurrentAttendance(attendance2).value
+    ).toStrictEqual([
+      { date: "2023/04/15", attend: false },
+      { date: "2023/04/16", attend: false },
+      { date: "2023/04/17", attend: false },
     ]);
   });
 });

@@ -121,4 +121,12 @@ export class NewAttendanceList extends AttendanceList {
   };
   toCurrentAttendanceList = (): CurrentAttendanceList =>
     new CurrentAttendanceList(this._value);
+  toCheckList = (): {
+    id: string;
+    name: string;
+    checked: boolean;
+  }[] =>
+    this._value.map((a) => {
+      return { id: a._date.id(), name: a.date, checked: a.attend };
+    });
 }

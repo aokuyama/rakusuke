@@ -45,7 +45,7 @@ export const UpdateSheet: FC<Props> = ({ guest, event, setEvent }) => {
     <Form
       name={name}
       setName={setName}
-      items={event.checkList(attendance)}
+      items={event.newAttendanceByCurrentAttendance(attendance).toCheckList()}
       onClick={publish}
       onCheckListChangeCallback={onCheckListChangeCallback}
     />
