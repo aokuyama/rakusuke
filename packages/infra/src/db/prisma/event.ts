@@ -23,7 +23,9 @@ export class PrismaEventRepository implements EventRepository {
     return r.path;
   };
 
-  loadEventByPath = async (path: EventPath): Promise<UpcomingEvent | null> => {
+  protected loadEventAndIdByPath = async (
+    path: EventPath
+  ): Promise<{ id: number; event: UpcomingEvent } | null> => {
     const event = await client.event.findUnique({
       where: {
         path: path.value,
@@ -64,27 +66,33 @@ export class PrismaEventRepository implements EventRepository {
         attendance: attendance,
       };
     });
-    return UpcomingEvent.new({
-      name: event.name,
-      path: event.path,
-      schedules: schedules,
-      guests: guests,
-    });
+    return {
+      id: event.id,
+      event: UpcomingEvent.new({
+        name: event.name,
+        path: event.path,
+        schedules: schedules,
+        guests: guests,
+      }),
+    };
+  };
+
+  loadEventByPath = async (path: EventPath): Promise<UpcomingEvent | null> => {
+    const r = await this.loadEventAndIdByPath(path);
+    return r ? r.event : null;
   };
 
   updateEvent = async (event: UpdateEvent): Promise<UpcomingEvent> => {
-    const currentEvent = await this.loadEventByPath(event._path);
-    if (!currentEvent) {
+    const current = await this.loadEventAndIdByPath(event._path);
+    if (!current) {
       throw new Error("event not found");
     }
     const { updatedEvent, addedDates, removedDates } =
-      currentEvent.update(event);
-    if (removedDates.length) {
-      throw new Error("date deletion unimplemented");
-    }
-    const _r = await client.$transaction(async (prisma) => {
-      const saveEvent = await prisma.event.update({
-        where: { path: event._path.value },
+      current.event.update(event);
+
+    await client.$transaction(async (prisma) => {
+      await prisma.event.update({
+        where: { id: current.id },
         data: {
           name: updatedEvent.name,
           schedules: {
@@ -94,7 +102,12 @@ export class PrismaEventRepository implements EventRepository {
           },
         },
       });
-      return saveEvent;
+      await prisma.schedule.deleteMany({
+        where: {
+          event_id: current.id,
+          datetime: { in: removedDates.map((d) => d.getGlobalThisDate()) },
+        },
+      });
     });
     return updatedEvent;
   };
