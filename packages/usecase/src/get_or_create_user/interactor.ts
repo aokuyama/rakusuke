@@ -5,8 +5,7 @@ import type {
   GetOrCreateUserPresenter,
   GetOrCreateUserUsecase,
 } from ".";
-import { UserRepository } from "domain/src/model/user/repository";
-import { User } from "domain/src/model/user";
+import { UserEntity, UserRepository } from "domain/src/model/user";
 import { NewUserToken, UserToken } from "domain/src/model/user/token";
 
 @injectable()
@@ -25,8 +24,8 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
 
     await this.presenter.render({ user: user });
   };
-  private getUser = async (token: string): Promise<User | null> =>
+  private getUser = async (token: string): Promise<UserEntity | null> =>
     await this.repository.getUserByToken(new UserToken(token));
-  private createUser = async (): Promise<User> =>
+  private createUser = async (): Promise<UserEntity> =>
     await this.repository.createUserByToken(NewUserToken.create());
 }

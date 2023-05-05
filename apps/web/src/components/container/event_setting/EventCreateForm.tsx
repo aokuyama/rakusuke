@@ -4,12 +4,14 @@ import { Button } from "ui/src/components/Button";
 import { DatePicker } from "./DatePicker";
 import { EventDateListPickUp } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
+import { User } from "domain/src/model/user";
 
 interface Props {
+  user: User;
   eventCreatedHandler: (path: string) => void;
 }
 
-export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
+export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
   const [name, setName] = useState<string>("");
   const [dateList, setDateList] = useState<EventDateListPickUp>(
     new EventDateListPickUp([])
@@ -17,6 +19,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
 
   const publish = async () => {
     const result = await client.event.createEvent.mutate({
+      token: user.getRawToken(),
       name: name,
       dates: dateList.value,
     });

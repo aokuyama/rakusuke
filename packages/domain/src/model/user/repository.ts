@@ -1,7 +1,7 @@
-import { User } from ".";
+import { UserEntity } from ".";
 import { UserToken, NewUserToken } from "./token";
 
 export interface UserRepository {
-  createUserByToken: (token: NewUserToken) => Promise<User>;
-  getUserByToken: (token: UserToken) => Promise<User | null>;
+  createUserByToken: (token: NewUserToken) => Promise<UserEntity>;
+  getUserByToken: (token: UserToken) => Promise<UserEntity | null>;
 }

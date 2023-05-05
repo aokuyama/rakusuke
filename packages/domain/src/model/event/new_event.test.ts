@@ -1,21 +1,29 @@
+import { UserID } from "../user";
 import { NewEvent } from "./new_event";
+
+const organizerId = new UserID(1);
 
 describe("イベント作成", () => {
   it("イベントが正しく作成できる", () => {
-    const event = NewEvent.create({ name: "EventName", dates: ["2023/04/15"] });
+    const event = NewEvent.create({
+      organizerId: organizerId,
+      name: "EventName",
+      dates: ["2023/04/15"],
+    });
     expect(event.name).toBe("EventName");
     expect(event.path.length).toBe(32);
   });
 
   it("日付が空の場合失敗する", () => {
     expect(() => {
-      NewEvent.create({ name: "event", dates: [] });
+      NewEvent.create({ organizerId: organizerId, name: "event", dates: [] });
     }).toThrow("at least one date is required");
   });
 
   it("日付が20を超える場合失敗する", () => {
     expect(() => {
       NewEvent.create({
+        organizerId: organizerId,
         name: "20の日付",
         dates: [
           "2023/04/15",
@@ -43,6 +51,7 @@ describe("イベント作成", () => {
     }).toBeTruthy();
     expect(() => {
       NewEvent.create({
+        organizerId: organizerId,
         name: "21の日付",
         dates: [
           "2023/04/14",
@@ -73,7 +82,11 @@ describe("イベント作成", () => {
 
   it("日付に重複があると失敗する", () => {
     expect(() => {
-      NewEvent.create({ name: "event", dates: ["2023/04/15", "2023/04/15"] });
+      NewEvent.create({
+        organizerId: organizerId,
+        name: "event",
+        dates: ["2023/04/15", "2023/04/15"],
+      });
     }).toThrow("duplicate date");
   });
 });

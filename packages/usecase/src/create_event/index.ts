@@ -1,6 +1,7 @@
 export * from "./interactor";
 
 export type CreateEventInput = {
+  organizerId: number;
   name: string;
   dates: string[];
 };

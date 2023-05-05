@@ -1,4 +1,4 @@
-import { User } from "domain/src/model/user";
+import { UserEntity } from "domain/src/model/user";
 export * from "./interactor";
 
 export type GetOrCreateUserInput = {
@@ -6,7 +6,7 @@ export type GetOrCreateUserInput = {
 };
 
 export type GetOrCreateUserOutput = {
-  user: User | null;
+  user: UserEntity | null;
 };
 
 export interface GetOrCreateUserUsecase {
