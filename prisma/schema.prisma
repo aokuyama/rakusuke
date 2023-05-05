@@ -10,12 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model user {
+  id           Int     @id @default(autoincrement())
+  token_digest String  @unique
+  events       event[]
+}
+
 model event {
-  id        Int        @id @default(autoincrement())
-  path      String     @unique
-  name      String
-  schedules schedule[]
-  guests    guest[]
+  id           Int        @id @default(autoincrement())
+  organizer_id Int
+  path         String     @unique
+  name         String
+  organizer    user       @relation(fields: [organizer_id], references: [id], onDelete: Cascade)
+  schedules    schedule[]
+  guests       guest[]
 }
 
 model schedule {
@@ -45,7 +53,7 @@ model attendance {
   guest       guest    @relation(fields: [guest_id], references: [id], onDelete: Cascade)
   schedule_id Int
   schedule    schedule @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
-  enabled      Boolean
+  enabled     Boolean
 
   @@unique([guest_id, schedule_id])
 }
