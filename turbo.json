@@ -6,7 +6,8 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
+      "outputs": ["dist/**", ".next/**", "storybook-static/**"],
+      "env": ["PEPPER"]
     },
     "lint": {
       "outputs": []

@@ -6,11 +6,11 @@ import { Date } from "domain/src/model/event/date";
 
 export class PrismaEventRepository implements EventRepository {
   createEvent = async (event: NewEvent): Promise<string> => {
-    const r = await client.$transaction(async (prisma) => {
+    const _r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
         data: {
           name: event.name,
-          path: event.path,
+          path: event.hashedPath(),
           schedules: {
             create: event._dates.globalThisDates().map((d) => {
               return { datetime: d };
@@ -20,7 +20,7 @@ export class PrismaEventRepository implements EventRepository {
       });
       return saveEvent;
     });
-    return r.path;
+    return event.path; // raw value
   };
 
   protected loadEventAndIdByPath = async (
@@ -28,7 +28,7 @@ export class PrismaEventRepository implements EventRepository {
   ): Promise<{ id: number; event: UpcomingEvent } | null> => {
     const event = await client.event.findUnique({
       where: {
-        path: path.value,
+        path: path.hashed(),
       },
       include: {
         schedules: { select: { datetime: true } },
@@ -70,7 +70,7 @@ export class PrismaEventRepository implements EventRepository {
       id: event.id,
       event: UpcomingEvent.new({
         name: event.name,
-        path: event.path,
+        path: path.value, // raw value
         schedules: schedules,
         guests: guests,
       }),

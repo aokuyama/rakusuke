@@ -34,10 +34,14 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   get path(): string {
     return this._value.path.value;
   }
+  protected get _path(): EventPath {
+    return this._value.path;
+  }
   get dates(): string[] {
     return this._value.dates.value;
   }
   get _dates(): EventDates {
     return this._value.dates;
   }
+  hashedPath = (): string => this._path.hashed();
 }

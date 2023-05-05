@@ -18,4 +18,12 @@ export class EventPath extends PrimitiveValueObject<string> {
       throw new Error("path must be 32 characters");
     }
   }
+  hashed(): string {
+    if (!process.env.PEPPER) {
+      throw new Error("undefined pepper");
+    }
+    const sha256 = crypto.createHash("sha256");
+    sha256.update(this.value + process.env.PEPPER);
+    return sha256.digest("hex");
+  }
 }
