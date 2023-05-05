@@ -1,5 +1,7 @@
-import { parse, format, isSameDay } from "date-fns";
+import { parse, format, isSameDay, parseISO } from "date-fns";
 import { AbstractValueObject } from "../valueobject";
+
+const referenceDate = new globalThis.Date();
 
 export class Date extends AbstractValueObject<globalThis.Date> {
   protected validate(value: globalThis.Date): void {
@@ -8,7 +10,8 @@ export class Date extends AbstractValueObject<globalThis.Date> {
     }
   }
   constructor(value: string) {
-    super(parse(value, "yyyy/MM/dd", new globalThis.Date()));
+    const d = parse(value, "yyyy/MM/dd", referenceDate);
+    super(parseISO(format(d, "yyyy-MM-dd") + "T00:00:00+00:00"));
   }
   static convert(value: globalThis.Date): Date {
     return new Date(Date.formatString(value));
