@@ -37,7 +37,9 @@ export const UpdateSheet: FC<Props> = ({ guest, event, setEvent }) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setAttendance(
-      attendance.switch({ id: e.target.name, attend: e.target.checked })
+      event
+        .newAttendanceByCurrentAttendance(attendance)
+        .switch({ id: e.target.name, attend: e.target.checked })
     );
   };
 
