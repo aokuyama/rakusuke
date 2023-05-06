@@ -5,6 +5,7 @@ import { DatePicker } from "./DatePicker";
 import { EventDateListPickUp } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
+import { Site } from "@/registry";
 
 interface Props {
   user: User;
@@ -32,7 +33,11 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
 
   return (
     <>
-      <TextBox value={name} setValue={setName} />
+      <TextBox
+        value={name}
+        setValue={setName}
+        placeholder={Site.eventPlaceholder}
+      />
       <DatePicker dateList={dateList} setDateList={setDateList} />
       <Button
         onClick={() => {

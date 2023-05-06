@@ -72,6 +72,7 @@ const table = css`
   td {
     text-align: center;
     padding: 15px 0;
+    border-right: solid 1px #eee;
   }
 
   td.icon {

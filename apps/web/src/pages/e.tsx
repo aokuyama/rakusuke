@@ -5,9 +5,8 @@ import { useRouter } from "next/router";
 import { client } from "infra/src/client/trpc";
 import { UpcomingEvent } from "domain/src/model/event";
 import { Page } from "@/components/pages/view_event/Page";
-import { Site } from "@/lib/site";
 import { EventGuest } from "domain/src/model/guest";
-import { storage } from "@/registry";
+import { Site, storage } from "@/registry";
 
 export const Schedule: FC = () => {
   const router = useRouter();

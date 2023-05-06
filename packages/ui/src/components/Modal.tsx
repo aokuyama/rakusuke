@@ -1,5 +1,6 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
 import ReactModal from "react-modal";
+import "@acab/reset.css";
 
 type Props = {
   children: ReactNode;
@@ -9,10 +10,25 @@ type Props = {
 
 export const Modal: FC<Props> = ({ isOpen, children, onRequestClose }) => {
   return (
-    <>
-      <ReactModal isOpen={isOpen} onRequestClose={() => onRequestClose()}>
-        {children}
-      </ReactModal>
-    </>
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={() => onRequestClose()}
+      style={style}
+    >
+      {children}
+    </ReactModal>
   );
+};
+
+const style = {
+  overlay: {
+    top: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,0.80)",
+  },
+  content: {
+    backgroundColor: window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "#222"
+      : "#fff",
+  },
 };

@@ -20,7 +20,7 @@ export const TextBox: FC<Props> = ({ label, placeholder, value, setValue }) => {
 
   return (
     <label>
-      <span css={label}>{label}</span>
+      <span css={labelStyle}>{label}</span>
       <input
         type="text"
         css={textbox}
@@ -33,19 +33,28 @@ export const TextBox: FC<Props> = ({ label, placeholder, value, setValue }) => {
 };
 
 const textbox = css`
-  color: #333;
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #969da3;
   border-radius: 3px;
   font-size: 1em;
   line-height: 1.5;
+  color: #333;
   ::placeholder {
     color: #999;
   }
+  @media (prefers-color-scheme: dark) {
+    color: #ccc;
+    ::placeholder {
+      color: #666;
+    }
+  }
 `;
-const label = css`
+const labelStyle = css`
   color: #333;
+  @media (prefers-color-scheme: dark) {
+    color: #ccc;
+  }
   display: block;
   margin-bottom: 5px;
   font-size: 0.9em;
