@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-const seed = "abcdefghijklmnopqrstuvwxyz0123456789";
+const seed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 export const createToken = (length: number): string =>
   Array.from(crypto.randomBytes(length))
