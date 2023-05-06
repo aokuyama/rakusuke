@@ -5,7 +5,7 @@ import { EventPath } from "domain/src/model/event/path";
 import { Date } from "domain/src/model/event/date";
 
 export class PrismaEventRepository implements EventRepository {
-  createEvent = async (event: NewEvent): Promise<string> => {
+  createEvent = async (event: NewEvent): Promise<EventPath> => {
     const _r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
         data: {
@@ -21,12 +21,10 @@ export class PrismaEventRepository implements EventRepository {
       });
       return saveEvent;
     });
-    return event.path; // raw value
+    return event.getExistingPath();
   };
 
-  private loadEventAndIdByPath = async (
-    path: EventPath
-  ): Promise<{ event: ExistingEvent } | null> => {
+  loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {
     const event = await client.event.findUnique({
       where: {
         path: path.hashed(),
@@ -67,21 +65,14 @@ export class PrismaEventRepository implements EventRepository {
         attendance: attendance,
       };
     });
-    return {
-      event: ExistingEvent.new({
-        id: event.id,
-        organizerId: event.organizer_id,
-        name: event.name,
-        path: path.value, // raw value
-        schedules: schedules,
-        guests: guests,
-      }),
-    };
-  };
-
-  loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {
-    const r = await this.loadEventAndIdByPath(path);
-    return r ? r.event : null;
+    return ExistingEvent.new({
+      id: event.id,
+      organizerId: event.organizer_id,
+      name: event.name,
+      path: path.rawValue(),
+      schedules: schedules,
+      guests: guests,
+    });
   };
 
   updateEvent = async (

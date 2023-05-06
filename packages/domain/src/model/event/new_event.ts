@@ -1,7 +1,7 @@
 import { StructValueObject } from "../valueobject";
 import { EventDates } from "./date_list";
 import { EventName } from "./name";
-import { EventPath } from "./path";
+import { EventPath, NewEventPath } from "./path";
 import { UserID } from "../user";
 
 interface NewEventArgs {
@@ -14,7 +14,7 @@ interface NewEventArgs {
 
 interface NewEventProps {
   readonly organizerId: UserID;
-  readonly path: EventPath;
+  readonly path: NewEventPath;
   readonly name: EventName;
   readonly description?: string;
   readonly dates: EventDates;
@@ -32,7 +32,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   }): NewEvent {
     return new NewEvent({
       organizerId: args.organizerId,
-      path: EventPath.create(),
+      path: NewEventPath.create(),
       name: new EventName(args.name),
       description: args.description,
       dates: EventDates.new(args.dates),
@@ -47,7 +47,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   get path(): string {
     return this._value.path.value;
   }
-  protected get _path(): EventPath {
+  protected get _path(): NewEventPath {
     return this._value.path;
   }
   get dates(): string[] {
@@ -57,4 +57,5 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
     return this._value.dates;
   }
   hashedPath = (): string => this._path.hashed();
+  getExistingPath = (): EventPath => this._path.toExisting();
 }

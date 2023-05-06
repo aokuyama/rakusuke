@@ -1,29 +1,29 @@
-import crypto from "crypto";
 import { PrimitiveValueObject } from "../valueobject";
+import { createToken, makeHash } from "../../service/token";
 
-const seed = "abcdefghijklmnopqrstuvwxyz0123456789";
 const length = 32;
 
-export const createEventPath = (): string =>
-  Array.from(crypto.randomBytes(length))
-    .map((n) => seed[n % seed.length])
-    .join("");
-
-export class EventPath extends PrimitiveValueObject<string> {
-  static create(): EventPath {
-    return new EventPath(createEventPath());
-  }
+abstract class EventPathBase extends PrimitiveValueObject<string> {
   protected validate(value: string): void {
-    if (value.length != 32) {
-      throw new Error("path must be 32 characters");
+    if (value.length != length) {
+      throw new Error("path must be " + length + " characters");
     }
   }
   hashed(): string {
     if (!process.env.PEPPER) {
       throw new Error("undefined pepper");
     }
-    const sha256 = crypto.createHash("sha256");
-    sha256.update(this.value + process.env.PEPPER);
-    return sha256.digest("hex");
+    return makeHash(this.value, process.env.PEPPER);
   }
+}
+
+export class EventPath extends EventPathBase {
+  rawValue = (): string => this.value;
+}
+
+export class NewEventPath extends EventPathBase {
+  static create(): NewEventPath {
+    return new NewEventPath(createToken(length));
+  }
+  toExisting = (): EventPath => new EventPath(this._value);
 }

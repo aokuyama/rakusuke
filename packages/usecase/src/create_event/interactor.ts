@@ -27,6 +27,6 @@ export class CreateEventInteractor implements CreateEventUsecase {
       dates: input.dates,
     });
     const path = await this.repository.createEvent(event);
-    await this.presenter.render({ path: path });
+    await this.presenter.render({ path: path.rawValue() });
   };
 }
