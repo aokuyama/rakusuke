@@ -7,7 +7,7 @@ import {
 import { GetUserInteractor, GetUserOutput } from "usecase/src/get_user";
 import z from "zod";
 import { publicProcedure } from "../";
-import { UpcomingEvent } from "domain/src/model/event";
+import { ExistingEvent, UpcomingEventArgs } from "domain/src/model/event";
 import { TRPCError } from "@trpc/server";
 import { UserEntity } from "domain/src/model/user";
 
@@ -20,7 +20,7 @@ export const updateEvent = publicProcedure
       dates: z.array(z.string()),
     })
   )
-  .mutation(async (opts) => {
+  .mutation(async (opts): Promise<{ event: UpcomingEventArgs | null }> => {
     const { input } = opts;
     let user: UserEntity | null | undefined;
 
@@ -37,7 +37,7 @@ export const updateEvent = publicProcedure
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    let event: UpcomingEvent | undefined;
+    let event: ExistingEvent | undefined;
 
     container.register("UpdateEventPresenter", {
       useValue: {
@@ -58,5 +58,5 @@ export const updateEvent = publicProcedure
       throw new TRPCError({ code: "FORBIDDEN" });
     }
 
-    return { event: event.serialize() };
+    return { event: event.toFront(user._id).serialize() };
   });

@@ -82,11 +82,13 @@ export const Page: FC<Props> = ({
         event={event}
         setEvent={setEvent}
       />
-      <EventUpdateForm
-        user={user}
-        event={event}
-        eventUpdatedHandler={eventUpdatedHandler}
-      />
+      {event.isOrganizer && (
+        <EventUpdateForm
+          user={user}
+          event={event}
+          eventUpdatedHandler={eventUpdatedHandler}
+        />
+      )}
       <UserData user={user} />
     </>
   );

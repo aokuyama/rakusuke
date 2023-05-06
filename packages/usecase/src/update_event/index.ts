@@ -1,4 +1,4 @@
-import { UpcomingEvent } from "domain/src/model/event";
+import { ExistingEvent } from "domain/src/model/event";
 
 export * from "./interactor";
 
@@ -10,7 +10,7 @@ export type UpdateEventInput = {
 };
 
 export type UpdateEventOutput = {
-  event: UpcomingEvent;
+  event: ExistingEvent;
 };
 
 export interface UpdateEventUsecase {

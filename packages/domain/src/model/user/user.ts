@@ -52,6 +52,9 @@ export class UserEntity extends StructValueObject<
   protected validate(value: UserProps): void {
     // throw new Error("Method not implemented.");
   }
+  get _id(): UserID {
+    return this._value.id;
+  }
   get id(): number {
     return this._value.id.value;
   }

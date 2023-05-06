@@ -95,10 +95,11 @@ export class ExistingEvent extends StructValueObject<
       removedDates: removedDates,
     };
   };
-  toFront = (): UpcomingEvent =>
+  toFront = (id: UserID | null): UpcomingEvent =>
     new UpcomingEvent({
       name: this._name,
       path: this._path,
+      isOrganizer: id ? this.isOrganizer(id) : false,
       schedules: this._schedules,
       guests: this._guests,
       description: this._value.description,

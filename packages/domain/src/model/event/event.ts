@@ -9,6 +9,7 @@ import { Schedules } from "./schedule";
 export interface UpcomingEventArgs {
   path: string;
   name: string;
+  readonly isOrganizer: boolean;
   schedules: { date: string }[];
   guests: EventGuestArgs[];
   description?: string | undefined;
@@ -18,6 +19,7 @@ interface UpcomingEventProps {
   readonly path: EventPath;
   readonly name: EventName;
   readonly description: string | undefined;
+  readonly isOrganizer: boolean;
   readonly schedules: Schedules;
   readonly guests: EventGuestList;
 }
@@ -33,6 +35,7 @@ export class UpcomingEvent extends StructValueObject<
     return new UpcomingEvent({
       name: new EventName(args.name),
       path: new EventPath(args.path),
+      isOrganizer: args.isOrganizer,
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
       description: args.description,
@@ -49,6 +52,12 @@ export class UpcomingEvent extends StructValueObject<
   }
   protected get _path(): EventPath {
     return this._value.path;
+  }
+  get isOrganizer(): boolean {
+    return this._value.isOrganizer;
+  }
+  protected get _isOrganizer(): boolean {
+    return this._value.isOrganizer;
   }
   protected get _schedules(): Schedules {
     return this._value.schedules;
@@ -97,6 +106,7 @@ export class UpcomingEvent extends StructValueObject<
     return new UpcomingEvent({
       name: this._name,
       path: this._path,
+      isOrganizer: this._isOrganizer,
       schedules: this._schedules,
       guests: this._guests.push(guest),
       description: this._value.description,
@@ -106,6 +116,7 @@ export class UpcomingEvent extends StructValueObject<
     return new UpcomingEvent({
       name: this._name,
       path: this._path,
+      isOrganizer: this._isOrganizer,
       schedules: this._schedules,
       guests: this._guests.replace(guest),
       description: this._value.description,

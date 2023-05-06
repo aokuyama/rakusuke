@@ -7,6 +7,7 @@ import { UpcomingEvent } from "domain/src/model/event";
 import { Page } from "@/components/pages/view_event/Page";
 import { Site } from "@/lib/site";
 import { EventGuest } from "domain/src/model/guest";
+import { storage } from "@/registry";
 
 export const Schedule: FC = () => {
   const router = useRouter();
@@ -47,7 +48,10 @@ const loadEvent = async (
   if (path.length == 0) {
     return null;
   }
-  const result = await client.event.getEventByPath.query(path);
+  const result = await client.event.getEventByPath.query({
+    token: storage.getUser().getRawToken(),
+    path: path,
+  });
   if (result.event === undefined) {
     return undefined;
   }

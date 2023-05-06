@@ -36,6 +36,6 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
       existingEvent,
       after
     );
-    await this.presenter.render({ event: updatedEvent.toFront() });
+    await this.presenter.render({ event: updatedEvent });
   };
 }
