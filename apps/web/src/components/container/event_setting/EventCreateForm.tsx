@@ -8,7 +8,7 @@ import { User } from "domain/src/model/user";
 
 interface Props {
   user: User;
-  eventCreatedHandler: (path: string) => void;
+  eventCreatedHandler: (args: { path: string; token: string }) => void;
 }
 
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
@@ -24,7 +24,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       dates: dateList.value,
     });
     if (result.path) {
-      eventCreatedHandler(result.path);
+      eventCreatedHandler(result);
     } else {
       console.error(result);
     }

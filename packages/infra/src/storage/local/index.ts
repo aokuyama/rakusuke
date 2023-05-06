@@ -4,10 +4,13 @@ import { tokenToUser } from "domain/src/service/user";
 export class LocalStorage {
   getUser = (): User => tokenToUser(this.getUserToken());
   private getUserToken = (): UserToken | null => {
+    if (typeof window === "undefined") {
+      return null;
+    }
     const token = localStorage.getItem("user");
     return token ? new UserToken(token) : null;
   };
-  private saveUserToken = (token: UserToken) => {
+  saveUserToken = (token: UserToken) => {
     localStorage.setItem("user", token.rawValue());
   };
 }

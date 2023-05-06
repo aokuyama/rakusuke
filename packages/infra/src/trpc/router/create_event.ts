@@ -55,5 +55,9 @@ export const createEvent = publicProcedure
       dates: input.dates,
     });
 
-    return { path: path };
+    if (!path) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+    }
+
+    return { path: path, token: user.getRawToken() };
   });

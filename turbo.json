@@ -2,12 +2,23 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "test": {
-      "outputs": ["node_modules/.cache/storybook/**"]
+      "outputs": [
+        "node_modules/.cache/storybook/**"
+      ]
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "storybook-static/**"],
-      "env": ["PEPPER"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "storybook-static/**"
+      ],
+      "env": [
+        "NODE_ENV",
+        "PEPPER"
+      ]
     },
     "lint": {
       "outputs": []

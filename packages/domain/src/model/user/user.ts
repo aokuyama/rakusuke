@@ -43,12 +43,19 @@ export class UserEntity extends StructValueObject<
   UserEntityProps,
   UserEntityArgs
 > {
+  static new(args: { id: number; token: UserToken }): UserEntity {
+    return new UserEntity({
+      id: new UserID(args.id),
+      token: args.token,
+    });
+  }
   protected validate(value: UserProps): void {
     // throw new Error("Method not implemented.");
   }
   get id(): number {
     return this._value.id.value;
   }
+  getRawToken = (): string => this._value.token.rawValue();
 }
 
 export class UserID extends PrimitiveValueObject<number> {

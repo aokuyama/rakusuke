@@ -24,7 +24,7 @@ export class PrismaEventRepository implements EventRepository {
     return event.path; // raw value
   };
 
-  protected loadEventAndIdByPath = async (
+  private loadEventAndIdByPath = async (
     path: EventPath
   ): Promise<{ id: number; event: UpcomingEvent } | null> => {
     const event = await client.event.findUnique({

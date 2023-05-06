@@ -43,4 +43,5 @@ export class NewUserToken extends PrimitiveValueObject<string> {
     sha256.update(this.value + process.env.PEPPER);
     return sha256.digest("hex");
   }
+  toExisting = (): UserToken => new UserToken(this._value);
 }

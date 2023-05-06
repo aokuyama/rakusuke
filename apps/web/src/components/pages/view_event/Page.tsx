@@ -6,6 +6,8 @@ import { UpdateSheetController } from "@/components/container/attendance_sheet/U
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetController } from "@/components/container/attendance_sheet/NewSheetController";
 import { EventUpdateForm } from "@/components/container/event_setting/EventUpdateForm";
+import { storage } from "@/registry";
+import { UserData } from "@/components/container/dev/UserData";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -60,6 +62,8 @@ export const Page: FC<Props> = ({
     setEvent(event);
   };
 
+  const user = storage.getUser();
+
   return (
     <>
       <Title>{event.name}</Title>
@@ -82,6 +86,7 @@ export const Page: FC<Props> = ({
         event={event}
         eventUpdatedHandler={eventUpdatedHandler}
       />
+      <UserData user={user} />
     </>
   );
 };
