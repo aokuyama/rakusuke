@@ -3,11 +3,12 @@ import { UpcomingEvent } from "domain/src/model/event";
 import { Title } from "ui/src/components/Title";
 import { UpdateSheetController } from "@/components/container/attendance/UpdateSheetController";
 import { EventGuest } from "domain/src/model/guest";
-import { NewSheetController } from "@/components/container/attendance/NewSheetController";
-import { EventUpdateForm } from "@/components/container/event_setting/EventUpdateForm";
+import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
 import { UserData } from "@/components/container/dev/UserData";
 import { List } from "@/components/container/attendance/List";
+import { Modal } from "ui/src/components/Modal";
+import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -39,24 +40,27 @@ export const Page: FC<Props> = ({
   return (
     <>
       <Title>{event.name}</Title>
-      <List event={event} setTargetGuest={setTargetGuest} />
-      <NewSheetController
-        guest={targetGuest}
-        event={event}
-        setEvent={setEvent}
-      />
-      <UpdateSheetController
-        guest={targetGuest}
-        event={event}
-        setEvent={setEvent}
-      />
       {event.isOrganizer && (
-        <EventUpdateForm
+        <EventUpdateFormModal
           user={user}
           event={event}
           eventUpdatedHandler={eventUpdatedHandler}
         />
       )}
+      <List event={event} setTargetGuest={setTargetGuest} />
+      <NewSheetModal event={event} setEvent={setEvent} />
+      <Modal
+        isOpen={!!targetGuest}
+        onRequestClose={() => {
+          setTargetGuest(null);
+        }}
+      >
+        <UpdateSheetController
+          guest={targetGuest}
+          event={event}
+          setEvent={setEvent}
+        />
+      </Modal>
       <UserData user={user} />
     </>
   );
