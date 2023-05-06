@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
 import { Title } from "ui/src/components/Title";
-import { Table } from "ui/src/components/Table";
-import { UpdateSheetController } from "@/components/container/attendance_sheet/UpdateSheetController";
+import { UpdateSheetController } from "@/components/container/attendance/UpdateSheetController";
 import { EventGuest } from "domain/src/model/guest";
-import { NewSheetController } from "@/components/container/attendance_sheet/NewSheetController";
+import { NewSheetController } from "@/components/container/attendance/NewSheetController";
 import { EventUpdateForm } from "@/components/container/event_setting/EventUpdateForm";
 import { storage } from "@/registry";
 import { UserData } from "@/components/container/dev/UserData";
+import { List } from "@/components/container/attendance/List";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -30,48 +30,16 @@ export const Page: FC<Props> = ({
   if (!event) {
     return <>event not found</>;
   }
-  const { dates, guests } = event.dateMap();
-
-  const header = dates.map((d) => {
-    return { id: d.id, name: d.date };
-  });
-  header.unshift({ id: "0", name: "" });
-
-  const dataList = guests.map((g) => {
-    const items = g.attendance.map((a) => {
-      return {
-        id: a.id,
-        name: a.attend === undefined ? "" : a.attend ? "O" : "X",
-      };
-    });
-    items.unshift({ id: "0", name: g.name });
-    return { id: g.id, items: items };
-  });
-
-  const tableTrClickIdHandler = (id: number | string) => {
-    const number = parseInt(String(id));
-    if (number) {
-      const guest = event.getGuestByNumber(number);
-      setTargetGuest(guest);
-    } else {
-      setTargetGuest(null);
-    }
-  };
+  const user = storage.getUser();
 
   const eventUpdatedHandler = (event: UpcomingEvent) => {
     setEvent(event);
   };
 
-  const user = storage.getUser();
-
   return (
     <>
       <Title>{event.name}</Title>
-      <Table
-        header={header}
-        dataList={dataList}
-        clickIdHandler={tableTrClickIdHandler}
-      />
+      <List event={event} setTargetGuest={setTargetGuest} />
       <NewSheetController
         guest={targetGuest}
         event={event}

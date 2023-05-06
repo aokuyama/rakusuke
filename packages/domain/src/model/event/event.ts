@@ -5,6 +5,7 @@ import { EventDateListPickUp } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedules } from "./schedule";
+import { Date } from "./date";
 
 export interface UpcomingEventArgs {
   path: string;
@@ -89,7 +90,7 @@ export class UpcomingEvent extends StructValueObject<
     );
   };
   dateMap = (): {
-    dates: { id: string; date: string }[];
+    dates: { id: string; date: Date }[];
     guests: {
       id: string;
       name: string;
@@ -98,7 +99,7 @@ export class UpcomingEvent extends StructValueObject<
   } => {
     const _dates = this._schedules.dates();
     const dates = _dates.map((date) => {
-      return { id: date.id(), date: date.toString() };
+      return { id: date.id(), date: date };
     });
     return { dates: dates, guests: this._guests.dateMap(_dates) };
   };
