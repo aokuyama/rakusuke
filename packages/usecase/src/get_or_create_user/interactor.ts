@@ -27,5 +27,6 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
   private getUser = async (token: string): Promise<UserEntity | null> =>
     await this.repository.getUserByToken(new UserToken(token));
   private createUser = async (): Promise<UserEntity> =>
+    // TODO 天文学的な確率で失敗した時のリトライを入れる
     await this.repository.createUserByToken(NewUserToken.create());
 }

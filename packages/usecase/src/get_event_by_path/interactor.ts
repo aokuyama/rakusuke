@@ -20,6 +20,6 @@ export class GetEventByPathInteractor implements GetEventByPathUsecase {
   handle = async (input: GetEventByPathInput) => {
     const path = new EventPath(input.path);
     const event = await this.repository.loadEventByPath(path);
-    await this.presenter.render({ event: event });
+    await this.presenter.render({ event: event ? event.toFront() : null });
   };
 }

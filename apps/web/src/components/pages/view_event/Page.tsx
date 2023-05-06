@@ -83,6 +83,7 @@ export const Page: FC<Props> = ({
         setEvent={setEvent}
       />
       <EventUpdateForm
+        user={user}
         event={event}
         eventUpdatedHandler={eventUpdatedHandler}
       />

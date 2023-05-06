@@ -1,12 +1,10 @@
 import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
 import { StructValueObject } from "../valueobject";
 import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
-import { Date } from "./date";
 import { EventDateListPickUp } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedules } from "./schedule";
-import { UpdateEvent } from "./update_event";
 
 export interface UpcomingEventArgs {
   path: string;
@@ -117,27 +115,5 @@ export class UpcomingEvent extends StructValueObject<
     this._guests.getByNumber(number);
   createDateListPickUp = (): EventDateListPickUp => {
     return new EventDateListPickUp(this._schedules.dates());
-  };
-  update = (
-    event: UpdateEvent
-  ): {
-    updatedEvent: UpcomingEvent;
-    addedDates: Date[];
-    removedDates: Date[];
-  } => {
-    const { schedules, addedDates, removedDates } = this._schedules.updateDates(
-      event._dates
-    );
-    return {
-      updatedEvent: new UpcomingEvent({
-        name: event._name,
-        path: this._path,
-        schedules: schedules,
-        guests: this._guests,
-        description: this._value.description,
-      }),
-      addedDates: addedDates,
-      removedDates: removedDates,
-    };
   };
 }

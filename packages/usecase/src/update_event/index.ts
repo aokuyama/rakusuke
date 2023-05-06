@@ -3,6 +3,7 @@ import { UpcomingEvent } from "domain/src/model/event";
 export * from "./interactor";
 
 export type UpdateEventInput = {
+  userId: number;
   path: string;
   name: string;
   dates: string[];

@@ -33,8 +33,8 @@ export const createEvent = publicProcedure
         },
       },
     });
-    const GetOrCreateUser = container.resolve(GetOrCreateUserInteractor);
-    await GetOrCreateUser.handle({ token: input.token });
+    const getOrCreateUser = container.resolve(GetOrCreateUserInteractor);
+    await getOrCreateUser.handle({ token: input.token });
     if (!user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }

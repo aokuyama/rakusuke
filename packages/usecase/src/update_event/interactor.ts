@@ -7,6 +7,7 @@ import type {
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
 import { UpdateEvent } from "domain/src/model/event";
+import { UserID } from "domain/src/model/user";
 
 @injectable()
 export class UpdateEventInteractor implements UpdateEventUsecase {
@@ -18,12 +19,23 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
   ) {}
 
   handle = async (input: UpdateEventInput) => {
-    const event = UpdateEvent.new({
+    const after = UpdateEvent.new({
       path: input.path,
       name: input.name,
       dates: input.dates,
     });
-    const updatedEvent = await this.repository.updateEvent(event);
-    await this.presenter.render({ event: updatedEvent });
+    const existingEvent = await this.repository.loadEventByPath(after._path);
+    if (!existingEvent) {
+      throw new Error("event not found");
+    }
+    if (!existingEvent.isOrganizer(new UserID(input.userId))) {
+      // 主催者でなければ編集できない
+      return;
+    }
+    const updatedEvent = await this.repository.updateEvent(
+      existingEvent,
+      after
+    );
+    await this.presenter.render({ event: updatedEvent.toFront() });
   };
 }

@@ -1,4 +1,4 @@
-import { UpcomingEvent, NewEvent, UpdateEvent } from "domain/src/model/event";
+import { ExistingEvent, NewEvent, UpdateEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 import { EventPath } from "domain/src/model/event/path";
@@ -26,7 +26,7 @@ export class PrismaEventRepository implements EventRepository {
 
   private loadEventAndIdByPath = async (
     path: EventPath
-  ): Promise<{ id: number; event: UpcomingEvent } | null> => {
+  ): Promise<{ event: ExistingEvent } | null> => {
     const event = await client.event.findUnique({
       where: {
         path: path.hashed(),
@@ -68,8 +68,9 @@ export class PrismaEventRepository implements EventRepository {
       };
     });
     return {
-      id: event.id,
-      event: UpcomingEvent.new({
+      event: ExistingEvent.new({
+        id: event.id,
+        organizerId: event.organizer_id,
         name: event.name,
         path: path.value, // raw value
         schedules: schedules,
@@ -78,22 +79,21 @@ export class PrismaEventRepository implements EventRepository {
     };
   };
 
-  loadEventByPath = async (path: EventPath): Promise<UpcomingEvent | null> => {
+  loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {
     const r = await this.loadEventAndIdByPath(path);
     return r ? r.event : null;
   };
 
-  updateEvent = async (event: UpdateEvent): Promise<UpcomingEvent> => {
-    const current = await this.loadEventAndIdByPath(event._path);
-    if (!current) {
-      throw new Error("event not found");
-    }
+  updateEvent = async (
+    before: ExistingEvent,
+    after: UpdateEvent
+  ): Promise<ExistingEvent> => {
     const { updatedEvent, addedDates, removedDates } =
-      current.event.update(event);
+      before.updateEvent(after);
 
     await client.$transaction(async (prisma) => {
       await prisma.event.update({
-        where: { id: current.id },
+        where: { id: before.id },
         data: {
           name: updatedEvent.name,
           schedules: {
@@ -105,7 +105,7 @@ export class PrismaEventRepository implements EventRepository {
       });
       await prisma.schedule.deleteMany({
         where: {
-          event_id: current.id,
+          event_id: before.id,
           datetime: { in: removedDates.map((d) => d.getGlobalThisDate()) },
         },
       });
