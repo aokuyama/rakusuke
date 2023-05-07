@@ -1,0 +1,35 @@
+name: Push Server Image
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Login
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_ECR_HOST: ${{ secrets.ENV_AWS_ECR_HOST }}
+        run: aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin ${AWS_ECR_HOST}
+
+      - name: Build
+        env:
+          REGISTRY_NAME: ${{ secrets.ENV_REGISTRY_NAME }}
+        run: docker build -f ./deploy/lambda/Dockerfile -t ${REGISTRY_NAME} .
+
+      - name: Push
+        env:
+          AWS_ECR_HOST: ${{ secrets.ENV_AWS_ECR_HOST }}
+          REGISTRY_NAME: ${{ secrets.ENV_REGISTRY_NAME }}
+        run: |
+          docker tag ${REGISTRY_NAME}:latest ${AWS_ECR_HOST}/${REGISTRY_NAME}:deploy
+          docker push ${AWS_ECR_HOST}/${REGISTRY_NAME}:deploy

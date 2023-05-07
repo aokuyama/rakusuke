@@ -13,6 +13,5 @@ const server = createHTTPServer({
   middleware: cors(options),
   router: appRouter,
 });
-
-container.register("dummy", { useValue: "" });
+container;
 server.listen(3001);
