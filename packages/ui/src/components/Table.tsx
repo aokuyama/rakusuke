@@ -54,6 +54,7 @@ export const Table: FC<Props> = ({ header, dataList, clickIdHandler }) => {
 };
 
 const table = css`
+  margin: auto;
   overflow-x: scroll;
   border-collapse: collapse;
   border-spacing: 0;

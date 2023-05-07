@@ -1,6 +1,5 @@
 import { FC, ReactNode } from "react";
 import ReactModal from "react-modal";
-import "@acab/reset.css";
 
 type Props = {
   children: ReactNode;
@@ -27,8 +26,11 @@ const style = {
     backgroundColor: "rgba(0,0,0,0.80)",
   },
   content: {
-    backgroundColor: window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "#222"
-      : "#fff",
+    backgroundColor:
+      typeof window !== "undefined"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "#222"
+          : "#fff"
+        : "inherit",
   },
 };

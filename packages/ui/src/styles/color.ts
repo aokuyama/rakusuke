@@ -1,5 +1,6 @@
 export const white = {
   default: "#FFF",
+  lighter: "rgb(255, 216, 181)",
 };
 
 export const mainColor = {

@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "typeRoots": ["../../packages/ui/src/@types/"]
   }
 }

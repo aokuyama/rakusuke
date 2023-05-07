@@ -10,7 +10,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acab/reset.css": "^0.5.3",
     "@emotion/react": "^11.10.5",
     "domain": "*",
     "infra": "*",

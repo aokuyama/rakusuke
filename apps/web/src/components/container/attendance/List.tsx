@@ -12,9 +12,9 @@ export const List: FC<Props> = ({ event, setTargetGuest }) => {
   const { dates, guests } = event.dateMap();
 
   const header = dates.map((d) => {
-    return { id: d.id, name: <p>{d.date.short()}</p> };
+    return { id: d.id, name: d.date.short() };
   });
-  header.unshift({ id: "0", name: <></> });
+  header.unshift({ id: "0", name: "" });
 
   const dataList = guests.map((g) => {
     const items = g.attendance.map((a) => {
