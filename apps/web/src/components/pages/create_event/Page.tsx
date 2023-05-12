@@ -3,7 +3,7 @@ import { EventCreateForm } from "@/components/container/event_setting/EventCreat
 import { useRouter } from "next/router";
 import { storage } from "@/registry";
 import { UserToken } from "domain/src/model/user";
-import { UserData } from "@/components/container/dev/UserData";
+import { Dev } from "@/components/container/dev/Dev";
 
 export const Page: FC = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ export const Page: FC = () => {
   return (
     <>
       <EventCreateForm user={user} eventCreatedHandler={eventCreatedHandler} />
-      <UserData user={user} />
+      <Dev user={user} />
     </>
   );
 };

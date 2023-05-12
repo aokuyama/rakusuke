@@ -10,3 +10,8 @@ export const mainColor = {
   darker: "#FF8F00",
   saturated: "#FF7F00",
 };
+
+export const dayOfWeek = {
+  saturday: "#00f",
+  sunday: "#f00",
+};

@@ -5,10 +5,10 @@ import { UpdateSheetController } from "@/components/container/attendance/UpdateS
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
-import { UserData } from "@/components/container/dev/UserData";
 import { List } from "@/components/container/attendance/List";
 import { Modal } from "ui/src/components/Modal";
 import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
+import { Dev } from "@/components/container/dev/Dev";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -61,7 +61,7 @@ export const Page: FC<Props> = ({
           setEvent={setEvent}
         />
       </Modal>
-      <UserData user={user} />
+      <Dev user={user} />
     </>
   );
 };

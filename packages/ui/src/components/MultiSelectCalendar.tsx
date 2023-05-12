@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Calendar as ReactCalendar } from "react-calendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
-import { css, Global } from "@emotion/react";
+import { css, Global, SerializedStyles } from "@emotion/react";
 import { mainColor } from "../styles/color";
 import { format } from "date-fns";
 
@@ -9,14 +9,18 @@ type Props = {
   selectedDates: Date[];
   locale: string;
   onChangeFunc: OnChangeFunc | undefined;
-  defaultActiveStartDate?: Date | undefined;
+  minDate?: Date;
+  maxDate?: Date;
+  style?: SerializedStyles;
 };
 
 export const MultiSelectCalendar: FC<Props> = ({
   selectedDates,
   locale,
   onChangeFunc,
-  defaultActiveStartDate,
+  minDate,
+  maxDate,
+  style,
 }) => {
   const cssList = selectedDates.map((date) => {
     const label = dateLabelFormat(undefined, date);
@@ -32,12 +36,15 @@ export const MultiSelectCalendar: FC<Props> = ({
     <>
       <Global styles={styles} />
       <ReactCalendar
-        css={cssList}
+        css={[cssList, style]}
         locale={locale}
         onClickDay={onChangeFunc}
-        defaultActiveStartDate={defaultActiveStartDate}
-        minDate={defaultActiveStartDate}
+        defaultActiveStartDate={minDate}
+        minDate={minDate}
+        maxDate={maxDate}
         formatLongDate={dateLabelFormat}
+        formatDay={(_locale, date) => format(date, "d")}
+        minDetail={"month"}
       />
     </>
   );
@@ -49,9 +56,6 @@ const dateLabelFormat = (_locale: string | undefined, date: Date): string =>
 const calendar = css`
   .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {
     color: #00f;
-  }
-  .react-calendar__tile--active {
-    background-color: ${mainColor.default};
   }
 `;
 
@@ -105,16 +109,22 @@ const styles = css`
 
   .react-calendar__navigation button {
     min-width: 44px;
-    background: none;
   }
 
-  .react-calendar__navigation button:disabled {
+  .react-calendar__navigation__arrow button:disabled {
+    color: inherit;
+    cursor: inherit;
     background-color: #f0f0f0;
   }
 
-  .react-calendar__navigation button:enabled:hover,
-  .react-calendar__navigation button:enabled:focus {
-    background-color: #e6e6e6;
+  .react-calendar__navigation__label {
+    background-color: #fff;
+    color: #000;
+    cursor: inherit;
+  }
+
+  .react-calendar__navigation button:enabled:hover {
+    background-color: ${mainColor.lighter};
   }
 
   .react-calendar__month-view__weekdays {
@@ -162,18 +172,8 @@ const styles = css`
     background-color: #f0f0f0;
   }
 
-  .react-calendar__tile:enabled:hover,
-  .react-calendar__tile:enabled:focus {
-    background-color: #e6e6e6;
-  }
-
-  .react-calendar__tile--now {
-    background: #ffff76;
-  }
-
-  .react-calendar__tile--now:enabled:hover,
-  .react-calendar__tile--now:enabled:focus {
-    background: #ffffa9;
+  .react-calendar__tile:enabled:hover {
+    background-color: ${mainColor.lighter};
   }
 
   .react-calendar__tile--hasActive {
@@ -185,17 +185,7 @@ const styles = css`
     background: #a9d4ff;
   }
 
-  .react-calendar__tile--active {
-    background: #006edc;
-    color: white;
-  }
-
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: #1087ff;
-  }
-
   .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: #e6e6e6;
+    background-color: ${mainColor.lighter};
   }
 `;

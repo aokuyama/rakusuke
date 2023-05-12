@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
+import { Step } from "ui/src/components/Step";
 import { DatePicker } from "./DatePicker";
 import { EventDateListPickUp } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
@@ -33,11 +34,13 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
 
   return (
     <>
+      <Step>1. 会の名前を教えてください</Step>
       <TextBox
         value={name}
         setValue={setName}
         placeholder={Site.eventPlaceholder}
       />
+      <Step>2. 候補日はいつですか？</Step>
       <DatePicker dateList={dateList} setDateList={setDateList} />
       <Button
         onClick={() => {
