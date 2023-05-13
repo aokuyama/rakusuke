@@ -3,7 +3,11 @@ import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { appRouter } from "infra/src/trpc";
 import cors from "cors";
 
-const allowedOrigins = ["http://localhost:3000"];
+if (!process.env.URL_APP) {
+  throw new Error("undefined URL_APP");
+}
+
+const allowedOrigins = [process.env.URL_APP];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins,

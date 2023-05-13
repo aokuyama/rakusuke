@@ -18,7 +18,10 @@ services:
     environment:
       - TZ=${TZ:-}
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres?schema=public&connect_timeout=10
-      - PEPPER=${PEPPER:-dev}
+      - PEPPER_USER=${PEPPER_USER:-dev}
+      - PEPPER_EVENT=${PEPPER_EVENT:-dev}
+      - NEXT_PUBLIC_URL_API=http://localhost:3001
+      - URL_APP=http://localhost:3000
     depends_on:
       db:
         condition: service_started

@@ -10,10 +10,10 @@ abstract class UserTokenBase extends PrimitiveValueObject<string> {
     }
   }
   hashed(): string {
-    if (!process.env.PEPPER) {
+    if (!process.env.PEPPER_USER) {
       throw new Error("undefined pepper");
     }
-    return makeHash(this.value, process.env.PEPPER);
+    return makeHash(this.value, process.env.PEPPER_USER);
   }
 }
 

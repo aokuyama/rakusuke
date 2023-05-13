@@ -21,4 +21,4 @@ COPY --from=build /build/apps/server/dist/* ./
 COPY --from=build /build/node_modules/.prisma/client/libquery_engine-rhel-openssl-1.1.x.so.node ./
 COPY ./prisma ./
 
-CMD ["lambda.handler"]
+CMD ["index.handler"]
