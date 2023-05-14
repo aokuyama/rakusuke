@@ -1,0 +1,33 @@
+name: migrate to production
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install Dependencies
+
+        run: |
+          yarn global add turbo prisma
+          rm -rf ./apps
+          rm -rf ./packages
+          yarn install
+
+      - name: Build
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: prisma generate
+
+      - name: Deploy
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: prisma migrate deploy
