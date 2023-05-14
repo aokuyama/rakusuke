@@ -1,4 +1,3 @@
-import { Page } from "@/components/pages/create_event/Page";
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC } from "react";
@@ -10,9 +9,7 @@ export const Top: FC = () => {
       <Head>
         <title>{Site.name}</title>
       </Head>
-      <Layout>
-        <Page />
-      </Layout>
+      <Layout>準備中...</Layout>
     </>
   );
 };
