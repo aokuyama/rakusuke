@@ -31,4 +31,5 @@ const button = css`
   :hover {
     background-color: ${mainColor.brighter};
   }
+  cursor: pointer;
 `;
