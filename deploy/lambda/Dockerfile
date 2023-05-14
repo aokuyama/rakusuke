@@ -18,7 +18,7 @@ RUN yarn workspace server build-lambda
 FROM public.ecr.aws/lambda/nodejs:16
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=build /build/apps/server/dist/* ./
-COPY --from=build /build/node_modules/.prisma/client/libquery_engine-rhel-openssl-1.1.x.so.node ./
+COPY --from=build /build/node_modules/.prisma/client/libquery_engine-rhel-openssl-1.0.x.so.node ./
 COPY ./prisma ./
 
 CMD ["index.handler"]
