@@ -17,7 +17,6 @@ export type Calendar = StoryObj<typeof MultiSelectCalendar>;
 export const Default: Calendar = {
   args: {
     selectedDates: [],
-    defaultActiveStartDate: new Date("2023/04/08"),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
