@@ -12,7 +12,7 @@ export class PrismaEventRepository implements EventRepository {
           uuid: event.uuid,
           organizer_id: event.organizerId,
           name: event.name,
-          path: event.hashedPath(),
+          path_digest: event.hashedPath(),
           schedules: {
             create: event._dates.globalThisDates().map((d) => {
               return { datetime: d };
@@ -28,7 +28,7 @@ export class PrismaEventRepository implements EventRepository {
   loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {
     const event = await client.event.findUnique({
       where: {
-        path: path.hashed(),
+        path_digest: path.hashed(),
       },
       include: {
         schedules: { select: { datetime: true } },

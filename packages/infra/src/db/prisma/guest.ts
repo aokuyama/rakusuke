@@ -16,7 +16,7 @@ export class PrismaGuestRepository implements GuestRepository {
   ): Promise<EventGuest> => {
     const r = await client.$transaction(async (prisma) => {
       const event = await prisma.event.findUnique({
-        where: { path: eventPath.hashed() },
+        where: { path_digest: eventPath.hashed() },
         include: { guests: { select: { guest_number: true } }, schedules: {} },
       });
       if (!event) {
@@ -59,7 +59,7 @@ export class PrismaGuestRepository implements GuestRepository {
         where: {
           guest_number: guest.number,
           event: {
-            path: eventPath.hashed(),
+            path_digest: eventPath.hashed(),
           },
         },
         include: {

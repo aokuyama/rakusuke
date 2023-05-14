@@ -22,7 +22,7 @@ model event {
   id           Int        @id @default(autoincrement())
   uuid         String     @unique
   organizer_id Int
-  path         String     @unique
+  path_digest  String     @unique
   name         String
   organizer    user       @relation(fields: [organizer_id], references: [id], onDelete: Cascade)
   schedules    schedule[]
