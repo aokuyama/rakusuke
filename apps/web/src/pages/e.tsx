@@ -15,6 +15,7 @@ export const Schedule: FC = () => {
     <>
       <Head>
         <title>{title(event)}</title>
+        <meta name="robots" content="noindex,nofollow,noarchive" />
       </Head>
       <Layout>
         <Page
