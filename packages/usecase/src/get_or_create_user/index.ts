@@ -2,7 +2,10 @@ import { UserEntity } from "domain/src/model/user";
 export * from "./interactor";
 
 export type GetOrCreateUserInput = {
-  token: string | null;
+  user: {
+    uuid: string;
+    token: string;
+  } | null;
 };
 
 export type GetOrCreateUserOutput = {

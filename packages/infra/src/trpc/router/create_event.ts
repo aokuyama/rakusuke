@@ -16,7 +16,12 @@ import { TRPCError } from "@trpc/server";
 export const createEvent = publicProcedure
   .input(
     z.object({
-      token: z.string().nullable(),
+      user: z
+        .object({
+          uuid: z.string(),
+          token: z.string(),
+        })
+        .nullable(),
       name: z.string(),
       dates: z.array(z.string()),
     })
@@ -34,7 +39,11 @@ export const createEvent = publicProcedure
       },
     });
     const getOrCreateUser = container.resolve(GetOrCreateUserInteractor);
-    await getOrCreateUser.handle({ token: input.token });
+    await getOrCreateUser.handle({
+      user: input.user
+        ? { uuid: input.user.uuid, token: input.user.token }
+        : null,
+    });
     if (!user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
@@ -59,5 +68,5 @@ export const createEvent = publicProcedure
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
     }
 
-    return { path: path, token: user.getRawToken() };
+    return { path: path, user: { uuid: user.uuid, token: user.getRawToken() } };
   });

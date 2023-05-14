@@ -1,41 +1,68 @@
+import { UUID } from "../uuid";
 import { StructValueObject, PrimitiveValueObject } from "../valueobject";
 import { UserToken } from "./token";
 
 interface UserProps {
+  readonly uuid: UUID;
   readonly token: UserToken;
 }
 
 interface UserArgs {
+  readonly uuid: string;
   readonly token: string;
 }
 
 export interface User {
-  getRawToken: () => string | null;
+  getDebugInfo: () => string;
+  getUUID: () => string | null;
+  getAuthInfo: () => { uuid: string; token: string } | null;
 }
 
 export const unregisteredUser = {
-  getRawToken: (): null => {
+  getDebugInfo: (): string => {
+    return "guest";
+  },
+  getUUID: (): null => {
+    return null;
+  },
+  getAuthInfo: (): null => {
     return null;
   },
 };
 
 export class RegisteredUser extends StructValueObject<UserProps, UserArgs> {
   static new(args: UserArgs) {
-    return new RegisteredUser({ token: new UserToken(args.token) });
+    return new RegisteredUser({
+      uuid: new UUID(args.uuid),
+      token: new UserToken(args.token),
+    });
   }
   protected validate(value: UserProps): void {
     // throw new Error("Method not implemented.");
   }
-  getRawToken = (): string => this._value.token.rawValue();
+  getUUID = (): string => this._value.uuid.value;
+  getAuthInfo = (): { uuid: string; token: string } => {
+    return {
+      uuid: this.getUUID(),
+      token: this._value.token.rawValue(),
+    };
+  };
+  getDebugInfo = (): string => {
+    return (
+      "uuid:" + this.getUUID() + "\n" + "token:" + this._value.token.rawValue()
+    );
+  };
 }
 
 interface UserEntityProps {
   readonly id: UserID;
+  readonly uuid: UUID;
   readonly token: UserToken;
 }
 
 interface UserEntityArgs {
   readonly id: number;
+  readonly uuid: string;
   readonly token: string;
 }
 
@@ -43,13 +70,14 @@ export class UserEntity extends StructValueObject<
   UserEntityProps,
   UserEntityArgs
 > {
-  static new(args: { id: number; token: UserToken }): UserEntity {
+  static new(args: { id: number; uuid: UUID; token: UserToken }): UserEntity {
     return new UserEntity({
       id: new UserID(args.id),
+      uuid: args.uuid,
       token: args.token,
     });
   }
-  protected validate(value: UserProps): void {
+  protected validate(value: UserEntityProps): void {
     // throw new Error("Method not implemented.");
   }
   get _id(): UserID {
@@ -57,6 +85,9 @@ export class UserEntity extends StructValueObject<
   }
   get id(): number {
     return this._value.id.value;
+  }
+  get uuid(): string {
+    return this._value.uuid.value;
   }
   getRawToken = (): string => this._value.token.rawValue();
 }

@@ -23,12 +23,12 @@ export const EventUpdateForm: FC<Props> = ({
   );
 
   const publish = async () => {
-    const token = user.getRawToken();
-    if (!token) {
+    const auth = user.getAuthInfo();
+    if (!auth) {
       throw new Error("forbidden");
     }
     const result = await client.event.updateEvent.mutate({
-      token: token,
+      user: auth,
       path: event.path,
       name: name,
       dates: dateList.value,

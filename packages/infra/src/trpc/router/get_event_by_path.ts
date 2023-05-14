@@ -14,7 +14,12 @@ import { GetUserOutput, GetUserInteractor } from "usecase/src/get_user";
 export const getEventByPath = publicProcedure
   .input(
     z.object({
-      token: z.string().nullable(),
+      user: z
+        .object({
+          uuid: z.string(),
+          token: z.string(),
+        })
+        .nullable(),
       path: z.string(),
     })
   )
@@ -31,8 +36,8 @@ export const getEventByPath = publicProcedure
       },
     });
     const getUser = container.resolve(GetUserInteractor);
-    if (input.token) {
-      await getUser.handle({ token: input.token });
+    if (input.user) {
+      await getUser.handle({ uuid: input.user.uuid, token: input.user.token });
       if (!user) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }

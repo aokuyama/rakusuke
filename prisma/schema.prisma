@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.1.x"]
 }
 
@@ -13,7 +13,8 @@ datasource db {
 
 model user {
   id           Int     @id @default(autoincrement())
-  token_digest String  @unique
+  uuid         String  @unique
+  token_digest String
   events       event[]
 }
 

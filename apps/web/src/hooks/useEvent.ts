@@ -35,7 +35,7 @@ const loadEvent = async (
     return null;
   }
   const result = await client.event.getEventByPath.query({
-    token: storage.getUser().getRawToken(),
+    user: storage.getUser().getAuthInfo(),
     path: path,
   });
   if (result.event === undefined) {

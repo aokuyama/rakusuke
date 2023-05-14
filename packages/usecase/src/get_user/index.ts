@@ -2,6 +2,7 @@ import { UserEntity } from "domain/src/model/user";
 export * from "./interactor";
 
 export type GetUserInput = {
+  uuid: string;
   token: string;
 };
 

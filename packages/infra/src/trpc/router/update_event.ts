@@ -14,7 +14,10 @@ import { UserEntity } from "domain/src/model/user";
 export const updateEvent = publicProcedure
   .input(
     z.object({
-      token: z.string(),
+      user: z.object({
+        uuid: z.string(),
+        token: z.string(),
+      }),
       path: z.string(),
       name: z.string(),
       dates: z.array(z.string()),
@@ -32,7 +35,7 @@ export const updateEvent = publicProcedure
       },
     });
     const getUser = container.resolve(GetUserInteractor);
-    await getUser.handle({ token: input.token });
+    await getUser.handle({ uuid: input.user.uuid, token: input.user.token });
     if (!user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }

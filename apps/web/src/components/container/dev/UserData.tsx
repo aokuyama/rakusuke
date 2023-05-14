@@ -6,9 +6,5 @@ interface Props {
 }
 
 export const UserData: FC<Props> = ({ user }) => {
-  return (
-    <div suppressHydrationWarning={true}>
-      user: {user.getRawToken() ? user.getRawToken() : "guest"}
-    </div>
-  );
+  return <div suppressHydrationWarning={true}>user: {user.getDebugInfo()}</div>;
 };

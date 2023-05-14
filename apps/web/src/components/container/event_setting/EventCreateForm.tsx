@@ -10,7 +10,13 @@ import { Site } from "@/registry";
 
 interface Props {
   user: User;
-  eventCreatedHandler: (args: { path: string; token: string }) => void;
+  eventCreatedHandler: (args: {
+    path: string;
+    user: {
+      uuid: string;
+      token: string;
+    };
+  }) => void;
 }
 
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
@@ -21,7 +27,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
 
   const publish = async () => {
     const result = await client.event.createEvent.mutate({
-      token: user.getRawToken(),
+      user: user.getAuthInfo(),
       name: name,
       dates: dateList.value,
     });

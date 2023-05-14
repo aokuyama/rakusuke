@@ -1,16 +1,14 @@
-import { UserToken, User } from "domain/src/model/user";
-import { tokenToUser } from "domain/src/service/user";
+import { unregisteredUser, User, RegisteredUser } from "domain/src/model/user";
 
 export class LocalStorage {
-  getUser = (): User => tokenToUser(this.getUserToken());
-  private getUserToken = (): UserToken | null => {
+  getUser = (): User => {
     if (typeof window === "undefined") {
-      return null;
+      return unregisteredUser;
     }
-    const token = localStorage.getItem("user");
-    return token ? new UserToken(token) : null;
+    const user = localStorage.getItem("user");
+    return user ? RegisteredUser.new(JSON.parse(user)) : unregisteredUser;
   };
-  saveUserToken = (token: UserToken) => {
-    localStorage.setItem("user", token.rawValue());
+  saveUser = (user: RegisteredUser) => {
+    localStorage.setItem("user", JSON.stringify(user.getAuthInfo()));
   };
 }
