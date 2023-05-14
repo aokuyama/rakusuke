@@ -11,8 +11,8 @@ export const Page: FC = () => {
   const eventCreatedHandler = (args: { path: string; token: string }) => {
     storage.saveUserToken(new UserToken(args.token));
     router.push({
-      pathname: "/e",
-      query: { e: args.path },
+      pathname: "/e/",
+      query: { p: args.path },
     });
   };
   const user = storage.getUser();

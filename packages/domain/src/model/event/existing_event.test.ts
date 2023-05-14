@@ -1,13 +1,11 @@
 import { UserID } from "../user";
-import { NewAttendanceList } from "./attendance";
-import { UpcomingEvent } from "./event";
 import { ExistingEvent } from "./existing_event";
 
 const eventProps = {
   id: 1,
   organizerId: 1,
   name: "EventName",
-  path: "12345678901234567890123456789012",
+  path: "1234567890123456",
   schedules: [
     { date: "2023/04/15" },
     { date: "2023/04/16" },

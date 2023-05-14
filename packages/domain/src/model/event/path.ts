@@ -1,7 +1,7 @@
 import { PrimitiveValueObject } from "../valueobject";
 import { createToken, makeHash } from "../../service/token";
 
-const length = 32;
+const length = 16;
 
 abstract class EventPathBase extends PrimitiveValueObject<string> {
   protected validate(value: string): void {

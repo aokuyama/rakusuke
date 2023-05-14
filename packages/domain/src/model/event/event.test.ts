@@ -3,7 +3,7 @@ import { UpcomingEvent } from "./event";
 
 const eventProps = {
   name: "EventName",
-  path: "12345678901234567890123456789012",
+  path: "1234567890123456",
   isOrganizer: false,
   schedules: [
     { date: "2023/04/15" },

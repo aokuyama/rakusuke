@@ -11,7 +11,7 @@ describe("イベント作成", () => {
       dates: ["2023/04/15"],
     });
     expect(event.name).toBe("EventName");
-    expect(event.path.length).toBe(32);
+    expect(event.path.length).toBe(16);
   });
 
   it("日付が空の場合失敗する", () => {

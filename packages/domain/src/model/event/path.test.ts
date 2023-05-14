@@ -1,15 +1,15 @@
 import { EventPath } from "./path";
 
 describe("イベントオブジェクト", () => {
-  it("パスは32文字", () => {
+  it("パスは16文字", () => {
     expect(() => {
-      new EventPath("1234567890123456789012345678901");
-    }).toThrow("path must be 32 characters");
+      new EventPath("1234567890123456789012345");
+    }).toThrow("path must be 16 characters");
     expect(() => {
-      new EventPath("123456789012345678901234567890123");
-    }).toThrow("path must be 32 characters");
+      new EventPath("123456789012345678901234567");
+    }).toThrow("path must be 16 characters");
     expect(() => {
       new EventPath("");
-    }).toThrow("path must be 32 characters");
+    }).toThrow("path must be 16 characters");
   });
 });

@@ -55,8 +55,8 @@ const useEventQuery = (): string | undefined => {
 
   useEffect(() => {
     if (router.isReady) {
-      const e = query.e;
-      setEventQuery(Array.isArray(e) ? e[0] : e ? e : "");
+      const path = query.p;
+      setEventQuery(Array.isArray(path) ? path[0] : path ? path : "");
     }
   }, [query, router]);
   return eventQuery;
