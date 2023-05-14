@@ -20,6 +20,7 @@ model user {
 
 model event {
   id           Int        @id @default(autoincrement())
+  uuid         String     @unique
   organizer_id Int
   path         String     @unique
   name         String

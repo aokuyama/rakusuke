@@ -9,6 +9,7 @@ export class PrismaEventRepository implements EventRepository {
     const _r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
         data: {
+          uuid: event.uuid,
           organizer_id: event.organizerId,
           name: event.name,
           path: event.hashedPath(),

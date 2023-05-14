@@ -3,8 +3,10 @@ import { EventDates } from "./date_list";
 import { EventName } from "./name";
 import { EventPath, NewEventPath } from "./path";
 import { UserID } from "../user";
+import { NewUUID } from "../uuid";
 
 interface NewEventArgs {
+  uuid: string;
   organizerId: number;
   path: string;
   name: string;
@@ -13,6 +15,7 @@ interface NewEventArgs {
 }
 
 interface NewEventProps {
+  readonly uuid: NewUUID;
   readonly organizerId: UserID;
   readonly path: NewEventPath;
   readonly name: EventName;
@@ -31,12 +34,16 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
     description?: string | undefined;
   }): NewEvent {
     return new NewEvent({
+      uuid: NewUUID.create(),
       organizerId: args.organizerId,
       path: NewEventPath.create(),
       name: new EventName(args.name),
       description: args.description,
       dates: EventDates.new(args.dates),
     });
+  }
+  get uuid(): string {
+    return this._value.uuid.value;
   }
   get organizerId(): number {
     return this._value.organizerId.value;
