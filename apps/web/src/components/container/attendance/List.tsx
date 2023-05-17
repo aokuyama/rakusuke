@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { Table } from "ui/src/components/Table";
+import { Sheet } from "ui/src/components/attendance/Sheet";
 import { EventGuest } from "domain/src/model/guest";
 
 interface Props {
@@ -11,20 +11,19 @@ interface Props {
 export const List: FC<Props> = ({ event, setTargetGuest }) => {
   const { dates, guests } = event.dateMap();
 
-  const header = dates.map((d) => {
-    return { id: d.id, name: d.date.short() };
+  const summary = dates.map((d) => {
+    return { id: d.id, name: d.date.short(), length: d.attendees.length };
   });
-  header.unshift({ id: "0", name: "" });
 
-  const dataList = guests.map((g) => {
-    const items = g.attendance.map((a) => {
+  const guestList = guests.map((g) => {
+    const attendance = g.attendance.map((a) => {
       return {
         id: a.id,
-        name: a.attend === undefined ? "" : a.attend ? "O" : "X",
+        name: a.date.md(),
+        enabled: a.attend,
       };
     });
-    items.unshift({ id: "0", name: g.name });
-    return { id: g.id, items: items };
+    return { id: g.id, name: g.name, attendance: attendance };
   });
 
   const tableTrClickIdHandler = (id: number | string) => {
@@ -39,9 +38,9 @@ export const List: FC<Props> = ({ event, setTargetGuest }) => {
 
   return (
     <>
-      <Table
-        header={header}
-        dataList={dataList}
+      <Sheet
+        summary={summary}
+        guests={guestList}
         clickIdHandler={tableTrClickIdHandler}
       />
     </>

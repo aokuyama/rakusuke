@@ -8,6 +8,7 @@ import { storage } from "@/registry";
 import { List } from "@/components/container/attendance/List";
 import { Modal } from "ui/src/components/Modal";
 import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
+import { Name } from "@/components/presenter/event/Name";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -38,7 +39,7 @@ export const Event: FC<Props> = ({
 
   return (
     <>
-      <Title>{event.name}</Title>
+      <Name name={event.name} />
       {event.isOrganizer && (
         <EventUpdateFormModal
           user={user}

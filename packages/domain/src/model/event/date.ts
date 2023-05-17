@@ -36,7 +36,8 @@ export class Date extends AbstractValueObject<globalThis.Date> {
   // TODO 良くない比較の仕方。DateのValueオブジェクト型を見直す
   equals = (value: AbstractValueObject<globalThis.Date>): boolean =>
     this.serialize() === value.serialize();
-  short = (): string => format(this.value, "M/d (E)", { locale: ja });
+  short = (): string => format(this.value, "M/d(E)", { locale: ja });
+  md = (): string => format(this.value, "M/d", { locale: ja });
 }
 
 const isInvalidDate = (date: globalThis.Date) => Number.isNaN(date.getTime());

@@ -3,11 +3,12 @@ import { AttendanceArgs, CurrentAttendanceList } from "../event/attendance";
 import { GuestNumber } from "./number";
 import { GuestName } from "./guest";
 import { Date } from "../event/date";
+import { notNull } from "../../util";
 
 export interface EventGuestDateMap {
   id: string;
   name: string;
-  attendance: { id: string; attend: boolean | undefined }[];
+  attendance: { id: string; date: Date; attend: boolean | undefined }[];
 }
 
 interface EventGuestProps {
@@ -53,7 +54,11 @@ export class EventGuest extends StructValueObject<
   getAttendance = (): CurrentAttendanceList => this._attendance;
   dateMap = (dates: Date[]): EventGuestDateMap => {
     const attendance = dates.map((date) => {
-      return { id: date.id(), attend: this.isAttendOrUndefined(date) };
+      return {
+        id: date.id(),
+        date: date,
+        attend: this.isAttendOrUndefined(date),
+      };
     });
     return {
       id: this.number.toString(),
@@ -121,4 +126,8 @@ export class EventGuestList extends ArrayValueObject<
     }
     return new EventGuestList(newList);
   };
+  attendeesByDate = (date: Date): EventGuest[] =>
+    this._value
+      .map((guest) => (guest.isAttendOrUndefined(date) ? guest : null))
+      .filter(notNull);
 }

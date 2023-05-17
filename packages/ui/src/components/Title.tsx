@@ -8,6 +8,8 @@ type Props = {
 const title = css`
   font-style: bold;
   font-size: 2rem;
+  margin: 0 auto;
+  display: block;
 `;
 
 export const Title: FC<Props> = ({ children }) => {

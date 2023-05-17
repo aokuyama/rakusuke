@@ -90,16 +90,20 @@ export class UpcomingEvent extends StructValueObject<
     );
   };
   dateMap = (): {
-    dates: { id: string; date: Date }[];
+    dates: { id: string; date: Date; attendees: { name: string }[] }[];
     guests: {
       id: string;
       name: string;
-      attendance: { id: string; attend: boolean | undefined }[];
+      attendance: { id: string; date: Date; attend: boolean | undefined }[];
     }[];
   } => {
     const _dates = this._schedules.dates();
     const dates = _dates.map((date) => {
-      return { id: date.id(), date: date };
+      return {
+        id: date.id(),
+        date: date,
+        attendees: this._guests.attendeesByDate(date),
+      };
     });
     return { dates: dates, guests: this._guests.dateMap(_dates) };
   };
