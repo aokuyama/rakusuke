@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { mainColor, white } from "../styles/color";
+import { colorSet, mainColor } from "../styles/color";
 
 type Props = {
   children: React.ReactNode;
@@ -20,16 +20,14 @@ const button = css`
   justify-content: center;
   align-items: center;
   width: 250px;
-  margin: 0 auto;
+  margin: 0 auto 12px;
   padding: 0.9em 2em;
   border: none;
   border-radius: 5px;
-  background-color: ${mainColor.default};
-  color: ${white.default};
   font-weight: 600;
   font-size: 1em;
+  ${colorSet.main}
   :hover {
     background-color: ${mainColor.brighter};
   }
-  cursor: pointer;
 `;

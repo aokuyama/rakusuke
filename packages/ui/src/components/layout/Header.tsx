@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { FC } from "react";
-import { mainColor, white } from "../../styles/color";
+import { colorSet, mainText } from "../../styles/color";
 
 type Props = {
   title: string;
@@ -19,8 +19,8 @@ export const Header: FC<Props> = ({ title, slogan }) => {
 };
 
 const style = css`
-  background-color: ${mainColor.default};
   padding: 8px 0;
+  ${colorSet.main}
   h1,
   p {
     text-align: center;
@@ -28,13 +28,12 @@ const style = css`
     margin: 12px auto;
   }
   h1 {
-    color: ${white.default};
     font-family: RocknRoll One;
     font-size: 64px;
     width: 300px;
   }
   p {
-    color: ${white.lighter};
+    color: ${mainText.lighter};
     font-family: Unica One;
     width: 300px;
   }

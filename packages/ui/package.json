@@ -21,8 +21,8 @@
     "@emotion/react": "^11.10.5",
     "@types/react-calendar": "^3.9.0",
     "@uiball/loaders": "^1.2.6",
+    "destyle.css": "^4.0.0",
     "react-calendar": "^4.2.1",
-    "react-modal": "^3.16.1",
-    "sanitize.css": "^13.0.0"
+    "react-modal": "^3.16.1"
   }
 }

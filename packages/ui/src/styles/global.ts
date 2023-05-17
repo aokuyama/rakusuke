@@ -1,10 +1,9 @@
 import { css } from "@emotion/react";
-import sanitize from "sanitize.css";
-import typography from "sanitize.css/typography.css";
+import { backgroundColor, textColor } from "./color";
+import * as reset from "destyle.css";
 
 export const global = css`
-  ${sanitize}
-  ${typography}
+  ${reset}
 
   @font-face {
     font-family: RocknRoll One;
@@ -21,6 +20,8 @@ export const global = css`
   :where(:root) {
     cursor: inherit;
   }
-  * {
+  body {
+    ${textColor.default};
+    ${backgroundColor.default};
   }
 `;
