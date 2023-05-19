@@ -13,6 +13,9 @@ interface Props {
 
 export const NewSheetModal: FC<Props> = ({ event, setEvent }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const onRequestClose = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -23,13 +26,14 @@ export const NewSheetModal: FC<Props> = ({ event, setEvent }) => {
       >
         入力
       </Button>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={() => {
-          setIsOpen(false);
-        }}
-      >
-        <NewSheet event={event} setEvent={setEvent} />
+      <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
+        <NewSheet
+          event={event}
+          eventUpdatedHandler={(e) => {
+            setEvent(e);
+            onRequestClose();
+          }}
+        />
       </Modal>
     </>
   );

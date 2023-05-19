@@ -1,13 +1,12 @@
 import { FC, useState } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { UpdateSheetController } from "@/components/container/attendance/UpdateSheetController";
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
 import { List } from "@/components/container/attendance/List";
-import { Modal } from "ui/src/components/Modal";
 import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
 import { Name } from "@/components/presenter/event/Name";
+import { UpdateSheetModal } from "@/components/container/attendance/UpdateSheetModal";
 
 interface Props {
   event: UpcomingEvent | null | undefined;
@@ -58,18 +57,17 @@ export const Event: FC<Props> = ({
       )}
       <NewSheetModal event={event} setEvent={setEvent} />
       <List event={event} setTargetGuest={setTargetGuest} />
-      <Modal
-        isOpen={!!targetGuest}
-        onRequestClose={() => {
-          setTargetGuest(null);
-        }}
-      >
-        <UpdateSheetController
+      {targetGuest && (
+        <UpdateSheetModal
+          isOpen={!!targetGuest}
+          onRequestClose={() => {
+            setTargetGuest(null);
+          }}
           guest={targetGuest}
           event={event}
           setEvent={setEvent}
         />
-      </Modal>
+      )}
     </>
   );
 };

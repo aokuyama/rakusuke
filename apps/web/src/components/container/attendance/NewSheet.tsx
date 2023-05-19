@@ -7,12 +7,10 @@ import { Form } from "@/components/presenter/attendance_sheet/Form";
 
 interface Props {
   event: UpcomingEvent;
-  setEvent: React.Dispatch<
-    React.SetStateAction<UpcomingEvent | null | undefined>
-  >;
+  eventUpdatedHandler: (event: UpcomingEvent) => void;
 }
 
-export const NewSheet: FC<Props> = ({ event, setEvent }) => {
+export const NewSheet: FC<Props> = ({ event, eventUpdatedHandler }) => {
   const [name, setName] = useState<string>("");
   const [attendance, setAttendance] = useState<NewAttendanceList>(
     event.newAttendance()
@@ -25,7 +23,7 @@ export const NewSheet: FC<Props> = ({ event, setEvent }) => {
       attendance: attendance.value,
     });
     if (result.guest) {
-      setEvent(event.pushGuest(EventGuest.new(result.guest)));
+      eventUpdatedHandler(event.pushGuest(EventGuest.new(result.guest)));
     } else {
       console.error(result);
     }

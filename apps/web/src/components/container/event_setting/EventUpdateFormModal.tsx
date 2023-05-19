@@ -25,7 +25,10 @@ export const EventUpdateFormModal: FC<Props> = ({
         <EventUpdateForm
           user={user}
           event={event}
-          eventUpdatedHandler={eventUpdatedHandler}
+          eventUpdatedHandler={(e) => {
+            eventUpdatedHandler(e);
+            onRequestClose();
+          }}
         />
       </Modal>
     </>
