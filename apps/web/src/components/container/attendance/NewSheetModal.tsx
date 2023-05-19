@@ -21,7 +21,7 @@ export const NewSheetModal: FC<Props> = ({ event, setEvent }) => {
           setIsOpen(true);
         }}
       >
-        参加する！
+        入力
       </Button>
       <Modal
         isOpen={isOpen}

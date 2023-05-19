@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Calendar as ReactCalendar } from "react-calendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
-import { css, Global, SerializedStyles } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import { mainColor } from "../styles/color";
 import { format } from "date-fns";
 
@@ -11,7 +11,6 @@ type Props = {
   onChangeFunc: OnChangeFunc | undefined;
   minDate?: Date;
   maxDate?: Date;
-  style?: SerializedStyles;
 };
 
 export const MultiSelectCalendar: FC<Props> = ({
@@ -20,23 +19,15 @@ export const MultiSelectCalendar: FC<Props> = ({
   onChangeFunc,
   minDate,
   maxDate,
-  style,
 }) => {
-  const cssList = selectedDates.map((date) => {
-    const label = dateLabelFormat(undefined, date);
-    return css`
-      button:has(abbr[aria-label="${label}"]) {
-        background-color: ${mainColor.default};
-      }
-    `;
-  });
-  cssList.push(calendar);
-
+  const cssList = selectedDates.map((date) =>
+    selected(dateLabelFormat(undefined, date))
+  );
   return (
     <>
       <Global styles={styles} />
       <ReactCalendar
-        css={[cssList, style]}
+        css={cssList}
         locale={locale}
         onClickDay={onChangeFunc}
         defaultActiveStartDate={minDate}
@@ -53,9 +44,9 @@ export const MultiSelectCalendar: FC<Props> = ({
 const dateLabelFormat = (_locale: string | undefined, date: Date): string =>
   format(date, "yyyyMMdd");
 
-const calendar = css`
-  .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {
-    color: #00f;
+const selected = (label: string) => css`
+  button:has(abbr[aria-label="${label}"]) {
+    background-color: ${mainColor.default};
   }
 `;
 
@@ -109,6 +100,7 @@ const styles = css`
 
   .react-calendar__navigation button {
     min-width: 44px;
+    text-align: center;
   }
 
   .react-calendar__navigation__arrow button:disabled {
@@ -118,8 +110,6 @@ const styles = css`
   }
 
   .react-calendar__navigation__label {
-    background-color: #fff;
-    color: #000;
     cursor: inherit;
   }
 
@@ -187,5 +177,9 @@ const styles = css`
 
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: ${mainColor.lighter};
+  }
+
+  .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {
+    color: #00f;
   }
 `;

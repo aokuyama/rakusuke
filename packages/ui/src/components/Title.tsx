@@ -7,9 +7,9 @@ type Props = {
 
 const title = css`
   font-style: bold;
-  font-size: 2rem;
   margin: 0 auto;
-  display: block;
+  display: inline-block;
+  width: ${480 - 32}px;
 `;
 
 export const Title: FC<Props> = ({ children }) => {

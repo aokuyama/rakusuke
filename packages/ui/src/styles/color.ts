@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 
 export const mainColor = {
-  default: "#FFA500",
-  brighter: "#FFB74D",
-  lighter: "#FFC878",
-  darker: "#FF8F00",
-  saturated: "#FF7F00",
+  default: "#ffa500",
+  brighter: "#ffb74d",
+  lighter: "#ffc878",
+  darker: "#ff8f00",
+  saturated: "#ff7f00",
 };
 
 export const mainText = {
@@ -22,26 +22,35 @@ export const dayOfWeek = {
   sunday: "#f00",
 };
 
+export const white = {
+  default: "#fff",
+  light: "#aaa",
+};
+export const black = {
+  default: "#222",
+  light: "#888",
+};
+
 export const textColor = {
   default: css`
-    color: #222;
+    color: ${black.default};
     @media (prefers-color-scheme: dark) {
-      color: #fff;
+      color: ${white.default};
     }
   `,
   sub: css`
-    color: #888;
+    color: ${black.light};
     @media (prefers-color-scheme: dark) {
-      color: #aaa;
+      color: ${white.light};
     }
   `,
 };
 
 export const backgroundColor = {
   default: css`
-    background-color: #fff;
+    background-color: ${white.default};
     @media (prefers-color-scheme: dark) {
-      background-color: #222;
+      background-color: ${black.default};
     }
   `,
 };

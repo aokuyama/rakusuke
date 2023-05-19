@@ -1,6 +1,5 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { Title } from "ui/src/components/Title";
 import { UpdateSheetController } from "@/components/container/attendance/UpdateSheetController";
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
@@ -25,6 +24,7 @@ export const Event: FC<Props> = ({
   targetGuest,
   setTargetGuest,
 }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   if (event === undefined) {
     return null;
   }
@@ -39,16 +39,25 @@ export const Event: FC<Props> = ({
 
   return (
     <>
-      <Name name={event.name} />
+      <Name
+        name={event.name}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      />
       {event.isOrganizer && (
         <EventUpdateFormModal
+          isOpen={isOpen}
+          onRequestClose={() => {
+            setIsOpen(false);
+          }}
           user={user}
           event={event}
           eventUpdatedHandler={eventUpdatedHandler}
         />
       )}
-      <List event={event} setTargetGuest={setTargetGuest} />
       <NewSheetModal event={event} setEvent={setEvent} />
+      <List event={event} setTargetGuest={setTargetGuest} />
       <Modal
         isOpen={!!targetGuest}
         onRequestClose={() => {

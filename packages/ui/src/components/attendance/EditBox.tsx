@@ -1,8 +1,9 @@
 import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
-import { colorSet, mainColor, mainText } from "../../styles/color";
+import { mainColor } from "../../styles/color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { EditButton } from "../EditButton";
 
 type Props = {
   name: ReactNode;
@@ -21,14 +22,11 @@ export const EditBox: FC<Props> = ({ name, button, children }) => {
         <span>{name}</span>
         <div>
           {button && (
-            <button
-              css={editButton}
+            <EditButton
               onClick={() => {
                 button.clickIdHandler(button.id);
               }}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} width={20} />
-            </button>
+            />
           )}
         </div>
       </div>
@@ -49,8 +47,7 @@ const titleStyle = css`
   justify-content: center;
   align-items: center;
   padding: 0;
-  ${colorSet.main}
-  font-weight: 600;
+  border-bottom: 1px solid ${mainColor.lighter};
   div {
     display: inline-block;
     width: 32px;
@@ -65,9 +62,4 @@ const titleStyle = css`
 const contentStyle = css`
   margin: 0;
   padding: 16px;
-`;
-const editButton = css`
-  border: none;
-  background: none;
-  color: ${mainText.default};
 `;
