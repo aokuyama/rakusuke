@@ -41,6 +41,7 @@ const reactModalStyle = {
     padding: "0 1rem 1rem",
     width: "480px",
     margin: "auto",
+    overflow: "scroll",
   },
 } as const;
 
