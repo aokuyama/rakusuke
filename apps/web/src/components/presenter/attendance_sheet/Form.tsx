@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Item, YesOrNoList } from "ui/src/components/YesOrNoList";
+import { Item, ToggleList } from "ui/src/components/ToggleList";
 import { TextBox } from "ui/src/components/TextBox";
 import { Button } from "ui/src/components/Button";
 
@@ -23,7 +23,7 @@ export const Form: FC<Props> = ({
   return (
     <>
       <TextBox value={name} setValue={setName} />
-      <YesOrNoList items={items} onChangeCallback={onCheckListChangeCallback} />
+      <ToggleList items={items} onChangeCallback={onCheckListChangeCallback} />
       <Button
         onClick={() => {
           onClick();

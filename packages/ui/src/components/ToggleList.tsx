@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { YesOrNo } from "./YesOrNo";
+import { Toggle } from "./Toggle";
 import { backgroundColor, mainColor } from "../styles/color";
 
 export type Item = {
@@ -14,7 +14,7 @@ type Props = {
   onChangeCallback?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const YesOrNoList: FC<Props> = ({ items, onChangeCallback }) => {
+export const ToggleList: FC<Props> = ({ items, onChangeCallback }) => {
   const onChange = onChangeCallback
     ? (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target) {
@@ -29,11 +29,7 @@ export const YesOrNoList: FC<Props> = ({ items, onChangeCallback }) => {
         return (
           <li key={item.id}>
             <div>{item.name}</div>
-            <YesOrNo
-              name={item.id}
-              checked={item.checked}
-              onChange={onChange}
-            />
+            <Toggle name={item.id} checked={item.checked} onChange={onChange} />
           </li>
         );
       })}

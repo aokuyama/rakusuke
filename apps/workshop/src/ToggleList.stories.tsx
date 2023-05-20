@@ -1,19 +1,19 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { YesOrNoList } from "ui/src/components/YesOrNoList";
+import { ToggleList } from "ui/src/components/ToggleList";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
 export default {
-  title: "Basic/YesOrNoList",
-  component: YesOrNoList,
+  title: "Basic/ToggleList",
+  component: ToggleList,
   argTypes: {
     backgroundColor: { control: "color" },
   },
-} as Meta<typeof YesOrNoList>;
+} as Meta<typeof ToggleList>;
 
-export type YesOrNoList = StoryObj<typeof YesOrNoList>;
+export type ToggleList = StoryObj<typeof ToggleList>;
 
-export const Default: YesOrNoList = {
+export const Default: ToggleList = {
   args: {
     items: [
       { id: "1", name: "2023/05/01", checked: false },
