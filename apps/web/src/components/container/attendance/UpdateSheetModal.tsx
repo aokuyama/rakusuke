@@ -10,17 +10,20 @@ interface Props {
     React.SetStateAction<UpcomingEvent | null | undefined>
   >;
   guest: EventGuest;
-  isOpen: boolean;
-  onRequestClose: () => void;
+  setGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
 export const UpdateSheetModal: FC<Props> = ({
   event,
   setEvent,
   guest,
-  isOpen,
-  onRequestClose,
+  setGuest,
 }) => {
+  const isOpen = !!guest;
+  const onRequestClose = () => {
+    setGuest(null);
+  };
+
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <UpdateSheet

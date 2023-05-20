@@ -5,14 +5,14 @@ import { EditButton } from "ui/src/components/EditButton";
 
 interface Props {
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-export const Name: FC<Props> = ({ name, onClick }) => {
+export const Overview: FC<Props> = ({ name, onClick }) => {
   return (
     <div css={styles}>
       <Title>{name}</Title>
-      <EditButton onClick={onClick} />
+      {onClick && <EditButton onClick={onClick} />}
     </div>
   );
 };

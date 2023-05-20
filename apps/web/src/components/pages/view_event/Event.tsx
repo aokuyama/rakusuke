@@ -3,9 +3,9 @@ import { UpcomingEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
-import { List } from "@/components/container/attendance/List";
+import { Body } from "@/components/container/attendance/Body";
 import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
-import { Name } from "@/components/presenter/event/Name";
+import { Overview } from "@/components/presenter/event/Overview";
 import { UpdateSheetModal } from "@/components/container/attendance/UpdateSheetModal";
 
 interface Props {
@@ -23,7 +23,9 @@ export const Event: FC<Props> = ({
   targetGuest,
   setTargetGuest,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isNewGuestFormOpen, setIsNewGuestFormOpen] = useState<boolean>(false);
+  const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
+    useState<boolean>(false);
   if (event === undefined) {
     return null;
   }
@@ -38,32 +40,46 @@ export const Event: FC<Props> = ({
 
   return (
     <>
-      <Name
+      <Overview
         name={event.name}
-        onClick={() => {
-          setIsOpen(true);
+        onClick={
+          event.isOrganizer
+            ? () => {
+                setIsEventUpdateFormOpen(true);
+              }
+            : undefined
+        }
+      />
+      <Body
+        event={event}
+        setTargetGuest={setTargetGuest}
+        onJoinHandler={() => {
+          setIsNewGuestFormOpen(true);
         }}
       />
       {event.isOrganizer && (
         <EventUpdateFormModal
-          isOpen={isOpen}
+          isOpen={isEventUpdateFormOpen}
           onRequestClose={() => {
-            setIsOpen(false);
+            setIsEventUpdateFormOpen(false);
           }}
           user={user}
           event={event}
           eventUpdatedHandler={eventUpdatedHandler}
         />
       )}
-      <NewSheetModal event={event} setEvent={setEvent} />
-      <List event={event} setTargetGuest={setTargetGuest} />
+      <NewSheetModal
+        isOpen={isNewGuestFormOpen}
+        onRequestClose={() => {
+          setIsNewGuestFormOpen(false);
+        }}
+        event={event}
+        setEvent={setEvent}
+      />
       {targetGuest && (
         <UpdateSheetModal
-          isOpen={!!targetGuest}
-          onRequestClose={() => {
-            setTargetGuest(null);
-          }}
           guest={targetGuest}
+          setGuest={setTargetGuest}
           event={event}
           setEvent={setEvent}
         />

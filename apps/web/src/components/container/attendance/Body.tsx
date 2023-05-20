@@ -6,9 +6,10 @@ import { EventGuest } from "domain/src/model/guest";
 interface Props {
   event: UpcomingEvent;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
+  onJoinHandler: () => void;
 }
 
-export const List: FC<Props> = ({ event, setTargetGuest }) => {
+export const Body: FC<Props> = ({ event, setTargetGuest, onJoinHandler }) => {
   const { dates, guests } = event.dateMap();
 
   const summary = dates.map((d) => {
@@ -42,6 +43,7 @@ export const List: FC<Props> = ({ event, setTargetGuest }) => {
         summary={summary}
         guests={guestList}
         clickIdHandler={tableTrClickIdHandler}
+        onJoinHandler={onJoinHandler}
       />
     </>
   );
