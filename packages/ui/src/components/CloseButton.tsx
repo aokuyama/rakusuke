@@ -18,5 +18,5 @@ export const CloseButton: FC<Props> = ({ onClick }) => {
 
 const styles = css`
   display: inline-block;
-  ${textColor.sub}
+  ${textColor.disabled}
 `;

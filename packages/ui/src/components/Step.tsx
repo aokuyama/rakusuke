@@ -11,4 +11,7 @@ export const Step: FC<Props> = ({ children }) => {
 
 const styles = css`
   display: flex;
+  margin: 0 auto 16px;
+  max-width: 100%;
+  width: 480px;
 `;

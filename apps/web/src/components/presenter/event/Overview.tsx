@@ -1,24 +1,18 @@
 import { FC } from "react";
-import { Title } from "ui/src/components/Title";
-import { css } from "@emotion/react";
-import { EditButton } from "ui/src/components/EditButton";
+import { EditBox } from "ui/src/components/attendance/EditBox";
+import { Item, Summary } from "ui/src/components/attendance/Summary";
 
 interface Props {
   name: string;
+  summary: Item[];
   onClick?: () => void;
 }
 
-export const Overview: FC<Props> = ({ name, onClick }) => {
+export const Overview: FC<Props> = ({ name, summary, onClick }) => {
+  const button = onClick ? { clickHandler: onClick } : undefined;
   return (
-    <div css={styles}>
-      <Title>{name}</Title>
-      {onClick && <EditButton onClick={onClick} />}
-    </div>
+    <EditBox name={name} button={button}>
+      <Summary summary={summary} />
+    </EditBox>
   );
 };
-
-const styles = css`
-  margin: 16px auto;
-  width: 480px;
-  text-align: center;
-`;

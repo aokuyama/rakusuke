@@ -23,6 +23,7 @@ export const Calendar: FC<Props> = ({ dateList, onChangeFunc }) => {
 
 const styles = css`
   & > div {
-    margin: 0 auto;
+    margin: 0 auto 16px;
+    border-radius: 3px;
   }
 `;

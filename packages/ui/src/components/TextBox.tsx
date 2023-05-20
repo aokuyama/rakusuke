@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
+import { backgroundColor } from "../styles/color";
 
 type Props = {
   label?: string;
@@ -19,7 +20,7 @@ export const TextBox: FC<Props> = ({ label, placeholder, value, setValue }) => {
     : undefined;
 
   return (
-    <label>
+    <label css={styles}>
       <span css={labelStyle}>{label}</span>
       <input
         type="text"
@@ -32,7 +33,15 @@ export const TextBox: FC<Props> = ({ label, placeholder, value, setValue }) => {
   );
 };
 
+const styles = css`
+  display: block;
+  width: 480px;
+  max-width: 100%;
+  margin: 0 auto 16px;
+`;
+
 const textbox = css`
+  ${backgroundColor.default};
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #969da3;

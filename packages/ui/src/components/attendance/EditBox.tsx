@@ -1,15 +1,12 @@
 import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
-import { mainColor } from "../../styles/color";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { backgroundColor } from "../../styles/color";
 import { EditButton } from "../EditButton";
 
 type Props = {
   name: ReactNode;
   button?: {
-    id: string;
-    clickIdHandler: (id: string | number) => void;
+    clickHandler: () => void;
   };
   children: React.ReactNode;
 };
@@ -20,15 +17,7 @@ export const EditBox: FC<Props> = ({ name, button, children }) => {
       <div css={titleStyle}>
         <div />
         <span>{name}</span>
-        <div>
-          {button && (
-            <EditButton
-              onClick={() => {
-                button.clickIdHandler(button.id);
-              }}
-            />
-          )}
-        </div>
+        <div>{button && <EditButton onClick={button.clickHandler} />}</div>
       </div>
       <div css={contentStyle}>{children}</div>
     </div>
@@ -38,8 +27,8 @@ export const EditBox: FC<Props> = ({ name, button, children }) => {
 const boxStyle = css`
   width: 480px;
   margin: 0 auto 16px;
-  border: 2px solid ${mainColor.default};
   border-radius: 3px;
+  ${backgroundColor.default}
 `;
 const titleStyle = css`
   margin: 0;
@@ -47,7 +36,6 @@ const titleStyle = css`
   justify-content: center;
   align-items: center;
   padding: 0;
-  border-bottom: 1px solid ${mainColor.lighter};
   div {
     display: inline-block;
     width: 32px;

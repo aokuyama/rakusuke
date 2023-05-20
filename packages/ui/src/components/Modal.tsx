@@ -34,17 +34,19 @@ const reactModalStyle = {
   },
   content: {
     position: "absolute",
-    top: "40px",
-    left: "40px",
-    right: "40px",
-    bottom: "40px",
+    top: "20px",
+    bottom: "20px",
+    left: 0,
+    right: 0,
     padding: "0 1rem 1rem",
+    width: "480px",
+    margin: "auto",
   },
 } as const;
 
 const modalStyles = css`
   ${textColor.default};
-  ${backgroundColor.default};
+  ${backgroundColor.background};
 `;
 
 const buttonStyles = css`

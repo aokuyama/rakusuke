@@ -37,11 +37,28 @@ export const Event: FC<Props> = ({
   const eventUpdatedHandler = (event: UpcomingEvent) => {
     setEvent(event);
   };
+  const { dates, guests } = event.dateMap();
+
+  const summary = dates.map((d) => {
+    return { id: d.id, name: d.date.short(), length: d.attendees.length };
+  });
+
+  const guestList = guests.map((g) => {
+    const attendance = g.attendance.map((a) => {
+      return {
+        id: a.id,
+        name: a.date.md(),
+        enabled: a.attend,
+      };
+    });
+    return { id: g.id, name: g.name, attendance: attendance };
+  });
 
   return (
     <>
       <Overview
         name={event.name}
+        summary={summary}
         onClick={
           event.isOrganizer
             ? () => {
@@ -51,6 +68,7 @@ export const Event: FC<Props> = ({
         }
       />
       <Body
+        guests={guestList}
         event={event}
         setTargetGuest={setTargetGuest}
         onJoinHandler={() => {

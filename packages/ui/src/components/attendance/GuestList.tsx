@@ -28,8 +28,9 @@ export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
             key={guest.id}
             name={guest.name}
             button={{
-              id: guest.id,
-              clickIdHandler: clickIdHandler,
+              clickHandler: () => {
+                clickIdHandler(guest.id);
+              },
             }}
           >
             <CheckList items={guest.attendance} />

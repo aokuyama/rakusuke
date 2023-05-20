@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { mainColor } from "../styles/color";
+import { backgroundColor, mainColor } from "../styles/color";
 
 export type Item = { id: string | number; name: string };
 
@@ -19,9 +19,12 @@ export const List: FC<Props> = ({ items }) => {
 };
 
 const list = css`
-  list-style-type: none;
   padding: 1em;
-  border: 2px solid ${mainColor.brighter};
+  border-radius: 3px;
+  ${backgroundColor.default};
+  margin: 0 auto 16px;
+  max-width: 100%;
+  width: 480px;
 
   li {
     display: flex;

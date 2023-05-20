@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
-import { mainColor } from "../../styles/color";
+import { backgroundColor, mainColor } from "../../styles/color";
 
 type Props = {
   children: ReactNode;
@@ -17,8 +17,8 @@ export const Box: FC<Props> = ({ children }) => {
 const boxStyle = css`
   width: 480px;
   margin: 0 auto 16px;
-  border: 2px solid ${mainColor.default};
   border-radius: 3px;
+  ${backgroundColor.default}
 `;
 
 const contentStyle = css`

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Calendar as ReactCalendar } from "react-calendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css, Global } from "@emotion/react";
-import { mainColor } from "../styles/color";
+import { backgroundColor, mainColor } from "../styles/color";
 import { format } from "date-fns";
 
 type Props = {
@@ -52,11 +52,11 @@ const selected = (label: string) => css`
 
 const styles = css`
   .react-calendar {
-    width: 350px;
+    width: 480px;
     max-width: 100%;
-    border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
+    ${backgroundColor.default};
   }
 
   .react-calendar--doubleView {

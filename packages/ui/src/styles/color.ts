@@ -24,11 +24,13 @@ export const dayOfWeek = {
 
 export const white = {
   default: "#fff",
-  light: "#aaa",
+  background: "#eee",
+  disabled: "#999",
 };
 export const black = {
   default: "#222",
-  light: "#888",
+  background: "#333",
+  disabled: "#999",
 };
 
 export const textColor = {
@@ -38,10 +40,10 @@ export const textColor = {
       color: ${white.default};
     }
   `,
-  sub: css`
-    color: ${black.light};
+  disabled: css`
+    color: ${black.disabled};
     @media (prefers-color-scheme: dark) {
-      color: ${white.light};
+      color: ${white.disabled};
     }
   `,
 };
@@ -51,6 +53,12 @@ export const backgroundColor = {
     background-color: ${white.default};
     @media (prefers-color-scheme: dark) {
       background-color: ${black.default};
+    }
+  `,
+  background: css`
+    background-color: ${white.background};
+    @media (prefers-color-scheme: dark) {
+      background-color: ${black.background};
     }
   `,
 };

@@ -37,7 +37,7 @@ const styles = css`
     width: 16px;
   }
   li:not(.enable) {
-    ${textColor.sub};
+    ${textColor.disabled};
     text-decoration: line-through;
     svg {
       opacity: 0;
