@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { NewSheet } from "./NewSheet";
 import { Modal } from "ui/src/components/Modal";
 
 interface Props {
-  event: UpcomingEvent;
+  event: CurrentEvent;
   setEvent: React.Dispatch<
-    React.SetStateAction<UpcomingEvent | null | undefined>
+    React.SetStateAction<CurrentEvent | null | undefined>
   >;
   isOpen: boolean;
   onRequestClose: () => void;

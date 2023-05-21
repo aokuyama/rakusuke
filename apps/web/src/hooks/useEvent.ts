@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { client } from "infra/src/client/trpc";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { storage } from "@/registry";
 import { useRouter } from "next/router";
 
 export const useEvent = (): {
-  event: UpcomingEvent | null | undefined;
+  event: CurrentEvent | null | undefined;
   setEvent: React.Dispatch<
-    React.SetStateAction<UpcomingEvent | null | undefined>
+    React.SetStateAction<CurrentEvent | null | undefined>
   >;
 } => {
-  const [event, setEvent] = useState<UpcomingEvent | null | undefined>(
+  const [event, setEvent] = useState<CurrentEvent | null | undefined>(
     undefined
   );
 
@@ -30,7 +30,7 @@ export const useEvent = (): {
 
 const loadEvent = async (
   path: string
-): Promise<UpcomingEvent | null | undefined> => {
+): Promise<CurrentEvent | null | undefined> => {
   if (path.length == 0) {
     return null;
   }
@@ -45,7 +45,7 @@ const loadEvent = async (
     return null;
   }
 
-  return UpcomingEvent.new(result.event);
+  return CurrentEvent.new(result.event);
 };
 
 const useEventQuery = (): string | undefined => {

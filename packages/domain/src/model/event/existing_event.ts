@@ -6,7 +6,7 @@ import { EventPath } from "./path";
 import { Schedules } from "./schedule";
 import { UpdateEvent } from "./update_event";
 import { Date } from "./date";
-import { UpcomingEvent } from "./event";
+import { CurrentEvent } from "./event";
 
 export interface ExistingEventArgs {
   id: number;
@@ -95,8 +95,8 @@ export class ExistingEvent extends StructValueObject<
       removedDates: removedDates,
     };
   };
-  toFront = (id: UserID | null): UpcomingEvent =>
-    new UpcomingEvent({
+  toFront = (id: UserID | null): CurrentEvent =>
+    new CurrentEvent({
       name: this._name,
       path: this._path,
       isOrganizer: id ? this.isOrganizer(id) : false,

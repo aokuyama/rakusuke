@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { Modal } from "ui/src/components/Modal";
 import { EventGuest } from "domain/src/model/guest";
 import { UpdateSheet } from "./UpdateSheet";
 
 interface Props {
-  event: UpcomingEvent;
+  event: CurrentEvent;
   setEvent: React.Dispatch<
-    React.SetStateAction<UpcomingEvent | null | undefined>
+    React.SetStateAction<CurrentEvent | null | undefined>
   >;
   guest: EventGuest;
   setGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;

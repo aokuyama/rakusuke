@@ -7,7 +7,7 @@ import {
 import { GetUserInteractor, GetUserOutput } from "usecase/src/get_user";
 import z from "zod";
 import { publicProcedure } from "../";
-import { ExistingEvent, UpcomingEventArgs } from "domain/src/model/event";
+import { ExistingEvent, CurrentEventArgs } from "domain/src/model/event";
 import { TRPCError } from "@trpc/server";
 import { UserEntity } from "domain/src/model/user";
 import { eventUpdateSchema } from "../../client/trpc/validation/event";
@@ -20,7 +20,7 @@ export const updateEvent = publicProcedure
       event: eventUpdateSchema,
     })
   )
-  .mutation(async (opts): Promise<{ event: UpcomingEventArgs | null }> => {
+  .mutation(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
     const { input } = opts;
     let user: UserEntity | null | undefined;
 

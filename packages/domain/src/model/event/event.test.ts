@@ -1,5 +1,5 @@
 import { NewAttendanceList } from "./attendance";
-import { UpcomingEvent } from "./event";
+import { CurrentEvent } from "./event";
 
 const eventProps = {
   name: "EventName",
@@ -16,14 +16,14 @@ const eventProps = {
 
 describe("イベント作成", () => {
   it("イベントが正しく作成でき、シリアライズできる", () => {
-    const event = UpcomingEvent.new(eventProps);
+    const event = CurrentEvent.new(eventProps);
     expect(event.serialize()).toStrictEqual(eventProps);
   });
 });
 
 describe("チェックリスト作成", () => {
   it("スケジュールに対する出欠チェックリストを生成する", () => {
-    const event = UpcomingEvent.new(eventProps);
+    const event = CurrentEvent.new(eventProps);
     const attendance = NewAttendanceList.new([
       { date: "2023/04/15", attend: false },
       { date: "2023/04/16", attend: true },
@@ -50,7 +50,7 @@ describe("チェックリスト作成", () => {
     ]);
   });
   it("出欠リストにない場合、falseで補完する", () => {
-    const event = UpcomingEvent.new(eventProps);
+    const event = CurrentEvent.new(eventProps);
     const attendance = NewAttendanceList.new([
       { date: "2023/04/15", attend: true },
       { date: "2023/04/17", attend: false },

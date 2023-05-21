@@ -4,7 +4,7 @@ import {
   GetEventByPathInteractor,
   GetEventByPathOutput,
 } from "usecase/src/get_event_by_path";
-import { ExistingEvent, UpcomingEventArgs } from "domain/src/model/event";
+import { ExistingEvent, CurrentEventArgs } from "domain/src/model/event";
 import z from "zod";
 import { publicProcedure } from "../";
 import { UserEntity } from "domain/src/model/user";
@@ -23,7 +23,7 @@ export const getEventByPath = publicProcedure
       path: z.string(),
     })
   )
-  .query(async (opts): Promise<{ event: UpcomingEventArgs | null }> => {
+  .query(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
     const { input } = opts;
 
     let user: UserEntity | null | undefined;

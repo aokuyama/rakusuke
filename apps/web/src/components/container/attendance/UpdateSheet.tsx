@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
 import { Form } from "@/components/presenter/attendance_sheet/Form";
@@ -10,8 +10,8 @@ import {
 
 interface Props {
   guest: EventGuest;
-  event: UpcomingEvent;
-  eventUpdatedHandler: (event: UpcomingEvent) => void;
+  event: CurrentEvent;
+  eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
 export const UpdateSheet: FC<Props> = ({

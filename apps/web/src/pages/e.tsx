@@ -1,7 +1,7 @@
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC, useState } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { Page } from "@/components/pages/view_event/Page";
 import { EventGuest } from "domain/src/model/guest";
 import { Site } from "@/registry";
@@ -31,7 +31,7 @@ export const Schedule: FC = () => {
 
 export default Schedule;
 
-const title = (event: UpcomingEvent | null | undefined): string => {
+const title = (event: CurrentEvent | null | undefined): string => {
   if (event) {
     return event.name + " はいつがいいですか？ by " + Site.name;
   }

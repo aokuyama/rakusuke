@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { guestCreateSchema } from "infra/src/client/trpc/validation/guest";
 import { EventGuest } from "domain/src/model/guest";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 
 export const useGuestForm = (def?: {
-  event: UpcomingEvent;
+  event: CurrentEvent;
   guest: EventGuest;
 }) => {
   const defaultValues = def

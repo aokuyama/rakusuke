@@ -6,7 +6,7 @@ import { EventPath } from "./path";
 import { Schedules } from "./schedule";
 import { Date } from "./date";
 
-export interface UpcomingEventArgs {
+export interface CurrentEventArgs {
   path: string;
   name: string;
   readonly isOrganizer: boolean;
@@ -15,7 +15,7 @@ export interface UpcomingEventArgs {
   description?: string | undefined;
 }
 
-interface UpcomingEventProps {
+interface CurrentEventProps {
   readonly path: EventPath;
   readonly name: EventName;
   readonly description: string | undefined;
@@ -24,15 +24,15 @@ interface UpcomingEventProps {
   readonly guests: EventGuestList;
 }
 
-export class UpcomingEvent extends StructValueObject<
-  UpcomingEventProps,
-  UpcomingEventArgs
+export class CurrentEvent extends StructValueObject<
+  CurrentEventProps,
+  CurrentEventArgs
 > {
-  protected validate(value: UpcomingEventProps): void {
+  protected validate(value: CurrentEventProps): void {
     // throw new Error("Method not implemented.");
   }
-  static new(args: UpcomingEventArgs): UpcomingEvent {
-    return new UpcomingEvent({
+  static new(args: CurrentEventArgs): CurrentEvent {
+    return new CurrentEvent({
       name: new EventName(args.name),
       path: new EventPath(args.path),
       isOrganizer: args.isOrganizer,
@@ -106,8 +106,8 @@ export class UpcomingEvent extends StructValueObject<
     });
     return { dates: dates, guests: this._guests.dateMap(_dates) };
   };
-  pushGuest = (guest: EventGuest): UpcomingEvent => {
-    return new UpcomingEvent({
+  pushGuest = (guest: EventGuest): CurrentEvent => {
+    return new CurrentEvent({
       name: this._name,
       path: this._path,
       isOrganizer: this._isOrganizer,
@@ -116,8 +116,8 @@ export class UpcomingEvent extends StructValueObject<
       description: this._value.description,
     });
   };
-  replaceGuest = (guest: EventGuest): UpcomingEvent => {
-    return new UpcomingEvent({
+  replaceGuest = (guest: EventGuest): CurrentEvent => {
+    return new CurrentEvent({
       name: this._name,
       path: this._path,
       isOrganizer: this._isOrganizer,

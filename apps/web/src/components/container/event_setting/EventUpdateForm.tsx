@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { DatePicker } from "./DatePicker";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
 import { ErrorMessage } from "@hookform/error-message";
@@ -10,8 +10,8 @@ import { Submit } from "ui/src/components/Submit";
 
 interface Props {
   user: User;
-  event: UpcomingEvent;
-  eventUpdatedHandler: (event: UpcomingEvent) => void;
+  event: CurrentEvent;
+  eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
 export const EventUpdateForm: FC<Props> = ({
@@ -29,7 +29,7 @@ export const EventUpdateForm: FC<Props> = ({
       event: Object.assign(e, { path: event.path }),
     });
     if (result.event) {
-      eventUpdatedHandler(UpcomingEvent.new(result.event));
+      eventUpdatedHandler(CurrentEvent.new(result.event));
     } else {
       console.error(result);
     }

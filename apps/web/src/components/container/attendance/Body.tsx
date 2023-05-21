@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { Sheet } from "ui/src/components/attendance/Sheet";
 import { EventGuest } from "domain/src/model/guest";
 import { Guest } from "ui/src/components/attendance/GuestList";
 
 interface Props {
   guests: Guest[];
-  event: UpcomingEvent;
+  event: CurrentEvent;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
   onJoinHandler: () => void;
 }

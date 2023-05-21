@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
@@ -9,9 +9,9 @@ import { Overview } from "@/components/presenter/event/Overview";
 import { UpdateSheetModal } from "@/components/container/attendance/UpdateSheetModal";
 
 interface Props {
-  event: UpcomingEvent | null | undefined;
+  event: CurrentEvent | null | undefined;
   setEvent: React.Dispatch<
-    React.SetStateAction<UpcomingEvent | null | undefined>
+    React.SetStateAction<CurrentEvent | null | undefined>
   >;
   targetGuest: EventGuest | null;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
@@ -34,7 +34,7 @@ export const Event: FC<Props> = ({
   }
   const user = storage.getUser();
 
-  const eventUpdatedHandler = (event: UpcomingEvent) => {
+  const eventUpdatedHandler = (event: CurrentEvent) => {
     setEvent(event);
   };
   const { dates, guests } = event.dateMap();

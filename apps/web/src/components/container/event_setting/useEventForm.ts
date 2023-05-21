@@ -2,9 +2,9 @@ import { Date } from "domain/src/model/event/date";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { eventCreateSchema } from "infra/src/client/trpc/validation/event";
-import { UpcomingEvent } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 
-export const useEventForm = (defaultEvent?: UpcomingEvent) => {
+export const useEventForm = (defaultEvent?: CurrentEvent) => {
   const defaultValues = defaultEvent
     ? {
         name: defaultEvent.name,
