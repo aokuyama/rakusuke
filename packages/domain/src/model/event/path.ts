@@ -1,12 +1,11 @@
 import { PrimitiveValueObject } from "../valueobject";
 import { createToken, makeHash } from "../../service/token";
 
-const length = 16;
-
 abstract class EventPathBase extends PrimitiveValueObject<string> {
+  static readonly LENGTH: number = 16;
   protected validate(value: string): void {
-    if (value.length != length) {
-      throw new Error("path must be " + length + " characters");
+    if (value.length != EventPathBase.LENGTH) {
+      throw new Error("path must be " + EventPathBase.LENGTH + " characters");
     }
   }
   hashed(): string {
@@ -23,7 +22,7 @@ export class EventPath extends EventPathBase {
 
 export class NewEventPath extends EventPathBase {
   static create(): NewEventPath {
-    return new NewEventPath(createToken(length));
+    return new NewEventPath(createToken(EventPathBase.LENGTH));
   }
   toExisting = (): EventPath => new EventPath(this._value);
 }

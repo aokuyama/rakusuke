@@ -2,8 +2,9 @@ import { ArrayValueObject } from "../valueobject";
 import { Date } from "./date";
 
 export class DateList extends ArrayValueObject<Date, string> {
+  static readonly MAX: number = 20;
   protected limit(): number {
-    return 20;
+    return DateList.MAX;
   }
   protected validate(value: Date[]): void {
     if (value.length > this.limit()) {
@@ -18,11 +19,12 @@ export class DateList extends ArrayValueObject<Date, string> {
 }
 
 export class EventDates extends DateList {
+  static readonly MIN: number = 1;
   static new(args: string[]): EventDates {
     return new EventDates(args.map((d) => new Date(d)));
   }
   protected validate(value: Date[]): void {
-    if (value.length == 0) {
+    if (value.length < EventDates.MIN) {
       throw new Error("at least one date is required");
     }
     super.validate(value);

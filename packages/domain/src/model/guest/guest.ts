@@ -46,12 +46,14 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
 }
 
 export class GuestName extends PrimitiveValueObject<string> {
+  static readonly MIN: number = 1;
+  static readonly MAX: number = 30;
   protected validate(value: string): void {
-    if (value.length == 0) {
+    if (value.length < GuestName.MIN) {
       throw new Error("guest must have a name");
     }
-    if (value.length > 30) {
-      throw new Error("name must be 30 characters or less");
+    if (value.length > GuestName.MAX) {
+      throw new Error("name must be " + GuestName.MAX + " characters or less");
     }
   }
 }

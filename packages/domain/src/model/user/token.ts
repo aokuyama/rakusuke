@@ -1,12 +1,10 @@
 import { PrimitiveValueObject } from "../valueobject";
 import { createToken, makeHash } from "../../service/token";
 
-const length = 32;
-
 abstract class UserTokenBase extends PrimitiveValueObject<string> {
   protected validate(value: string): void {
-    if (value.length != length) {
-      throw new Error("token must be " + length + " characters");
+    if (value.length != UserToken.LENGTH) {
+      throw new Error("token must be " + UserToken.LENGTH + " characters");
     }
   }
   hashed(): string {
@@ -18,12 +16,13 @@ abstract class UserTokenBase extends PrimitiveValueObject<string> {
 }
 
 export class UserToken extends UserTokenBase {
+  static readonly LENGTH: number = 32;
   rawValue = (): string => this.value;
 }
 
 export class NewUserToken extends UserTokenBase {
   static create(): NewUserToken {
-    return new NewUserToken(createToken(length));
+    return new NewUserToken(createToken(UserToken.LENGTH));
   }
   toExisting = (): UserToken => new UserToken(this._value);
 }
