@@ -24,6 +24,7 @@ model event {
   organizer_id Int
   path_digest  String     @unique
   name         String
+  created_at   DateTime?  @default(now())
   organizer    user       @relation(fields: [organizer_id], references: [id], onDelete: Cascade)
   schedules    schedule[]
   guests       guest[]
