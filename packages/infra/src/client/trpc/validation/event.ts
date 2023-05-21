@@ -5,7 +5,8 @@ export const eventCreateSchema = z.object({
   schedule: z.array(z.object({ date: z.string() })).min(1),
 });
 
-export const userSchema = z.object({
-  uuid: z.string(),
-  token: z.string(),
+export const eventUpdateSchema = z.object({
+  path: z.string(),
+  name: z.string().min(1).max(20),
+  schedule: z.array(z.object({ date: z.string() })).min(1),
 });

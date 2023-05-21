@@ -12,10 +12,8 @@ import z from "zod";
 import { publicProcedure } from "../";
 import { UserEntity } from "domain/src/model/user";
 import { TRPCError } from "@trpc/server";
-import {
-  userSchema,
-  eventCreateSchema,
-} from "../../client/trpc/validation/event";
+import { eventCreateSchema } from "../../client/trpc/validation/event";
+import { userSchema } from "../../client/trpc/validation/user";
 
 export const createEvent = publicProcedure
   .input(

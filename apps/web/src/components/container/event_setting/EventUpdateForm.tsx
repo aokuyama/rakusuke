@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { TextBox } from "ui/src/components/TextBox";
-import { Button } from "ui/src/components/Button";
 import { DatePicker } from "./DatePicker";
-import { EventDateListPickUp, UpcomingEvent } from "domain/src/model/event";
+import { UpcomingEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
+import { ErrorMessage } from "@hookform/error-message";
+import { EventCreate, useEventForm } from "./useEventForm";
+import { Submit } from "ui/src/components/Submit";
 
 interface Props {
   user: User;
@@ -17,21 +19,14 @@ export const EventUpdateForm: FC<Props> = ({
   event,
   eventUpdatedHandler,
 }) => {
-  const [name, setName] = useState<string>(event.name);
-  const [dateList, setDateList] = useState<EventDateListPickUp>(
-    event.createDateListPickUp()
-  );
-
-  const publish = async () => {
+  const publish = async (d: EventCreate) => {
     const auth = user.getAuthInfo();
     if (!auth) {
       throw new Error("forbidden");
     }
     const result = await client.event.updateEvent.mutate({
       user: auth,
-      path: event.path,
-      name: name,
-      dates: dateList.value,
+      event: Object.assign(d, { path: event.path }),
     });
     if (result.event) {
       eventUpdatedHandler(UpcomingEvent.new(result.event));
@@ -39,18 +34,18 @@ export const EventUpdateForm: FC<Props> = ({
       console.error(result);
     }
   };
+  const { register, handleSubmit, setDateHandler, dateList, errors } =
+    useEventForm(event);
 
   return (
-    <>
-      <TextBox value={name} setValue={setName} />
-      <DatePicker dateList={dateList} setDateList={setDateList} />
-      <Button
-        onClick={() => {
-          publish();
-        }}
-      >
-        更新
-      </Button>
-    </>
+    <form onSubmit={handleSubmit((d) => publish(d))}>
+      <TextBox>
+        <input type="text" {...register("name")} />
+      </TextBox>
+      <ErrorMessage errors={errors} name="name" />
+      <DatePicker dateList={dateList} setDateHandler={setDateHandler} />
+      <ErrorMessage errors={errors} name="schedule" />
+      <Submit label="更新" />
+    </form>
   );
 };

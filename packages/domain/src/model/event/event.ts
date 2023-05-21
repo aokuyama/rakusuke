@@ -60,7 +60,7 @@ export class UpcomingEvent extends StructValueObject<
   protected get _isOrganizer(): boolean {
     return this._value.isOrganizer;
   }
-  protected get _schedules(): Schedules {
+  get _schedules(): Schedules {
     return this._value.schedules;
   }
   get guests() {

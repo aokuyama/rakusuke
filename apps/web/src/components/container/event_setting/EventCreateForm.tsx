@@ -6,11 +6,9 @@ import { DatePicker } from "./DatePicker";
 import { Date } from "domain/src/model/event/date";
 import { User } from "domain/src/model/user";
 import { Site } from "@/registry";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorMessage } from "@hookform/error-message";
-import { eventCreateSchema } from "infra/src/client/trpc/validation/event";
 import { client } from "infra/src/client/trpc";
+import { useEventForm } from "./useEventForm";
 
 interface Props {
   user: User;
@@ -41,42 +39,11 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
     }
   };
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<EventCreate>({
-    resolver: zodResolver(eventCreateSchema),
-  });
-  const { fields, append, remove } = useFieldArray({
-    name: "schedule",
-    control,
-  });
-  const setDateHandler = (date: Date) => {
-    let removed = false;
-    fields.forEach((field, index) => {
-      if (date.isEqual(field.dateObj)) {
-        remove(index);
-        removed = true;
-      }
-    });
-    if (removed) {
-      return;
-    }
-    append({
-      value: date.toString(),
-      dateObj: date,
-      date: date.toString(),
-    });
-  };
-  const strList = fields.map((field) => {
-    return field.dateObj;
-  });
+  const { register, handleSubmit, setDateHandler, dateList, errors } =
+    useEventForm();
 
   return (
     <form onSubmit={handleSubmit((d) => publish(d))}>
-      <ErrorMessage errors={errors} name="user" />
       <Step>1. 会の名前を教えてください</Step>
       <TextBox>
         <input
@@ -85,18 +52,9 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
           {...register("name")}
         />
       </TextBox>
-      {fields.map((field, index) => {
-        return (
-          <input
-            type="hidden"
-            key={field.id}
-            {...register(`schedule.${index}.value`)}
-          />
-        );
-      })}
       <ErrorMessage errors={errors} name="name" />
       <Step>2. 候補日はいつですか？</Step>
-      <DatePicker dateList={strList} setDateList={setDateHandler} />
+      <DatePicker dateList={dateList} setDateHandler={setDateHandler} />
       <ErrorMessage errors={errors} name="schedule" />
       <Submit label="作成" />
     </form>

@@ -5,15 +5,16 @@ import { Date } from "domain/src/model/event/date";
 
 interface Props {
   dateList: Date[];
-  setDateList: (d: Date) => void;
+  setDateHandler: (d: Date) => void;
 }
 
-export const DatePicker: FC<Props> = ({ dateList, setDateList }) => {
+export const DatePicker: FC<Props> = ({ dateList, setDateHandler }) => {
   const items = dateList.map((d, i) => {
     return { id: i, name: d.toString() };
   });
+
   const onCalendarChange = (d: globalThis.Date) => {
-    setDateList(Date.convert(d));
+    setDateHandler(Date.convert(d));
   };
 
   return (

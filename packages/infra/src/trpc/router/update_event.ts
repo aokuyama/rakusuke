@@ -10,17 +10,14 @@ import { publicProcedure } from "../";
 import { ExistingEvent, UpcomingEventArgs } from "domain/src/model/event";
 import { TRPCError } from "@trpc/server";
 import { UserEntity } from "domain/src/model/user";
+import { eventUpdateSchema } from "../../client/trpc/validation/event";
+import { userSchema } from "../../client/trpc/validation/user";
 
 export const updateEvent = publicProcedure
   .input(
     z.object({
-      user: z.object({
-        uuid: z.string(),
-        token: z.string(),
-      }),
-      path: z.string(),
-      name: z.string(),
-      dates: z.array(z.string()),
+      user: userSchema,
+      event: eventUpdateSchema,
     })
   )
   .mutation(async (opts): Promise<{ event: UpcomingEventArgs | null }> => {
@@ -52,9 +49,9 @@ export const updateEvent = publicProcedure
     const updateEvent = container.resolve(UpdateEventInteractor);
     await updateEvent.handle({
       userId: user.id,
-      path: input.path,
-      name: input.name,
-      dates: input.dates,
+      path: input.event.path,
+      name: input.event.name,
+      dates: input.event.schedule.map((s) => s.date),
     });
 
     if (!event) {
