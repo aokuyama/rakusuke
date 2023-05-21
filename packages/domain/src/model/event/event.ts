@@ -12,6 +12,7 @@ export interface CurrentEventArgs {
   readonly isOrganizer: boolean;
   schedules: { date: string }[];
   guests: EventGuestArgs[];
+  created: string;
   description?: string | undefined;
 }
 
@@ -22,6 +23,7 @@ interface CurrentEventProps {
   readonly isOrganizer: boolean;
   readonly schedules: Schedules;
   readonly guests: EventGuestList;
+  readonly created: Date;
 }
 
 export class CurrentEvent extends StructValueObject<
@@ -39,6 +41,7 @@ export class CurrentEvent extends StructValueObject<
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
       description: args.description,
+      created: new Date(args.created),
     });
   }
   get name(): string {
@@ -67,6 +70,9 @@ export class CurrentEvent extends StructValueObject<
   }
   protected get _guests(): EventGuestList {
     return this._value.guests;
+  }
+  private get _created(): Date {
+    return this._value.created;
   }
   newAttendance = () =>
     NewAttendanceList.newByDates(
@@ -114,6 +120,7 @@ export class CurrentEvent extends StructValueObject<
       schedules: this._schedules,
       guests: this._guests.push(guest),
       description: this._value.description,
+      created: this._created,
     });
   };
   replaceGuest = (guest: EventGuest): CurrentEvent => {
@@ -124,6 +131,7 @@ export class CurrentEvent extends StructValueObject<
       schedules: this._schedules,
       guests: this._guests.replace(guest),
       description: this._value.description,
+      created: this._created,
     });
   };
   getGuestByNumber = (number: number): EventGuest =>

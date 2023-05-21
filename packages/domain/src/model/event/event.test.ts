@@ -12,6 +12,7 @@ const eventProps = {
   ],
   guests: [],
   description: undefined,
+  created: "2023/04/15",
 };
 
 describe("イベント作成", () => {

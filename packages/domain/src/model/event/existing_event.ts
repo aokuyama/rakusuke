@@ -16,6 +16,7 @@ export interface ExistingEventArgs {
   schedules: { date: string }[];
   guests: EventGuestArgs[];
   description?: string | undefined;
+  created: string;
 }
 
 interface ExistingEventProps {
@@ -26,6 +27,7 @@ interface ExistingEventProps {
   readonly description: string | undefined;
   readonly schedules: Schedules;
   readonly guests: EventGuestList;
+  readonly created: Date;
 }
 
 export class ExistingEvent extends StructValueObject<
@@ -44,6 +46,7 @@ export class ExistingEvent extends StructValueObject<
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
       description: args.description,
+      created: new Date(args.created),
     });
   }
   get id(): number {
@@ -70,6 +73,9 @@ export class ExistingEvent extends StructValueObject<
   protected get _guests(): EventGuestList {
     return this._value.guests;
   }
+  protected get _created(): Date {
+    return this._value.created;
+  }
   isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
   updateEvent = (
     event: UpdateEvent
@@ -90,6 +96,7 @@ export class ExistingEvent extends StructValueObject<
         schedules: schedules,
         guests: this._guests,
         description: this._value.description,
+        created: this._created,
       }),
       addedDates: addedDates,
       removedDates: removedDates,
@@ -103,5 +110,6 @@ export class ExistingEvent extends StructValueObject<
       schedules: this._schedules,
       guests: this._guests,
       description: this._value.description,
+      created: this._created,
     });
 }
