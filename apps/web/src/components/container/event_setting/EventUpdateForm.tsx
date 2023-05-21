@@ -43,7 +43,11 @@ export const EventUpdateForm: FC<Props> = ({
         <input type="text" {...register("name")} />
       </TextBox>
       <ErrorMessage errors={errors} name="name" />
-      <DatePicker dateList={dateList} setDateHandler={setDateHandler} />
+      <DatePicker
+        dateList={dateList}
+        range={{ min: event.minDate(), max: event.maxDate() }}
+        setDateHandler={setDateHandler}
+      />
       <ErrorMessage errors={errors} name="schedule" />
       <Submit label="更新" />
     </form>

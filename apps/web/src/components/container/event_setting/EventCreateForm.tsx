@@ -9,6 +9,7 @@ import { Site } from "@/registry";
 import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";
 import { useEventForm } from "./useEventForm";
+import { eventMaxDate } from "domain/src/service/event";
 
 interface Props {
   user: User;
@@ -42,6 +43,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
   const { register, handleSubmit, setDateHandler, dateList, errors } =
     useEventForm();
 
+  const today = Date.today();
   return (
     <form onSubmit={handleSubmit((d) => publish(d))}>
       <Step>1. 会の名前を教えてください</Step>
@@ -54,7 +56,11 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       </TextBox>
       <ErrorMessage errors={errors} name="name" />
       <Step>2. 候補日はいつですか？</Step>
-      <DatePicker dateList={dateList} setDateHandler={setDateHandler} />
+      <DatePicker
+        dateList={dateList}
+        range={{ min: today, max: eventMaxDate(today) }}
+        setDateHandler={setDateHandler}
+      />
       <ErrorMessage errors={errors} name="schedule" />
       <Submit label="作成" />
     </form>

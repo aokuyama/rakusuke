@@ -5,6 +5,7 @@ import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedules } from "./schedule";
 import { Date } from "./date";
+import { eventMaxDate } from "../../service/event";
 
 export interface CurrentEventArgs {
   path: string;
@@ -136,4 +137,6 @@ export class CurrentEvent extends StructValueObject<
   };
   getGuestByNumber = (number: number): EventGuest =>
     this._guests.getByNumber(number);
+  minDate = (): Date => this._created;
+  maxDate = (): Date => eventMaxDate(this.minDate());
 }

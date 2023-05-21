@@ -6,7 +6,7 @@ import type {
   UpdateEventUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
-import { UpdateEvent } from "domain/src/model/event";
+import { UpdateEvent, EventPath } from "domain/src/model/event";
 import { UserID } from "domain/src/model/user";
 
 @injectable()
@@ -19,12 +19,8 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
   ) {}
 
   handle = async (input: UpdateEventInput) => {
-    const after = UpdateEvent.new({
-      path: input.path,
-      name: input.name,
-      dates: input.dates,
-    });
-    const existingEvent = await this.repository.loadEventByPath(after._path);
+    const path = new EventPath(input.path);
+    const existingEvent = await this.repository.loadEventByPath(path);
     if (!existingEvent) {
       throw new Error("event not found");
     }
@@ -32,6 +28,12 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
       // 主催者でなければ編集できない
       return;
     }
+    const after = UpdateEvent.new({
+      path: path,
+      name: input.name,
+      dates: input.dates,
+      created: existingEvent._created,
+    });
     const updatedEvent = await this.repository.updateEvent(
       existingEvent,
       after

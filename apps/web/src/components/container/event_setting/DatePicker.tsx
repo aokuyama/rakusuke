@@ -5,10 +5,14 @@ import { Date } from "domain/src/model/event/date";
 
 interface Props {
   dateList: Date[];
+  range: {
+    min: Date;
+    max: Date;
+  };
   setDateHandler: (d: Date) => void;
 }
 
-export const DatePicker: FC<Props> = ({ dateList, setDateHandler }) => {
+export const DatePicker: FC<Props> = ({ dateList, range, setDateHandler }) => {
   const items = dateList.map((d, i) => {
     return { id: i, name: d.toString() };
   });
@@ -19,7 +23,11 @@ export const DatePicker: FC<Props> = ({ dateList, setDateHandler }) => {
 
   return (
     <>
-      <Calendar dates={dateList} onChangeFunc={onCalendarChange} />
+      <Calendar
+        dates={dateList}
+        onChangeFunc={onCalendarChange}
+        range={range}
+      />
       <List items={items} />
     </>
   );

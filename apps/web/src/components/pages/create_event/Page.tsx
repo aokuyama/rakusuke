@@ -2,7 +2,7 @@ import { FC } from "react";
 import { EventCreateForm } from "@/components/container/event_setting/EventCreateForm";
 import { useRouter } from "next/router";
 import { storage } from "@/registry";
-import { RegisteredUser, UserToken } from "domain/src/model/user";
+import { RegisteredUser } from "domain/src/model/user";
 import { Dev } from "@/components/container/dev/Dev";
 
 export const Page: FC = () => {

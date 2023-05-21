@@ -8,7 +8,7 @@ export class DateList extends ArrayValueObject<Date, string> {
   }
   protected validate(value: Date[]): void {
     if (value.length > this.limit()) {
-      throw new Error("dates must be 20 num or less");
+      throw new Error("dates must be " + this.limit() + " num or less");
     }
     if (new Set(value.map((d) => d.id())).size != value.length) {
       throw new Error("duplicate date");

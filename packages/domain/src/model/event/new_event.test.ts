@@ -9,6 +9,7 @@ describe("イベント作成", () => {
       organizerId: organizerId,
       name: "EventName",
       dates: ["2023/04/15"],
+      today: "2023/04/15",
     });
     expect(event.name).toBe("EventName");
     expect(event.path.length).toBe(16);
@@ -16,7 +17,12 @@ describe("イベント作成", () => {
 
   it("日付が空の場合失敗する", () => {
     expect(() => {
-      NewEvent.create({ organizerId: organizerId, name: "event", dates: [] });
+      NewEvent.create({
+        organizerId: organizerId,
+        name: "event",
+        dates: [],
+        today: "2023/04/15",
+      });
     }).toThrow("at least one date is required");
   });
 
@@ -47,6 +53,7 @@ describe("イベント作成", () => {
           "2023/05/03",
           "2023/05/04",
         ],
+        today: "2023/04/15",
       });
     }).toBeTruthy();
     expect(() => {
@@ -76,6 +83,7 @@ describe("イベント作成", () => {
           "2023/05/03",
           "2023/05/04",
         ],
+        today: "2023/04/15",
       });
     }).toThrow("dates must be 20 num or less");
   });
@@ -86,7 +94,24 @@ describe("イベント作成", () => {
         organizerId: organizerId,
         name: "event",
         dates: ["2023/04/15", "2023/04/15"],
+        today: "2023/04/14",
       });
     }).toThrow("duplicate date");
+  });
+  it("31日より先の日付があると失敗する", () => {
+    NewEvent.create({
+      organizerId: organizerId,
+      name: "event",
+      today: "2023/03/15",
+      dates: ["2023/04/15"],
+    });
+    expect(() => {
+      NewEvent.create({
+        organizerId: organizerId,
+        name: "event",
+        today: "2023/03/15",
+        dates: ["2023/04/16"],
+      });
+    }).toThrow("too early to schedule");
   });
 });

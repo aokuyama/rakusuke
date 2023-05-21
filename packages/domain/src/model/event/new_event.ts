@@ -4,6 +4,8 @@ import { EventName } from "./name";
 import { EventPath, NewEventPath } from "./path";
 import { UserID } from "../user";
 import { NewUUID } from "../uuid";
+import { Date } from "./date";
+import { validateMaxDate } from "../../service/event";
 
 interface NewEventArgs {
   uuid: string;
@@ -12,6 +14,7 @@ interface NewEventArgs {
   name: string;
   dates: string[];
   description?: string | undefined;
+  today: string;
 }
 
 interface NewEventProps {
@@ -21,17 +24,21 @@ interface NewEventProps {
   readonly name: EventName;
   readonly description?: string;
   readonly dates: EventDates;
+  readonly today: Date;
 }
 
 export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   protected validate(value: NewEventProps): void {
-    //throw new Error("Method not implemented.");
+    if (!validateMaxDate(value.dates._dates, value.today)) {
+      throw new Error("too early to schedule");
+    }
   }
   static create(args: {
     organizerId: UserID;
     name: string;
     dates: string[];
     description?: string | undefined;
+    today: string;
   }): NewEvent {
     return new NewEvent({
       uuid: NewUUID.create(),
@@ -40,6 +47,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
       name: new EventName(args.name),
       description: args.description,
       dates: EventDates.new(args.dates),
+      today: new Date(args.today),
     });
   }
   get uuid(): string {

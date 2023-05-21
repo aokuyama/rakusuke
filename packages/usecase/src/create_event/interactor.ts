@@ -7,6 +7,7 @@ import type {
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
 import { NewEvent } from "domain/src/model/event";
+import { Date } from "domain/src/model/event/date";
 import { UserID } from "domain/src/model/user";
 
 @injectable()
@@ -25,6 +26,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
       organizerId: organizerId,
       name: input.name,
       dates: input.dates,
+      today: Date.todayString(),
     });
     const path = await this.repository.createEvent(event);
     await this.presenter.render({ path: path.rawValue() });

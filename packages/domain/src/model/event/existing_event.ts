@@ -73,7 +73,7 @@ export class ExistingEvent extends StructValueObject<
   protected get _guests(): EventGuestList {
     return this._value.guests;
   }
-  protected get _created(): Date {
+  get _created(): Date {
     return this._value.created;
   }
   isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
