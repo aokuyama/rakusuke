@@ -7,7 +7,6 @@
       "@/*": ["./src/*"]
     },
     "experimentalDecorators": true,
-    "typeRoots": ["../../packages/ui/src/@types/"],
-    "types": ["...", "@types/jest"]
+    "types": ["../../packages/ui/src/@types/destyle.css", "@types/jest"]
   }
 }
