@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { backgroundColor, mainColor } from "../styles/color";
+import { boxLayout } from "../styles/layout";
 
 export type Item = { id: string | number; name: string };
 
@@ -22,9 +23,7 @@ const list = css`
   padding: 1em;
   border-radius: 3px;
   ${backgroundColor.default};
-  margin: 0 auto 16px;
-  max-width: 100%;
-  width: 480px;
+  ${boxLayout.default}
 
   li {
     display: flex;

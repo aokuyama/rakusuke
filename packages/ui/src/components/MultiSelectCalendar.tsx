@@ -4,6 +4,7 @@ import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css, Global } from "@emotion/react";
 import { backgroundColor, mainColor } from "../styles/color";
 import { format } from "date-fns";
+import { boxSize } from "../styles/size";
 
 type Props = {
   selectedDates: Date[];
@@ -52,8 +53,7 @@ const selected = (label: string) => css`
 
 const styles = css`
   .react-calendar {
-    width: 480px;
-    max-width: 100%;
+    width: ${boxSize.default}px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
     ${backgroundColor.default};

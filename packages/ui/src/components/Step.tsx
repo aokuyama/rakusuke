@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
+import { boxLayout } from "../styles/layout";
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +12,5 @@ export const Step: FC<Props> = ({ children }) => {
 
 const styles = css`
   display: flex;
-  margin: 0 auto 16px;
-  max-width: 100%;
-  width: 480px;
+  ${boxLayout.default}
 `;

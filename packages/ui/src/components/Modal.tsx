@@ -3,6 +3,7 @@ import ReactModal from "react-modal";
 import { CloseButton } from "./CloseButton";
 import { css } from "@emotion/react";
 import { backgroundColor, textColor } from "../styles/color";
+import { boxSize } from "../styles/size";
 
 type Props = {
   children: ReactNode;
@@ -39,7 +40,7 @@ const reactModalStyle = {
     left: 0,
     right: 0,
     padding: "0 1rem 1rem",
-    width: "480px",
+    width: boxSize.default + "px",
     margin: "auto",
     overflow: "scroll",
   },

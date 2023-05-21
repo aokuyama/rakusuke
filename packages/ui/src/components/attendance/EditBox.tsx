@@ -1,7 +1,9 @@
 import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
 import { backgroundColor } from "../../styles/color";
+import { boxLayout } from "../../styles/layout";
 import { EditButton } from "../EditButton";
+import { boxSize } from "../../styles/size";
 
 type Props = {
   name: ReactNode;
@@ -25,8 +27,7 @@ export const EditBox: FC<Props> = ({ name, button, children }) => {
 };
 
 const boxStyle = css`
-  width: 480px;
-  margin: 0 auto 16px;
+  ${boxLayout.default}
   border-radius: 3px;
   ${backgroundColor.default}
 `;
@@ -43,7 +44,7 @@ const titleStyle = css`
   span {
     display: inline-block;
     text-align: center;
-    width: ${480 - 32 - 32}px;
+    width: ${boxSize.default - 32 - 32}px;
     padding: 8px 0;
   }
 `;

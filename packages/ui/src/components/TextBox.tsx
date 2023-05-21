@@ -1,6 +1,7 @@
 import { ClassAttributes, FC, InputHTMLAttributes, ReactNode } from "react";
 import { css } from "@emotion/react";
 import { backgroundColor } from "../styles/color";
+import { boxLayout } from "../styles/layout";
 
 type Props = {
   children: ReactNode &
@@ -20,9 +21,7 @@ export const TextBox: FC<Props> = ({ children, label }) => {
 
 const styles = css`
   display: block;
-  width: 480px;
-  max-width: 100%;
-  margin: 0 auto 16px;
+  ${boxLayout.default}
   input {
     ${backgroundColor.default};
     width: 100%;

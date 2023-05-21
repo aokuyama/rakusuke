@@ -3,6 +3,7 @@ import { MultiSelectCalendar } from "ui/src/components/MultiSelectCalendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css } from "@emotion/react";
 import { Date } from "domain/src/model/event/date";
+import { boxLayout } from "ui/src/styles/layout";
 
 interface Props {
   dates: Date[];
@@ -29,7 +30,7 @@ export const Calendar: FC<Props> = ({ dates, range, onChangeFunc }) => {
 
 const styles = css`
   & > div {
-    margin: 0 auto 16px;
+    ${boxLayout.default}
     border-radius: 3px;
   }
 `;
