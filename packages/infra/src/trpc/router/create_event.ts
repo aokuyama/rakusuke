@@ -12,18 +12,16 @@ import z from "zod";
 import { publicProcedure } from "../";
 import { UserEntity } from "domain/src/model/user";
 import { TRPCError } from "@trpc/server";
+import {
+  userSchema,
+  eventCreateSchema,
+} from "../../client/trpc/validation/event";
 
 export const createEvent = publicProcedure
   .input(
     z.object({
-      user: z
-        .object({
-          uuid: z.string(),
-          token: z.string(),
-        })
-        .nullable(),
-      name: z.string(),
-      dates: z.array(z.string()),
+      user: userSchema.nullable(),
+      event: eventCreateSchema,
     })
   )
   .mutation(async (opts) => {
@@ -60,8 +58,8 @@ export const createEvent = publicProcedure
     const createEvent = container.resolve(CreateEventInteractor);
     await createEvent.handle({
       organizerId: user.id,
-      name: input.name,
-      dates: input.dates,
+      name: input.event.name,
+      dates: input.event.schedule.map((s) => s.date),
     });
 
     if (!path) {

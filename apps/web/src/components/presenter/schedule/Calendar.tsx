@@ -1,19 +1,19 @@
 import { FC } from "react";
 import { MultiSelectCalendar } from "ui/src/components/MultiSelectCalendar";
-import { EventDateListPickUp } from "domain/src/model/event";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css } from "@emotion/react";
+import { Date } from "domain/src/model/event/date";
 
 interface Props {
-  dateList: EventDateListPickUp;
+  dates: Date[];
   onChangeFunc: OnChangeFunc;
 }
 
-export const Calendar: FC<Props> = ({ dateList, onChangeFunc }) => {
+export const Calendar: FC<Props> = ({ dates, onChangeFunc }) => {
   return (
     <div css={styles}>
       <MultiSelectCalendar
-        selectedDates={dateList.globalThisDates()}
+        selectedDates={dates.map((d) => d.getGlobalThisDate())}
         locale={"ja-JP"}
         onChangeFunc={onChangeFunc}
       />

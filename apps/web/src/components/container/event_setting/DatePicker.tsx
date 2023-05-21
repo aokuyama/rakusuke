@@ -1,30 +1,24 @@
 import { FC } from "react";
 import { Calendar } from "@/components/presenter/schedule/Calendar";
 import { List } from "ui/src/components/List";
-import { EventDateListPickUp } from "domain/src/model/event";
+import { Date } from "domain/src/model/event/date";
 
 interface Props {
-  dateList: EventDateListPickUp;
-  setDateList: React.Dispatch<React.SetStateAction<EventDateListPickUp>>;
+  dateList: Date[];
+  setDateList: (d: Date) => void;
 }
 
 export const DatePicker: FC<Props> = ({ dateList, setDateList }) => {
-  const items = dateList.value.map((date) => {
-    return { id: date, name: date };
+  const items = dateList.map((d, i) => {
+    return { id: i, name: d.toString() };
   });
-  const onCalendarChange = (d: Date) => {
-    const newList = dateList.toggleByDate(d);
-    if (newList.length() == dateList.length()) {
-      // TODO 日付数制限越えの警告を出す
-      console.warn("date limit over");
-      return;
-    }
-    setDateList(newList);
+  const onCalendarChange = (d: globalThis.Date) => {
+    setDateList(Date.convert(d));
   };
 
   return (
     <>
-      <Calendar dateList={dateList} onChangeFunc={onCalendarChange} />
+      <Calendar dates={dateList} onChangeFunc={onCalendarChange} />
       <List items={items} />
     </>
   );

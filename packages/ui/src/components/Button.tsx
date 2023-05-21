@@ -9,13 +9,13 @@ type Props = {
 
 export const Button: FC<Props> = ({ children, onClick }) => {
   return (
-    <button onClick={onClick} css={button}>
+    <button onClick={onClick} css={buttonStyles}>
       {children}
     </button>
   );
 };
 
-const button = css`
+export const buttonStyles = css`
   display: flex;
   justify-content: center;
   align-items: center;
