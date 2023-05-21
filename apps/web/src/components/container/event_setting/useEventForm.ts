@@ -37,9 +37,13 @@ export const useEventForm = (defaultEvent?: UpcomingEvent) => {
     }
     append(toSchedule(date));
   };
-  const dateList = fields.map((field) => {
-    return field.dateObj;
-  });
+
+  const dateList = fields
+    .map((field) => {
+      return field.dateObj;
+    })
+    .sort((a, b) => a.unixtime() - b.unixtime());
+
   return { register, handleSubmit, setDateHandler, dateList, errors };
 };
 

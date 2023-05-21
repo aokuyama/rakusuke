@@ -17,33 +17,6 @@ export class DateList extends ArrayValueObject<Date, string> {
   globalThisDates = (): globalThis.Date[] => this._value.map((d) => d.value);
 }
 
-export class EventDateListPickUp extends DateList {
-  constructor(args: Date[]) {
-    args.sort((a, b) => a.unixtime() - b.unixtime());
-    super(args);
-  }
-
-  toggleByDate = (date: Date | globalThis.Date): EventDateListPickUp => {
-    const dates = [];
-    if (date instanceof globalThis.Date) {
-      date = Date.convert(date);
-    }
-    for (const d of this._value) {
-      if (d.isEqual(date)) {
-        continue;
-      }
-      dates.push(d);
-    }
-    if (dates.length == this.length()) {
-      dates.push(date);
-      if (dates.length > this.limit()) {
-        return this;
-      }
-    }
-    return new EventDateListPickUp(dates);
-  };
-}
-
 export class EventDates extends DateList {
   static new(args: string[]): EventDates {
     return new EventDates(args.map((d) => new Date(d)));

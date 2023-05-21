@@ -1,7 +1,6 @@
 import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
 import { StructValueObject } from "../valueobject";
 import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
-import { EventDateListPickUp } from "./date_list";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedules } from "./schedule";
@@ -129,7 +128,4 @@ export class UpcomingEvent extends StructValueObject<
   };
   getGuestByNumber = (number: number): EventGuest =>
     this._guests.getByNumber(number);
-  createDateListPickUp = (): EventDateListPickUp => {
-    return new EventDateListPickUp(this._schedules.dates());
-  };
 }
