@@ -12,7 +12,7 @@ export type TextBox = StoryObj<typeof TextBox>;
 
 export const Default: TextBox = {
   args: {
-    placeholder: "ここに入力",
+    children: <input type="text" />,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

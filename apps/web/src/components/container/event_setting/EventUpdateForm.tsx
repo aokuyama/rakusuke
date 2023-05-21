@@ -5,7 +5,7 @@ import { UpcomingEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
 import { ErrorMessage } from "@hookform/error-message";
-import { EventCreate, useEventForm } from "./useEventForm";
+import { EventUpsert, useEventForm } from "./useEventForm";
 import { Submit } from "ui/src/components/Submit";
 
 interface Props {
@@ -19,14 +19,14 @@ export const EventUpdateForm: FC<Props> = ({
   event,
   eventUpdatedHandler,
 }) => {
-  const publish = async (d: EventCreate) => {
+  const publish = async (e: EventUpsert) => {
     const auth = user.getAuthInfo();
     if (!auth) {
       throw new Error("forbidden");
     }
     const result = await client.event.updateEvent.mutate({
       user: auth,
-      event: Object.assign(d, { path: event.path }),
+      event: Object.assign(e, { path: event.path }),
     });
     if (result.event) {
       eventUpdatedHandler(UpcomingEvent.new(result.event));

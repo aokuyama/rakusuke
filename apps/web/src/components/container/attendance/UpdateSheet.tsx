@@ -1,9 +1,12 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { UpcomingEvent } from "domain/src/model/event";
-import { NewAttendanceList } from "domain/src/model/event/attendance";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
 import { Form } from "@/components/presenter/attendance_sheet/Form";
+import {
+  GuestUpsert,
+  useGuestForm,
+} from "@/components/presenter/attendance_sheet/useGuestForm";
 
 interface Props {
   guest: EventGuest;
@@ -16,17 +19,10 @@ export const UpdateSheet: FC<Props> = ({
   event,
   eventUpdatedHandler,
 }) => {
-  const [name, setName] = useState<string>(guest.name);
-  const [attendance, setAttendance] = useState<NewAttendanceList>(
-    event.newAttendanceByGuest(guest)
-  );
-
-  const publish = async () => {
+  const publish = async (g: GuestUpsert) => {
     const result = await client.event.updateAttendance.mutate({
-      number: guest.number,
       event: event.path,
-      name: name,
-      attendance: attendance.value,
+      guest: Object.assign(g, { number: guest.number }),
     });
     if (result.guest) {
       eventUpdatedHandler(event.replaceGuest(EventGuest.new(result.guest)));
@@ -35,23 +31,11 @@ export const UpdateSheet: FC<Props> = ({
     }
   };
 
-  const onCheckListChangeCallback = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setAttendance(
-      event
-        .newAttendanceByCurrentAttendance(attendance)
-        .switch({ id: e.target.name, attend: e.target.checked })
-    );
-  };
-
   return (
     <Form
-      name={name}
-      setName={setName}
-      items={event.newAttendanceByCurrentAttendance(attendance).toCheckList()}
-      onClick={publish}
-      onCheckListChangeCallback={onCheckListChangeCallback}
+      dateList={event._schedules.dates()}
+      onSubmit={publish}
+      form={useGuestForm({ event, guest })}
     />
   );
 };

@@ -6,14 +6,13 @@ import {
 } from "usecase/src/update_attendance";
 import z from "zod";
 import { publicProcedure } from "../";
+import { guestUpdateSchema } from "../../client/trpc/validation/guest";
 
 export const updateAttendance = publicProcedure
   .input(
     z.object({
       event: z.string(),
-      number: z.number(),
-      name: z.string(),
-      attendance: z.array(z.object({ date: z.string(), attend: z.boolean() })),
+      guest: guestUpdateSchema,
     })
   )
   .mutation(async (opts) => {
@@ -30,9 +29,9 @@ export const updateAttendance = publicProcedure
     const UpdateAttendance = container.resolve(UpdateAttendanceInteractor);
     await UpdateAttendance.handle({
       eventPath: input.event,
-      number: input.number,
-      name: input.name,
-      attendance: input.attendance,
+      number: input.guest.number,
+      name: input.guest.name,
+      attendance: input.guest.attendance,
     });
 
     return {

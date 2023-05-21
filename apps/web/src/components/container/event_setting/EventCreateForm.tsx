@@ -21,16 +21,16 @@ interface Props {
   }) => void;
 }
 
-type EventCreate = {
+type EventUpsert = {
   name: string;
   schedule: { date: string; value: string; dateObj: Date }[];
 };
 
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
-  const publish = async (d: EventCreate) => {
+  const publish = async (event: EventUpsert) => {
     const result = await client.event.createEvent.mutate({
       user: user.getAuthInfo(),
-      event: d,
+      event: event,
     });
     if (result.path) {
       eventCreatedHandler(result);

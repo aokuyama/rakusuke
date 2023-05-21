@@ -1,26 +1,15 @@
-import { FC } from "react";
+import { ClassAttributes, FC, InputHTMLAttributes, ReactNode } from "react";
 import { css } from "@emotion/react";
 import { systemColor } from "../styles/color";
 
 type Props = {
-  name?: string;
-  value?: string | number | readonly string[];
-  checked?: boolean;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  children: ReactNode &
+    ClassAttributes<HTMLInputElement> &
+    InputHTMLAttributes<HTMLInputElement>;
 };
 
-export const Toggle: FC<Props> = ({ name, value, checked, onChange }) => {
-  return (
-    <label css={styles}>
-      <input
-        type="checkbox"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onChange}
-      />
-    </label>
-  );
+export const Toggle: FC<Props> = ({ children }) => {
+  return <label css={styles}>{children}</label>;
 };
 
 const styles = css`

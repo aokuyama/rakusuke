@@ -16,7 +16,7 @@ export const useEventForm = (defaultEvent?: UpcomingEvent) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<EventCreate>({
+  } = useForm<EventUpsert>({
     resolver: zodResolver(eventCreateSchema),
     defaultValues: defaultValues,
   });
@@ -47,7 +47,7 @@ export const useEventForm = (defaultEvent?: UpcomingEvent) => {
   return { register, handleSubmit, setDateHandler, dateList, errors };
 };
 
-export type EventCreate = {
+export type EventUpsert = {
   name: string;
   schedule: { date: string; value: string; dateObj: Date }[];
 };
