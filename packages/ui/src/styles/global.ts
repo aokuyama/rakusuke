@@ -5,14 +5,13 @@ import * as reset from "destyle.css";
 
 export const global = css`
   ${reset}
-
   @font-face {
-    font-family: RocknRoll One;
-    src: url(/font/RocknRollOne-Regular.ttf);
+    font-family: NotoSansJP;
+    src: url(/font/NotoSansJP-Regular.ttf);
   }
   @font-face {
-    font-family: Unica One;
-    src: url(/font/UnicaOne-Regular.ttf);
+    font-family: RocknRollOne;
+    src: url(/font/RocknRollOne-Regular.ttf);
   }
   a:-webkit-any-link {
     color: inherit;
@@ -25,5 +24,6 @@ export const global = css`
     ${textColor.default};
     ${backgroundColor.default};
     min-width: ${boxSize.default}px;
+    font-family: NotoSansJP;
   }
 `;

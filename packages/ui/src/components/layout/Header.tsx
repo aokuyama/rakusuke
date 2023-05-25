@@ -28,13 +28,12 @@ const style = css`
     margin: 12px auto;
   }
   h1 {
-    font-family: RocknRoll One;
+    font-family: RocknRollOne;
     font-size: 64px;
     width: 300px;
   }
   p {
     color: ${mainText.lighter};
-    font-family: Unica One;
     width: 300px;
   }
 `;

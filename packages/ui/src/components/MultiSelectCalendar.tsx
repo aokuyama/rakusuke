@@ -54,7 +54,6 @@ const selected = (label: string) => css`
 const styles = css`
   .react-calendar {
     width: ${boxSize.default}px;
-    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
     ${backgroundColor.default};
   }
