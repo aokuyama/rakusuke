@@ -1,3 +1,3 @@
 export const boxSize = {
-  default: 480,
+  default: 320,
 };

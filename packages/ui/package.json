@@ -23,7 +23,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/react-calendar": "^3.9.0",
-    "@uiball/loaders": "^1.2.6",
     "destyle.css": "^4.0.0",
     "react-calendar": "^4.2.1",
     "react-modal": "^3.16.1"

@@ -11,6 +11,6 @@ export const Main: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
-  padding-top: 16px;
+  padding: 16px 0;
   ${backgroundColor.background}
 `;
