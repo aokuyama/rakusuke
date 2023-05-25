@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { DatePicker } from "./DatePicker";
 import { CurrentEvent } from "domain/src/model/event";
@@ -7,6 +7,7 @@ import { User } from "domain/src/model/user";
 import { ErrorMessage } from "@hookform/error-message";
 import { EventUpsert, useEventForm } from "./useEventForm";
 import { Submit } from "ui/src/components/Submit";
+import { loadingContext } from "@/hooks/useLoading";
 
 interface Props {
   user: User;
@@ -19,15 +20,19 @@ export const EventUpdateForm: FC<Props> = ({
   event,
   eventUpdatedHandler,
 }) => {
+  const ctx = useContext(loadingContext);
+
   const publish = async (e: EventUpsert) => {
     const auth = user.getAuthInfo();
     if (!auth) {
       throw new Error("forbidden");
     }
+    ctx.setAsLoading();
     const result = await client.event.updateEvent.mutate({
       user: auth,
       event: Object.assign(e, { path: event.path }),
     });
+    ctx.setAsNotLoading();
     if (result.event) {
       eventUpdatedHandler(CurrentEvent.new(result.event));
     } else {

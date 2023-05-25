@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { Submit } from "ui/src/components/Submit";
 import { Step } from "ui/src/components/Step";
@@ -10,6 +10,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";
 import { useEventForm } from "./useEventForm";
 import { eventMaxDate } from "domain/src/service/event";
+import { loadingContext } from "@/hooks/useLoading";
 
 interface Props {
   user: User;
@@ -28,11 +29,15 @@ type EventUpsert = {
 };
 
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
+  const ctx = useContext(loadingContext);
+
   const publish = async (event: EventUpsert) => {
+    ctx.setAsLoading();
     const result = await client.event.createEvent.mutate({
       user: user.getAuthInfo(),
       event: event,
     });
+    ctx.setAsNotLoading();
     if (result.path) {
       eventCreatedHandler(result);
     } else {

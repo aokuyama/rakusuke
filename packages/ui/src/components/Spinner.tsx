@@ -21,6 +21,8 @@ const styles = css`
     border: 5px solid ${mainColor.default};
     border-top-color: ${mainColor.lighter};
     animation: spinner 1.6s linear infinite;
+  }
+  @keyframes spinner {
     to {
       transform: rotate(360deg);
     }
