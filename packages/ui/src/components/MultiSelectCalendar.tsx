@@ -91,6 +91,15 @@ const styles = css`
     cursor: pointer;
   }
 
+  .react-calendar button:disabled {
+    opacity: 0.5;
+  }
+
+  .react-calendar__navigation__prev2-button,
+  .react-calendar__navigation__next2-button {
+    display: none;
+  }
+
   .react-calendar__navigation {
     display: flex;
     height: 44px;
@@ -180,5 +189,8 @@ const styles = css`
 
   .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {
     color: #00f;
+  }
+  .react-calendar__month-view__days__day--weekend:nth-child(7n) {
+    color: #f00;
   }
 `;
