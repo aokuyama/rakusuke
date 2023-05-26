@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Date } from "domain/src/model/event/date";
 import { TextBox } from "ui/src/components/TextBox";
+import { FormError } from "ui/src/components/FormError";
 import { GuestUpsert } from "./useGuestForm";
 import { ErrorMessage } from "@hookform/error-message";
 import { Submit } from "ui/src/components/Submit";
@@ -30,7 +31,9 @@ export const Form: FC<Props> = ({ dateList, onSubmit, form }) => {
       <TextBox>
         <input type="text" {...register("name")} />
       </TextBox>
-      <ErrorMessage errors={errors} name="name" />
+      <FormError>
+        <ErrorMessage errors={errors} name="name" />
+      </FormError>
       <ToggleList>
         {dateList.map((date, index) => {
           return (
@@ -53,7 +56,9 @@ export const Form: FC<Props> = ({ dateList, onSubmit, form }) => {
           ></input>
         );
       })}
-      <ErrorMessage errors={errors} name="schedule" />
+      <FormError>
+        <ErrorMessage errors={errors} name="schedule" />
+      </FormError>
       <Submit label="決定" />
     </form>
   );

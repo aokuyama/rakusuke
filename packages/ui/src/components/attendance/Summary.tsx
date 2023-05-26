@@ -28,10 +28,15 @@ const listStyles = css`
   display: flex;
   flex-wrap: wrap;
   li {
-    width: 33%;
+    width: 50%;
     display: inline-block;
     align-items: center;
     text-align: center;
+    display: flex;
+    padding: 0 2px;
+    span {
+      width: 50%;
+    }
   }
   li[data-length="0"] {
     ${textColor.disabled};

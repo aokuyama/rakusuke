@@ -28,7 +28,7 @@ const styles = css`
   flex-wrap: wrap;
 
   li {
-    width: 20%;
+    width: 25%;
     display: flex;
     align-items: center;
     gap: 0 8px;

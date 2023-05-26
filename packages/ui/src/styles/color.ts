@@ -15,6 +15,7 @@ export const mainText = {
 
 export const systemColor = {
   checked: "#5b3",
+  error: "#f22",
 };
 
 export const dayOfWeek = {

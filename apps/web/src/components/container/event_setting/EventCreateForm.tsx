@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { Submit } from "ui/src/components/Submit";
 import { Step } from "ui/src/components/Step";
+import { FormError } from "ui/src/components/FormError";
 import { DatePicker } from "./DatePicker";
 import { Date } from "domain/src/model/event/date";
 import { User } from "domain/src/model/user";
@@ -59,14 +60,18 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
           {...register("name")}
         />
       </TextBox>
-      <ErrorMessage errors={errors} name="name" />
+      <FormError>
+        <ErrorMessage errors={errors} name="name" />
+      </FormError>
       <Step>2. 候補日はいつですか？</Step>
       <DatePicker
         dateList={dateList}
         range={{ min: today, max: eventMaxDate(today) }}
         setDateHandler={setDateHandler}
       />
-      <ErrorMessage errors={errors} name="schedule" />
+      <FormError>
+        <ErrorMessage errors={errors} name="schedule" />
+      </FormError>
       <Submit label="作成" />
     </form>
   );

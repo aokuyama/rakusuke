@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
+import { FormError } from "ui/src/components/FormError";
 import { DatePicker } from "./DatePicker";
 import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
@@ -47,13 +48,17 @@ export const EventUpdateForm: FC<Props> = ({
       <TextBox>
         <input type="text" {...register("name")} />
       </TextBox>
-      <ErrorMessage errors={errors} name="name" />
+      <FormError>
+        <ErrorMessage errors={errors} name="name" />
+      </FormError>
       <DatePicker
         dateList={dateList}
         range={{ min: event.minDate(), max: event.maxDate() }}
         setDateHandler={setDateHandler}
       />
-      <ErrorMessage errors={errors} name="schedule" />
+      <FormError>
+        <ErrorMessage errors={errors} name="schedule" />
+      </FormError>
       <Submit label="更新" />
     </form>
   );
