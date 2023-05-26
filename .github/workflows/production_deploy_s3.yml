@@ -1,4 +1,4 @@
-name: deploy to S3
+name: production deploy to S3
 on: workflow_dispatch
 
 jobs:
@@ -14,8 +14,12 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Install Dependencies
+      - name: Before Install
+        run: |
+          rm -rf ./apps/workshop
+          rm -rf ./apps/server
 
+      - name: Install Dependencies
         run: yarn workspace web install
 
       - name: Build
