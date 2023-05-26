@@ -1,6 +1,6 @@
 import { Date } from "../../model/event/date";
 
-const MAX = 31;
+const MAX = 45;
 export const eventMaxDate = (date: Date): Date => date.addDays(MAX);
 export const validateMaxDate = (schedule: Date[], start: Date): boolean => {
   const max = eventMaxDate(start);

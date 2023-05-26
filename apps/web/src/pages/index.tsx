@@ -1,17 +1,21 @@
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
+import { Page } from "@/components/pages/create_event/Page";
 import { FC } from "react";
 import { Site } from "@/registry";
 
-export const Top: FC = () => {
+export const NewEvent: FC = () => {
   return (
     <>
       <Head>
         <title>{Site.name}</title>
+        <meta name="robots" content="noindex,nofollow,noarchive" />
       </Head>
-      <Layout>準備中...</Layout>
+      <Layout>
+        <Page />
+      </Layout>
     </>
   );
 };
 
-export default Top;
+export default NewEvent;
