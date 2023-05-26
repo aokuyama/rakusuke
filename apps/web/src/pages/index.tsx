@@ -9,7 +9,7 @@ export const NewEvent: FC = () => {
     <>
       <Head>
         <title>{Site.name}</title>
-        <meta name="robots" content="noindex,nofollow,noarchive" />
+        <meta property="og:title" content={Site.name} />
       </Head>
       <Layout>
         <Page />
