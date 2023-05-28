@@ -20,6 +20,7 @@
     "domain": "*",
     "eslint-config-custom": "*",
     "postgres": "^3.3.4",
+    "query-string-esm": "^6.13.6",
     "reflect-metadata": "^0.1.13",
     "tsconfig": "*",
     "tsyringe": "^4.7.0",

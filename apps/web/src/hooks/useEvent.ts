@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { client } from "infra/src/client/trpc";
 import { CurrentEvent } from "domain/src/model/event";
 import { storage } from "@/registry";
+import { Site } from "infra/src/web/site";
 import { useRouter } from "next/router";
 
 export const useEvent = (): {
@@ -52,11 +53,20 @@ const useEventQuery = (): string | undefined => {
   const [eventQuery, setEventQuery] = useState<string | undefined>(undefined);
   const router = useRouter();
   const query = router.query;
+  console.log(router.pathname);
 
   useEffect(() => {
     if (router.isReady) {
-      const path = query.p;
-      setEventQuery(Array.isArray(path) ? path[0] : path ? path : "");
+      const path = Site.parseEventPathByQueryArray(query);
+      if (path) {
+        setEventQuery(path);
+      } else {
+        const path = Site.parseEventPathByPath(router.pathname);
+        if (path) {
+          // /e/xxx が /e/ にリライトされないとここには到達しない
+          setEventQuery(path);
+        }
+      }
     }
   }, [query, router]);
   return eventQuery;
