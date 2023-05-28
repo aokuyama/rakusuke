@@ -1,0 +1,26 @@
+{
+  "name": "ogp",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon -w . -w ../../packages -i ../../packages/ui src/index.ts",
+    "build-lambda": "esbuild src/lambda.ts --bundle --minify --platform=node --target=es2020 --outfile=dist/index.js",
+    "lint": "TIMING=1 eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.18"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "eslint-config-custom": "*",
+    "infra": "*",
+    "usecase": "*",
+    "domain": "*",
+    "ts-node": "^10.9.1",
+    "tsconfig": "*",
+    "typescript": "^4.9.5"
+  }
+}
