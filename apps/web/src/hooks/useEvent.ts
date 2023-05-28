@@ -53,7 +53,6 @@ const useEventQuery = (): string | undefined => {
   const [eventQuery, setEventQuery] = useState<string | undefined>(undefined);
   const router = useRouter();
   const query = router.query;
-  console.log(router.pathname);
 
   useEffect(() => {
     if (router.isReady) {
@@ -61,7 +60,7 @@ const useEventQuery = (): string | undefined => {
       if (path) {
         setEventQuery(path);
       } else {
-        const path = Site.parseEventPathByPath(router.pathname);
+        const path = Site.parseEventPathByPath(location.pathname);
         if (path) {
           // /e/xxx が /e/ にリライトされないとここには到達しない
           setEventQuery(path);

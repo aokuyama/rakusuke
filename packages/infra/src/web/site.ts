@@ -14,8 +14,17 @@ const BOTS = [
 ];
 
 export const Site = {
+  eventPagePath: (): string => {
+    return `/${eventPath}/`;
+  },
+  addEventPathQuery: (qs: string, eventPath: string): string => {
+    const params = queryString.parse(qs);
+    params[eventQueryKey] = eventPath;
+    return queryString.stringify(params);
+  },
+
   isEventPagePath: (path: string): boolean => {
-    return path === `/${eventPath}/`;
+    return path === Site.eventPagePath();
   },
 
   parseEventPathByQuery: (query: string): string | null => {
