@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start": "ts-node src/launch.ts",
     "dev": "nodemon -w . -w ../../packages -i ../../packages/ui src/index.ts",
     "build-lambda": "esbuild src/lambda.ts --bundle --minify --platform=node --target=es2020 --outfile=dist/index.js",
     "lint": "TIMING=1 eslint .",

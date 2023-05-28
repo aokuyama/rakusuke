@@ -17,6 +17,7 @@
       ],
       "env": [
         "NODE_ENV",
+        "SITE_DOMAIN",
         "DATABASE_URL",
         "PEPPER_USER",
         "PEPPER_EVENT",
