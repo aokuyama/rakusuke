@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Header } from "ui/src/components/layout/Header";
-import { Site } from "@/registry";
+import { Site } from "infra/src/web/site";
 import { Main } from "ui/src/components/layout/Main";
 import { Aside } from "ui/src/components/layout/Aside";
 import { Footer } from "ui/src/components/layout/Footer";

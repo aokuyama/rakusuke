@@ -14,6 +14,29 @@ const BOTS = [
 ];
 
 export const Site = {
+  name: "らくスケ",
+  slogan: "この世界で最もラクな日程調整ツール",
+  eventPlaceholder: "（例:お花見会）",
+
+  getEventPageTitle: (
+    event: { name: string; description: string } | null | undefined
+  ): string => {
+    if (event) {
+      return event.name + " はいつがいいですか？ by " + Site.name;
+    }
+    return Site.name;
+  },
+  getEventPageDescription: (
+    event: { name: string; description: string } | null
+  ): string => {
+    if (event) {
+      if (event.description.length > 0) {
+        return event.description;
+      }
+      return Site.slogan;
+    }
+    return "イベントが見つかりません";
+  },
   getEventPagePath: (path: string): string => {
     return Site.eventPagePath() + path;
   },

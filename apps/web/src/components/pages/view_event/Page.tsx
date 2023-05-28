@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { Main } from "./Main";
 import { EventGuest } from "domain/src/model/guest";
-import { Site } from "@/registry";
+import { Site } from "infra/src/web/site";
 import { useEvent } from "@/hooks/useEvent";
 
 export const Page: FC = () => {
@@ -14,7 +14,7 @@ export const Page: FC = () => {
   return (
     <>
       <Head>
-        <title>{title(event)}</title>
+        <title>{Site.getEventPageTitle(event)}</title>
         <meta name="robots" content="noindex,nofollow,noarchive" />
       </Head>
       <Layout>
@@ -27,11 +27,4 @@ export const Page: FC = () => {
       </Layout>
     </>
   );
-};
-
-const title = (event: CurrentEvent | null | undefined): string => {
-  if (event) {
-    return event.name + " はいつがいいですか？ by " + Site.name;
-  }
-  return Site.name;
 };

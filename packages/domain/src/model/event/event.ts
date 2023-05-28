@@ -51,6 +51,10 @@ export class CurrentEvent extends StructValueObject<
   protected get _name(): EventName {
     return this._value.name;
   }
+  get description(): string {
+    // TODO
+    return "";
+  }
   get path(): string {
     return this._value.path.value;
   }

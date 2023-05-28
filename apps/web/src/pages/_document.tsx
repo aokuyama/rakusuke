@@ -1,4 +1,4 @@
-import { Site } from "@/registry";
+import { Site } from "infra/src/web/site";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

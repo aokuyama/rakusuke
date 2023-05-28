@@ -6,7 +6,7 @@ import { FormError } from "ui/src/components/FormError";
 import { DatePicker } from "./DatePicker";
 import { Date } from "domain/src/model/event/date";
 import { User } from "domain/src/model/user";
-import { Site } from "@/registry";
+import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";
 import { useEventForm } from "./useEventForm";

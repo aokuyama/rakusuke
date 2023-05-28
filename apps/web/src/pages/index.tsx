@@ -2,7 +2,7 @@ import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { Page } from "@/components/pages/create_event/Page";
 import { FC } from "react";
-import { Site } from "@/registry";
+import { Site } from "infra/src/web/site";
 
 export const NewEvent: FC = () => {
   return (
