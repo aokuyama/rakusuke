@@ -14,6 +14,9 @@ const BOTS = [
 ];
 
 export const Site = {
+  getEventPagePath: (path: string): string => {
+    return Site.eventPagePath() + path;
+  },
   eventPagePath: (): string => {
     return `/${eventPath}/`;
   },

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { storage } from "@/registry";
 import { RegisteredUser } from "domain/src/model/user";
 import { Dev } from "@/components/container/dev/Dev";
+import { Site } from "infra/src/web/site";
 
 export const Page: FC = () => {
   const router = useRouter();
@@ -14,8 +15,7 @@ export const Page: FC = () => {
   }) => {
     storage.saveUser(RegisteredUser.new(args.user));
     router.push({
-      pathname: "/e/",
-      query: { p: args.path },
+      pathname: Site.getEventPagePath(args.path),
     });
   };
   const user = storage.getUser();
