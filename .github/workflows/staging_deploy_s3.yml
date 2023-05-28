@@ -18,7 +18,7 @@ jobs:
         run: |
           rm -rf ./apps/workshop
           rm -rf ./apps/server
-          rm -rf ./apps/ogp
+          rm -rf ./apps/edge
 
       - name: Install Dependencies
         run: yarn workspace web install
