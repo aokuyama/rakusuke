@@ -37,12 +37,21 @@ export class ExistingEvent extends StructValueObject<
   protected validate(value: ExistingEventProps): void {
     // throw new Error("Method not implemented.");
   }
-  static new(args: ExistingEventArgs): ExistingEvent {
+  static new(args: {
+    id: number;
+    organizerId: number;
+    path: EventPath;
+    name: string;
+    schedules: { date: string }[];
+    guests: EventGuestArgs[];
+    description?: string | undefined;
+    created: string;
+  }): ExistingEvent {
     return new ExistingEvent({
       id: args.id,
       organizerId: new UserID(args.organizerId),
       name: new EventName(args.name),
-      path: new EventPath(args.path),
+      path: args.path,
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
       description: args.description,
@@ -60,6 +69,10 @@ export class ExistingEvent extends StructValueObject<
   }
   get name(): string {
     return this._value.name.value;
+  }
+  get description(): string {
+    // TODO
+    return "";
   }
   protected get _name(): EventName {
     return this._value.name;

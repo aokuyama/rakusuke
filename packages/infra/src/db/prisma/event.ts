@@ -70,7 +70,7 @@ export class PrismaEventRepository implements EventRepository {
       id: event.id,
       organizerId: event.organizer_id,
       name: event.name,
-      path: path.rawValue(),
+      path: path,
       schedules: schedules,
       guests: guests,
       created: Date.formatString(event.created_at),

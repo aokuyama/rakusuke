@@ -15,6 +15,7 @@
     "@trpc/server": "^10.20.0",
     "domain": "*",
     "eslint-config-custom": "*",
+    "postgres": "^3.3.4",
     "reflect-metadata": "^0.1.13",
     "tsconfig": "*",
     "tsyringe": "^4.7.0",
