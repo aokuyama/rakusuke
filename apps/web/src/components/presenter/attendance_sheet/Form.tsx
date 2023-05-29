@@ -12,6 +12,8 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
+import { Step } from "ui/src/components/Step";
+import { Site } from "infra/src/web/site";
 
 interface Props {
   dateList: Date[];
@@ -28,12 +30,14 @@ export const Form: FC<Props> = ({ dateList, onSubmit, form }) => {
 
   return (
     <form onSubmit={handleSubmit((d) => onSubmit(d))}>
+      <Step number={1}>{Site.message.form.guest.name}</Step>
       <TextBox>
         <input type="text" {...register("name")} />
       </TextBox>
       <FormError>
         <ErrorMessage errors={errors} name="name" />
       </FormError>
+      <Step number={2}>{Site.message.form.guest.calendar}</Step>
       <ToggleList>
         {dateList.map((date, index) => {
           return (

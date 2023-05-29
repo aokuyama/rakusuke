@@ -17,7 +17,20 @@ export const Site = {
   name: "らくスケ",
   slogan: "この世界で最もラクな日程調整アプリ",
   eventPlaceholder: "（例:お花見会）",
-
+  message: {
+    form: {
+      event: {
+        name: "イベントの名前を教えてください",
+        calendar: "開催希望日を選択してください",
+        description: "追加情報や参加者へのメッセージがあれば入力してください",
+      },
+      guest: {
+        name: "あなたの名前を教えてください",
+        calendar: "参加できる日を選択してください",
+        memo: "追加情報や参加者へのメッセージがあれば入力してください",
+      },
+    },
+  },
   getEventPageTitle: (
     event: { name: string; description: string } | null | undefined
   ): string => {

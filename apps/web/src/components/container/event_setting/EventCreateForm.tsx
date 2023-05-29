@@ -52,7 +52,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
   const today = Date.today();
   return (
     <form onSubmit={handleSubmit((d) => publish(d))}>
-      <Step>1. 会の名前を教えてください</Step>
+      <Step number={1}>{Site.message.form.event.name}</Step>
       <TextBox>
         <input
           type="text"
@@ -63,7 +63,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       <FormError>
         <ErrorMessage errors={errors} name="name" />
       </FormError>
-      <Step>2. 候補日はいつですか？</Step>
+      <Step number={2}>{Site.message.form.event.calendar}</Step>
       <DatePicker
         dateList={dateList}
         range={{ min: today, max: eventMaxDate(today) }}
