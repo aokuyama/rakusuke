@@ -40,7 +40,7 @@ const reactModalStyle = {
     left: 0,
     right: 0,
     padding: "0 1rem 1rem",
-    width: boxSize.default + "px",
+    maxWidth: boxSize.default + "px",
     margin: "auto",
     overflow: "scroll",
   },

@@ -18,7 +18,7 @@ const style = css`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 25px 10px 10px;
+  padding: 20px 16px 16px;
   ${colorSet.main}
 
   p {

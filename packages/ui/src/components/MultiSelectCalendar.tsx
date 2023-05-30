@@ -121,8 +121,18 @@ const styles = css`
     cursor: inherit;
   }
 
-  .react-calendar__navigation button:enabled:hover {
-    background-color: ${mainColor.lighter};
+  @media (hover: hover) {
+    .react-calendar__navigation button:enabled:hover,
+    .react-calendar__tile:enabled:hover,
+    .react-calendar--selectRange .react-calendar__tile--hover {
+      background-color: ${mainColor.lighter};
+    }
+  }
+  @media (hover: none) {
+    .react-calendar__navigation button:enabled:active,
+    .react-calendar__tile:enabled:active {
+      background-color: ${mainColor.lighter};
+    }
   }
 
   .react-calendar__month-view__weekdays {
@@ -170,10 +180,6 @@ const styles = css`
     background-color: #f0f0f0;
   }
 
-  .react-calendar__tile:enabled:hover {
-    background-color: ${mainColor.lighter};
-  }
-
   .react-calendar__tile--hasActive {
     background: #76baff;
   }
@@ -181,10 +187,6 @@ const styles = css`
   .react-calendar__tile--hasActive:enabled:hover,
   .react-calendar__tile--hasActive:enabled:focus {
     background: #a9d4ff;
-  }
-
-  .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: ${mainColor.lighter};
   }
 
   .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {

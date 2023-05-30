@@ -20,7 +20,9 @@ export const List: FC<Props> = ({ items }) => {
 };
 
 const list = css`
-  padding: 1em;
+  :has(:nth-child(1)) {
+    padding: 1em;
+  }
   border-radius: 3px;
   ${backgroundColor.default};
   ${boxLayout.default}

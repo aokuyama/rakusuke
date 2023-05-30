@@ -9,6 +9,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { EventUpsert, useEventForm } from "./useEventForm";
 import { Submit } from "ui/src/components/Submit";
 import { loadingContext } from "@/hooks/useLoading";
+import { Site } from "infra/src/web/site";
+import { Step } from "ui/src/components/Step";
 
 interface Props {
   user: User;
@@ -45,12 +47,14 @@ export const EventUpdateForm: FC<Props> = ({
 
   return (
     <form onSubmit={handleSubmit((d) => publish(d))}>
+      <Step number={1}>{Site.message.form.event.name}</Step>
       <TextBox>
         <input type="text" {...register("name")} />
       </TextBox>
       <FormError>
         <ErrorMessage errors={errors} name="name" />
       </FormError>
+      <Step number={2}>{Site.message.form.event.calendar}</Step>
       <DatePicker
         dateList={dateList}
         range={{ min: event.minDate(), max: event.maxDate() }}

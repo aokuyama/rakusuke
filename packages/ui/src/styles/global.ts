@@ -26,4 +26,8 @@ export const global = css`
     min-width: ${boxSize.default}px;
     font-family: NotoSansJP;
   }
+  abbr[title] {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  }
 `;
