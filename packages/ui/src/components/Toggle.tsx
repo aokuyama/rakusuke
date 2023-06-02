@@ -15,7 +15,6 @@ export const Toggle: FC<Props> = ({ children }) => {
 const styles = css`
   display: inline-block;
   position: relative;
-  width: 60px;
   height: 30px;
   border-radius: 50px;
   background-color: #ddd;
@@ -28,10 +27,11 @@ const styles = css`
 
   ::after {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
-    width: 50%;
-    height: 100%;
+    width: 48%;
+    //    height: 100%;
+    padding-top: 48%;
     border-radius: 50%;
     box-shadow: 0 0 5px rgb(0 0 0 / 20%);
     background-color: #fff;
@@ -40,7 +40,7 @@ const styles = css`
   }
 
   :has(:checked)::after {
-    left: 50%;
+    left: 53%;
   }
 
   input {

@@ -1,7 +1,6 @@
 import { ClassAttributes, FC, InputHTMLAttributes, ReactNode } from "react";
 import { css } from "@emotion/react";
 import { Toggle } from "./Toggle";
-import { backgroundColor, mainColor } from "../styles/color";
 
 export type Item = {
   id: string;
@@ -14,12 +13,19 @@ type Props = {
   children: ReactNode &
     ClassAttributes<HTMLInputElement> &
     InputHTMLAttributes<HTMLInputElement>;
+  color?: string;
 };
 
-export const ToggleListItem: FC<Props> = ({ name, children }) => {
+export const ToggleListItem: FC<Props> = ({ name, color, children }) => {
   return (
     <li css={styles}>
-      <div>{name}</div>
+      <div
+        css={css`
+          color: ${color};
+        `}
+      >
+        {name}
+      </div>
       <Toggle>{children}</Toggle>
     </li>
   );
@@ -28,17 +34,15 @@ export const ToggleListItem: FC<Props> = ({ name, children }) => {
 const styles = css`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0 10px;
-  padding: 0.3em;
-  ::before {
-    transform: rotate(-45deg);
-    width: 0.4em;
-    height: 0.4em;
-    border-bottom: 3px solid ${mainColor.default};
-    border-right: 3px solid ${mainColor.default};
-    content: "";
-  }
+  padding: 0 4px;
+  margin: 8px 0;
+  width: 50%;
   div {
-    margin: 0 12px;
+    width: 40%;
+  }
+  label {
+    width: 60%;
   }
 `;

@@ -41,7 +41,7 @@ export const Form: FC<Props> = ({ dateList, onSubmit, form }) => {
       <ToggleList>
         {dateList.map((date, index) => {
           return (
-            <ToggleListItem name={date.toString()} key={index}>
+            <ToggleListItem name={date.short()} key={index}>
               <input
                 type="checkbox"
                 {...register(`attendance.${index}.attend` as const)}

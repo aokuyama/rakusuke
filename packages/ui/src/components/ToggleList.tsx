@@ -18,7 +18,9 @@ export const ToggleList: FC<Props> = ({ children }) => {
 
 const styles = css`
   list-style-type: none;
-  padding: 1em;
+  padding: 16px 8px;
   ${backgroundColor.default};
   margin: 0 auto 16px;
+  display: flex;
+  flex-wrap: wrap;
 `;
