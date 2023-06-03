@@ -53,6 +53,9 @@ export class CurrentEvent extends StructValueObject<
   protected get _uuid(): UUID {
     return this._value.uuid;
   }
+  get uuid(): string {
+    return this._value.uuid.value;
+  }
   get name(): string {
     return this._value.name.value;
   }
