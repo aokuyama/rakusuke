@@ -10,7 +10,7 @@ export class PostgresEventRepository implements EventRepository {
     const client = getClient();
     const events = await client`
     SELECT
-      "id","organizer_id","name","created_at"
+    "uuid","id","organizer_id","name","created_at"
     FROM "event"
     WHERE "path_digest" = ${digest};
   `;
@@ -20,6 +20,7 @@ export class PostgresEventRepository implements EventRepository {
     const event = events[0];
     const created = Date.formatString(event.created_at);
     const result = ExistingEvent.new({
+      uuid: event.uuid,
       id: event.id,
       organizerId: event.organizer_id,
       name: event.name,

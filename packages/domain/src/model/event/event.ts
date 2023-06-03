@@ -6,8 +6,10 @@ import { EventPath } from "./path";
 import { Schedules } from "./schedule";
 import { Date } from "./date";
 import { eventMaxDate } from "../../service/event";
+import { UUID } from "../uuid";
 
 export interface CurrentEventArgs {
+  uuid: string;
   path: string;
   name: string;
   readonly isOrganizer: boolean;
@@ -18,6 +20,7 @@ export interface CurrentEventArgs {
 }
 
 interface CurrentEventProps {
+  readonly uuid: UUID;
   readonly path: EventPath;
   readonly name: EventName;
   readonly description: string | undefined;
@@ -36,6 +39,7 @@ export class CurrentEvent extends StructValueObject<
   }
   static new(args: CurrentEventArgs): CurrentEvent {
     return new CurrentEvent({
+      uuid: new UUID(args.uuid),
       name: new EventName(args.name),
       path: new EventPath(args.path),
       isOrganizer: args.isOrganizer,
@@ -44,6 +48,10 @@ export class CurrentEvent extends StructValueObject<
       description: args.description,
       created: new Date(args.created),
     });
+  }
+  sameIdAs = (event: CurrentEvent): boolean => this._uuid.equals(event._uuid);
+  protected get _uuid(): UUID {
+    return this._value.uuid;
   }
   get name(): string {
     return this._value.name.value;
@@ -119,6 +127,7 @@ export class CurrentEvent extends StructValueObject<
   };
   pushGuest = (guest: EventGuest): CurrentEvent => {
     return new CurrentEvent({
+      uuid: this._uuid,
       name: this._name,
       path: this._path,
       isOrganizer: this._isOrganizer,
@@ -130,6 +139,7 @@ export class CurrentEvent extends StructValueObject<
   };
   replaceGuest = (guest: EventGuest): CurrentEvent => {
     return new CurrentEvent({
+      uuid: this._uuid,
       name: this._name,
       path: this._path,
       isOrganizer: this._isOrganizer,

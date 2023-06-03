@@ -2,6 +2,7 @@ import { NewAttendanceList } from "./attendance";
 import { CurrentEvent } from "./event";
 
 const eventProps = {
+  uuid: "00000000-0000-0000-0000-000000000000",
   name: "EventName",
   path: "1234567890123456",
   isOrganizer: false,
@@ -19,6 +20,10 @@ describe("イベント作成", () => {
   it("イベントが正しく作成でき、シリアライズできる", () => {
     const event = CurrentEvent.new(eventProps);
     expect(event.serialize()).toStrictEqual(eventProps);
+  });
+  it("同一のイベントか正しく判断できる", () => {
+    const event = CurrentEvent.new(eventProps);
+    expect(event.sameIdAs(event)).toBe(true);
   });
 });
 

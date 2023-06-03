@@ -67,6 +67,7 @@ export class PrismaEventRepository implements EventRepository {
       };
     });
     return ExistingEvent.new({
+      uuid: event.uuid,
       id: event.id,
       organizerId: event.organizer_id,
       name: event.name,

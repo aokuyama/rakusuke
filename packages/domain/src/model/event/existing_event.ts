@@ -7,8 +7,10 @@ import { Schedules } from "./schedule";
 import { UpdateEvent } from "./update_event";
 import { Date } from "./date";
 import { CurrentEvent } from "./event";
+import { UUID } from "../uuid";
 
 export interface ExistingEventArgs {
+  uuid: string;
   id: number;
   organizerId: number;
   path: string;
@@ -20,6 +22,7 @@ export interface ExistingEventArgs {
 }
 
 interface ExistingEventProps {
+  readonly uuid: UUID;
   readonly id: number; //  TODO 型定義した方が良い
   readonly organizerId: UserID;
   readonly path: EventPath;
@@ -38,6 +41,7 @@ export class ExistingEvent extends StructValueObject<
     // throw new Error("Method not implemented.");
   }
   static new(args: {
+    uuid: string;
     id: number;
     organizerId: number;
     path: EventPath;
@@ -48,6 +52,7 @@ export class ExistingEvent extends StructValueObject<
     created: string;
   }): ExistingEvent {
     return new ExistingEvent({
+      uuid: new UUID(args.uuid),
       id: args.id,
       organizerId: new UserID(args.organizerId),
       name: new EventName(args.name),
@@ -57,6 +62,9 @@ export class ExistingEvent extends StructValueObject<
       description: args.description,
       created: new Date(args.created),
     });
+  }
+  protected get _uuid(): UUID {
+    return this._value.uuid;
   }
   get id(): number {
     return this._value.id;
@@ -102,6 +110,7 @@ export class ExistingEvent extends StructValueObject<
     );
     return {
       updatedEvent: new ExistingEvent({
+        uuid: this._uuid,
         id: this._id,
         organizerId: this._organizerId,
         name: event._name,
@@ -117,6 +126,7 @@ export class ExistingEvent extends StructValueObject<
   };
   toFront = (id: UserID | null): CurrentEvent =>
     new CurrentEvent({
+      uuid: this._uuid,
       name: this._name,
       path: this._path,
       isOrganizer: id ? this.isOrganizer(id) : false,

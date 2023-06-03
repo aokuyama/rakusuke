@@ -3,6 +3,7 @@ import { ExistingEvent } from "./existing_event";
 import { EventPath } from "./path";
 
 const eventProps = {
+  uuid: "00000000-0000-0000-0000-000000000000",
   id: 1,
   organizerId: 1,
   name: "EventName",
@@ -19,6 +20,7 @@ const eventProps = {
 
 const newEvent = () => {
   return ExistingEvent.new({
+    uuid: eventProps.uuid,
     id: eventProps.id,
     organizerId: eventProps.organizerId,
     name: eventProps.name,
