@@ -1,14 +1,22 @@
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
-import { FC, useState } from "react";
-import { EventGuest } from "domain/src/model/guest";
+import { FC } from "react";
 import { Site } from "infra/src/web/site";
 import { useEvent } from "@/hooks/useEvent";
 import { ViewEventPage } from "@/components/pages/view_event/ViewEventPage";
+import { useEvents } from "@/features/event/recently_viewed_events/hooks/useEvents";
+import { CurrentEvent } from "domain/src/model/event";
 
 export const EventPage: FC = () => {
-  const { event, setEvent } = useEvent();
-  const [targetGuest, setTargetGuest] = useState<EventGuest | null>(null);
+  const { events, setEvents } = useEvents();
+  const { event, setEvent } = useEvent(setEvents);
+
+  const setEventHandler = (event: CurrentEvent | null) => {
+    setEvent(event);
+    if (event) {
+      setEvents(event);
+    }
+  };
 
   return (
     <>
@@ -19,9 +27,8 @@ export const EventPage: FC = () => {
       <Layout>
         <ViewEventPage
           event={event}
-          setEvent={setEvent}
-          targetGuest={targetGuest}
-          setTargetGuest={setTargetGuest}
+          setEvent={setEventHandler}
+          events={events}
         />
       </Layout>
     </>

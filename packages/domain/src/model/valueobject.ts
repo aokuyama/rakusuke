@@ -63,4 +63,7 @@ export abstract class ArrayValueObject<
     }
     return false;
   };
+  map = (callbackfn: (value: T, index: number, array: T[]) => any): any[] => {
+    return this._value.map(callbackfn);
+  };
 }

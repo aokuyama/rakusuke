@@ -10,9 +10,7 @@ import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverv
 
 interface Props {
   event: CurrentEvent | null | undefined;
-  setEvent: React.Dispatch<
-    React.SetStateAction<CurrentEvent | null | undefined>
-  >;
+  setEvent: (event: CurrentEvent | null) => void;
   targetGuest: EventGuest | null;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
@@ -92,14 +90,14 @@ export const Event: FC<Props> = ({
           setIsNewGuestFormOpen(false);
         }}
         event={event}
-        setEvent={setEvent}
+        eventUpdatedHandler={eventUpdatedHandler}
       />
       {targetGuest && (
         <UpdateSheetModal
           guest={targetGuest}
           setGuest={setTargetGuest}
           event={event}
-          setEvent={setEvent}
+          eventUpdatedHandler={eventUpdatedHandler}
         />
       )}
     </>

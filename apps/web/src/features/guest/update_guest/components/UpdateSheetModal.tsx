@@ -6,16 +6,14 @@ import { UpdateSheet } from "./UpdateSheet";
 
 interface Props {
   event: CurrentEvent;
-  setEvent: React.Dispatch<
-    React.SetStateAction<CurrentEvent | null | undefined>
-  >;
+  eventUpdatedHandler: (event: CurrentEvent) => void;
   guest: EventGuest;
   setGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
 export const UpdateSheetModal: FC<Props> = ({
   event,
-  setEvent,
+  eventUpdatedHandler,
   guest,
   setGuest,
 }) => {
@@ -30,7 +28,7 @@ export const UpdateSheetModal: FC<Props> = ({
         guest={guest}
         event={event}
         eventUpdatedHandler={(e) => {
-          setEvent(e);
+          eventUpdatedHandler(e);
           onRequestClose();
         }}
       />

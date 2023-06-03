@@ -5,16 +5,14 @@ import { Modal } from "ui/src/components/Modal";
 
 interface Props {
   event: CurrentEvent;
-  setEvent: React.Dispatch<
-    React.SetStateAction<CurrentEvent | null | undefined>
-  >;
+  eventUpdatedHandler: (event: CurrentEvent) => void;
   isOpen: boolean;
   onRequestClose: () => void;
 }
 
 export const NewSheetModal: FC<Props> = ({
   event,
-  setEvent,
+  eventUpdatedHandler,
   isOpen,
   onRequestClose,
 }) => {
@@ -23,7 +21,7 @@ export const NewSheetModal: FC<Props> = ({
       <NewSheet
         event={event}
         eventUpdatedHandler={(e) => {
-          setEvent(e);
+          eventUpdatedHandler(e);
           onRequestClose();
         }}
       />
