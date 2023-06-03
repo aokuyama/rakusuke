@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Calendar } from "@/components/presenter/schedule/Calendar";
+import { Calendar } from "./Calendar";
 import { List } from "ui/src/components/List";
 import { Date } from "domain/src/model/event/date";
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Guest, GuestList } from "./GuestList";
-import { Button } from "../Button";
+import { Button } from "ui/src/components/Button";
 
 type Props = {
   guests: Guest[];

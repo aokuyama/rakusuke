@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
 import { css } from "@emotion/react";
-import { backgroundColor } from "../../styles/color";
-import { boxLayout } from "../../styles/layout";
-import { EditButton } from "../EditButton";
-import { boxSize } from "../../styles/size";
+import { backgroundColor } from "../styles/color";
+import { boxLayout } from "../styles/layout";
+import { EditButton } from "./EditButton";
+import { boxSize } from "../styles/size";
 
 type Props = {
   name: ReactNode;

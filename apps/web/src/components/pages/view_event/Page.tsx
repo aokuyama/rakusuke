@@ -1,7 +1,6 @@
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC, useState } from "react";
-import { CurrentEvent } from "domain/src/model/event";
 import { Main } from "./Main";
 import { EventGuest } from "domain/src/model/guest";
 import { Site } from "infra/src/web/site";

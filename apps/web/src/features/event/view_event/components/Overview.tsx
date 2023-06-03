@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { EditBox } from "ui/src/components/attendance/EditBox";
-import { Item, Summary } from "ui/src/components/attendance/Summary";
+import { EditBox } from "ui/src/components/EditBox";
+import { Item, Summary } from "./Summary";
 
 interface Props {
   name: string;

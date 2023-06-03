@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
-import { EventUpdateForm } from "@/components/container/event_setting/EventUpdateForm";
+import { EventUpdateForm } from "./EventUpdateForm";
 import { User } from "domain/src/model/user";
 import { Modal } from "ui/src/components/Modal";
 

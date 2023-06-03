@@ -1,12 +1,15 @@
 import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { FormError } from "ui/src/components/FormError";
-import { DatePicker } from "./DatePicker";
+import { DatePicker } from "../../create_event/components/DatePicker";
 import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
 import { ErrorMessage } from "@hookform/error-message";
-import { EventUpsert, useEventForm } from "./useEventForm";
+import {
+  EventUpsert,
+  useEventForm,
+} from "../../create_event/hooks/useEventForm";
 import { Submit } from "ui/src/components/Submit";
 import { loadingContext } from "@/hooks/useLoading";
 import { Site } from "infra/src/web/site";

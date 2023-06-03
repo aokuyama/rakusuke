@@ -9,9 +9,9 @@ import { User } from "domain/src/model/user";
 import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";
-import { useEventForm } from "./useEventForm";
 import { eventMaxDate } from "domain/src/service/event";
 import { loadingContext } from "@/hooks/useLoading";
+import { useEventForm } from "../hooks/useEventForm";
 
 interface Props {
   user: User;

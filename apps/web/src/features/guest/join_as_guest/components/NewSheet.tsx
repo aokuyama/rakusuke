@@ -2,12 +2,9 @@ import { FC, useContext } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
-import { Form } from "@/components/presenter/attendance_sheet/Form";
-import {
-  GuestUpsert,
-  useGuestForm,
-} from "@/components/presenter/attendance_sheet/useGuestForm";
+import { Form } from "./Form";
 import { loadingContext } from "@/hooks/useLoading";
+import { GuestUpsert, useGuestForm } from "../hooks/useGuestForm";
 
 interface Props {
   event: CurrentEvent;

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { EditBox } from "./EditBox";
-import { CheckList } from "./CheckList";
+import { EditBox } from "ui/src/components/EditBox";
+import { CheckList } from "ui/src/components/CheckList";
 
 interface Attendance {
   id: string;

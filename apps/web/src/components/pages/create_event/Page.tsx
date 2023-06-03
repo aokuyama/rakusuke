@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { EventCreateForm } from "@/components/container/event_setting/EventCreateForm";
 import { useRouter } from "next/router";
 import { storage } from "@/registry";
 import { RegisteredUser } from "domain/src/model/user";
-import { Dev } from "@/components/container/dev/Dev";
 import { Site } from "infra/src/web/site";
+import { EventCreateForm } from "@/features/event/create_event/components/EventCreateForm";
+import { Dev } from "@/features/dev/components/Dev";
 
 export const Page: FC = () => {
   const router = useRouter();

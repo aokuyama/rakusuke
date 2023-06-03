@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Date } from "domain/src/model/event/date";
 import { TextBox } from "ui/src/components/TextBox";
 import { FormError } from "ui/src/components/FormError";
-import { GuestUpsert } from "./useGuestForm";
+import { GuestUpsert } from "../hooks/useGuestForm";
 import { ErrorMessage } from "@hookform/error-message";
 import { Submit } from "ui/src/components/Submit";
 import { ToggleListItem } from "ui/src/components/ToggleListItem";

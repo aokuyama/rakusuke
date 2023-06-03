@@ -3,8 +3,8 @@ import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { storage } from "@/registry";
 import { Loading } from "ui/src/components/Loading";
-import { Dev } from "@/components/container/dev/Dev";
 import { Event } from "@/components/pages/view_event/Event";
+import { Dev } from "@/features/dev/components/Dev";
 
 interface Props {
   event: CurrentEvent | null | undefined;

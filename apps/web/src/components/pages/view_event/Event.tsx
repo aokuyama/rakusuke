@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
-import { NewSheetModal } from "@/components/container/attendance/NewSheetModal";
 import { storage } from "@/registry";
-import { Body } from "@/components/container/attendance/Body";
-import { EventUpdateFormModal } from "@/components/container/event_setting/EventUpdateFormModal";
-import { Overview } from "@/components/presenter/event/Overview";
-import { UpdateSheetModal } from "@/components/container/attendance/UpdateSheetModal";
+import { EventUpdateFormModal } from "@/features/event/update_event/components/EventUpdateFormModal";
+import { Overview } from "@/features/event/view_event/components/Overview";
+import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewSheetModal";
+import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
+import { Body } from "@/features/guest/view_guest/components/Body";
 
 interface Props {
   event: CurrentEvent | null | undefined;
