@@ -1,4 +1,4 @@
-import { Page } from "@/components/pages/view_event/Page";
+import { EventPage } from "../e";
 
-export default Page;
+export default EventPage;
 // このページは開発環境でのみ有効。本番では/e/へリライトされる

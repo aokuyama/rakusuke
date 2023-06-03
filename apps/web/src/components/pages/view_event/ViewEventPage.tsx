@@ -15,7 +15,7 @@ interface Props {
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
-export const Main: FC<Props> = ({
+export const ViewEventPage: FC<Props> = ({
   event,
   setEvent,
   targetGuest,

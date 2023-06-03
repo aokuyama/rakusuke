@@ -3,10 +3,10 @@ import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { storage } from "@/registry";
 import { EventUpdateFormModal } from "@/features/event/update_event/components/EventUpdateFormModal";
-import { Overview } from "@/features/event/view_event/components/Overview";
+import { EventOverview } from "@/features/event/view_event/components/EventOverview";
 import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewSheetModal";
 import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
-import { Body } from "@/features/guest/view_guest/components/Body";
+import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
 
 interface Props {
   event: CurrentEvent | null | undefined;
@@ -56,7 +56,7 @@ export const Event: FC<Props> = ({
 
   return (
     <>
-      <Overview
+      <EventOverview
         name={event.name}
         summary={summary}
         onClick={
@@ -67,7 +67,7 @@ export const Event: FC<Props> = ({
             : undefined
         }
       />
-      <Body
+      <GuestOverview
         guests={guestList}
         event={event}
         setTargetGuest={setTargetGuest}

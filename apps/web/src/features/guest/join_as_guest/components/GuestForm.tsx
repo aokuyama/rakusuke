@@ -25,7 +25,7 @@ interface Props {
   };
 }
 
-export const Form: FC<Props> = ({ dateList, onSubmit, form }) => {
+export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
   const { register, handleSubmit, errors } = form;
 
   return (

@@ -2,7 +2,7 @@ import { FC, useContext } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { EventGuest } from "domain/src/model/guest";
-import { Form } from "./Form";
+import { GuestForm } from "./GuestForm";
 import { loadingContext } from "@/hooks/useLoading";
 import { GuestUpsert, useGuestForm } from "../hooks/useGuestForm";
 
@@ -29,7 +29,7 @@ export const NewSheet: FC<Props> = ({ event, eventUpdatedHandler }) => {
   };
 
   return (
-    <Form
+    <GuestForm
       dateList={event._schedules.dates()}
       onSubmit={publish}
       form={useGuestForm()}

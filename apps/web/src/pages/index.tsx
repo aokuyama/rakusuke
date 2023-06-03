@@ -1,10 +1,10 @@
 import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
-import { Page } from "@/components/pages/create_event/Page";
 import { FC } from "react";
 import { Site } from "infra/src/web/site";
+import { EventCreationPage } from "@/components/pages/event_creation/EventCreationPage";
 
-export const NewEvent: FC = () => {
+export const Top: FC = () => {
   return (
     <>
       <Head>
@@ -12,10 +12,10 @@ export const NewEvent: FC = () => {
         <meta property="og:title" content={Site.name} />
       </Head>
       <Layout>
-        <Page />
+        <EventCreationPage />
       </Layout>
     </>
   );
 };
 
-export default NewEvent;
+export default Top;

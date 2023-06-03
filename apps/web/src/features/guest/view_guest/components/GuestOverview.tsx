@@ -11,7 +11,7 @@ interface Props {
   onJoinHandler: () => void;
 }
 
-export const Body: FC<Props> = ({
+export const GuestOverview: FC<Props> = ({
   guests,
   event,
   setTargetGuest,

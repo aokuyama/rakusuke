@@ -6,7 +6,7 @@ import { Site } from "infra/src/web/site";
 import { EventCreateForm } from "@/features/event/create_event/components/EventCreateForm";
 import { Dev } from "@/features/dev/components/Dev";
 
-export const Page: FC = () => {
+export const EventCreationPage: FC = () => {
   const router = useRouter();
 
   const eventCreatedHandler = (args: {

@@ -8,7 +8,7 @@ interface Props {
   onClick?: () => void;
 }
 
-export const Overview: FC<Props> = ({ name, summary, onClick }) => {
+export const EventOverview: FC<Props> = ({ name, summary, onClick }) => {
   const button = onClick ? { clickHandler: onClick } : undefined;
   return (
     <EditBox name={name} button={button}>
