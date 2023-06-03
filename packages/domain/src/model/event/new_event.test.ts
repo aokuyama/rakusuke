@@ -98,19 +98,19 @@ describe("イベント作成", () => {
       });
     }).toThrow("duplicate date");
   });
-  it("31日より先の日付があると失敗する", () => {
+  it("45日より先の日付があると失敗する", () => {
     NewEvent.create({
       organizerId: organizerId,
       name: "event",
       today: "2023/03/15",
-      dates: ["2023/04/15"],
+      dates: ["2023/04/29"],
     });
     expect(() => {
       NewEvent.create({
         organizerId: organizerId,
         name: "event",
         today: "2023/03/15",
-        dates: ["2023/04/16"],
+        dates: ["2023/04/30"],
       });
     }).toThrow("too early to schedule");
   });
