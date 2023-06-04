@@ -7,23 +7,23 @@ export class LocalStorage {
       return unregisteredUser;
     }
 
-    const user = localStorage.getItem("user");
+    const user = window.localStorage.getItem("user");
     return user ? RegisteredUser.new(JSON.parse(user)) : unregisteredUser;
   };
   saveUser = (user: RegisteredUser) => {
-    localStorage.setItem("user", JSON.stringify(user.getAuthInfo()));
+    window.localStorage.setItem("user", JSON.stringify(user.getAuthInfo()));
   };
   getRecentEvents = (): RecentlyViewedEvent | undefined => {
     if (typeof window === "undefined") {
       return undefined;
     }
 
-    const events = localStorage.getItem("recent_events");
+    const events = window.localStorage.getItem("recent_events");
     return events
       ? RecentlyViewedEvent.new(JSON.parse(events))
       : RecentlyViewedEvent.createEmpty();
   };
   saveRecentEvents = (events: RecentlyViewedEvent) => {
-    localStorage.setItem("recent_events", JSON.stringify(events.value));
+    window.localStorage.setItem("recent_events", JSON.stringify(events.value));
   };
 }

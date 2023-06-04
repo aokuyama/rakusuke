@@ -33,6 +33,20 @@ export class RecentlyViewedEvent extends ArrayValueObject<
     events.push(event);
     return new RecentlyViewedEvent(events);
   };
+  pushEvents = (events: RecentlyViewedEvent): RecentlyViewedEvent => {
+    let newEvents = undefined;
+    for (const e of events._value) {
+      if (!newEvents) {
+        newEvents = this.push(e);
+      } else {
+        newEvents = newEvents.push(e);
+      }
+    }
+    if (newEvents) {
+      return newEvents;
+    }
+    return this;
+  };
   order = (currentEvent: CurrentEvent | null): RecentlyViewedEvent => {
     let events = [];
     if (currentEvent) {
