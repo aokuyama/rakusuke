@@ -156,4 +156,10 @@ export class CurrentEvent extends StructValueObject<
     this._guests.getByNumber(number);
   minDate = (): Date => this._created;
   maxDate = (): Date => eventMaxDate(this.minDate());
+  dateSummary = (): string => {
+    return this._schedules
+      .dates()
+      .map((d) => d.short())
+      .join(" ");
+  };
 }

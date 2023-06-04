@@ -1,21 +1,26 @@
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
-import { Event } from "./Event";
 import { FC } from "react";
+import { SideTitle } from "ui/src/components/SideTitle";
+import { OverviewRecentEventBody } from "./OverviewRecentEventBody";
+import { CurrentEvent } from "domain/src/model/event";
 
 interface Props {
-  events: RecentlyViewedEvent;
+  events: RecentlyViewedEvent | undefined;
+  currentEvent: CurrentEvent | null | undefined;
 }
 
-export const OverviewRecentEvent: FC<Props> = ({ events }) => {
+export const OverviewRecentEvent: FC<Props> = ({ events, currentEvent }) => {
   return (
-    <ul>
-      {events.map((event, i) => {
-        return (
-          <li key={i}>
-            <Event event={event} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <SideTitle>最近見たイベント</SideTitle>
+      <div>
+        {events && (currentEvent || currentEvent === null) && (
+          <OverviewRecentEventBody
+            events={events}
+            currentEvent={currentEvent}
+          />
+        )}
+      </div>
+    </>
   );
 };

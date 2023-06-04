@@ -34,7 +34,7 @@ export const EventCreationPage: FC = () => {
         />
       </Main>
       <Aside>
-        <OverviewRecentEvent events={events} />
+        <OverviewRecentEvent events={events} currentEvent={null} />
       </Aside>
     </Frame>
   );

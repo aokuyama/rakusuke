@@ -33,4 +33,17 @@ export class RecentlyViewedEvent extends ArrayValueObject<
     events.push(event);
     return new RecentlyViewedEvent(events);
   };
+  order = (currentEvent: CurrentEvent | null): RecentlyViewedEvent => {
+    let events = [];
+    if (currentEvent) {
+      for (const e of this._value) {
+        if (!currentEvent.sameIdAs(e)) {
+          events.push(e);
+        }
+      }
+    } else {
+      events = this._value.map((e) => e);
+    }
+    return new RecentlyViewedEvent(events.reverse());
+  };
 }

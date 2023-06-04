@@ -12,7 +12,7 @@ import { Frame } from "ui/src/components/layout/Frame";
 interface Props {
   event: CurrentEvent | null | undefined;
   setEvent: (event: CurrentEvent | null) => void;
-  events: RecentlyViewedEvent;
+  events: RecentlyViewedEvent | undefined;
 }
 
 export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
@@ -31,7 +31,7 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
         </Loading>
       </Main>
       <Aside>
-        <OverviewRecentEvent events={events} />
+        <OverviewRecentEvent events={events} currentEvent={event} />
       </Aside>
     </Frame>
   );

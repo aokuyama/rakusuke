@@ -7,6 +7,11 @@ export const boxLayout = {
     max-width: 100%;
     margin: 0 auto 16px;
   `,
+  side: css`
+    width: ${boxSize.side}px;
+    max-width: 100%;
+    margin: 0 auto 16px;
+  `,
 };
 
 export const isNotSmall = `@media (min-width: 640px)`;
