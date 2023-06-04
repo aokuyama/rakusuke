@@ -8,15 +8,23 @@ type Props = {
 };
 
 export const Frame: FC<Props> = ({ children }) => {
-  return <div css={styles}>{children}</div>;
+  return (
+    <div css={styles}>
+      <div>{children}</div>
+    </div>
+  );
 };
 
 const styles = css`
-  display: grid;
-  ${isNotSmall} {
-    grid-template-rows: 1fr;
-    grid-template-columns: 340px 1fr 340px;
-  }
-  padding: 16px 0;
   ${backgroundColor.background}
+  > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    ${isNotSmall} {
+      grid-template-rows: 1fr;
+      grid-template-columns: 340px 1fr 340px;
+    }
+    padding: 16px 0;
+  }
 `;
