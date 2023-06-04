@@ -14,6 +14,7 @@ import { UserEntity } from "domain/src/model/user";
 import { TRPCError } from "@trpc/server";
 import { eventCreateSchema } from "../../client/trpc/validation/event";
 import { userSchema } from "../../client/trpc/validation/user";
+import { ExistingEvent } from "domain/src/model/event";
 
 export const createEvent = publicProcedure
   .input(
@@ -44,12 +45,12 @@ export const createEvent = publicProcedure
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    let path: string | undefined;
+    let event: ExistingEvent | undefined;
 
     container.register("CreateEventPresenter", {
       useValue: {
         render: async (output: CreateEventOutput): Promise<void> => {
-          path = output.path;
+          event = output.event;
         },
       },
     });
@@ -60,9 +61,12 @@ export const createEvent = publicProcedure
       dates: input.event.schedule.map((s) => s.date),
     });
 
-    if (!path) {
+    if (!event) {
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
     }
 
-    return { path: path, user: { uuid: user.uuid, token: user.getRawToken() } };
+    return {
+      event: event.toFront(user._id).serialize(),
+      user: { uuid: user.uuid, token: user.getRawToken() },
+    };
   });

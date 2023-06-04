@@ -5,8 +5,8 @@ import { EventPath } from "domain/src/model/event/path";
 import { Date } from "domain/src/model/event/date";
 
 export class PrismaEventRepository implements EventRepository {
-  createEvent = async (event: NewEvent): Promise<EventPath> => {
-    const _r = await client.$transaction(async (prisma) => {
+  createEvent = async (event: NewEvent): Promise<ExistingEvent> => {
+    const savedEvent = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.event.create({
         data: {
           uuid: event.uuid,
@@ -22,7 +22,14 @@ export class PrismaEventRepository implements EventRepository {
       });
       return saveEvent;
     });
-    return event.getExistingPath();
+    const schedules = event._dates.globalThisDates().map((d) => {
+      return { date: Date.formatString(d) };
+    });
+    return event.toExisting(
+      savedEvent.id,
+      schedules,
+      Date.convert(savedEvent.created_at)
+    );
   };
 
   loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {

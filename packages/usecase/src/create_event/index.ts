@@ -1,3 +1,5 @@
+import { ExistingEvent } from "domain/src/model/event";
+
 export * from "./interactor";
 
 export type CreateEventInput = {
@@ -7,7 +9,7 @@ export type CreateEventInput = {
 };
 
 export type CreateEventOutput = {
-  path: string;
+  event: ExistingEvent;
 };
 
 export interface CreateEventUsecase {

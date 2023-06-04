@@ -27,7 +27,6 @@ export const useEvent = (
     const load = async () => {
       if (eq) {
         const ev = await loadEventCallback();
-        console.log(ev);
         if (ev !== undefined) {
           setEvent(ev);
           if (ev && setFirstEventHandler) {

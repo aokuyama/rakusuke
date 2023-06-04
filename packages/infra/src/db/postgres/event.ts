@@ -31,7 +31,7 @@ export class PostgresEventRepository implements EventRepository {
     });
     return result;
   };
-  createEvent!: (event: NewEvent) => Promise<EventPath>;
+  createEvent!: (event: NewEvent) => Promise<ExistingEvent>;
   updateEvent!: (
     before: ExistingEvent,
     after: UpdateEvent

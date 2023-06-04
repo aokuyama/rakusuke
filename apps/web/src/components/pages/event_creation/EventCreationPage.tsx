@@ -9,21 +9,24 @@ import { Frame } from "ui/src/components/layout/Frame";
 import { Aside } from "ui/src/components/layout/Aside";
 import { OverviewRecentEvent } from "@/features/event/recently_viewed_events/components/OverviewRecentEvent";
 import { useEvents } from "@/features/event/recently_viewed_events/hooks/useEvents";
+import { CurrentEvent, CurrentEventArgs } from "domain/src/model/event";
 
 export const EventCreationPage: FC = () => {
   const router = useRouter();
 
   const eventCreatedHandler = (args: {
     user: { uuid: string; token: string };
-    path: string;
+    event: CurrentEventArgs;
   }) => {
+    const event = CurrentEvent.new(args.event);
     storage.saveUser(RegisteredUser.new(args.user));
     router.push({
-      pathname: Site.getEventPagePath(args.path),
+      pathname: Site.getEventPagePath(event.path),
     });
+    setEvents(event);
   };
   const user = storage.getUser();
-  const { events } = useEvents();
+  const { events, setEvents } = useEvents();
 
   return (
     <Frame>

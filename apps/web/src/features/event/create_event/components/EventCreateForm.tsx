@@ -12,11 +12,12 @@ import { client } from "infra/src/client/trpc";
 import { eventMaxDate } from "domain/src/service/event";
 import { loadingContext } from "@/hooks/useLoading";
 import { useEventForm } from "../hooks/useEventForm";
+import { CurrentEventArgs } from "domain/src/model/event";
 
 interface Props {
   user: User;
   eventCreatedHandler: (args: {
-    path: string;
+    event: CurrentEventArgs;
     user: {
       uuid: string;
       token: string;
@@ -39,7 +40,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       event: event,
     });
     ctx.setAsNotLoading();
-    if (result.path) {
+    if (result.event) {
       eventCreatedHandler(result);
     } else {
       console.error(result);
