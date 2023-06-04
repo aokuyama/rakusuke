@@ -19,8 +19,8 @@ export const systemColor = {
 };
 
 export const dayOfWeek = {
-  saturday: "#00f",
-  sunday: "#f00",
+  saturday: "#00d",
+  sunday: "#d00",
 };
 
 export const white = {

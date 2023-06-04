@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Calendar as ReactCalendar } from "react-calendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css, Global } from "@emotion/react";
-import { backgroundColor, mainColor } from "../styles/color";
+import { backgroundColor, dayOfWeek, mainColor } from "../styles/color";
 import { format } from "date-fns";
 import { boxSize } from "../styles/size";
 
@@ -29,6 +29,7 @@ export const MultiSelectCalendar: FC<Props> = ({
       <Global styles={styles} />
       <ReactCalendar
         css={cssList}
+        calendarType={"US"}
         locale={locale}
         onClickDay={onChangeFunc}
         defaultActiveStartDate={minDate}
@@ -154,14 +155,6 @@ const styles = css`
     font-weight: bold;
   }
 
-  .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
-  }
-
-  .react-calendar__month-view__days__day--neighboringMonth {
-    color: #757575;
-  }
-
   .react-calendar__year-view .react-calendar__tile,
   .react-calendar__decade-view .react-calendar__tile,
   .react-calendar__century-view .react-calendar__tile {
@@ -189,10 +182,10 @@ const styles = css`
     background: #a9d4ff;
   }
 
-  .react-calendar__month-view__days__day--weekend:nth-child(7n-1) {
-    color: #00f;
+  .react-calendar__month-view__days__day--weekend:nth-of-type(7n) {
+    color: ${dayOfWeek.saturday};
   }
-  .react-calendar__month-view__days__day--weekend:nth-child(7n) {
-    color: #f00;
+  .react-calendar__month-view__days__day--weekend:nth-of-type(7n + 1) {
+    color: ${dayOfWeek.sunday};
   }
 `;
