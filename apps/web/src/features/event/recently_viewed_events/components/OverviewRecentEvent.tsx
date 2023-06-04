@@ -12,15 +12,17 @@ interface Props {
 export const OverviewRecentEvent: FC<Props> = ({ events, currentEvent }) => {
   return (
     <>
-      <SideTitle>最近見たイベント</SideTitle>
-      <div>
-        {events && (currentEvent || currentEvent === null) && (
-          <OverviewRecentEventBody
-            events={events}
-            currentEvent={currentEvent}
-          />
-        )}
-      </div>
+      {events && (currentEvent || currentEvent === null) && (
+        <>
+          <SideTitle>最近見たイベント</SideTitle>
+          <div>
+            <OverviewRecentEventBody
+              events={events}
+              currentEvent={currentEvent}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
