@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
-import { backgroundColor } from "../../styles/color";
+import { isNotSmall } from "../../styles/layout";
 
 type Props = {
   children: ReactNode;
@@ -11,6 +11,8 @@ export const Main: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
-  padding: 16px 0;
-  ${backgroundColor.background}
+  ${isNotSmall} {
+    grid-row: 1 / 1;
+    grid-column: 2 / 3;
+  }
 `;

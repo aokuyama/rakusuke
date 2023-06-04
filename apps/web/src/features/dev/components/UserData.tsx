@@ -8,9 +8,9 @@ interface Props {
 
 export const UserData: FC<Props> = ({ user }) => {
   return (
-    <div css={styles} suppressHydrationWarning={true}>
+    <aside css={styles} suppressHydrationWarning={true}>
       user: {user.getDebugInfo()}
-    </div>
+    </aside>
   );
 };
 

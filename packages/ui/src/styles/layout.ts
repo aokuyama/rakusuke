@@ -8,3 +8,5 @@ export const boxLayout = {
     margin: 0 auto 16px;
   `,
 };
+
+export const isNotSmall = `@media (min-width: 640px)`;
