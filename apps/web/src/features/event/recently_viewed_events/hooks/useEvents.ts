@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 import { CurrentEvent } from "domain/src/model/event";
 import { storage } from "@/registry";
@@ -12,13 +12,9 @@ export const useEvents = (): {
     RecentlyViewedEvent.createEmpty()
   );
 
-  const setEvents = useCallback(
-    (event: CurrentEvent) => {
-      const newEvents = eventsTmp.push(event);
-      setEventsTmp(newEvents);
-    },
-    [eventsTmp]
-  );
+  const setEvents = (event: CurrentEvent) => {
+    setEventsTmp(eventsTmp.push(event));
+  };
 
   useEffect(() => {
     setEventsBase(storage.getRecentEvents());
@@ -31,9 +27,10 @@ export const useEvents = (): {
     if (!eventsTmp.length()) {
       return;
     }
-    setEventsBase(events.pushEvents(eventsTmp));
+    const newEvents = events.pushEvents(eventsTmp);
+    setEventsBase(newEvents);
+    storage.saveRecentEvents(newEvents);
     setEventsTmp(RecentlyViewedEvent.createEmpty());
-    storage.saveRecentEvents(events);
   }, [events, eventsTmp]);
 
   return { events, setEvents };
