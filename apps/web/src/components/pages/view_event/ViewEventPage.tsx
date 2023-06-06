@@ -22,12 +22,15 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
     <Frame>
       <Main>
         <Loading isLoading={event === undefined}>
-          <Event
-            event={event}
-            setEvent={setEvent}
-            targetGuest={targetGuest}
-            setTargetGuest={setTargetGuest}
-          />
+          {event && (
+            <Event
+              event={event}
+              setEvent={setEvent}
+              targetGuest={targetGuest}
+              setTargetGuest={setTargetGuest}
+            />
+          )}
+          {event === null && <>event not found</>}
         </Loading>
       </Main>
       <Aside>

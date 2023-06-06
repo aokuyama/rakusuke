@@ -13,8 +13,8 @@ import { Date } from "domain/src/model/event/date";
 import { loadingContext } from "@/hooks/useLoading";
 
 interface Props {
-  event: CurrentEvent | null | undefined;
-  setEvent: (event: CurrentEvent | null) => void;
+  event: CurrentEvent;
+  setEvent: (event: CurrentEvent) => void;
   targetGuest: EventGuest | null;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
@@ -28,14 +28,11 @@ export const Event: FC<Props> = ({
   const [isNewGuestFormOpen, setIsNewGuestFormOpen] = useState<boolean>(false);
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
-  const [focusDay, setFocusDay] = useState<string>();
+  const heldDate = event.heldDate();
+  const [focusDay, setFocusDay] = useState<string | undefined>(
+    heldDate ? heldDate.id() : undefined
+  );
   const ctx = useContext(loadingContext);
-  if (event === undefined) {
-    return null;
-  }
-  if (!event) {
-    return <>event not found</>;
-  }
   const user = storage.getUser();
 
   const eventUpdatedHandler = (event: CurrentEvent) => {
@@ -44,7 +41,12 @@ export const Event: FC<Props> = ({
   const { dates, guests } = event.dateMap();
 
   const summary = dates.map((d) => {
-    return { id: d.id, name: d.date.short(), length: d.attendees.length };
+    return {
+      id: d.id,
+      date: d.date.short(),
+      length: d.attendees.length,
+      selected: d.selected,
+    };
   });
 
   const guestList = guests.map((g) => {
@@ -62,6 +64,7 @@ export const Event: FC<Props> = ({
     | {
         id: string;
         date: Date;
+        selected: boolean;
         attendees: {
           name: string;
         }[];

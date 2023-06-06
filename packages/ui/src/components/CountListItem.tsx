@@ -1,15 +1,18 @@
 import { FC } from "react";
 import { textColor } from "../styles/color";
 import { css } from "@emotion/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export type Item = { id: string | number; name: string; length: number };
 
 type Props = {
   name: string;
   length: number;
+  focused: boolean;
+  selected: boolean;
   focusHandler?: () => void;
   unfocusHandler?: () => void;
-  focused: boolean;
 };
 
 export const CountListItem: FC<Props> = ({
@@ -18,6 +21,7 @@ export const CountListItem: FC<Props> = ({
   focusHandler,
   unfocusHandler,
   focused,
+  selected,
 }) => {
   const textStyle = length
     ? css`
@@ -35,13 +39,16 @@ export const CountListItem: FC<Props> = ({
         css`
           ${length ? "cursor: pointer;" : ""}
           ${length == 0 ? textColor.disabled : ""}
-          ${focused ? textColor.mainColor : ""}
+          ${selected ? textColor.mainColor : ""}
         `,
       ]}
       data-length={length}
       onClick={onClickHandler}
     >
-      <span css={textStyle}>{name}</span>
+      <p css={textStyle}>
+        {focused && <FontAwesomeIcon icon={faCheck} width={16} />}
+        {name}
+      </p>
       <span css={textStyle}>
         {length}
         {howToCount}
@@ -58,7 +65,13 @@ const styles = css`
   display: flex;
   padding: 0 2px;
   margin: 0 0 8px;
+  p {
+    width: 65%;
+    svg {
+      margin-right: 4px;
+    }
+  }
   span {
-    width: 50%;
+    width: 35%;
   }
 `;

@@ -111,7 +111,12 @@ export class CurrentEvent extends StructValueObject<
     );
   };
   dateMap = (): {
-    dates: { id: string; date: Date; attendees: { name: string }[] }[];
+    dates: {
+      id: string;
+      date: Date;
+      attendees: { name: string }[];
+      selected: boolean;
+    }[];
     guests: {
       id: string;
       name: string;
@@ -119,11 +124,12 @@ export class CurrentEvent extends StructValueObject<
     }[];
   } => {
     const _dates = this._schedules.dates();
-    const dates = _dates.map((date) => {
+    const dates = this._schedules.map((schedule) => {
       return {
-        id: date.id(),
-        date: date,
-        attendees: this._guests.attendeesByDate(date),
+        id: schedule._date.id(),
+        date: schedule._date,
+        attendees: this._guests.attendeesByDate(schedule._date),
+        selected: schedule.held,
       };
     });
     return { dates: dates, guests: this._guests.dateMap(_dates) };
@@ -162,4 +168,5 @@ export class CurrentEvent extends StructValueObject<
       .map((d) => d.short())
       .join(" ");
   };
+  heldDate = (): Date | undefined => this._schedules.heldDate();
 }

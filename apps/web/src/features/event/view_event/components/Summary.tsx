@@ -2,10 +2,15 @@ import { FC } from "react";
 import { CountList } from "ui/src/components/CountList";
 import { CountListItem } from "ui/src/components/CountListItem";
 
-export type Item = { id: string; name: string; length: number };
+export type Schedule = {
+  id: string;
+  date: string;
+  length: number;
+  selected: boolean;
+};
 
 type Props = {
-  summary: Item[];
+  summary: Schedule[];
   focusId: string | undefined;
   setFocus: (id: string | undefined) => void;
 };
@@ -20,12 +25,13 @@ export const Summary: FC<Props> = ({ summary, focusId, setFocus }) => {
           : undefined;
         return (
           <CountListItem
-            name={item.name}
             key={index}
+            name={item.date}
             length={item.length}
+            focused={item.id === focusId}
+            selected={item.selected}
             focusHandler={focusHandler}
             unfocusHandler={unfocusHandler}
-            focused={item.id === focusId}
           />
         );
       })}

@@ -151,4 +151,12 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
       updatedSchedules,
     };
   };
+  heldDate = (): Date | undefined => {
+    for (const s of this._value) {
+      if (s.held) {
+        return s._date;
+      }
+    }
+    return undefined;
+  };
 }

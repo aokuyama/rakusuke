@@ -7,6 +7,7 @@ import { Button } from "ui/src/components/Button";
 interface Props {
   args: {
     date: Date;
+    selected: boolean;
     attendees: {
       name: string;
     }[];
@@ -22,7 +23,7 @@ export const FocusDay: FC<Props> = ({
 }) => {
   return (
     <Box
-      name={args.date.short()}
+      name={args.date.short() + (args.selected ? " 開催決定" : "")}
       button={{
         closeHandler: closeHandler,
       }}
@@ -30,7 +31,7 @@ export const FocusDay: FC<Props> = ({
       {args.attendees.map((attendee, index) => {
         return <Name key={index}>{attendee.name}</Name>;
       })}
-      {buttonClickHandler && (
+      {!args.selected && buttonClickHandler && (
         <Button onClick={() => buttonClickHandler(args.date)}>
           この日に確定
         </Button>

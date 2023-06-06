@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { EditBox } from "ui/src/components/EditBox";
-import { Item, Summary } from "./Summary";
+import { Schedule, Summary } from "./Summary";
 
 interface Props {
   name: string;
-  summary: Item[];
+  summary: Schedule[];
   onClick?: () => void;
   focusId: string | undefined;
   setFocus: (id: string | undefined) => void;
