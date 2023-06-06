@@ -4,6 +4,7 @@ import { getEventByPath } from "./get_event_by_path";
 import { respondAttendance } from "./respond_attendance";
 import { updateAttendance } from "./update_attendance";
 import { updateEvent } from "./update_event";
+import { decideOnEventDate } from "./decide_on_event_date";
 
 export const appRouter = router({
   createEvent: createEvent,
@@ -11,4 +12,5 @@ export const appRouter = router({
   respondAttendance: respondAttendance,
   updateAttendance: updateAttendance,
   updateEvent: updateEvent,
+  decideOnEventDate: decideOnEventDate,
 });

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { storage } from "@/registry";
@@ -7,8 +7,10 @@ import { EventOverview } from "@/features/event/view_event/components/EventOverv
 import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewSheetModal";
 import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
 import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
-import { FocusDay } from "@/features/event/view_event/components/FocusDay";
+import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
+import { decideOnEventDate } from "@/features/event/decide_on_event_date/trpc";
 import { Date } from "domain/src/model/event/date";
+import { loadingContext } from "@/hooks/useLoading";
 
 interface Props {
   event: CurrentEvent | null | undefined;
@@ -27,6 +29,7 @@ export const Event: FC<Props> = ({
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
   const [focusDay, setFocusDay] = useState<string>();
+  const ctx = useContext(loadingContext);
   if (event === undefined) {
     return null;
   }
@@ -70,6 +73,13 @@ export const Event: FC<Props> = ({
       break;
     }
   }
+  const decideHandler = (date: Date) => {
+    ctx.setAsLoading();
+    decideOnEventDate(user, event, date, (e: CurrentEvent) => {
+      eventUpdatedHandler(e);
+      ctx.setAsNotLoading();
+    });
+  };
 
   return (
     <>
@@ -92,6 +102,7 @@ export const Event: FC<Props> = ({
           closeHandler={() => {
             setFocusDay(undefined);
           }}
+          buttonClickHandler={event.isOrganizer ? decideHandler : undefined}
         />
       )}
       <GuestOverview

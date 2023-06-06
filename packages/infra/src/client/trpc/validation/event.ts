@@ -19,3 +19,8 @@ export const eventUpdateSchema = z.object({
     .min(EventDates.MIN)
     .max(EventDates.MAX),
 });
+
+export const decideOnEventDateSchema = z.object({
+  path: z.string().length(EventPath.LENGTH),
+  date: z.string(),
+});
