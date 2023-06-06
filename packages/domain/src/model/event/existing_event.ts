@@ -3,7 +3,7 @@ import { UserID } from "../user";
 import { StructValueObject } from "../valueobject";
 import { EventName } from "./name";
 import { EventPath } from "./path";
-import { Schedules } from "./schedule";
+import { Schedule, Schedules } from "./schedule";
 import { UpdateEvent } from "./update_event";
 import { Date } from "./date";
 import { CurrentEvent } from "./event";
@@ -98,16 +98,17 @@ export class ExistingEvent extends StructValueObject<
     return this._value.created;
   }
   isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
-  updateEvent = (
+  makeUpdateEvent = (
     event: UpdateEvent
   ): {
     updatedEvent: ExistingEvent;
     addedDates: Date[];
     removedDates: Date[];
+    updatedSchedules: Schedule[];
   } => {
-    const { schedules, addedDates, removedDates } = this._schedules.updateDates(
-      event._dates
-    );
+    const { schedules, addedDates, removedDates, updatedSchedules } =
+      event.makeUpdateSchedules(this._schedules);
+
     return {
       updatedEvent: new ExistingEvent({
         uuid: this._uuid,
@@ -122,6 +123,7 @@ export class ExistingEvent extends StructValueObject<
       }),
       addedDates: addedDates,
       removedDates: removedDates,
+      updatedSchedules: updatedSchedules,
     };
   };
   toFront = (id: UserID | null): CurrentEvent =>

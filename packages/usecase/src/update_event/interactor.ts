@@ -6,7 +6,7 @@ import type {
   UpdateEventUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
-import { UpdateEvent, EventPath } from "domain/src/model/event";
+import { UpdateEventAndDate, EventPath } from "domain/src/model/event";
 import { UserID } from "domain/src/model/user";
 
 @injectable()
@@ -28,8 +28,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
       // 主催者でなければ編集できない
       return;
     }
-    const after = UpdateEvent.new({
-      path: path,
+    const after = UpdateEventAndDate.new({
       name: input.name,
       dates: input.dates,
       created: existingEvent._created,

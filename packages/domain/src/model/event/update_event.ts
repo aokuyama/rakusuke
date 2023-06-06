@@ -1,52 +1,55 @@
 import { StructValueObject } from "../valueobject";
 import { EventDates } from "./date_list";
 import { EventName } from "./name";
-import { EventPath } from "./path";
 import { Date } from "./date";
+import { Schedule, Schedules } from "./schedule";
 import { validateMaxDate } from "../../service/event";
 
-interface UpdateEventArgs {
-  path: string;
+interface UpdateEventAndDateArgs {
   name: string;
   dates: string[];
   description?: string | undefined;
   created: string;
 }
 
-interface UpdateEventProps {
-  readonly path: EventPath;
+interface UpdateEventAndDateProps {
   readonly name: EventName;
   readonly description?: string;
   readonly dates: EventDates;
   readonly created: Date;
 }
 
-export class UpdateEvent extends StructValueObject<
-  UpdateEventProps,
-  UpdateEventArgs
-> {
-  protected validate(value: UpdateEventProps): void {
+export interface UpdateEvent {
+  makeUpdateSchedules: (beforeSchedules: Schedules) => {
+    schedules: Schedules;
+    addedDates: Date[];
+    removedDates: Date[];
+    updatedSchedules: Schedule[];
+  };
+  _name: EventName;
+}
+
+export class UpdateEventAndDate
+  extends StructValueObject<UpdateEventAndDateProps, UpdateEventAndDateArgs>
+  implements UpdateEvent
+{
+  protected validate(value: UpdateEventAndDateProps): void {
     if (!validateMaxDate(value.dates._dates, value.created)) {
       throw new Error("too early to schedule");
     }
   }
   static new(args: {
-    path: EventPath;
     name: string;
     dates: string[];
     description?: string | undefined;
     created: Date;
-  }): UpdateEvent {
-    return new UpdateEvent({
-      path: args.path,
+  }): UpdateEventAndDate {
+    return new UpdateEventAndDate({
       name: new EventName(args.name),
       description: args.description,
       dates: EventDates.new(args.dates),
       created: args.created,
     });
-  }
-  get _path(): EventPath {
-    return this._value.path;
   }
   get _name(): EventName {
     return this._value.name;
@@ -54,6 +57,21 @@ export class UpdateEvent extends StructValueObject<
   get _dates(): EventDates {
     return this._value.dates;
   }
+  makeUpdateSchedules = (
+    beforeSchedules: Schedules
+  ): {
+    schedules: Schedules;
+    addedDates: Date[];
+    removedDates: Date[];
+    updatedSchedules: Schedule[];
+  } => {
+    const { schedules, addedDates, removedDates } = beforeSchedules.updateDates(
+      this._dates
+    );
+    // 日付の増減のみなので、Schedule自体の更新はない
+    const updatedSchedules: Schedule[] = [];
+    return { schedules, addedDates, removedDates, updatedSchedules };
+  };
 }
 
 export class UpdateEventHeld {}

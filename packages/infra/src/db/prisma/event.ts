@@ -89,8 +89,19 @@ export class PrismaEventRepository implements EventRepository {
     before: ExistingEvent,
     after: UpdateEvent
   ): Promise<ExistingEvent> => {
-    const { updatedEvent, addedDates, removedDates } =
-      before.updateEvent(after);
+    const { updatedEvent, addedDates, removedDates, updatedSchedules } =
+      before.makeUpdateEvent(after);
+    const updatedScheduleSchema = updatedSchedules.map((s) => {
+      return {
+        where: {
+          event_id_datetime: {
+            event_id: before.id,
+            datetime: s._date.getGlobalThisDate(),
+          },
+        },
+        data: { held: s.held },
+      };
+    });
 
     await client.$transaction(async (prisma) => {
       await prisma.event.update({
@@ -101,6 +112,7 @@ export class PrismaEventRepository implements EventRepository {
             create: addedDates.map((d) => {
               return { datetime: d.getGlobalThisDate() };
             }),
+            update: updatedScheduleSchema,
           },
         },
       });

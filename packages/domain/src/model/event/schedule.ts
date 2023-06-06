@@ -12,7 +12,7 @@ interface ScheduleArgs {
   readonly held: boolean;
 }
 
-class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
+export class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   static new(args: ScheduleArgs): Schedule {
     return new Schedule({
       date: new Date(args.date),
@@ -34,6 +34,9 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   }
   get _date(): Date {
     return this._value.date;
+  }
+  get held(): boolean {
+    return this.held;
   }
   equalsDate = (date: Date) => this._date.equals(date);
 }
