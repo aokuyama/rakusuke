@@ -15,7 +15,7 @@ export interface ExistingEventArgs {
   organizerId: number;
   path: string;
   name: string;
-  schedules: { date: string }[];
+  schedules: { date: string; held: boolean }[];
   guests: EventGuestArgs[];
   description?: string | undefined;
   created: string;
@@ -46,7 +46,7 @@ export class ExistingEvent extends StructValueObject<
     organizerId: number;
     path: EventPath;
     name: string;
-    schedules: { date: string }[];
+    schedules: { date: string; held: boolean }[];
     guests: EventGuestArgs[];
     description?: string | undefined;
     created: string;

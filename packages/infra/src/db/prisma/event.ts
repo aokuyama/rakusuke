@@ -38,7 +38,7 @@ export class PrismaEventRepository implements EventRepository {
         path_digest: path.hashed(),
       },
       include: {
-        schedules: { select: { datetime: true } },
+        schedules: { select: { datetime: true, held: true } },
         guests: {
           include: {
             attendance: {
@@ -56,7 +56,7 @@ export class PrismaEventRepository implements EventRepository {
       return null;
     }
     const schedules = event.schedules.map((s) => {
-      return { date: Date.formatString(s.datetime) };
+      return { date: Date.formatString(s.datetime), held: s.held };
     });
     const guests = event.guests.map((g) => {
       const name = g.name;

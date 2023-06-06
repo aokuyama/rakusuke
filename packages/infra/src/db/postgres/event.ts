@@ -25,7 +25,7 @@ export class PostgresEventRepository implements EventRepository {
       organizerId: event.organizer_id,
       name: event.name,
       path: path,
-      schedules: [{ date: created }], // dummy
+      schedules: [{ date: created, held: false }], // dummy
       guests: [], // dummy
       created: created,
     });

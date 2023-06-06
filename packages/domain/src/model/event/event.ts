@@ -13,7 +13,7 @@ export interface CurrentEventArgs {
   path: string;
   name: string;
   readonly isOrganizer: boolean;
-  schedules: { date: string }[];
+  schedules: { date: string; held: boolean }[];
   guests: EventGuestArgs[];
   created: string;
   description?: string | undefined;

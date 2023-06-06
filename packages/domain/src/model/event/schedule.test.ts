@@ -2,9 +2,9 @@ import { EventDates } from "./date_list";
 import { Schedules } from "./schedule";
 
 const schedulesRows = [
-  { date: "2023/04/15" },
-  { date: "2023/04/16" },
-  { date: "2023/04/18" },
+  { date: "2023/04/15", held: false },
+  { date: "2023/04/16", held: false },
+  { date: "2023/04/18", held: false },
 ];
 describe("スケジュール作成", () => {
   it("スケジュールが正しく作成できる", () => {
@@ -20,7 +20,7 @@ describe("スケジュール作成", () => {
 
   it("日付が20を超える場合失敗する", () => {
     expect(() => {
-      Schedules.new(
+      Schedules.create(
         [
           "2023/04/14",
           "2023/04/15",
@@ -53,18 +53,18 @@ describe("スケジュール作成", () => {
   it("日付に重複があると失敗する", () => {
     expect(() => {
       Schedules.new([
-        { date: "2023/04/15" },
-        { date: "2023/04/16" },
-        { date: "2023/04/16" },
+        { date: "2023/04/15", held: false },
+        { date: "2023/04/16", held: false },
+        { date: "2023/04/16", held: false },
       ]);
     }).toThrow("duplicate date");
   });
 
   it("スケジュールは日付順に作成される", () => {
     const schedules = Schedules.new([
-      { date: "2023/04/18" },
-      { date: "2023/04/15" },
-      { date: "2023/04/16" },
+      { date: "2023/04/18", held: false },
+      { date: "2023/04/15", held: false },
+      { date: "2023/04/16", held: false },
     ]);
     expect(schedules.value).toStrictEqual(schedulesRows);
   });
@@ -81,10 +81,10 @@ describe("スケジュール更新", () => {
     ]);
     const newschedules1 = current.updateDates(newDates1);
     expect(newschedules1.schedules.value).toStrictEqual([
-      { date: "2023/04/15" },
-      { date: "2023/04/16" },
-      { date: "2023/04/18" },
-      { date: "2023/04/19" },
+      { date: "2023/04/15", held: false },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/18", held: false },
+      { date: "2023/04/19", held: false },
     ]);
     expect(newschedules1.addedDates.map((d) => d.toString())).toStrictEqual([
       "2023/04/19",
@@ -101,12 +101,12 @@ describe("スケジュール更新", () => {
     ]);
     const newschedules2 = newschedules1.schedules.updateDates(newDates2);
     expect(newschedules2.schedules.value).toStrictEqual([
-      { date: "2023/04/13" },
-      { date: "2023/04/15" },
-      { date: "2023/04/16" },
-      { date: "2023/04/17" },
-      { date: "2023/04/18" },
-      { date: "2023/04/19" },
+      { date: "2023/04/13", held: false },
+      { date: "2023/04/15", held: false },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/17", held: false },
+      { date: "2023/04/18", held: false },
+      { date: "2023/04/19", held: false },
     ]);
     expect(newschedules2.addedDates.map((d) => d.toString())).toStrictEqual([
       "2023/04/13",
@@ -120,8 +120,8 @@ describe("スケジュール更新", () => {
     const newDates1 = EventDates.new(["2023/04/16", "2023/04/18"]);
     const newschedules1 = current.updateDates(newDates1);
     expect(newschedules1.schedules.value).toStrictEqual([
-      { date: "2023/04/16" },
-      { date: "2023/04/18" },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/18", held: false },
     ]);
     expect(newschedules1.removedDates.map((d) => d.toString())).toStrictEqual([
       "2023/04/15",
@@ -131,7 +131,7 @@ describe("スケジュール更新", () => {
     const newDates2 = EventDates.new(["2023/04/18"]);
     const newschedules2 = newschedules1.schedules.updateDates(newDates2);
     expect(newschedules2.schedules.value).toStrictEqual([
-      { date: "2023/04/18" },
+      { date: "2023/04/18", held: false },
     ]);
     expect(newschedules2.removedDates.map((d) => d.toString())).toStrictEqual([
       "2023/04/16",
@@ -149,10 +149,10 @@ describe("スケジュール更新", () => {
     ]);
     const newschedules1 = current.updateDates(newDates1);
     expect(newschedules1.schedules.value).toStrictEqual([
-      { date: "2023/04/14" },
-      { date: "2023/04/16" },
-      { date: "2023/04/19" },
-      { date: "2023/04/21" },
+      { date: "2023/04/14", held: false },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/19", held: false },
+      { date: "2023/04/21", held: false },
     ]);
     expect(newschedules1.addedDates.map((d) => d.toString())).toStrictEqual([
       "2023/04/14",
@@ -167,7 +167,7 @@ describe("スケジュール更新", () => {
     const newDates2 = EventDates.new(["2023/05/04"]);
     const newschedules2 = newschedules1.schedules.updateDates(newDates2);
     expect(newschedules2.schedules.value).toStrictEqual([
-      { date: "2023/05/04" },
+      { date: "2023/05/04", held: false },
     ]);
     expect(newschedules2.addedDates.map((d) => d.toString())).toStrictEqual([
       "2023/05/04",

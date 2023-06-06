@@ -55,3 +55,5 @@ export class UpdateEvent extends StructValueObject<
     return this._value.dates;
   }
 }
+
+export class UpdateEventHeld {}

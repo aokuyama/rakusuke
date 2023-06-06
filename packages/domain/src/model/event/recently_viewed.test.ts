@@ -11,9 +11,9 @@ const eventProps = (uuid?: string) => {
     path: "1234567890123456",
     isOrganizer: false,
     schedules: [
-      { date: "2023/04/15" },
-      { date: "2023/04/16" },
-      { date: "2023/04/17" },
+      { date: "2023/04/15", held: false },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/17", held: false },
     ],
     guests: [],
     description: undefined,

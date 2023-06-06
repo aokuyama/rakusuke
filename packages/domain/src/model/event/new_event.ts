@@ -87,7 +87,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   getExistingPath = (): EventPath => this._path.toExisting();
   toExisting = (
     id: number,
-    schedules: { date: string }[],
+    scheduleDates: { date: string }[],
     created: Date
   ): ExistingEvent =>
     new ExistingEvent({
@@ -96,7 +96,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
       name: this._name,
       path: this._path.toExisting(),
       organizerId: this._organizerId,
-      schedules: Schedules.new(schedules),
+      schedules: Schedules.create(scheduleDates),
       guests: new EventGuestList([]),
       description: this._value.description,
       created: created,

@@ -4,18 +4,28 @@ import { EventDates } from "./date_list";
 
 interface ScheduleProps {
   readonly date: Date;
+  readonly held: boolean;
 }
 
 interface ScheduleArgs {
   readonly date: string;
+  readonly held: boolean;
 }
 
 class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   static new(args: ScheduleArgs): Schedule {
     return new Schedule({
       date: new Date(args.date),
+      held: args.held,
     });
   }
+  static create(args: { date: Date }): Schedule {
+    return new Schedule({
+      date: args.date,
+      held: false,
+    });
+  }
+
   protected validate(value: ScheduleProps): void {
     // throw new Error("Method not implemented.");
   }
@@ -25,6 +35,7 @@ class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   get _date(): Date {
     return this._value.date;
   }
+  equalsDate = (date: Date) => this._date.equals(date);
 }
 
 export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
@@ -35,6 +46,11 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   }
   static new(value: ScheduleArgs[]): Schedules {
     return new Schedules(value.map((v) => Schedule.new(v)));
+  }
+  static create(value: { date: string }[]): Schedules {
+    return new Schedules(
+      value.map((v) => Schedule.new(Object.assign(v, { held: false })))
+    );
   }
   protected validate(value: Schedule[]): void {
     // EventDatesのバリデートを流用している
@@ -50,6 +66,14 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     this._value.map((s) => {
       return s._date;
     });
+  getByDate = (date: Date): Schedule | null => {
+    for (const s of this._value) {
+      if (s.equalsDate(date)) {
+        return s;
+      }
+    }
+    return null;
+  };
   updateDates = (
     newDates: EventDates
   ): {
@@ -69,10 +93,17 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
         removedDates.push(date);
       }
     }
+    const schedules: Schedule[] = [];
+    for (const date of newDates._dates) {
+      const schedule = this.getByDate(date);
+      if (schedule) {
+        schedules.push(schedule);
+      } else {
+        schedules.push(Schedule.create({ date: date }));
+      }
+    }
     return {
-      schedules: new Schedules(
-        newDates._dates.map((d) => new Schedule({ date: d }))
-      ),
+      schedules: new Schedules(schedules),
       addedDates: addedDates,
       removedDates: removedDates,
     };
