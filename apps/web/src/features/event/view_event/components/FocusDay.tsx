@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { EditBox } from "ui/src/components/EditBox";
+import { Box } from "ui/src/components/Box";
 import { Name } from "ui/src/components/Name";
 import { Date } from "domain/src/model/event/date";
 
@@ -10,16 +10,20 @@ interface Props {
       name: string;
     }[];
   };
+  closeHandler: () => void;
 }
 
-export const FocusDay: FC<Props> = ({ args }) => {
+export const FocusDay: FC<Props> = ({ args, closeHandler }) => {
   return (
-    <>
-      <EditBox name={args.date.short()}>
-        {args.attendees.map((attendee, index) => {
-          return <Name key={index}>{attendee.name}</Name>;
-        })}
-      </EditBox>
-    </>
+    <Box
+      name={args.date.short()}
+      button={{
+        closeHandler: closeHandler,
+      }}
+    >
+      {args.attendees.map((attendee, index) => {
+        return <Name key={index}>{attendee.name}</Name>;
+      })}
+    </Box>
   );
 };

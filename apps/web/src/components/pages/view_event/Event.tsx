@@ -86,7 +86,14 @@ export const Event: FC<Props> = ({
         setFocus={setFocusDay}
         focusId={focusDay}
       />
-      {focus && <FocusDay args={focus} />}
+      {focus && (
+        <FocusDay
+          args={focus}
+          closeHandler={() => {
+            setFocusDay(undefined);
+          }}
+        />
+      )}
       <GuestOverview
         guests={guestList}
         event={event}
