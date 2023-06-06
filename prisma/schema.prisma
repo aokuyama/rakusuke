@@ -34,6 +34,7 @@ model schedule {
   id         Int          @id @default(autoincrement())
   event_id   Int
   datetime   DateTime
+  held       Boolean      @default(false)
   event      event        @relation(fields: [event_id], references: [id], onDelete: Cascade)
   attendance attendance[]
 
