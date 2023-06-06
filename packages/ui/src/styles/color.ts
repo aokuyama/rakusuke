@@ -47,6 +47,12 @@ export const textColor = {
       color: ${white.disabled};
     }
   `,
+  mainColor: css`
+    color: ${mainColor.default};
+    @media (prefers-color-scheme: dark) {
+      color: ${mainColor.default};
+    }
+  `,
 };
 
 export const backgroundColor = {

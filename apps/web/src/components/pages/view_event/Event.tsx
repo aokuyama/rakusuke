@@ -7,6 +7,8 @@ import { EventOverview } from "@/features/event/view_event/components/EventOverv
 import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewSheetModal";
 import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
 import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
+import { FocusDay } from "@/features/event/view_event/components/FocusDay";
+import { Date } from "domain/src/model/event/date";
 
 interface Props {
   event: CurrentEvent | null | undefined;
@@ -24,6 +26,7 @@ export const Event: FC<Props> = ({
   const [isNewGuestFormOpen, setIsNewGuestFormOpen] = useState<boolean>(false);
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
+  const [focusDay, setFocusDay] = useState<string>();
   if (event === undefined) {
     return null;
   }
@@ -52,6 +55,22 @@ export const Event: FC<Props> = ({
     return { id: g.id, name: g.name, attendance: attendance };
   });
 
+  let focus:
+    | {
+        id: string;
+        date: Date;
+        attendees: {
+          name: string;
+        }[];
+      }
+    | undefined = undefined;
+  for (const d of dates) {
+    if (d.id === focusDay) {
+      focus = d;
+      break;
+    }
+  }
+
   return (
     <>
       <EventOverview
@@ -64,7 +83,10 @@ export const Event: FC<Props> = ({
               }
             : undefined
         }
+        setFocus={setFocusDay}
+        focusId={focusDay}
       />
+      {focus && <FocusDay args={focus} />}
       <GuestOverview
         guests={guestList}
         event={event}
