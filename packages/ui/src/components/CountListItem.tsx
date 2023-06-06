@@ -9,6 +9,7 @@ export type Item = { id: string | number; name: string; length: number };
 type Props = {
   name: string;
   length: number;
+  strong: boolean;
   focused: boolean;
   selected: boolean;
   focusHandler?: () => void;
@@ -18,10 +19,11 @@ type Props = {
 export const CountListItem: FC<Props> = ({
   name,
   length,
-  focusHandler,
-  unfocusHandler,
+  strong,
   focused,
   selected,
+  focusHandler,
+  unfocusHandler,
 }) => {
   const textStyle = length
     ? css`
@@ -49,7 +51,14 @@ export const CountListItem: FC<Props> = ({
         {focused && <FontAwesomeIcon icon={faCheck} width={16} />}
         {name}
       </p>
-      <span css={textStyle}>
+      <span
+        css={[
+          textStyle,
+          css`
+            ${strong ? "font-size:22px" : ""}
+          `,
+        ]}
+      >
         {length}
         {howToCount}
       </span>

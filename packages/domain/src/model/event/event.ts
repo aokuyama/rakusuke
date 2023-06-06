@@ -115,6 +115,7 @@ export class CurrentEvent extends StructValueObject<
       id: string;
       date: Date;
       attendees: { name: string }[];
+      strong: boolean;
       selected: boolean;
     }[];
     guests: {
@@ -123,16 +124,11 @@ export class CurrentEvent extends StructValueObject<
       attendance: { id: string; date: Date; attend: boolean | undefined }[];
     }[];
   } => {
-    const _dates = this._schedules.dates();
-    const dates = this._schedules.map((schedule) => {
-      return {
-        id: schedule._date.id(),
-        date: schedule._date,
-        attendees: this._guests.attendeesByDate(schedule._date),
-        selected: schedule.held,
-      };
-    });
-    return { dates: dates, guests: this._guests.dateMap(_dates) };
+    const dates = this._schedules.dateMap(this._guests);
+    return {
+      dates: dates,
+      guests: this._guests.dateMap(this._schedules.dates()),
+    };
   };
   pushGuest = (guest: EventGuest): CurrentEvent => {
     return new CurrentEvent({

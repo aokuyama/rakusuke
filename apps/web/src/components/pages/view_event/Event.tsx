@@ -45,6 +45,7 @@ export const Event: FC<Props> = ({
       id: d.id,
       date: d.date.short(),
       length: d.attendees.length,
+      strong: d.strong,
       selected: d.selected,
     };
   });

@@ -6,6 +6,7 @@ export type Schedule = {
   id: string;
   date: string;
   length: number;
+  strong: boolean;
   selected: boolean;
 };
 
@@ -28,6 +29,7 @@ export const Summary: FC<Props> = ({ summary, focusId, setFocus }) => {
             key={index}
             name={item.date}
             length={item.length}
+            strong={item.strong}
             focused={item.id === focusId}
             selected={item.selected}
             focusHandler={focusHandler}
