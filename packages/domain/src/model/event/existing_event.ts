@@ -97,35 +97,33 @@ export class ExistingEvent extends StructValueObject<
   get _created(): Date {
     return this._value.created;
   }
-  isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
-  makeUpdateEvent = (
-    event: UpdateEvent
-  ): {
-    updatedEvent: ExistingEvent;
-    addedDates: Date[];
-    removedDates: Date[];
-    updatedSchedules: Schedule[];
-  } => {
-    const { schedules, addedDates, removedDates, updatedSchedules } =
-      event.makeUpdateSchedules(this._schedules);
+  schedules = (): Schedules => this._schedules;
 
-    return {
-      updatedEvent: new ExistingEvent({
-        uuid: this._uuid,
-        id: this._id,
-        organizerId: this._organizerId,
-        name: event._name,
-        path: this._path,
-        schedules: schedules,
-        guests: this._guests,
-        description: this._value.description,
-        created: this._created,
-      }),
-      addedDates: addedDates,
-      removedDates: removedDates,
-      updatedSchedules: updatedSchedules,
-    };
+  isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
+  makeUpdateEvent = (args: {
+    name?: EventName;
+    schedules: Schedules;
+    description?: string;
+  }): ExistingEvent => {
+    return new ExistingEvent({
+      uuid: this._uuid,
+      id: this._id,
+      organizerId: this._organizerId,
+      name: args.name !== undefined ? args.name : this._name,
+      path: this._path,
+      schedules: args.schedules,
+      guests: this._guests,
+      description:
+        args.description !== undefined ? args.description : this.description,
+      created: this._created,
+    });
   };
+
+  makeHeldUpdatedSchedules = (
+    held: Date
+  ): { schedules: Schedules; updatedSchedules: Schedule[] } =>
+    this.schedules().makeHeldUpdatedSchedules(held);
+
   toFront = (id: UserID | null): CurrentEvent =>
     new CurrentEvent({
       uuid: this._uuid,

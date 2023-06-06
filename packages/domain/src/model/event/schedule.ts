@@ -36,7 +36,7 @@ export class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
     return this._value.date;
   }
   get held(): boolean {
-    return this.held;
+    return this._value.held;
   }
   equalsDate = (date: Date) => this._date.equals(date);
 }
@@ -109,6 +109,46 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
       schedules: new Schedules(schedules),
       addedDates: addedDates,
       removedDates: removedDates,
+    };
+  };
+  makeHeldUpdatedSchedules = (
+    held: Date
+  ): { schedules: Schedules; updatedSchedules: Schedule[] } => {
+    let found = false;
+    const updatedSchedules: Schedule[] = [];
+    const schedules: Schedule[] = [];
+    for (const schedule of this._value) {
+      if (schedule.equalsDate(held)) {
+        found = true;
+        if (!schedule.held) {
+          const heldSchedule = new Schedule({
+            date: schedule._date,
+            held: true,
+          });
+          schedules.push(heldSchedule);
+          updatedSchedules.push(heldSchedule);
+        } else {
+          schedules.push(schedule);
+        }
+      } else {
+        if (schedule.held) {
+          const noHeldSchedule = new Schedule({
+            date: schedule._date,
+            held: false,
+          });
+          schedules.push(noHeldSchedule);
+          updatedSchedules.push(noHeldSchedule);
+        } else {
+          schedules.push(schedule);
+        }
+      }
+    }
+    if (!found) {
+      throw new Error("undefined date:" + held.toString());
+    }
+    return {
+      schedules: new Schedules(schedules),
+      updatedSchedules,
     };
   };
 }

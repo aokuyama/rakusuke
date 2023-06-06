@@ -90,7 +90,7 @@ export class PrismaEventRepository implements EventRepository {
     after: UpdateEvent
   ): Promise<ExistingEvent> => {
     const { updatedEvent, addedDates, removedDates, updatedSchedules } =
-      before.makeUpdateEvent(after);
+      after.makeUpdateSchedules(before);
     const updatedScheduleSchema = updatedSchedules.map((s) => {
       return {
         where: {

@@ -4,6 +4,7 @@ import { EventName } from "./name";
 import { Date } from "./date";
 import { Schedule, Schedules } from "./schedule";
 import { validateMaxDate } from "../../service/event";
+import { ExistingEvent } from "./existing_event";
 
 interface UpdateEventAndDateArgs {
   name: string;
@@ -20,13 +21,12 @@ interface UpdateEventAndDateProps {
 }
 
 export interface UpdateEvent {
-  makeUpdateSchedules: (beforeSchedules: Schedules) => {
-    schedules: Schedules;
+  makeUpdateSchedules: (beforeEvent: ExistingEvent) => {
+    updatedEvent: ExistingEvent;
     addedDates: Date[];
     removedDates: Date[];
     updatedSchedules: Schedule[];
   };
-  _name: EventName;
 }
 
 export class UpdateEventAndDate
@@ -58,20 +58,58 @@ export class UpdateEventAndDate
     return this._value.dates;
   }
   makeUpdateSchedules = (
-    beforeSchedules: Schedules
+    beforeEvent: ExistingEvent
   ): {
-    schedules: Schedules;
+    updatedEvent: ExistingEvent;
     addedDates: Date[];
     removedDates: Date[];
     updatedSchedules: Schedule[];
   } => {
-    const { schedules, addedDates, removedDates } = beforeSchedules.updateDates(
-      this._dates
-    );
+    const { schedules, addedDates, removedDates } = beforeEvent
+      .schedules()
+      .updateDates(this._dates);
     // 日付の増減のみなので、Schedule自体の更新はない
     const updatedSchedules: Schedule[] = [];
-    return { schedules, addedDates, removedDates, updatedSchedules };
+    return {
+      updatedEvent: beforeEvent.makeUpdateEvent({
+        name: this._name,
+        schedules,
+      }),
+      addedDates,
+      removedDates,
+      updatedSchedules,
+    };
   };
 }
 
-export class UpdateEventHeld {}
+export class UpdateEventHeld {
+  private readonly held: Date;
+  constructor(held: Date) {
+    this.held = held;
+  }
+  static new(args: { held: Date }): UpdateEventHeld {
+    return new UpdateEventHeld(args.held);
+  }
+  makeUpdateSchedules = (
+    beforeEvent: ExistingEvent
+  ): {
+    updatedEvent: ExistingEvent;
+    addedDates: Date[];
+    removedDates: Date[];
+    updatedSchedules: Schedule[];
+  } => {
+    const { schedules, updatedSchedules } =
+      beforeEvent.makeHeldUpdatedSchedules(this.held);
+    // 日付の増減はない
+    const addedDates: Date[] = [];
+    const removedDates: Date[] = [];
+    return {
+      updatedEvent: beforeEvent.makeUpdateEvent({
+        schedules,
+      }),
+      addedDates,
+      removedDates,
+      updatedSchedules,
+    };
+  };
+}
