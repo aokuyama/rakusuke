@@ -68,7 +68,7 @@ export const DrawingForm: FC<Props> = ({
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
-      <Submit label="抽選" />
+      <Submit label="抽選" decorationRight="arrow-right" />
     </form>
   );
 };

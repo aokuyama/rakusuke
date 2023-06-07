@@ -73,7 +73,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
-      <Submit label="作成" />
+      <Submit label="作成" decorationRight="arrow-right" />
     </form>
   );
 };

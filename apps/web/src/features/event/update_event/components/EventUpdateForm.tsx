@@ -66,7 +66,7 @@ export const EventUpdateForm: FC<Props> = ({
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
-      <Submit label="更新" />
+      <Submit label="更新" decorationRight="arrow-right" />
     </form>
   );
 };

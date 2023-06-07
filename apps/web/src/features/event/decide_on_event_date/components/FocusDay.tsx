@@ -32,7 +32,11 @@ export const FocusDay: FC<Props> = ({
         return <Name key={index}>{attendee.name}</Name>;
       })}
       {!args.selected && buttonClickHandler && (
-        <Button onClick={() => buttonClickHandler(args.date)}>
+        <Button
+          isPrimary={true}
+          onClick={() => buttonClickHandler(args.date)}
+          decorationRight="arrow-right"
+        >
           この日に決定
         </Button>
       )}
