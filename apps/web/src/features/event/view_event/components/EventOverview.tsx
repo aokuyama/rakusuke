@@ -25,7 +25,9 @@ export const EventOverview: FC<Props> = ({
   return (
     <EditBox name={name} button={button}>
       <Summary summary={summary} setFocus={setFocus} focusId={focusId} />
-      {onDrawing && <Button onClick={onDrawing}>日付を抽選</Button>}
+      {onDrawing && summary.length > 1 && (
+        <Button onClick={onDrawing}>開催日を抽選</Button>
+      )}
     </EditBox>
   );
 };

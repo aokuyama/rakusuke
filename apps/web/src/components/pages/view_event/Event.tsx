@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { storage } from "@/registry";
@@ -30,18 +30,42 @@ export const Event: FC<Props> = ({
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
   const [isDrawingFormOpen, setIsDrawingFormOpen] = useState<boolean>(false);
-  const heldDate = event.heldDate();
-  const [focusDay, setFocusDay] = useState<string | undefined>(
-    heldDate ? heldDate.id() : undefined
-  );
+  const [focus, setFocus] = useState<{
+    id: string;
+    date: Date;
+    selected: boolean;
+    attendees: {
+      name: string;
+    }[];
+  }>();
   const ctx = useContext(loadingContext);
   const user = storage.getUser();
+  const [focusDay, setFocusDay] = useState<string | undefined>();
 
   const eventUpdatedHandler = (event: CurrentEvent) => {
     setEvent(event);
   };
-  const { dates, guests } = event.dateMap();
 
+  useEffect(() => {
+    const d = event.heldDate();
+    setFocusDay(d ? d.id() : undefined);
+  }, [event]);
+
+  useEffect(() => {
+    if (!focusDay) {
+      setFocus(undefined);
+      return;
+    }
+    const { dates } = event.dateMap();
+    for (const d of dates) {
+      if (d.id === focusDay) {
+        setFocus(d);
+        return;
+      }
+    }
+  }, [event, focusDay]);
+
+  const { dates, guests } = event.dateMap();
   const summary = dates.map((d) => {
     return {
       id: d.id,
@@ -63,22 +87,6 @@ export const Event: FC<Props> = ({
     return { id: g.id, name: g.name, attendance: attendance };
   });
 
-  let focus:
-    | {
-        id: string;
-        date: Date;
-        selected: boolean;
-        attendees: {
-          name: string;
-        }[];
-      }
-    | undefined = undefined;
-  for (const d of dates) {
-    if (d.id === focusDay) {
-      focus = d;
-      break;
-    }
-  }
   const decideHandler = (date: Date) => {
     ctx.setAsLoading();
     decideOnEventDate(user, event, date, (e: CurrentEvent) => {
@@ -121,6 +129,7 @@ export const Event: FC<Props> = ({
         <FocusDay
           args={focus}
           closeHandler={() => {
+            console.log(undefined);
             setFocusDay(undefined);
           }}
           buttonClickHandler={event.isOrganizer ? decideHandler : undefined}

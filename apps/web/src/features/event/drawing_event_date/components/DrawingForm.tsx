@@ -10,6 +10,8 @@ import { drawingEventDate } from "../trpc";
 import { loadingContext } from "@/hooks/useLoading";
 import { User } from "domain/src/model/user";
 import { Schedule } from "../../view_event/types/schedule";
+import { Step } from "ui/src/components/Step";
+import { Site } from "infra/src/web/site";
 
 interface Props {
   schedules: Schedule[];
@@ -37,6 +39,7 @@ export const DrawingForm: FC<Props> = ({
         });
       })}
     >
+      <Step>{Site.message.form.event.drawing}</Step>
       <ToggleList>
         {schedules.map((schedule, index) => {
           return (

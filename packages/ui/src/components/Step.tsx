@@ -3,14 +3,14 @@ import { css } from "@emotion/react";
 import { boxLayout } from "../styles/layout";
 
 type Props = {
-  number: number;
+  number?: number;
   children: React.ReactNode;
 };
 
 export const Step: FC<Props> = ({ number, children }) => {
   return (
     <p css={styles}>
-      <span>{number}.</span>
+      {number && <span>{number}.</span>}
       {children}
     </p>
   );
