@@ -33,7 +33,7 @@ export const FocusDay: FC<Props> = ({
       })}
       {!args.selected && buttonClickHandler && (
         <Button onClick={() => buttonClickHandler(args.date)}>
-          この日に確定
+          この日に決定
         </Button>
       )}
     </Box>

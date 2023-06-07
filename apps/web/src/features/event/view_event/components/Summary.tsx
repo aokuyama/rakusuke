@@ -1,14 +1,7 @@
 import { FC } from "react";
 import { CountList } from "ui/src/components/CountList";
 import { CountListItem } from "ui/src/components/CountListItem";
-
-export type Schedule = {
-  id: string;
-  date: string;
-  length: number;
-  strong: boolean;
-  selected: boolean;
-};
+import { Schedule } from "../types/schedule";
 
 type Props = {
   summary: Schedule[];
@@ -27,7 +20,7 @@ export const Summary: FC<Props> = ({ summary, focusId, setFocus }) => {
         return (
           <CountListItem
             key={index}
-            name={item.date}
+            name={item.date.short()}
             length={item.length}
             strong={item.strong}
             focused={item.id === focusId}

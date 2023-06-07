@@ -24,3 +24,26 @@ export const decideOnEventDateSchema = z.object({
   path: z.string().length(EventPath.LENGTH),
   date: z.string(),
 });
+
+const schedule = z
+  .array(z.object({ date: z.string(), enable: z.boolean() }))
+  .refine((v) => {
+    let count = 0;
+    for (const s of v) {
+      if (s.enable) {
+        count += 1;
+      }
+      if (count > 1) {
+        return true;
+      }
+    }
+    return false;
+  }, "候補日は 2 つ以上選択してください");
+
+export const drawingEventDateSchema = z.object({
+  path: z.string().length(EventPath.LENGTH),
+  schedule: schedule,
+});
+export const drawingSchema = z.object({
+  schedule: schedule,
+});

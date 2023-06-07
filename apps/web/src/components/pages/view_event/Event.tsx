@@ -11,6 +11,7 @@ import { FocusDay } from "@/features/event/decide_on_event_date/components/Focus
 import { decideOnEventDate } from "@/features/event/decide_on_event_date/trpc";
 import { Date } from "domain/src/model/event/date";
 import { loadingContext } from "@/hooks/useLoading";
+import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";
 
 interface Props {
   event: CurrentEvent;
@@ -28,6 +29,7 @@ export const Event: FC<Props> = ({
   const [isNewGuestFormOpen, setIsNewGuestFormOpen] = useState<boolean>(false);
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
+  const [isDrawingFormOpen, setIsDrawingFormOpen] = useState<boolean>(false);
   const heldDate = event.heldDate();
   const [focusDay, setFocusDay] = useState<string | undefined>(
     heldDate ? heldDate.id() : undefined
@@ -43,7 +45,7 @@ export const Event: FC<Props> = ({
   const summary = dates.map((d) => {
     return {
       id: d.id,
-      date: d.date.short(),
+      date: d.date,
       length: d.attendees.length,
       strong: d.strong,
       selected: d.selected,
@@ -90,15 +92,30 @@ export const Event: FC<Props> = ({
       <EventOverview
         name={event.name}
         summary={summary}
-        onClick={
+        onEdit={
           event.isOrganizer
             ? () => {
                 setIsEventUpdateFormOpen(true);
               }
             : undefined
         }
+        onDrawing={
+          event.isOrganizer
+            ? () => {
+                setIsDrawingFormOpen(true);
+              }
+            : undefined
+        }
         setFocus={setFocusDay}
         focusId={focusDay}
+      />
+      <DrawingFormModal
+        schedules={summary}
+        isOpen={isDrawingFormOpen}
+        setIsOpen={setIsDrawingFormOpen}
+        user={user}
+        event={event}
+        eventUpdatedHandler={eventUpdatedHandler}
       />
       {focus && (
         <FocusDay

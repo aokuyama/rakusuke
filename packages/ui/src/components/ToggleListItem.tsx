@@ -41,6 +41,7 @@ const styles = css`
   width: 50%;
   div {
     width: 40%;
+    text-align: center;
   }
   label {
     width: 60%;

@@ -1,11 +1,14 @@
 import { FC } from "react";
 import { EditBox } from "ui/src/components/EditBox";
-import { Schedule, Summary } from "./Summary";
+import { Summary } from "./Summary";
+import { Schedule } from "../types/schedule";
+import { Button } from "ui/src/components/Button";
 
 interface Props {
   name: string;
   summary: Schedule[];
-  onClick?: () => void;
+  onEdit?: () => void;
+  onDrawing?: () => void;
   focusId: string | undefined;
   setFocus: (id: string | undefined) => void;
 }
@@ -13,14 +16,16 @@ interface Props {
 export const EventOverview: FC<Props> = ({
   name,
   summary,
-  onClick,
+  onEdit,
+  onDrawing,
   focusId,
   setFocus,
 }) => {
-  const button = onClick ? { clickHandler: onClick } : undefined;
+  const button = onEdit ? { clickHandler: onEdit } : undefined;
   return (
     <EditBox name={name} button={button}>
       <Summary summary={summary} setFocus={setFocus} focusId={focusId} />
+      {onDrawing && <Button onClick={onDrawing}>日付を抽選</Button>}
     </EditBox>
   );
 };
