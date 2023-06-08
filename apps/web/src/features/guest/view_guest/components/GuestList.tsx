@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { EditBox } from "ui/src/components/EditBox";
 import { CheckList } from "ui/src/components/CheckList";
 
@@ -20,9 +20,14 @@ type Props = {
 };
 
 export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
+  const [defaultGuestNum, setDefaultGuestNum] = useState<number>(9999);
+  useEffect(() => {
+    // 画面ロード時のゲスト数を記憶。以降更新しない
+    setDefaultGuestNum(guests.length);
+  }, []);
   return (
     <>
-      {guests.map((guest) => {
+      {guests.map((guest, index) => {
         return (
           <EditBox
             key={guest.id}
@@ -32,7 +37,8 @@ export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
                 clickIdHandler(guest.id);
               },
             }}
-            closable={{ defaultIsClose: true }}
+            // 初期ロード以降に追加されたものは開いておく
+            closable={{ defaultIsClose: index < defaultGuestNum }}
           >
             <CheckList items={guest.attendance} />
           </EditBox>
