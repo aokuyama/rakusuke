@@ -62,8 +62,8 @@ export const normalColor = css`
   color: ${black.default};
   border: 1px solid ${black.default};
   :hover {
-    border: 1px solid ${mainColor.brighter};
-    color: ${mainColor.brighter};
+    border: 1px solid ${mainColor.darker};
+    color: ${mainColor.darker};
   }
 `;
 

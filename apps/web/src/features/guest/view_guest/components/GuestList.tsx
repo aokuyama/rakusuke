@@ -32,6 +32,7 @@ export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
                 clickIdHandler(guest.id);
               },
             }}
+            closable={{ defaultIsClose: true }}
           >
             <CheckList items={guest.attendance} />
           </EditBox>
