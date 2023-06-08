@@ -17,6 +17,9 @@ export const global = css`
     color: inherit;
     text-decoration: inherit;
   }
+  summary::-webkit-details-marker {
+    display: none;
+  }
   :where(:root) {
     cursor: inherit;
   }
