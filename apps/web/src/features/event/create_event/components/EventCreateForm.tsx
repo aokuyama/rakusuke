@@ -3,7 +3,8 @@ import { TextBox } from "ui/src/components/TextBox";
 import { Submit } from "ui/src/components/Submit";
 import { Step } from "ui/src/components/Step";
 import { FormError } from "ui/src/components/FormError";
-import { DatePicker } from "./DatePicker";
+import { DatePickCalendar } from "./DatePickCalendar";
+import { PickedDates } from "./PickedDates";
 import { Date } from "domain/src/model/event/date";
 import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
@@ -68,7 +69,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
         <ErrorMessage errors={errors} name="name" />
       </FormError>
       <Step number={2}>{Site.message.form.event.calendar}</Step>
-      <DatePicker
+      <DatePickCalendar
         dateList={dateList}
         range={{ min: today, max: eventMaxDate(today) }}
         setDateHandler={setDateHandler}
@@ -77,6 +78,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
       <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
+      <PickedDates dateList={dateList} />
     </form>
   );
 };

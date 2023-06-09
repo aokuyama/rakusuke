@@ -1,7 +1,8 @@
 import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
 import { FormError } from "ui/src/components/FormError";
-import { DatePicker } from "../../create_event/components/DatePicker";
+import { DatePickCalendar } from "../../create_event/components/DatePickCalendar";
+import { PickedDates } from "../../create_event/components/PickedDates";
 import { CurrentEvent } from "domain/src/model/event";
 import { client } from "infra/src/client/trpc";
 import { ErrorMessage } from "@hookform/error-message";
@@ -58,7 +59,7 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
         <ErrorMessage errors={errors} name="name" />
       </FormError>
       <Step number={2}>{Site.message.form.event.calendar}</Step>
-      <DatePicker
+      <DatePickCalendar
         dateList={dateList}
         range={{ min: event.minDate(), max: event.maxDate() }}
         setDateHandler={setDateHandler}
@@ -67,6 +68,7 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
       <Submit label="更新" decorationRight="arrow-right" />
+      <PickedDates dateList={dateList} />
     </form>
   );
 };
