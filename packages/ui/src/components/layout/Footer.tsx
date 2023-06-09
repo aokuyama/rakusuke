@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { colorSet } from "../../styles/color";
+import { black, colorSet, white } from "../../styles/color";
 
 type Props = {
   title?: string;
@@ -19,7 +19,8 @@ const style = css`
   align-items: center;
   flex-direction: column;
   padding: 20px 16px 16px;
-  ${colorSet.main}
+  color: ${white.default};
+  background-color: ${black.default};
 
   p {
     margin: 0;
