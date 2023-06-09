@@ -36,11 +36,16 @@ export const UpdateSheet: FC<Props> = ({
     }
   };
 
+  const defaultValues = {
+    name: guest.name,
+    attendance: event.newAttendanceByGuest(guest).value,
+  };
+
   return (
     <GuestForm
       dateList={event._schedules.dates()}
       onSubmit={publish}
-      form={useGuestForm({ event, guest })}
+      form={useGuestForm(defaultValues)}
     />
   );
 };

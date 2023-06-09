@@ -5,34 +5,46 @@ import { EventGuest } from "domain/src/model/guest";
 import { GuestForm } from "./GuestForm";
 import { loadingContext } from "@/hooks/useLoading";
 import { GuestUpsert, useGuestForm } from "../hooks/useGuestForm";
+import { GuestDefault } from "domain/src/model/guest/default";
 
 interface Props {
   event: CurrentEvent;
+  guest: {
+    guestDefault: GuestDefault | undefined;
+    setGuestDefault: (guest: GuestDefault) => void;
+  };
   eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
-export const NewSheet: FC<Props> = ({ event, eventUpdatedHandler }) => {
+export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
   const ctx = useContext(loadingContext);
 
-  const publish = async (guest: GuestUpsert) => {
+  const publish = async (g: GuestUpsert) => {
     ctx.setAsLoading();
     const result = await client.event.respondAttendance.mutate({
       event: event.path,
-      guest: guest,
+      guest: g,
     });
     ctx.setAsNotLoading();
     if (result.guest) {
-      eventUpdatedHandler(event.pushGuest(EventGuest.new(result.guest)));
+      const newGuest = EventGuest.new(result.guest);
+      guest.setGuestDefault(newGuest.toDefault());
+      eventUpdatedHandler(event.pushGuest(newGuest));
     } else {
       console.error(result);
     }
+  };
+
+  const defaultValues = {
+    name: guest.guestDefault ? guest.guestDefault.name : "",
+    attendance: event.newAttendance().value,
   };
 
   return (
     <GuestForm
       dateList={event._schedules.dates()}
       onSubmit={publish}
-      form={useGuestForm()}
+      form={useGuestForm(defaultValues)}
     />
   );
 };

@@ -4,6 +4,7 @@ import { GuestNumber } from "./number";
 import { GuestName } from "./guest";
 import { Date } from "../event/date";
 import { notNull } from "../../util";
+import { GuestDefault } from "./default";
 
 export interface EventGuestDateMap {
   id: string;
@@ -48,6 +49,9 @@ export class EventGuest extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
+  private get _name(): GuestName {
+    return this._value.name;
+  }
   protected get _attendance(): CurrentAttendanceList {
     return this._value.attendance;
   }
@@ -76,6 +80,7 @@ export class EventGuest extends StructValueObject<
   isAttend = (date: Date): boolean => {
     return this._attendance.isAttend(date);
   };
+  toDefault = (): GuestDefault => new GuestDefault({ name: this._name });
 }
 
 export class EventGuestList extends ArrayValueObject<

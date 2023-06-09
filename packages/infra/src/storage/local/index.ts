@@ -1,5 +1,6 @@
 import { unregisteredUser, User, RegisteredUser } from "domain/src/model/user";
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
+import { GuestDefault } from "domain/src/model/guest/default";
 
 export class LocalStorage {
   getUser = (): User | undefined => {
@@ -25,5 +26,20 @@ export class LocalStorage {
   };
   saveRecentEvents = (events: RecentlyViewedEvent) => {
     window.localStorage.setItem("recent_events", JSON.stringify(events.value));
+  };
+
+  getGuestDefault = (): GuestDefault | undefined => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const guest = window.localStorage.getItem("default/guest");
+    return guest ? GuestDefault.new(JSON.parse(guest)) : undefined;
+  };
+  saveGuestDefault = (guest: GuestDefault) => {
+    window.localStorage.setItem(
+      "default/guest",
+      JSON.stringify(guest.serialize())
+    );
   };
 }

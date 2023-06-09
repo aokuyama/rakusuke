@@ -1,19 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { guestCreateSchema } from "infra/src/client/trpc/validation/guest";
-import { EventGuest } from "domain/src/model/guest";
-import { CurrentEvent } from "domain/src/model/event";
 
-export const useGuestForm = (def?: {
-  event: CurrentEvent;
-  guest: EventGuest;
-}) => {
-  const defaultValues = def
-    ? {
-        name: def.guest.name,
-        attendance: def.event.newAttendanceByGuest(def.guest).value,
-      }
-    : undefined;
+export const useGuestForm = (defaultValues: GuestUpsert) => {
   const {
     register,
     handleSubmit,

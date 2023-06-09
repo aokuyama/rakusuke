@@ -2,6 +2,7 @@ import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { NewSheet } from "./NewSheet";
 import { Modal } from "ui/src/components/Modal";
+import { useGuestDefault } from "../hooks/useGuestDefault";
 
 interface Props {
   event: CurrentEvent;
@@ -16,10 +17,13 @@ export const NewSheetModal: FC<Props> = ({
   isOpen,
   onRequestClose,
 }) => {
+  const guest = useGuestDefault();
+
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <NewSheet
         event={event}
+        guest={guest}
         eventUpdatedHandler={(e) => {
           eventUpdatedHandler(e);
           onRequestClose();
