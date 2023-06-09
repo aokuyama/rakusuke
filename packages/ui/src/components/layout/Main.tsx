@@ -13,6 +13,6 @@ export const Main: FC<Props> = ({ children }) => {
 const styles = css`
   ${isNotSmall} {
     grid-row: 1 / 1;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
   }
 `;

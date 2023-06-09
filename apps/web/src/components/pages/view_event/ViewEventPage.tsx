@@ -19,19 +19,17 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
   const [targetGuest, setTargetGuest] = useState<EventGuest | null>(null);
 
   return (
-    <Frame>
+    <Frame isLoading={event === undefined}>
       <Main>
-        <Loading isLoading={event === undefined}>
-          {event && (
-            <Event
-              event={event}
-              setEvent={setEvent}
-              targetGuest={targetGuest}
-              setTargetGuest={setTargetGuest}
-            />
-          )}
-          {event === null && <>event not found</>}
-        </Loading>
+        {event && (
+          <Event
+            event={event}
+            setEvent={setEvent}
+            targetGuest={targetGuest}
+            setTargetGuest={setTargetGuest}
+          />
+        )}
+        {event === null && <>event not found</>}
       </Main>
       <Aside>
         <OverviewRecentEvent events={events} currentEvent={event} />

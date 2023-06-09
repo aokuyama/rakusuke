@@ -13,5 +13,5 @@ export const SideTitle: FC<Props> = ({ children }) => {
 const styles = css`
   display: block;
   text-align: center;
-  ${boxLayout.side}
+  ${boxLayout.default}
 `;

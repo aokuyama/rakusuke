@@ -29,7 +29,7 @@ export const EventCreationPage: FC = () => {
   const { events, setEvents } = useEvents();
 
   return (
-    <Frame>
+    <Frame isLoading={false}>
       <Main>
         <EventCreateForm eventCreatedHandler={eventCreatedHandler} />
       </Main>

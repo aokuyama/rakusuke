@@ -33,7 +33,7 @@ export const LinkBox: FC<Props> = ({ name, href, children }) => {
 };
 
 const boxStyle = css`
-  ${boxLayout.side}
+  ${boxLayout.default}
   border-radius: 3px;
   ${backgroundColor.default}
   display: block;
