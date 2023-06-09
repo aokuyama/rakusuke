@@ -1,7 +1,9 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
-import { backgroundColor } from "../../styles/color";
+import { backgroundColor, textColor } from "../../styles/color";
 import { isNotSmall } from "../../styles/layout";
+import { headerHeight } from "./Header";
+import { footerHeight } from "./Footer";
 
 type Props = {
   children: ReactNode;
@@ -16,6 +18,8 @@ export const Frame: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
+  min-height: calc(100vh - ${headerHeight} - ${footerHeight});
+  ${textColor.default};
   ${backgroundColor.background}
   > div {
     max-width: 1200px;

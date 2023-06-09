@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { black, colorSet, white } from "../../styles/color";
+import { black, white } from "../../styles/color";
 
 type Props = {
   title?: string;
@@ -14,7 +14,10 @@ export const Footer: FC<Props> = ({ title }) => {
   );
 };
 
+export const footerHeight = "52px";
+
 const style = css`
+  height: ${footerHeight};
   display: flex;
   align-items: center;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { backgroundColor, mainColor, textColor } from "./color";
+import { mainColor, textColor } from "./color";
 import { boxSize } from "./size";
 import * as reset from "destyle.css";
 
@@ -24,7 +24,6 @@ export const global = css`
     cursor: inherit;
   }
   body {
-    ${textColor.default};
     background-color: ${mainColor.default};
     min-width: ${boxSize.default}px;
     font-family: NotoSansJP;
