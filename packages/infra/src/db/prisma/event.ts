@@ -107,7 +107,6 @@ export class PrismaEventRepository implements EventRepository {
     });
 
     await client.$transaction(async (prisma) => {
-      console.info(updatedEvent.description);
       await prisma.event.update({
         where: { id: before.id },
         data: {
