@@ -58,6 +58,7 @@ export const createEvent = publicProcedure
     await createEvent.handle({
       organizerId: user.id,
       name: input.event.name,
+      description: input.event.description,
       dates: input.event.schedule.map((s) => s.date),
     });
 

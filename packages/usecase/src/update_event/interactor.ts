@@ -30,6 +30,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
     }
     const after = UpdateEventAndDate.new({
       name: input.name,
+      description: input.description,
       dates: input.dates,
       created: existingEvent._created,
     });

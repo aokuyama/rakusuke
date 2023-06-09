@@ -32,19 +32,17 @@ export const Site = {
       },
     },
   },
-  getEventPageTitle: (
-    event: { name: string; description: string } | null | undefined
-  ): string => {
+  getEventPageTitle: (event: { name: string } | null | undefined): string => {
     if (event) {
       return event.name + " はいつがいいですか？ by " + Site.name;
     }
     return Site.name;
   },
   getEventPageDescription: (
-    event: { name: string; description: string } | null
+    event: { name: string; description: string | undefined } | null
   ): string => {
     if (event) {
-      if (event.description.length > 0) {
+      if (event.description && event.description.length > 0) {
         return event.description;
       }
       return Site.slogan;

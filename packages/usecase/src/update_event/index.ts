@@ -6,6 +6,7 @@ export type UpdateEventInput = {
   userId: number;
   path: string;
   name: string;
+  description: string | undefined;
   dates: string[];
 };
 

@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
+import { TextArea } from "ui/src/components/TextArea";
 import { FormError } from "ui/src/components/FormError";
 import { DatePickCalendar } from "../../create_event/components/DatePickCalendar";
 import { PickedDates } from "../../create_event/components/PickedDates";
@@ -67,6 +68,10 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Step number={3}>{Site.message.form.event.description}</Step>
+      <TextArea>
+        <textarea {...register("description")} />
+      </TextArea>
       <Submit label="更新" decorationRight="arrow-right" />
       <PickedDates dateList={dateList} />
     </form>

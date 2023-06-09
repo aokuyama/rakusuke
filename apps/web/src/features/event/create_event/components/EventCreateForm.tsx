@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import { TextBox } from "ui/src/components/TextBox";
+import { TextArea } from "ui/src/components/TextArea";
 import { Submit } from "ui/src/components/Submit";
 import { Step } from "ui/src/components/Step";
 import { FormError } from "ui/src/components/FormError";
@@ -27,6 +28,7 @@ interface Props {
 
 type EventUpsert = {
   name: string;
+  description: string;
   schedule: { date: string; value: string; dateObj: Date }[];
 };
 
@@ -77,6 +79,10 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Step number={3}>{Site.message.form.event.description}</Step>
+      <TextArea>
+        <textarea {...register("description")} />
+      </TextArea>
       <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
       <PickedDates dateList={dateList} />
     </form>

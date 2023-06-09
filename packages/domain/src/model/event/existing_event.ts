@@ -4,10 +4,10 @@ import { StructValueObject } from "../valueobject";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedule, Schedules } from "./schedule";
-import { UpdateEvent } from "./update_event";
 import { Date } from "./date";
 import { CurrentEvent } from "./event";
 import { UUID } from "../uuid";
+import { EventDescription } from "./description";
 
 export interface ExistingEventArgs {
   uuid: string;
@@ -17,7 +17,7 @@ export interface ExistingEventArgs {
   name: string;
   schedules: { date: string; held: boolean }[];
   guests: EventGuestArgs[];
-  description?: string | undefined;
+  description?: string;
   created: string;
 }
 
@@ -27,7 +27,7 @@ interface ExistingEventProps {
   readonly organizerId: UserID;
   readonly path: EventPath;
   readonly name: EventName;
-  readonly description: string | undefined;
+  readonly description: EventDescription;
   readonly schedules: Schedules;
   readonly guests: EventGuestList;
   readonly created: Date;
@@ -59,7 +59,7 @@ export class ExistingEvent extends StructValueObject<
       path: args.path,
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
-      description: args.description,
+      description: new EventDescription(args.description),
       created: new Date(args.created),
     });
   }
@@ -78,12 +78,14 @@ export class ExistingEvent extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
-  get description(): string {
-    // TODO
-    return "";
+  get description(): string | undefined {
+    return this._value.description.value;
   }
   protected get _name(): EventName {
     return this._value.name;
+  }
+  private get _description(): EventDescription {
+    return this._value.description;
   }
   protected get _path(): EventPath {
     return this._value.path;
@@ -103,7 +105,7 @@ export class ExistingEvent extends StructValueObject<
   makeUpdateEvent = (args: {
     name?: EventName;
     schedules: Schedules;
-    description?: string;
+    description?: EventDescription;
   }): ExistingEvent => {
     return new ExistingEvent({
       uuid: this._uuid,
@@ -114,7 +116,7 @@ export class ExistingEvent extends StructValueObject<
       schedules: args.schedules,
       guests: this._guests,
       description:
-        args.description !== undefined ? args.description : this.description,
+        args.description !== undefined ? args.description : this._description,
       created: this._created,
     });
   };
@@ -132,7 +134,7 @@ export class ExistingEvent extends StructValueObject<
       isOrganizer: id ? this.isOrganizer(id) : false,
       schedules: this._schedules,
       guests: this._guests,
-      description: this._value.description,
+      description: this._description,
       created: this._created,
     });
 }

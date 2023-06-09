@@ -1,10 +1,12 @@
 import { EventDates } from "domain/src/model/event/date_list";
+import { EventDescription } from "domain/src/model/event/description";
 import { EventName } from "domain/src/model/event/name";
 import { EventPath } from "domain/src/model/event/path";
 import z from "zod";
 
 export const eventCreateSchema = z.object({
   name: z.string().min(EventName.MIN).max(EventName.MAX),
+  description: z.string().max(EventDescription.MAX),
   schedule: z
     .array(z.object({ date: z.string() }))
     .min(EventDates.MIN)
@@ -14,6 +16,7 @@ export const eventCreateSchema = z.object({
 export const eventUpdateSchema = z.object({
   path: z.string().length(EventPath.LENGTH),
   name: z.string().min(EventName.MIN).max(EventName.MAX),
+  description: z.string().max(EventDescription.MAX),
   schedule: z
     .array(z.object({ date: z.string() }))
     .min(EventDates.MIN)
