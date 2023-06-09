@@ -49,6 +49,7 @@ export const useEventForm = (defaultEvent?: CurrentEvent) => {
 
 export type EventUpsert = {
   name: string;
+  description: string;
   schedule: { date: string; value: string; dateObj: Date }[];
 };
 
