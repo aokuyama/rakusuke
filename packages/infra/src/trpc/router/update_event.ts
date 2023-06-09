@@ -51,6 +51,7 @@ export const updateEvent = publicProcedure
       userId: user.id,
       path: input.event.path,
       name: input.event.name,
+      description: input.event.description,
       dates: input.event.schedule.map((s) => s.date),
     });
 

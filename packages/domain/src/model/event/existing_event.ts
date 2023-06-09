@@ -78,9 +78,8 @@ export class ExistingEvent extends StructValueObject<
   get name(): string {
     return this._value.name.value;
   }
-  get description(): string {
-    // TODO
-    return "";
+  get description(): string | undefined {
+    return this._value.description.value;
   }
   protected get _name(): EventName {
     return this._value.name;
@@ -106,7 +105,7 @@ export class ExistingEvent extends StructValueObject<
   makeUpdateEvent = (args: {
     name?: EventName;
     schedules: Schedules;
-    description?: string;
+    description?: EventDescription;
   }): ExistingEvent => {
     return new ExistingEvent({
       uuid: this._uuid,
@@ -116,7 +115,8 @@ export class ExistingEvent extends StructValueObject<
       path: this._path,
       schedules: args.schedules,
       guests: this._guests,
-      description: this._description,
+      description:
+        args.description !== undefined ? args.description : this._description,
       created: this._created,
     });
   };

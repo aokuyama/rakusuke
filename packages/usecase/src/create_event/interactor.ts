@@ -25,6 +25,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
     const event = NewEvent.create({
       organizerId: organizerId,
       name: input.name,
+      description: input.description,
       dates: input.dates,
       today: Date.todayString(),
     });

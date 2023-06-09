@@ -55,6 +55,9 @@ export class UpdateEventAndDate
   get _name(): EventName {
     return this._value.name;
   }
+  get _description(): EventDescription {
+    return this._value.description;
+  }
   get _dates(): EventDates {
     return this._value.dates;
   }
@@ -74,6 +77,7 @@ export class UpdateEventAndDate
     return {
       updatedEvent: beforeEvent.makeUpdateEvent({
         name: this._name,
+        description: this._description,
         schedules,
       }),
       addedDates,
