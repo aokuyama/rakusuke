@@ -3,6 +3,7 @@ import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 import { EventPath } from "domain/src/model/event/path";
 import { Date } from "domain/src/model/event/date";
+import { nullToUndefined } from ".";
 
 export class PrismaEventRepository implements EventRepository {
   createEvent = async (event: NewEvent): Promise<ExistingEvent> => {
@@ -12,6 +13,7 @@ export class PrismaEventRepository implements EventRepository {
           uuid: event.uuid,
           organizer_id: event.organizerId,
           name: event.name,
+          description: event.description,
           path_digest: event.hashedPath(),
           schedules: {
             create: event._dates.globalThisDates().map((d) => {
@@ -78,6 +80,7 @@ export class PrismaEventRepository implements EventRepository {
       id: event.id,
       organizerId: event.organizer_id,
       name: event.name,
+      description: nullToUndefined(event.description),
       path: path,
       schedules: schedules,
       guests: guests,
@@ -108,6 +111,7 @@ export class PrismaEventRepository implements EventRepository {
         where: { id: before.id },
         data: {
           name: updatedEvent.name,
+          description: updatedEvent.description,
           schedules: {
             create: addedDates.map((d) => {
               return { datetime: d.getGlobalThisDate() };

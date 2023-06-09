@@ -5,17 +5,18 @@ import { Date } from "./date";
 import { Schedule, Schedules } from "./schedule";
 import { validateMaxDate } from "../../service/event";
 import { ExistingEvent } from "./existing_event";
+import { EventDescription } from "./description";
 
 interface UpdateEventAndDateArgs {
   name: string;
   dates: string[];
-  description?: string | undefined;
   created: string;
+  description?: string;
 }
 
 interface UpdateEventAndDateProps {
   readonly name: EventName;
-  readonly description?: string;
+  readonly description: EventDescription;
   readonly dates: EventDates;
   readonly created: Date;
 }
@@ -46,7 +47,7 @@ export class UpdateEventAndDate
   }): UpdateEventAndDate {
     return new UpdateEventAndDate({
       name: new EventName(args.name),
-      description: args.description,
+      description: new EventDescription(args.description),
       dates: EventDates.new(args.dates),
       created: args.created,
     });

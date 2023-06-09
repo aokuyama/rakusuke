@@ -7,6 +7,7 @@ import { Schedules } from "./schedule";
 import { Date } from "./date";
 import { eventMaxDate } from "../../service/event";
 import { UUID } from "../uuid";
+import { EventDescription } from "./description";
 
 export interface CurrentEventArgs {
   uuid: string;
@@ -23,7 +24,7 @@ interface CurrentEventProps {
   readonly uuid: UUID;
   readonly path: EventPath;
   readonly name: EventName;
-  readonly description: string | undefined;
+  readonly description: EventDescription;
   readonly isOrganizer: boolean;
   readonly schedules: Schedules;
   readonly guests: EventGuestList;
@@ -45,7 +46,7 @@ export class CurrentEvent extends StructValueObject<
       isOrganizer: args.isOrganizer,
       schedules: Schedules.new(args.schedules),
       guests: EventGuestList.new(args.guests),
-      description: args.description,
+      description: new EventDescription(args.description),
       created: new Date(args.created),
     });
   }

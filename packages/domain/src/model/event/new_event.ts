@@ -9,6 +9,7 @@ import { validateMaxDate } from "../../service/event";
 import { ExistingEvent } from "./existing_event";
 import { EventGuestList } from "../guest";
 import { Schedules } from "./schedule";
+import { EventDescription } from "./description";
 
 interface NewEventArgs {
   uuid: string;
@@ -16,7 +17,7 @@ interface NewEventArgs {
   path: string;
   name: string;
   dates: string[];
-  description?: string | undefined;
+  description?: string;
   today: string;
 }
 
@@ -25,7 +26,7 @@ interface NewEventProps {
   readonly organizerId: UserID;
   readonly path: NewEventPath;
   readonly name: EventName;
-  readonly description?: string;
+  readonly description: EventDescription;
   readonly dates: EventDates;
   readonly today: Date;
 }
@@ -48,7 +49,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
       organizerId: args.organizerId,
       path: NewEventPath.create(),
       name: new EventName(args.name),
-      description: args.description,
+      description: new EventDescription(args.description),
       dates: EventDates.new(args.dates),
       today: new Date(args.today),
     });
@@ -67,6 +68,9 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   }
   get name(): string {
     return this._value.name.value;
+  }
+  get description(): string | undefined {
+    return this._value.description.value;
   }
   private get _name(): EventName {
     return this._value.name;
