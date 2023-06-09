@@ -14,4 +14,5 @@ const styles = css`
   ${textColor.default};
   display: flex;
   flex-wrap: wrap;
+  margin: 16px 0;
 `;

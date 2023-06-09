@@ -50,16 +50,13 @@ const boxStyle = css`
   ${boxLayout.default}
   border-radius: 3px;
   ${backgroundColor.default}
-  :open summary div {
-    display: none;
-  }
 `;
 const titleStyle = css`
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 12px 0;
   div {
     font-size: 20;
     line-height: 20px;
@@ -72,10 +69,9 @@ const titleStyle = css`
     display: inline-block;
     text-align: center;
     width: ${boxSize.default - 32 - 32}px;
-    padding: 8px 0;
   }
 `;
 const contentStyle = css`
   margin: 0;
-  padding: 16px;
+  padding: 0 16px 0.1px;
 `;

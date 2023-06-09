@@ -39,7 +39,7 @@ export const buttonStyles = css`
   justify-content: center;
   align-items: center;
   width: 250px;
-  margin: 10px auto;
+  margin: 16px auto;
   border: none;
   border-radius: 5px;
   font-weight: 600;

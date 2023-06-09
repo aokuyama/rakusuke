@@ -10,5 +10,9 @@ export const Name: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
-  margin: 0 0 8px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
 `;
