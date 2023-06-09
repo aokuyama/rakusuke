@@ -18,7 +18,10 @@ export const Header: FC<Props> = ({ title, slogan }) => {
   );
 };
 
+export const headerHeight = "144px";
+
 const style = css`
+  height: ${headerHeight};
   padding: 8px 0;
   ${colorSet.main}
   h1,
