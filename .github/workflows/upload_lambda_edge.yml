@@ -42,7 +42,7 @@ jobs:
         run: yarn workspace edge build-lambda
       
       - name: Zip function code
-        run: zip lambda.zip ./apps/edge/dist
+        run: zip -rj lambda.zip ./apps/edge/dist
 
       - name: Update function code
         env:
