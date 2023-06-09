@@ -1,7 +1,6 @@
 import { FC, useState, useContext, useEffect } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
-import { storage } from "@/registry";
 import { EventUpdateFormModal } from "@/features/event/update_event/components/EventUpdateFormModal";
 import { EventOverview } from "@/features/event/view_event/components/EventOverview";
 import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewSheetModal";
@@ -10,6 +9,7 @@ import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverv
 import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
 import { decideOnEventDate } from "@/features/event/decide_on_event_date/trpc";
 import { Date } from "domain/src/model/event/date";
+import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
 import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";
 
@@ -38,8 +38,8 @@ export const Event: FC<Props> = ({
       name: string;
     }[];
   }>();
-  const ctx = useContext(loadingContext);
-  const user = storage.getUser();
+  const user = useContext(userContext).user;
+  const loadingCtx = useContext(loadingContext);
   const [focusDay, setFocusDay] = useState<string | undefined>();
 
   const eventUpdatedHandler = (event: CurrentEvent) => {
@@ -87,13 +87,15 @@ export const Event: FC<Props> = ({
     return { id: g.id, name: g.name, attendance: attendance };
   });
 
-  const decideHandler = (date: Date) => {
-    ctx.setAsLoading();
-    decideOnEventDate(user, event, date, (e: CurrentEvent) => {
-      eventUpdatedHandler(e);
-      ctx.setAsNotLoading();
-    });
-  };
+  const decideHandler = user
+    ? (date: Date) => {
+        loadingCtx.setAsLoading();
+        decideOnEventDate(user, event, date, (e: CurrentEvent) => {
+          eventUpdatedHandler(e);
+          loadingCtx.setAsNotLoading();
+        });
+      }
+    : undefined;
 
   return (
     <>
@@ -121,7 +123,6 @@ export const Event: FC<Props> = ({
         schedules={summary}
         isOpen={isDrawingFormOpen}
         setIsOpen={setIsDrawingFormOpen}
-        user={user}
         event={event}
         eventUpdatedHandler={eventUpdatedHandler}
       />
@@ -129,7 +130,6 @@ export const Event: FC<Props> = ({
         <FocusDay
           args={focus}
           closeHandler={() => {
-            console.log(undefined);
             setFocusDay(undefined);
           }}
           buttonClickHandler={event.isOrganizer ? decideHandler : undefined}
@@ -149,7 +149,6 @@ export const Event: FC<Props> = ({
           onRequestClose={() => {
             setIsEventUpdateFormOpen(false);
           }}
-          user={user}
           event={event}
           eventUpdatedHandler={eventUpdatedHandler}
         />

@@ -1,21 +1,18 @@
 import { FC, useContext } from "react";
-import { User } from "domain/src/model/user";
 import { UserData } from "./UserData";
 import { loadingContext } from "@/hooks/useLoading";
+import { userContext } from "@/hooks/useUser";
 
-interface Props {
-  user: User;
-}
-
-export const Dev: FC<Props> = ({ user }) => {
-  const ctx = useContext(loadingContext);
+export const Dev: FC = () => {
+  const loadingCtx = useContext(loadingContext);
+  const userCtx = useContext(userContext);
 
   return (
     <>
       {process.env.NODE_ENV === "development" ? (
         <>
-          {ctx.loading ? <div>loading...</div> : <></>}
-          <UserData user={user} />
+          {loadingCtx.loading ? <div>loading...</div> : <></>}
+          {userCtx.user && <UserData user={userCtx.user} />}
         </>
       ) : (
         <></>

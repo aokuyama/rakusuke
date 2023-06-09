@@ -2,9 +2,9 @@ import { unregisteredUser, User, RegisteredUser } from "domain/src/model/user";
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 
 export class LocalStorage {
-  getUser = (): User => {
+  getUser = (): User | undefined => {
     if (typeof window === "undefined") {
-      return unregisteredUser;
+      return undefined;
     }
 
     const user = window.localStorage.getItem("user");

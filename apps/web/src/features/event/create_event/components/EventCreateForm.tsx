@@ -5,17 +5,16 @@ import { Step } from "ui/src/components/Step";
 import { FormError } from "ui/src/components/FormError";
 import { DatePicker } from "./DatePicker";
 import { Date } from "domain/src/model/event/date";
-import { User } from "domain/src/model/user";
 import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";
 import { eventMaxDate } from "domain/src/service/event";
+import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
 import { useEventForm } from "../hooks/useEventForm";
 import { CurrentEventArgs } from "domain/src/model/event";
 
 interface Props {
-  user: User;
   eventCreatedHandler: (args: {
     event: CurrentEventArgs;
     user: {
@@ -30,11 +29,15 @@ type EventUpsert = {
   schedule: { date: string; value: string; dateObj: Date }[];
 };
 
-export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
+export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
   const ctx = useContext(loadingContext);
+  const user = useContext(userContext).user;
 
   const publish = async (event: EventUpsert) => {
     ctx.setAsLoading();
+    if (!user) {
+      throw new Error("user not found");
+    }
     const result = await client.event.createEvent.mutate({
       user: user.getAuthInfo(),
       event: event,
@@ -73,7 +76,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler, user }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
-      <Submit label="作成" decorationRight="arrow-right" />
+      <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
     </form>
   );
 };

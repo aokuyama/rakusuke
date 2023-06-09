@@ -55,6 +55,9 @@ export const buttonStyles = css`
       margin: 0 16px;
     }
   }
+  :disabled {
+    opacity: 0.5;
+  }
 `;
 
 export const normalColor = css`

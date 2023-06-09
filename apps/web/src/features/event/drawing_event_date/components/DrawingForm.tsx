@@ -7,35 +7,37 @@ import { FormError } from "ui/src/components/FormError";
 import { Submit } from "ui/src/components/Submit";
 import { CurrentEvent } from "domain/src/model/event";
 import { drawingEventDate } from "../trpc";
+import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
-import { User } from "domain/src/model/user";
 import { Schedule } from "../../view_event/types/schedule";
 import { Step } from "ui/src/components/Step";
 import { Site } from "infra/src/web/site";
 
 interface Props {
   schedules: Schedule[];
-  user: User;
   event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
 export const DrawingForm: FC<Props> = ({
   schedules,
-  user,
   event,
   eventUpdatedHandler,
 }) => {
   const { register, handleSubmit, errors } = useDrawingForm(schedules);
-  const ctx = useContext(loadingContext);
+  const user = useContext(userContext).user;
+  const loadingCtx = useContext(loadingContext);
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <form
       onSubmit={handleSubmit((d) => {
-        ctx.setAsLoading();
+        loadingCtx.setAsLoading();
         drawingEventDate(user, event, d.schedule, (e: CurrentEvent) => {
           eventUpdatedHandler(e);
-          ctx.setAsNotLoading();
+          loadingCtx.setAsNotLoading();
         });
       })}
     >
