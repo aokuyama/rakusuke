@@ -8,7 +8,7 @@ interface Props {
 
 export const PickedDates: FC<Props> = ({ dateList }) => {
   const items = dateList.map((d, i) => {
-    return { id: i, name: d.toString() };
+    return { id: i, name: d.short() };
   });
 
   return (

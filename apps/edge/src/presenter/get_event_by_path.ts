@@ -2,7 +2,10 @@ import { Site } from "infra/src/web/site";
 import { GetEventByPathOutput } from "usecase/src/get_event_by_path";
 
 export class GetEventByPathPresenter {
-  private event: { name: string; description: string } | null | undefined;
+  private event:
+    | { name: string; description: string | undefined }
+    | null
+    | undefined;
   constructor() {
     this.event = undefined;
   }

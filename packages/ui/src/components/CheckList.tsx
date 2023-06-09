@@ -26,7 +26,7 @@ export const CheckList: FC<Props> = ({ items }) => {
 const styles = css`
   display: flex;
   flex-wrap: wrap;
-
+  margin: 16px 0;
   li {
     width: 25%;
     display: flex;

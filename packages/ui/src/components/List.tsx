@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { backgroundColor, mainColor } from "../styles/color";
+import { backgroundColor } from "../styles/color";
 import { boxLayout } from "../styles/layout";
 
 export type Item = { id: string | number; name: string };
@@ -20,26 +20,17 @@ export const List: FC<Props> = ({ items }) => {
 };
 
 const list = css`
+  display: flex;
+  flex-wrap: wrap;
   :has(:nth-child(1)) {
-    padding: 1em;
+    padding: 16px 0;
   }
   border-radius: 3px;
+  text-align: center;
   ${backgroundColor.default};
   ${boxLayout.default}
-
   li {
-    display: flex;
-    align-items: center;
-    gap: 0 10px;
-    padding: 0.3em;
-  }
-
-  li::before {
-    transform: rotate(-45deg);
-    width: 0.4em;
-    height: 0.4em;
-    border-bottom: 3px solid ${mainColor.default};
-    border-right: 3px solid ${mainColor.default};
-    content: "";
+    padding: 5px;
+    width: 33%;
   }
 `;
