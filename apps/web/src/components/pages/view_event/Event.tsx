@@ -100,7 +100,7 @@ export const Event: FC<Props> = ({
   return (
     <>
       <EventOverview
-        name={event.name}
+        event={event}
         summary={summary}
         onEdit={
           event.isOrganizer

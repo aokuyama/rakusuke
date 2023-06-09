@@ -3,9 +3,10 @@ import { EditBox } from "ui/src/components/EditBox";
 import { Summary } from "./Summary";
 import { Schedule } from "../types/schedule";
 import { Button } from "ui/src/components/Button";
+import { StickyNote } from "ui/src/components/StickyNote";
 
 interface Props {
-  name: string;
+  event: { name: string; description: string | undefined };
   summary: Schedule[];
   onEdit?: () => void;
   onDrawing?: () => void;
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export const EventOverview: FC<Props> = ({
-  name,
+  event,
   summary,
   onEdit,
   onDrawing,
@@ -23,8 +24,11 @@ export const EventOverview: FC<Props> = ({
 }) => {
   const button = onEdit ? { clickHandler: onEdit } : undefined;
   return (
-    <EditBox name={name} button={button}>
+    <EditBox name={event.name} button={button}>
       <Summary summary={summary} setFocus={setFocus} focusId={focusId} />
+      {event.description && event.description.length && (
+        <StickyNote>{event.description}</StickyNote>
+      )}
       {onDrawing && summary.length > 1 && (
         <Button onClick={onDrawing}>開催日を抽選</Button>
       )}

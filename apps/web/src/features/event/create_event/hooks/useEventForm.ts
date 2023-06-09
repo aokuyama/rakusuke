@@ -8,6 +8,7 @@ export const useEventForm = (defaultEvent?: CurrentEvent) => {
   const defaultValues = defaultEvent
     ? {
         name: defaultEvent.name,
+        description: defaultEvent.description,
         schedule: defaultEvent._schedules.dates().map((d) => toSchedule(d)),
       }
     : undefined;
