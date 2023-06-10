@@ -8,7 +8,7 @@ import { client } from "./client";
 import { Date } from "domain/src/model/event/date";
 import { EventPath } from "domain/src/model/event/path";
 import { attendance, schedule } from "@prisma/client";
-import { emptyToNull } from ".";
+import { emptyToNull, nullToUndefined } from ".";
 
 export class PrismaGuestRepository implements GuestRepository {
   create = async (
@@ -108,7 +108,12 @@ export class PrismaGuestRepository implements GuestRepository {
           });
         }
       }
-      if (guest.name !== currentGuest.name) {
+      if (
+        guest.isDirty({
+          name: currentGuest.name,
+          memo: nullToUndefined(currentGuest.memo),
+        })
+      ) {
         await prisma.guest.update({
           data: {
             name: guest.name,

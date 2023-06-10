@@ -90,6 +90,12 @@ export class EventGuest extends StructValueObject<
     return this._attendance.isAttend(date);
   };
   toDefault = (): GuestDefault => new GuestDefault({ name: this._name });
+  isDirty = (args: { name: string; memo: string | undefined }): boolean => {
+    return !this.isClean(args);
+  };
+  isClean = (args: { name: string; memo: string | undefined }): boolean => {
+    return this.name === args.name && this.memo === args.memo;
+  };
 }
 
 export class EventGuestList extends ArrayValueObject<
