@@ -1,0 +1,63 @@
+name: Deploy Lambda Edge
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+        - staging
+        - production
+
+jobs:
+  update-distribution:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: us-east-1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set constants for staging
+        if: ${{ inputs.environment == 'staging' }}
+        run: |
+          echo "AWS_LAMBDA_FUNCTION_ARN=${{ secrets.STAGING_AWS_LAMBDA_EDGE_RESPONSE_HEADER_ARN }}" >> $GITHUB_ENV
+          echo "AWS_CLOUDFRONT_DISTRIBUTION_ID=${{ secrets.STAGING_AWS_CF_ID }}" >> $GITHUB_ENV
+
+      - name: Set constants for production
+        if: ${{ inputs.environment == 'production' }}
+        run: |
+          echo "AWS_LAMBDA_FUNCTION_ARN=${{ secrets.PRODUCTION_AWS_LAMBDA_EDGE_RESPONSE_HEADER_ARN }}" >> $GITHUB_ENV
+          echo "AWS_CLOUDFRONT_DISTRIBUTION_ID=${{ secrets.PRODUCTION_AWS_CF_ID }}" >> $GITHUB_ENV
+
+      - name: Set variables
+        run: |
+          echo CURRENT_CONFIG=$(aws cloudfront get-distribution-config --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} | jq '.DistributionConfig') >> $GITHUB_ENV
+          echo ETAG=$(aws cloudfront get-distribution-config --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} | jq -r '.ETag') >> $GITHUB_ENV
+          echo VERSION=$(aws lambda list-versions-by-function --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} | jq -r '.Versions[-1].Version') >> $GITHUB_ENV
+
+      - name: Make config for updating
+        run: echo '${{ env.CURRENT_CONFIG }}' | jq "(.DefaultCacheBehavior.LambdaFunctionAssociations.Items[] | select(.EventType == \"origin-request\") | .LambdaFunctionARN) |= \"${{ env.AWS_LAMBDA_FUNCTION_ARN }}:${{ env.VERSION }}\"" > config.json
+
+      - name: Update distribution
+        run: aws cloudfront update-distribution --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --distribution-config file://config.json --if-match ${{ env.ETAG }}
+      
+      - name: Wait for update-distribution completion
+        timeout-minutes: 20
+        run: |
+          while :; \
+          do STATUS=$(aws cloudfront get-distribution --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} | jq -r .Distribution.Status); \
+            if [ "$STATUS" = "InProgress" ]; \
+            then \
+              echo "update inprogress"; \
+              sleep 10; \
+            else \
+              echo "update completion"; \
+              break; \
+            fi; \
+          done
