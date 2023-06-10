@@ -2,7 +2,7 @@ import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { Sheet } from "./Sheet";
 import { EventGuest } from "domain/src/model/guest";
-import { Guest } from "./GuestList";
+import { Guest } from "./GuestBox";
 
 interface Props {
   guests: Guest[];

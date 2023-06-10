@@ -10,6 +10,7 @@ import { GuestMemo } from "./memo";
 export interface EventGuestDateMap {
   id: string;
   name: string;
+  memo: string | undefined;
   attendance: { id: string; date: Date; attend: boolean | undefined }[];
 }
 
@@ -74,6 +75,7 @@ export class EventGuest extends StructValueObject<
     return {
       id: this.number.toString(),
       name: this.name,
+      memo: this.memo,
       attendance: attendance,
     };
   };

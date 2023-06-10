@@ -1,18 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { EditBox } from "ui/src/components/EditBox";
-import { CheckList } from "ui/src/components/CheckList";
-
-interface Attendance {
-  id: string;
-  name: string;
-  enabled: boolean | undefined;
-}
-
-export interface Guest {
-  id: string;
-  name: string;
-  attendance: Attendance[];
-}
+import { Guest, GuestBox } from "./GuestBox";
 
 type Props = {
   guests: Guest[];
@@ -29,19 +16,13 @@ export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
     <>
       {guests.map((guest, index) => {
         return (
-          <EditBox
+          <GuestBox
             key={guest.id}
-            name={guest.name}
-            button={{
-              clickHandler: () => {
-                clickIdHandler(guest.id);
-              },
-            }}
+            guest={guest}
+            clickIdHandler={clickIdHandler}
             // 初期ロード以降に追加されたものは開いておく
-            closable={{ defaultIsClose: index < defaultGuestNum }}
-          >
-            <CheckList items={guest.attendance} />
-          </EditBox>
+            defaultIsClose={index < defaultGuestNum}
+          />
         );
       })}
     </>

@@ -1,4 +1,9 @@
-import { EventGuest, EventGuestArgs, EventGuestList } from "../guest";
+import {
+  EventGuest,
+  EventGuestArgs,
+  EventGuestDateMap,
+  EventGuestList,
+} from "../guest";
 import { StructValueObject } from "../valueobject";
 import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
 import { EventName } from "./name";
@@ -118,15 +123,16 @@ export class CurrentEvent extends StructValueObject<
       strong: boolean;
       selected: boolean;
     }[];
-    guests: {
-      id: string;
-      name: string;
-      attendance: { id: string; date: Date; attend: boolean | undefined }[];
-    }[];
   } => {
     const dates = this._schedules.dateMap(this._guests);
     return {
       dates: dates,
+    };
+  };
+  guestsDateMap = (): {
+    guests: EventGuestDateMap[];
+  } => {
+    return {
       guests: this._guests.dateMap(this._schedules.dates()),
     };
   };

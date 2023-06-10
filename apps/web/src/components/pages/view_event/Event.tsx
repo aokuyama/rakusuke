@@ -65,7 +65,8 @@ export const Event: FC<Props> = ({
     }
   }, [event, focusDay]);
 
-  const { dates, guests } = event.dateMap();
+  const { dates } = event.dateMap();
+  const { guests } = event.guestsDateMap();
   const summary = dates.map((d) => {
     return {
       id: d.id,
@@ -84,7 +85,7 @@ export const Event: FC<Props> = ({
         enabled: a.attend,
       };
     });
-    return { id: g.id, name: g.name, attendance: attendance };
+    return { id: g.id, name: g.name, memo: g.memo, attendance: attendance };
   });
 
   const decideHandler = user
