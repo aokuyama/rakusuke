@@ -1,0 +1,66 @@
+name: Deploy Lambda Server
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+        - staging
+        - production
+
+jobs:
+  update-lambda:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: us-east-1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set env for staging
+        if: ${{ inputs.environment == 'staging' }}
+        run: |
+          echo "AWS_LAMBDA_FUNCTION_ARN=${{ secrets.STAGING_AWS_LAMBDA_SERVER_ARN }}" >> $GITHUB_ENV
+
+      - name: Set env for production
+        if: ${{ inputs.environment == 'production' }}
+        run: |
+          echo "AWS_LAMBDA_FUNCTION_ARN=${{ secrets.PRODUCTION_AWS_LAMBDA_SERVER_ARN }}" >> $GITHUB_ENV
+
+      - name: Update lambda
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+        run: aws lambda update-function-code --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} --image-uri ${{ secrets.ENV_AWS_ECR_HOST }}/${{ secrets.ENV_REGISTRY_NAME }}:deploy
+      
+      - name: Wait for update-function-code completion
+        timeout-minutes: 10
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+        run: |
+          while :; \
+          do \
+          LAMBDA_UPDATE_STATUS=$(aws lambda get-function --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} | jq -r .Configuration.LastUpdateStatus); \
+          LAMBDA_STATE=$(aws lambda get-function --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} | jq -r .Configuration.State); \
+            if [ "$LAMBDA_UPDATE_STATUS" = "Successful" ] && [ "$LAMBDA_STATE" = "Active" ]; \
+            then \
+              echo "update completion"; \
+              break; \
+            elif [ "$LAMBDA_UPDATE_STATUS" = "InProgress" ] || [ "$LAMBDA_STATE" = "Pending" ]; \
+            then \
+              echo "update inprogress"; \
+              sleep 5; \
+            else \
+              echo "update failed"; \
+              exit 1; \
+            fi; \
+          done
