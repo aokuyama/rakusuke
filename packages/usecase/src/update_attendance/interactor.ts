@@ -21,10 +21,11 @@ export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
     const guest = EventGuest.new({
       number: input.number,
       name: input.name,
+      memo: input.memo,
       attendance: input.attendance,
     });
     const eventPath = new EventPath(input.eventPath);
     const updatedGuest = await this.repository.update(eventPath, guest);
-    await this.presenter.render(updatedGuest.serialize());
+    await this.presenter.render({ guest: updatedGuest });
   };
 }

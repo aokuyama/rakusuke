@@ -17,5 +17,6 @@ export const useGuestForm = (defaultValues: GuestUpsert) => {
 
 export type GuestUpsert = {
   name: string;
+  memo: string;
   attendance: { date: string; attend: boolean }[];
 };

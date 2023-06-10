@@ -1,16 +1,17 @@
+import { EventGuest } from "domain/src/model/guest";
+
 export * from "./interactor";
 
 export type UpdateAttendanceInput = {
   eventPath: string;
   number: number;
   name: string;
+  memo: string | undefined;
   attendance: { date: string; attend: boolean }[];
 };
 
 export type UpdateAttendanceOutput = {
-  number: number;
-  name: string;
-  attendance: { date: string; attend: boolean }[];
+  guest: EventGuest;
 };
 
 export interface UpdateAttendanceUsecase {

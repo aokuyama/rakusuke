@@ -14,6 +14,7 @@ import {
 } from "react-hook-form";
 import { Step } from "ui/src/components/Step";
 import { Site } from "infra/src/web/site";
+import { TextArea } from "ui/src/components/TextArea";
 
 interface Props {
   dateList: Date[];
@@ -63,6 +64,10 @@ export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Step number={3}>{Site.message.form.guest.memo}</Step>
+      <TextArea>
+        <textarea {...register("memo")} />
+      </TextArea>
       <Submit label="決定" decorationRight="arrow-right" />
     </form>
   );

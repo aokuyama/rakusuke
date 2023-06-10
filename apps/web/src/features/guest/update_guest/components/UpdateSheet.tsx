@@ -38,6 +38,7 @@ export const UpdateSheet: FC<Props> = ({
 
   const defaultValues = {
     name: guest.name,
+    memo: guest.memo ? guest.memo : "",
     attendance: event.newAttendanceByGuest(guest).value,
   };
 

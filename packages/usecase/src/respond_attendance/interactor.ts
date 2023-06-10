@@ -20,10 +20,11 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
   handle = async (input: RespondAttendanceInput) => {
     const newGuest = NewGuest.new({
       name: input.name,
+      memo: input.memo,
       attendance: input.attendance,
     });
     const eventPath = new EventPath(input.eventPath);
     const guest = await this.repository.create(eventPath, newGuest);
-    await this.presenter.render(guest.serialize());
+    await this.presenter.render({ guest });
   };
 }

@@ -7,6 +7,8 @@ import {
 import z from "zod";
 import { publicProcedure } from "../";
 import { guestUpdateSchema } from "../../client/trpc/validation/guest";
+import { EventGuest } from "domain/src/model/guest";
+import { TRPCError } from "@trpc/server";
 
 export const updateAttendance = publicProcedure
   .input(
@@ -17,12 +19,12 @@ export const updateAttendance = publicProcedure
   )
   .mutation(async (opts) => {
     const { input } = opts;
-    let guest: UpdateAttendanceOutput | undefined;
+    let guest: EventGuest | undefined;
 
     container.register("UpdateAttendancePresenter", {
       useValue: {
         render: async (output: UpdateAttendanceOutput): Promise<void> => {
-          guest = output;
+          guest = output.guest;
         },
       },
     });
@@ -31,10 +33,15 @@ export const updateAttendance = publicProcedure
       eventPath: input.event,
       number: input.guest.number,
       name: input.guest.name,
+      memo: input.guest.memo,
       attendance: input.guest.attendance,
     });
 
+    if (!guest) {
+      throw new TRPCError({ code: "FORBIDDEN" });
+    }
+
     return {
-      guest: guest,
+      guest: guest.serialize(),
     };
   });

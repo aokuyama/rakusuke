@@ -1,15 +1,16 @@
+import { EventGuest } from "domain/src/model/guest";
+
 export * from "./interactor";
 
 export type RespondAttendanceInput = {
   eventPath: string;
   name: string;
+  memo: string | undefined;
   attendance: { date: string; attend: boolean }[];
 };
 
 export type RespondAttendanceOutput = {
-  number: number;
-  name: string;
-  attendance: { date: string; attend: boolean }[];
+  guest: EventGuest;
 };
 
 export interface RespondAttendanceUsecase {
