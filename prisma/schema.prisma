@@ -47,6 +47,7 @@ model guest {
   event_id     Int
   guest_number Int
   name         String
+  memo         String?
   event        event        @relation(fields: [event_id], references: [id], onDelete: Cascade)
   attendance   attendance[]
 
@@ -56,10 +57,10 @@ model guest {
 model attendance {
   id          Int      @id @default(autoincrement())
   guest_id    Int
-  guest       guest    @relation(fields: [guest_id], references: [id], onDelete: Cascade)
   schedule_id Int
-  schedule    schedule @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
   enabled     Boolean
+  guest       guest    @relation(fields: [guest_id], references: [id], onDelete: Cascade)
+  schedule    schedule @relation(fields: [schedule_id], references: [id], onDelete: Cascade)
 
   @@unique([guest_id, schedule_id])
 }
