@@ -46,7 +46,7 @@ jobs:
           echo VERSION=$(aws lambda list-versions-by-function --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} | jq -r '.Versions[-1].Version') >> $GITHUB_ENV
 
       - name: Make config for updating
-        run: echo '${{ env.CURRENT_CONFIG }}' | jq "(.DefaultCacheBehavior.LambdaFunctionAssociations.Items[] | select(.EventType == \"origin-request\") | .LambdaFunctionARN) |= \"${{ env.AWS_LAMBDA_FUNCTION_ARN }}:${{ env.VERSION }}\"" > config.json
+        run: echo '${{ env.CURRENT_CONFIG }}' | sed -e "s/${{ env.AWS_LAMBDA_FUNCTION_ARN }}:[0-9]*/${{ env.AWS_LAMBDA_FUNCTION_ARN }}:${{ env.VERSION }}/g" > config.json
 
       - name: Update distribution
         env:
