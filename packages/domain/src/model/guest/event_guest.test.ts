@@ -4,6 +4,7 @@ import { Date } from "../date";
 const guest1s = {
   number: 1,
   name: "ゲスト1",
+  memo: "メモ",
   attendance: [
     {
       date: "2023/05/01",
@@ -18,6 +19,7 @@ const guest1s = {
 const guest2s = {
   number: 2,
   name: "ゲスト2",
+  memo: undefined,
   attendance: [
     {
       date: "2023/05/01",
@@ -32,6 +34,7 @@ const guest2s = {
 const guest3s = {
   number: 3,
   name: "ゲスト3",
+  memo: undefined,
   attendance: [
     {
       date: "2023/05/01",
@@ -151,6 +154,7 @@ describe("同じIDのゲストを差し替える", () => {
       },
     ],
     name: "差し替えゲスト2",
+    memo: undefined,
     number: 2,
   });
   const guests = EventGuestList.new([guest1s, guest2s, guest3s]);
@@ -169,6 +173,7 @@ describe("同じIDのゲストを差し替える", () => {
         },
       ],
       name: "差し替えゲスト2",
+      memo: undefined,
       number: 2,
     },
     guest3s,
@@ -185,6 +190,7 @@ describe("同じIDのゲストを差し替える", () => {
       },
     ],
     name: "差し替えゲスト1",
+    memo: undefined,
     number: 1,
   });
   const addedGuests4 = addedGuests3.replace(guest1New);
@@ -201,6 +207,7 @@ describe("同じIDのゲストを差し替える", () => {
         },
       ],
       name: "差し替えゲスト1",
+      memo: undefined,
       number: 1,
     },
     {
@@ -215,6 +222,7 @@ describe("同じIDのゲストを差し替える", () => {
         },
       ],
       name: "差し替えゲスト2",
+      memo: undefined,
       number: 2,
     },
     guest3s,

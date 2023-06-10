@@ -28,6 +28,7 @@ describe("ゲスト", () => {
         },
       ],
       name: "ゲスト",
+      memo: undefined,
     });
   });
 
