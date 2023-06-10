@@ -64,11 +64,11 @@ export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Submit label="決定" decorationRight="arrow-right" />
       <Step number={3}>{Site.message.form.guest.memo}</Step>
       <TextArea>
         <textarea {...register("memo")} />
       </TextArea>
-      <Submit label="決定" decorationRight="arrow-right" />
     </form>
   );
 };

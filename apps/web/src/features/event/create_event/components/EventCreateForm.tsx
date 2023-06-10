@@ -79,11 +79,11 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
       <Step number={3}>{Site.message.form.event.description}</Step>
       <TextArea>
         <textarea {...register("description")} />
       </TextArea>
-      <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
       <PickedDates dateList={dateList} />
     </form>
   );

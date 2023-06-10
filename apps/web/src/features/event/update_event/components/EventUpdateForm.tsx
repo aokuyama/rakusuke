@@ -68,11 +68,11 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
+      <Submit label="更新" decorationRight="arrow-right" />
       <Step number={3}>{Site.message.form.event.description}</Step>
       <TextArea>
         <textarea {...register("description")} />
       </TextArea>
-      <Submit label="更新" decorationRight="arrow-right" />
       <PickedDates dateList={dateList} />
     </form>
   );
