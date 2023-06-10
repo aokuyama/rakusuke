@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 import { backgroundColor } from "../styles/color";
 import { boxLayout } from "../styles/layout";
 import { EditButton } from "./EditButton";
-import { boxSize, font } from "../styles/size";
+import { font } from "../styles/size";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   name: ReactNode;
@@ -35,8 +35,8 @@ export const EditBox: FC<Props> = ({
         }}
       >
         <div css={summaryTitleStyle}>
-          <div>
-            {closable && <FontAwesomeIcon icon={faChevronDown} width={18} />}
+          <div css={markerStyle}>
+            {closable && <FontAwesomeIcon icon={faChevronRight} width={10} />}
           </div>
           <span>{name}</span>
           <div>{button && <EditButton onClick={button.clickHandler} />}</div>
@@ -50,7 +50,7 @@ export const EditBox: FC<Props> = ({
 
 const detailsStyle = css`
   &[open] > summary > div > div:first-child {
-    rotate: 180deg;
+    rotate: 90deg;
   }
   &[open] > summary > div > span {
     white-space: wrap;
@@ -59,6 +59,7 @@ const detailsStyle = css`
     padding: 12px 12px 0;
     font-size: ${font.small}px;
     white-space: wrap;
+    overflow: inherit;
   }
   &[open] > summary > p:empty {
     padding: 0;
@@ -69,24 +70,25 @@ const detailsStyle = css`
 `;
 const summaryStyle = css`
   margin: 0;
-  padding: 16px 0 0;
+  padding: 12px 0 0;
 `;
 const summaryTitleStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 20px;
     line-height: 20px;
     height: 20px;
     text-align: center;
     display: inline-block;
     width: 32px;
+    flex-shrink: 0;
   }
   span {
+    margin: 4px 4px 0;
     display: inline-block;
     text-align: center;
-    width: ${boxSize.default - 32 - 32}px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -104,4 +106,7 @@ const remarksStyle = css`
 const contentStyle = css`
   margin: 0;
   padding: 0 16px 0.1px;
+`;
+const markerStyle = css`
+  margin-top: 2px;
 `;
