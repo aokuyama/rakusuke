@@ -5,6 +5,7 @@ import { GuestName } from "./guest";
 import { Date } from "../event/date";
 import { notNull } from "../../util";
 import { GuestDefault } from "./default";
+import { GuestMemo } from "./memo";
 
 export interface EventGuestDateMap {
   id: string;
@@ -15,6 +16,7 @@ export interface EventGuestDateMap {
 interface EventGuestProps {
   readonly number: GuestNumber;
   readonly name: GuestName;
+  readonly memo: GuestMemo;
   readonly attendance: CurrentAttendanceList;
 }
 
@@ -22,6 +24,7 @@ export interface EventGuestArgs {
   readonly number: number;
   readonly name: string;
   readonly attendance: AttendanceArgs[];
+  readonly memo?: string | undefined;
 }
 
 export class EventGuest extends StructValueObject<
@@ -32,6 +35,7 @@ export class EventGuest extends StructValueObject<
     return new EventGuest({
       number: new GuestNumber(args.number),
       name: new GuestName(args.name),
+      memo: new GuestMemo(args.memo),
       attendance: CurrentAttendanceList.new(args.attendance),
     });
   }
@@ -51,6 +55,9 @@ export class EventGuest extends StructValueObject<
   }
   private get _name(): GuestName {
     return this._value.name;
+  }
+  get memo(): string | undefined {
+    return this._value.memo.value;
   }
   protected get _attendance(): CurrentAttendanceList {
     return this._value.attendance;

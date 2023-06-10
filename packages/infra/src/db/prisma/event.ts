@@ -60,18 +60,17 @@ export class PrismaEventRepository implements EventRepository {
     const schedules = event.schedules.map((s) => {
       return { date: Date.formatString(s.datetime), held: s.held };
     });
-    const guests = event.guests.map((g) => {
-      const name = g.name;
-      const number = g.guest_number;
-      const attendance = g.attendance.map((a) => {
+    const guests = event.guests.map((guest) => {
+      const attendance = guest.attendance.map((a) => {
         return {
           attend: a.enabled,
           date: Date.formatString(a.schedule.datetime),
         };
       });
       return {
-        name: name,
-        number: number,
+        name: guest.name,
+        memo: nullToUndefined(guest.memo),
+        number: guest.guest_number,
         attendance: attendance,
       };
     });

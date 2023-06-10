@@ -8,6 +8,7 @@ import { client } from "./client";
 import { Date } from "domain/src/model/event/date";
 import { EventPath } from "domain/src/model/event/path";
 import { attendance, schedule } from "@prisma/client";
+import { emptyToNull } from ".";
 
 export class PrismaGuestRepository implements GuestRepository {
   create = async (
@@ -30,6 +31,7 @@ export class PrismaGuestRepository implements GuestRepository {
         data: {
           event_id: event.id,
           name: guest.name,
+          memo: emptyToNull(guest.memo),
           guest_number: guestNumber.value,
         },
       });
@@ -45,6 +47,7 @@ export class PrismaGuestRepository implements GuestRepository {
       return new EventGuest({
         number: new GuestNumber(newGuest.guest_number),
         name: guest._name,
+        memo: guest._memo,
         attendance: guest.getCurrentAttendanceList(),
       });
     });
@@ -109,6 +112,7 @@ export class PrismaGuestRepository implements GuestRepository {
         await prisma.guest.update({
           data: {
             name: guest.name,
+            memo: emptyToNull(guest.memo),
           },
           where: {
             id: currentGuest.id,
