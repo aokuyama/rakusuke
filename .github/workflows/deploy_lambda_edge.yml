@@ -36,6 +36,10 @@ jobs:
           echo "AWS_CLOUDFRONT_DISTRIBUTION_ID=${{ secrets.PRODUCTION_AWS_CF_ID }}" >> $GITHUB_ENV
 
       - name: Set variables
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
         run: |
           echo CURRENT_CONFIG=$(aws cloudfront get-distribution-config --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} | jq '.DistributionConfig') >> $GITHUB_ENV
           echo ETAG=$(aws cloudfront get-distribution-config --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} | jq -r '.ETag') >> $GITHUB_ENV
@@ -45,9 +49,17 @@ jobs:
         run: echo '${{ env.CURRENT_CONFIG }}' | jq "(.DefaultCacheBehavior.LambdaFunctionAssociations.Items[] | select(.EventType == \"origin-request\") | .LambdaFunctionARN) |= \"${{ env.AWS_LAMBDA_FUNCTION_ARN }}:${{ env.VERSION }}\"" > config.json
 
       - name: Update distribution
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
         run: aws cloudfront update-distribution --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --distribution-config file://config.json --if-match ${{ env.ETAG }}
       
       - name: Wait for update-distribution completion
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
         timeout-minutes: 20
         run: |
           while :; \
