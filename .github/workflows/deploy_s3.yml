@@ -1,0 +1,61 @@
+name: Deploy to S3
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Set env for staging
+        if: ${{ inputs.environment == 'staging' }}
+        run: |
+          echo "AWS_S3_BUCKET=${{ secrets.STAGING_AWS_S3_BUCKET }}" >> $GITHUB_ENV
+          echo "AWS_CF_ID=${{ secrets.STAGING_AWS_CF_ID }}" >> $GITHUB_ENV
+
+      - name: Set env for production
+        if: ${{ inputs.environment == 'production' }}
+        run: |
+          echo "AWS_S3_BUCKET=${{ secrets.PRODUCTION_AWS_S3_BUCKET }}" >> $GITHUB_ENV
+          echo "AWS_CF_ID=${{ secrets.PRODUCTION_AWS_CF_ID }}" >> $GITHUB_ENV
+
+      - name: Before Install
+        run: |
+          rm -rf ./apps/workshop
+          rm -rf ./apps/server
+          rm -rf ./apps/edge
+
+      - name: Install Dependencies
+        run: yarn workspace web install
+
+      - name: Build
+        run: |
+          yarn workspace web build-static
+          rm -rf ./apps/web/out/e/\[p\]/
+
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+        run: |
+          echo "AWS s3 sync"
+          aws s3 sync ./apps/web/out s3://${{ env.AWS_S3_BUCKET }} --delete
+          echo "AWS CF reset"
+          aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CF_ID }} --paths "/*"
