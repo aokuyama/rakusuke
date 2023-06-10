@@ -2,7 +2,6 @@ import { container } from "../registry";
 import { GetEventByPathPresenter } from "../presenter/get_event_by_path";
 import { Site } from "infra/src/web/site";
 import { GetEventByPathInteractor } from "usecase/src/get_event_by_path";
-import queryString from "query-string-esm";
 
 export const getEventByPath = async (event: any) => {
   const request = event.Records[0].cf.request;
@@ -38,12 +37,7 @@ export const getEventByPath = async (event: any) => {
   const GetEventByPath = container.resolve(GetEventByPathInteractor);
   await GetEventByPath.handle({ path: eventPath });
 
-  const urlPrefix = process.env.SITE_DOMAIN
-    ? "https://" + process.env.SITE_DOMAIN
-    : null;
-  const url = urlPrefix
-    ? `${urlPrefix}${request.uri}?${request.querystring}`
-    : "";
-  const imageUrl = urlPrefix ? `${urlPrefix}/img/ogp.jpg` : "";
+  const url = Site.getEventPageUri(eventPath);
+  const imageUrl = Site.getPageUri("img/ogp.jpg");
   return presenter.getHtml(imageUrl, url) || request;
 };

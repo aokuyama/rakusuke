@@ -49,8 +49,17 @@ export const Site = {
     }
     return "イベントが見つかりません";
   },
-  getEventPagePath: (path: string): string => {
-    return Site.eventPagePath() + path;
+  getPageUri: (path: string): string => {
+    const url = process.env.SITE_DOMAIN
+      ? "https://" + process.env.SITE_DOMAIN
+      : "";
+    return url + (path.startsWith("/") ? "" : "/") + path;
+  },
+  getEventPageUri: (eventPath: string): string => {
+    return Site.getPageUri(Site.getEventPagePath(eventPath));
+  },
+  getEventPagePath: (eventPath: string): string => {
+    return Site.eventPagePath() + eventPath;
   },
   eventPagePath: (): string => {
     return `/${eventPath}/`;

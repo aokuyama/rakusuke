@@ -38,4 +38,16 @@ describe("webサイトデータ", () => {
     expect(site.parseEventPathByPath("/e/1234567890Abcdef/a")).toBe(null);
     expect(site.parseEventPathByPath("/E/1234567890Abcdef/")).toBe(null);
   });
+  it("イベントパスを正しく生成できる", () => {
+    process.env.SITE_DOMAIN = "example.com";
+    expect(site.getPageUri("img/ogp.jpg")).toBe(
+      "https://example.com/img/ogp.jpg"
+    );
+    expect(site.getPageUri("/img/ogp.jpg")).toBe(
+      "https://example.com/img/ogp.jpg"
+    );
+    expect(site.getEventPageUri("1234567890Abcdef")).toBe(
+      "https://example.com/e/1234567890Abcdef"
+    );
+  });
 });
