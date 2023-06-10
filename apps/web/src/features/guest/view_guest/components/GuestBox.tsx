@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { EditBox } from "ui/src/components/EditBox";
 import { CheckList } from "ui/src/components/CheckList";
-import { StickyNote } from "ui/src/components/StickyNote";
 
 interface Attendance {
   id: string;
@@ -31,6 +30,7 @@ export const GuestBox: FC<Props> = ({
     <EditBox
       key={guest.id}
       name={guest.name}
+      remarks={guest.memo}
       button={{
         clickHandler: () => {
           clickIdHandler(guest.id);
@@ -38,7 +38,6 @@ export const GuestBox: FC<Props> = ({
       }}
       closable={{ defaultIsClose }}
     >
-      {guest.memo && guest.memo.length && <StickyNote>{guest.memo}</StickyNote>}
       <CheckList items={guest.attendance} />
     </EditBox>
   );

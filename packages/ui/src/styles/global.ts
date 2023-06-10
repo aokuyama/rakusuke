@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import { mainColor, textColor } from "./color";
-import { boxSize } from "./size";
+import { mainColor } from "./color";
+import { boxSize, font } from "./size";
 import * as reset from "destyle.css";
 
 export const global = css`
@@ -17,6 +17,9 @@ export const global = css`
     color: inherit;
     text-decoration: inherit;
   }
+  summary {
+    list-style: none;
+  }
   summary::-webkit-details-marker {
     display: none;
   }
@@ -27,6 +30,7 @@ export const global = css`
     background-color: ${mainColor.default};
     min-width: ${boxSize.default}px;
     font-family: NotoSansJP;
+    font-size: ${font.default}px;
   }
   abbr[title] {
     -webkit-text-decoration: none;
