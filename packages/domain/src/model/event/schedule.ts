@@ -1,5 +1,5 @@
 import { ArrayValueObject, StructValueObject } from "../valueobject";
-import { Date } from "./date";
+import { Date } from "../date";
 import { EventDates } from "./date_list";
 import { EventGuestList } from "../guest";
 

@@ -6,7 +6,7 @@ import type {
   DecideOnEventDateUsecase,
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
 import { UpdateEventHeld, EventPath } from "domain/src/model/event";
 

@@ -1,5 +1,5 @@
 import { EventGuest, EventGuestList } from "./event_guest";
-import { Date } from "../event/date";
+import { Date } from "../date";
 
 const guest1s = {
   number: 1,

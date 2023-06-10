@@ -1,4 +1,4 @@
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 
 export type Schedule = {
   id: string;

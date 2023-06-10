@@ -1,5 +1,5 @@
 import { NewGuest } from "./guest";
-import { Date } from "../event/date";
+import { Date } from "../date";
 
 describe("ゲスト", () => {
   it("正しく生成できる", () => {

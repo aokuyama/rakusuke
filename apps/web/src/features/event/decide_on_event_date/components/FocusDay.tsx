@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box } from "ui/src/components/Box";
 import { Name } from "ui/src/components/Name";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { Button } from "ui/src/components/Button";
 
 interface Props {

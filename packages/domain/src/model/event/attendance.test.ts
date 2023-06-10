@@ -3,7 +3,7 @@ import {
   CurrentAttendanceList,
   NewAttendanceList,
 } from "./attendance";
-import { Date } from "./date";
+import { Date } from "../date";
 
 describe("出欠", () => {
   const date1 = new Date("2023/04/15");

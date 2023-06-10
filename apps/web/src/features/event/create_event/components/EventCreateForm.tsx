@@ -6,7 +6,7 @@ import { Step } from "ui/src/components/Step";
 import { FormError } from "ui/src/components/FormError";
 import { DatePickCalendar } from "./DatePickCalendar";
 import { PickedDates } from "./PickedDates";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
 import { client } from "infra/src/client/trpc";

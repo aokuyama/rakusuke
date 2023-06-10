@@ -2,7 +2,7 @@ import { FC } from "react";
 import { MultiSelectCalendar } from "ui/src/components/MultiSelectCalendar";
 import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css } from "@emotion/react";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { boxLayout } from "ui/src/styles/layout";
 
 interface Props {

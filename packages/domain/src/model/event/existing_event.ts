@@ -4,7 +4,7 @@ import { StructValueObject } from "../valueobject";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedule, Schedules } from "./schedule";
-import { Date } from "./date";
+import { Date } from "../date";
 import { CurrentEvent } from "./event";
 import { UUID } from "../uuid";
 import { EventDescription } from "./description";

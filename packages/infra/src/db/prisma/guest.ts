@@ -5,7 +5,7 @@ import {
   EventGuest,
 } from "domain/src/model/guest";
 import { client } from "./client";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { EventPath } from "domain/src/model/event/path";
 import { attendance, schedule } from "@prisma/client";
 import { emptyToNull, nullToUndefined } from ".";

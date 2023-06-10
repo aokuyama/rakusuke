@@ -1,5 +1,5 @@
 import { ArrayValueObject } from "../valueobject";
-import { Date } from "./date";
+import { Date } from "../date";
 
 export class DateList extends ArrayValueObject<Date, string> {
   static readonly MAX: number = 20;

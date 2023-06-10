@@ -1,7 +1,7 @@
 import { StructValueObject } from "../valueobject";
 import { EventDates } from "./date_list";
 import { EventName } from "./name";
-import { Date } from "./date";
+import { Date } from "../date";
 import { Schedule, Schedules } from "./schedule";
 import { validateMaxDate } from "../../service/event";
 import { ExistingEvent } from "./existing_event";

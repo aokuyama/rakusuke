@@ -7,7 +7,7 @@ import type {
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
 import { NewEvent } from "domain/src/model/event";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
 
 @injectable()

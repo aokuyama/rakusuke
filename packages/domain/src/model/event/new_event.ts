@@ -4,7 +4,7 @@ import { EventName } from "./name";
 import { EventPath, NewEventPath } from "./path";
 import { UserID } from "../user";
 import { NewUUID, UUID } from "../uuid";
-import { Date } from "./date";
+import { Date } from "../date";
 import { validateMaxDate } from "../../service/event";
 import { ExistingEvent } from "./existing_event";
 import { EventGuestList } from "../guest";

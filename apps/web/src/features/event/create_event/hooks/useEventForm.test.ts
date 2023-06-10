@@ -1,4 +1,4 @@
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { useEventForm } from "./useEventForm";
 import { renderHook, act } from "@testing-library/react-hooks";
 

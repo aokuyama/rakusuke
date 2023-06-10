@@ -8,7 +8,7 @@ import { UpdateSheetModal } from "@/features/guest/update_guest/components/Updat
 import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
 import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
 import { decideOnEventDate } from "@/features/event/decide_on_event_date/trpc";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
 import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";

@@ -1,4 +1,4 @@
-import { Date } from "../../model/event/date";
+import { Date } from "../../model/date";
 import { notNull } from "../../util";
 
 const MAX = 45;

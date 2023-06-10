@@ -2,7 +2,7 @@ import { ExistingEvent, NewEvent, UpdateEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { EventPath } from "domain/src/model/event/path";
 import { getClient } from "./client";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 
 export class PostgresEventRepository implements EventRepository {
   loadEventByPath = async (path: EventPath): Promise<ExistingEvent | null> => {

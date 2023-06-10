@@ -1,5 +1,5 @@
 import { ArrayValueObject, StructValueObject } from "../valueobject";
-import { Date } from "./date";
+import { Date } from "../date";
 
 interface AttendanceProps {
   readonly date: Date;

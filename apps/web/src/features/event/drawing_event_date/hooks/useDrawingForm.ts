@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { drawingSchema } from "infra/src/client/trpc/validation/event";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 
 export const useDrawingForm = (
   schedules: { id: string; date: Date; length: number; strong: boolean }[]

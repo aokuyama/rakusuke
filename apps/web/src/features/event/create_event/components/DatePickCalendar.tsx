@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Calendar } from "./Calendar";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 
 interface Props {
   dateList: Date[];

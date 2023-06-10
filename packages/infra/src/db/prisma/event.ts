@@ -2,7 +2,7 @@ import { ExistingEvent, NewEvent, UpdateEvent } from "domain/src/model/event";
 import { EventRepository } from "domain/src/model/event/repository";
 import { client } from "./client";
 import { EventPath } from "domain/src/model/event/path";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { emptyToNull, nullToUndefined } from ".";
 
 export class PrismaEventRepository implements EventRepository {

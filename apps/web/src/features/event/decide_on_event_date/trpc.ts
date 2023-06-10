@@ -1,5 +1,5 @@
 import { CurrentEvent } from "domain/src/model/event";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
 

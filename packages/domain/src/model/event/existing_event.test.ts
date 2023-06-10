@@ -1,7 +1,7 @@
 import { UserID } from "../user";
 import { ExistingEvent } from "./existing_event";
 import { EventPath } from "./path";
-import { Date } from "./date";
+import { Date } from "../date";
 
 const eventProps = {
   uuid: "00000000-0000-0000-0000-000000000000",

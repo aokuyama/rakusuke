@@ -9,7 +9,7 @@ import { CurrentAttendanceList, NewAttendanceList } from "./attendance";
 import { EventName } from "./name";
 import { EventPath } from "./path";
 import { Schedules } from "./schedule";
-import { Date } from "./date";
+import { Date } from "../date";
 import { eventMaxDate } from "../../service/event";
 import { UUID } from "../uuid";
 import { EventDescription } from "./description";

@@ -2,7 +2,7 @@ import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { AttendanceArgs, CurrentAttendanceList } from "../event/attendance";
 import { GuestNumber } from "./number";
 import { GuestName } from "./guest";
-import { Date } from "../event/date";
+import { Date } from "../date";
 import { notNull } from "../../util";
 import { GuestDefault } from "./default";
 import { GuestMemo } from "./memo";

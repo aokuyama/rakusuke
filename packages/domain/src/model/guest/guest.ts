@@ -4,7 +4,7 @@ import {
   CurrentAttendanceList,
   NewAttendanceList,
 } from "../event/attendance";
-import { Date } from "../event/date";
+import { Date } from "../date";
 import { GuestMemo } from "./memo";
 
 interface GuestProps {

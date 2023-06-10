@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Date } from "domain/src/model/event/date";
+import { Date } from "domain/src/model/date";
 import { TextBox } from "ui/src/components/TextBox";
 import { FormError } from "ui/src/components/FormError";
 import { GuestUpsert } from "../hooks/useGuestForm";
