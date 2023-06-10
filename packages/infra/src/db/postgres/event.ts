@@ -10,7 +10,7 @@ export class PostgresEventRepository implements EventRepository {
     const client = getClient();
     const events = await client`
     SELECT
-    "uuid","id","organizer_id","name","created_at"
+    "uuid","id","organizer_id","name","description","created_at"
     FROM "event"
     WHERE "path_digest" = ${digest};
   `;
@@ -24,6 +24,7 @@ export class PostgresEventRepository implements EventRepository {
       id: event.id,
       organizerId: event.organizer_id,
       name: event.name,
+      description: event.description,
       path: path,
       schedules: [{ date: created, held: false }], // dummy
       guests: [], // dummy
