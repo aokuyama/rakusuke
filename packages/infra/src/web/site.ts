@@ -15,7 +15,7 @@ const BOTS = [
 
 export const Site = {
   name: "らくスケ",
-  slogan: "この世界で最もラクな日程調整アプリ",
+  slogan: "1番ラクなスケジュール調整アプリ！",
   eventPlaceholder: "（例:お花見会）",
   message: {
     form: {
