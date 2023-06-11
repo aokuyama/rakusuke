@@ -48,7 +48,22 @@ const dateLabelFormat = (_locale: string | undefined, date: Date): string =>
 
 const selected = (label: string) => css`
   button:has(abbr[aria-label="${label}"]) {
+    background-color: transparent;
+    position: relative;
+    z-index: 0;
+  }
+  button:has(abbr[aria-label="${label}"]):before {
+    content: "";
+    position: absolute;
     background-color: ${mainColor.default};
+    display: block;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    border-radius: 50%;
   }
 `;
 
