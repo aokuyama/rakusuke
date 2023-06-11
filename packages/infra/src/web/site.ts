@@ -30,6 +30,9 @@ export const Site = {
         calendar: "参加できる日を選択してください",
         memo: "メモや他の参加者へのメッセージなど自由に入力してください",
       },
+      common: {
+        error: "エラーが発生しました。しばらくしてからもう一度お試しください。",
+      },
     },
   },
   getEventPageTitle: (event: { name: string } | null | undefined): string => {

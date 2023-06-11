@@ -171,4 +171,5 @@ export class CurrentEvent extends StructValueObject<
       .join(" ");
   };
   heldDate = (): Date | undefined => this._schedules.heldDate();
+  getPath = (): EventPath => this._path;
 }

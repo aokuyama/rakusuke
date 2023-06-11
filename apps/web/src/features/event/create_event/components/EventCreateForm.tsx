@@ -9,12 +9,13 @@ import { PickedDates } from "./PickedDates";
 import { Date } from "domain/src/model/date";
 import { Site } from "infra/src/web/site";
 import { ErrorMessage } from "@hookform/error-message";
-import { client } from "infra/src/client/trpc";
 import { eventMaxDate } from "domain/src/service/event";
 import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
 import { useEventForm } from "../hooks/useEventForm";
 import { CurrentEventArgs } from "domain/src/model/event";
+import { createEventApi } from "../api/trpc";
+import { useToast } from "@/hooks/useToast";
 
 interface Props {
   eventCreatedHandler: (args: {
@@ -35,22 +36,26 @@ type EventUpsert = {
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
   const ctx = useContext(loadingContext);
   const user = useContext(userContext).user;
+  const toast = useToast();
 
-  const publish = async (event: EventUpsert) => {
-    ctx.setAsLoading();
+  const submit = async (event: EventUpsert) => {
     if (!user) {
       throw new Error("user not found");
     }
-    const result = await client.event.createEvent.mutate({
-      user: user.getAuthInfo(),
-      event: event,
+    ctx.setAsLoading();
+    createEventApi(user, event, {
+      success: (r) => {
+        toast.success("イベント " + r.event.name + " を作成しました");
+        eventCreatedHandler(r);
+      },
+      error: (r) => {
+        toast.error(Site.message.form.common.error);
+        console.error(r);
+      },
+      finally: () => {
+        ctx.setAsNotLoading();
+      },
     });
-    ctx.setAsNotLoading();
-    if (result.event) {
-      eventCreatedHandler(result);
-    } else {
-      console.error(result);
-    }
   };
 
   const { register, handleSubmit, setDateHandler, dateList, errors } =
@@ -58,7 +63,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
 
   const today = Date.today();
   return (
-    <form onSubmit={handleSubmit((d) => publish(d))}>
+    <form onSubmit={handleSubmit(submit)}>
       <Step number={1}>{Site.message.form.event.name}</Step>
       <TextBox>
         <input

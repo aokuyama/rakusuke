@@ -16,6 +16,7 @@ export interface User {
   getDebugInfo: () => string;
   getUUID: () => string | null;
   getAuthInfo: () => { uuid: string; token: string } | null;
+  isRegistered: () => this is RegisteredUser;
 }
 
 export const unregisteredUser = {
@@ -28,6 +29,7 @@ export const unregisteredUser = {
   getAuthInfo: (): null => {
     return null;
   },
+  isRegistered: () => false,
 };
 
 export class RegisteredUser extends StructValueObject<UserProps, UserArgs> {
@@ -52,6 +54,7 @@ export class RegisteredUser extends StructValueObject<UserProps, UserArgs> {
       "uuid:" + this.getUUID() + "\n" + "token:" + this._value.token.rawValue()
     );
   };
+  isRegistered = () => true;
 }
 
 interface UserEntityProps {
