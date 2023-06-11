@@ -126,6 +126,11 @@ export class ExistingEvent extends StructValueObject<
   ): { schedules: Schedules; updatedSchedules: Schedule[] } =>
     this.schedules().makeHeldUpdatedSchedules(held);
 
+  makeNoHeldSchedules = (): {
+    schedules: Schedules;
+    updatedSchedules: Schedule[];
+  } => this.schedules().makeNoHeldSchedules();
+
   toFront = (id: UserID | null): CurrentEvent =>
     new CurrentEvent({
       uuid: this._uuid,

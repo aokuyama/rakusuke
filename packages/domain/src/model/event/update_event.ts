@@ -118,3 +118,30 @@ export class UpdateEventHeld {
     };
   };
 }
+
+export class UpdateEventNoHeld {
+  static new(): UpdateEventNoHeld {
+    return new UpdateEventNoHeld();
+  }
+  makeUpdateSchedules = (
+    beforeEvent: ExistingEvent
+  ): {
+    updatedEvent: ExistingEvent;
+    addedDates: Date[];
+    removedDates: Date[];
+    updatedSchedules: Schedule[];
+  } => {
+    const { schedules, updatedSchedules } = beforeEvent.makeNoHeldSchedules();
+    // 日付の増減はない
+    const addedDates: Date[] = [];
+    const removedDates: Date[] = [];
+    return {
+      updatedEvent: beforeEvent.makeUpdateEvent({
+        schedules,
+      }),
+      addedDates,
+      removedDates,
+      updatedSchedules,
+    };
+  };
+}

@@ -133,4 +133,32 @@ describe("開催日決定", () => {
       event.makeHeldUpdatedSchedules(new Date("2022/04/15"));
     }).toThrow("undefined date");
   });
+
+  it("全ての開催予定をオフにする", () => {
+    const event = newEvent([
+      { date: "2023/06/15", held: true },
+      { date: "2023/06/16", held: false },
+      { date: "2023/06/17", held: false },
+    ]);
+    const { schedules, updatedSchedules } = event.makeNoHeldSchedules();
+    expect(schedules.value).toStrictEqual([
+      { date: "2023/06/15", held: false },
+      { date: "2023/06/16", held: false },
+      { date: "2023/06/17", held: false },
+    ]);
+    expect(updatedSchedules[0].serialize()).toStrictEqual({
+      date: "2023/06/15",
+      held: false,
+    });
+    const event2 = newEvent([
+      { date: "2023/06/15", held: false },
+      { date: "2023/06/16", held: false },
+    ]);
+    const r2 = event2.makeNoHeldSchedules();
+    expect(r2.schedules.value).toStrictEqual([
+      { date: "2023/06/15", held: false },
+      { date: "2023/06/16", held: false },
+    ]);
+    expect(r2.updatedSchedules.length).toBe(0);
+  });
 });

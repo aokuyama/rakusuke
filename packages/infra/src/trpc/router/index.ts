@@ -6,6 +6,7 @@ import { updateAttendance } from "./update_attendance";
 import { updateEvent } from "./update_event";
 import { decideOnEventDate } from "./decide_on_event_date";
 import { drawingEventDate } from "./drawing_event_date";
+import { resetEventDate } from "./reset_event_date";
 
 export const appRouter = router({
   createEvent: createEvent,
@@ -15,4 +16,5 @@ export const appRouter = router({
   updateEvent: updateEvent,
   decideOnEventDate: decideOnEventDate,
   drawingEventDate: drawingEventDate,
+  resetEventDate: resetEventDate,
 });

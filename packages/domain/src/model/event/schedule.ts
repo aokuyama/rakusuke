@@ -152,6 +152,29 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
       updatedSchedules,
     };
   };
+  makeNoHeldSchedules = (): {
+    schedules: Schedules;
+    updatedSchedules: Schedule[];
+  } => {
+    const updatedSchedules: Schedule[] = [];
+    const schedules: Schedule[] = [];
+    for (const schedule of this._value) {
+      if (schedule.held) {
+        const noHeldSchedule = new Schedule({
+          date: schedule._date,
+          held: false,
+        });
+        schedules.push(noHeldSchedule);
+        updatedSchedules.push(noHeldSchedule);
+      } else {
+        schedules.push(schedule);
+      }
+    }
+    return {
+      schedules: new Schedules(schedules),
+      updatedSchedules,
+    };
+  };
   heldDate = (): Date | undefined => {
     for (const s of this._value) {
       if (s.held) {
