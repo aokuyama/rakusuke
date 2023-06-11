@@ -74,7 +74,7 @@ const selected = (label: string) => css`
     }
   }
   @media (hover: none) {
-    button:has(abbr[aria-label="${label}"]):hover {
+    button:has(abbr[aria-label="${label}"]):active {
       background-color: ${mainColor.lighter};
     }
   }
