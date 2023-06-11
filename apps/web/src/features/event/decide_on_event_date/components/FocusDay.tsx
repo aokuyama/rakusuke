@@ -13,7 +13,7 @@ interface Props {
     }[];
   };
   closeHandler: () => void;
-  buttonClickHandler?: (date: Date) => void;
+  buttonClickHandler?: (date: Date | undefined) => void;
 }
 
 export const FocusDay: FC<Props> = ({
@@ -31,15 +31,24 @@ export const FocusDay: FC<Props> = ({
       {args.attendees.map((attendee, index) => {
         return <Name key={index}>{attendee.name}</Name>;
       })}
-      {!args.selected && buttonClickHandler && (
-        <Button
-          isPrimary={true}
-          onClick={() => buttonClickHandler(args.date)}
-          decorationRight="arrow-right"
-        >
-          この日に決定
-        </Button>
-      )}
+      {buttonClickHandler &&
+        (!args.selected ? (
+          <Button
+            isPrimary={true}
+            onClick={() => buttonClickHandler(args.date)}
+            decorationRight="arrow-right"
+          >
+            開催日にする
+          </Button>
+        ) : (
+          <Button
+            isPrimary={true}
+            onClick={() => buttonClickHandler(undefined)}
+            decorationRight="arrow-right"
+          >
+            開催日をリセット
+          </Button>
+        ))}
     </Box>
   );
 };

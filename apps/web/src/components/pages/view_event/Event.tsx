@@ -8,6 +8,7 @@ import { UpdateSheetModal } from "@/features/guest/update_guest/components/Updat
 import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
 import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
 import { decideOnEventDate } from "@/features/event/decide_on_event_date/trpc";
+import { resetEventDate } from "@/features/event/reset_event_date/trpc";
 import { Date } from "domain/src/model/date";
 import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
@@ -48,7 +49,9 @@ export const Event: FC<Props> = ({
 
   useEffect(() => {
     const d = event.heldDate();
-    setFocusDay(d ? d.id() : undefined);
+    if (d) {
+      setFocusDay(d.id());
+    }
   }, [event]);
 
   useEffect(() => {
@@ -89,9 +92,16 @@ export const Event: FC<Props> = ({
   });
 
   const decideHandler = user
-    ? (date: Date) => {
+    ? (date: Date | undefined) => {
         loadingCtx.setAsLoading();
-        decideOnEventDate(user, event, date, (e: CurrentEvent) => {
+        const api = date
+          ? (handler: (event: CurrentEvent) => void) => {
+              decideOnEventDate(user, event, date, handler);
+            }
+          : (handler: (event: CurrentEvent) => void) => {
+              resetEventDate(user, event, handler);
+            };
+        api((e: CurrentEvent) => {
           eventUpdatedHandler(e);
           loadingCtx.setAsNotLoading();
         });

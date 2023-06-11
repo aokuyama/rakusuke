@@ -50,3 +50,7 @@ export const drawingEventDateSchema = z.object({
 export const drawingSchema = z.object({
   schedule: schedule,
 });
+
+export const resetEventDateSchema = z.object({
+  path: z.string().length(EventPath.LENGTH),
+});

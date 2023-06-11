@@ -10,14 +10,14 @@ import { publicProcedure } from "../";
 import { ExistingEvent, CurrentEventArgs } from "domain/src/model/event";
 import { TRPCError } from "@trpc/server";
 import { UserEntity } from "domain/src/model/user";
-import { decideOnEventDateSchema } from "../../client/trpc/validation/event";
+import { resetEventDateSchema } from "../../client/trpc/validation/event";
 import { userSchema } from "../../client/trpc/validation/user";
 
 export const resetEventDate = publicProcedure
   .input(
     z.object({
       user: userSchema,
-      event: decideOnEventDateSchema,
+      event: resetEventDateSchema,
     })
   )
   .mutation(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
@@ -39,7 +39,7 @@ export const resetEventDate = publicProcedure
 
     let event: ExistingEvent | undefined;
 
-    container.register("DecideOnEventDatePresenter", {
+    container.register("ResetEventDatePresenter", {
       useValue: {
         render: async (output: ResetEventDateOutput): Promise<void> => {
           event = output.event;
