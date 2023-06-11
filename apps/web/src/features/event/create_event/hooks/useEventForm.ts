@@ -1,11 +1,16 @@
 import { Date } from "domain/src/model/date";
 import { useForm, useFieldArray } from "react-hook-form";
+import { useToast } from "@/hooks/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { eventCreateSchema } from "infra/src/client/trpc/validation/event";
 import { CurrentEvent } from "domain/src/model/event";
 import { DateList } from "domain/src/model/event/date_list";
+import { useState } from "react";
 
 export const useEventForm = (defaultEvent?: CurrentEvent) => {
+  const toast = useToast();
+  const [cautioned, setCautioned] = useState(false);
+
   const defaultValues = defaultEvent
     ? {
         name: defaultEvent.name,
@@ -39,11 +44,14 @@ export const useEventForm = (defaultEvent?: CurrentEvent) => {
     }
     if (fields.length >= DateList.MAX) {
       // 限度数を超えて選択させない
+      if (!cautioned) {
+        toast.error("選択できる日付は " + DateList.MAX + " 個までです");
+        setCautioned(true);
+      }
       return;
     }
     append(toSchedule(date));
   };
-
   const dateList = fields
     .map((field) => {
       return field.dateObj;

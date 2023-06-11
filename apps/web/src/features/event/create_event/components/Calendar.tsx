@@ -4,6 +4,7 @@ import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
 import { css } from "@emotion/react";
 import { Date } from "domain/src/model/date";
 import { boxLayout } from "ui/src/styles/layout";
+import { DateList } from "domain/src/model/event/date_list";
 
 interface Props {
   dates: Date[];
@@ -20,6 +21,7 @@ export const Calendar: FC<Props> = ({ dates, range, onChangeFunc }) => {
       <MultiSelectCalendar
         selectedDates={dates.map((d) => d.getGlobalThisDate())}
         locale={"ja-JP"}
+        noHoverOnSelected={dates.length == DateList.MAX}
         minDate={range.min.getGlobalThisDate()}
         maxDate={range.max.getGlobalThisDate()}
         onChangeFunc={onChangeFunc}

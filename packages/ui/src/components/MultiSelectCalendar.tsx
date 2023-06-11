@@ -9,6 +9,7 @@ import { boxSize } from "../styles/size";
 type Props = {
   selectedDates: Date[];
   locale: string;
+  noHoverOnSelected: boolean;
   onChangeFunc: OnChangeFunc | undefined;
   minDate?: Date;
   maxDate?: Date;
@@ -17,6 +18,7 @@ type Props = {
 export const MultiSelectCalendar: FC<Props> = ({
   selectedDates,
   locale,
+  noHoverOnSelected,
   onChangeFunc,
   minDate,
   maxDate,
@@ -26,7 +28,7 @@ export const MultiSelectCalendar: FC<Props> = ({
   );
   return (
     <>
-      <Global styles={styles} />
+      <Global styles={[styles, noHoverOnSelected ? undefined : hover]} />
       <ReactCalendar
         css={cssList}
         calendarType={"US"}
@@ -51,6 +53,7 @@ const selected = (label: string) => css`
     background-color: transparent;
     position: relative;
     z-index: 0;
+    cursor: pointer;
   }
   button:has(abbr[aria-label="${label}"]):before {
     content: "";
@@ -64,6 +67,16 @@ const selected = (label: string) => css`
     transform: translate(-50%, -50%);
     z-index: -1;
     border-radius: 50%;
+  }
+  @media (hover: hover) {
+    button:has(abbr[aria-label="${label}"]):hover {
+      background-color: ${mainColor.lighter};
+    }
+  }
+  @media (hover: none) {
+    button:has(abbr[aria-label="${label}"]):hover {
+      background-color: ${mainColor.lighter};
+    }
   }
 `;
 
@@ -103,10 +116,6 @@ const styles = css`
     outline: none;
   }
 
-  .react-calendar button:enabled:hover {
-    cursor: pointer;
-  }
-
   .react-calendar button:disabled {
     opacity: 0.5;
   }
@@ -135,20 +144,6 @@ const styles = css`
 
   .react-calendar__navigation__label {
     cursor: inherit;
-  }
-
-  @media (hover: hover) {
-    .react-calendar__navigation button:enabled:hover,
-    .react-calendar__tile:enabled:hover,
-    .react-calendar--selectRange .react-calendar__tile--hover {
-      background-color: ${mainColor.lighter};
-    }
-  }
-  @media (hover: none) {
-    .react-calendar__navigation button:enabled:active,
-    .react-calendar__tile:enabled:active {
-      background-color: ${mainColor.lighter};
-    }
   }
 
   .react-calendar__month-view__weekdays {
@@ -202,5 +197,28 @@ const styles = css`
   }
   .react-calendar__month-view__days__day--weekend:nth-of-type(7n + 1) {
     color: ${dayOfWeek.sunday};
+  }
+  button,
+  [type="button"] {
+    cursor: inherit;
+  }
+`;
+
+const hover = css`
+  .react-calendar button:enabled:hover {
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .react-calendar__navigation button:enabled:hover,
+    .react-calendar__tile:enabled:hover,
+    .react-calendar--selectRange .react-calendar__tile--hover {
+      background-color: ${mainColor.lighter};
+    }
+  }
+  @media (hover: none) {
+    .react-calendar__navigation button:enabled:active,
+    .react-calendar__tile:enabled:active {
+      background-color: ${mainColor.lighter};
+    }
   }
 `;
