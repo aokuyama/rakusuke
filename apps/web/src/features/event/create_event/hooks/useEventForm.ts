@@ -3,6 +3,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { eventCreateSchema } from "infra/src/client/trpc/validation/event";
 import { CurrentEvent } from "domain/src/model/event";
+import { DateList } from "domain/src/model/event/date_list";
 
 export const useEventForm = (defaultEvent?: CurrentEvent) => {
   const defaultValues = defaultEvent
@@ -34,6 +35,10 @@ export const useEventForm = (defaultEvent?: CurrentEvent) => {
       }
     });
     if (removed) {
+      return;
+    }
+    if (fields.length >= DateList.MAX) {
+      // 限度数を超えて選択させない
       return;
     }
     append(toSchedule(date));
