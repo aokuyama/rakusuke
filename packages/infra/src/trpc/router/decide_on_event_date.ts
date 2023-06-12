@@ -56,6 +56,13 @@ export const decideOnEventDate = publicProcedure
     if (!event) {
       throw new TRPCError({ code: "FORBIDDEN" });
     }
+    await sleep(1000, () => {
+      console.log("");
+    });
 
     return { event: event.toFront(user._id).serialize() };
   });
+
+async function sleep(waitSec: any, callback: any) {
+  return await new Promise((resolve) => setTimeout(resolve, waitSec));
+}

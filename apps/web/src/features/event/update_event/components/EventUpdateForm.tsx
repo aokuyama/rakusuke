@@ -39,7 +39,7 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
       throw new Error("forbidden");
     }
     loadingCtx.setAsLoading();
-    const loading = toast.loading("イベント更新中...");
+    const loading = toast.loading("更新中...");
     updateEventApi(user, event.getPath(), e, {
       success: (r) => {
         loading.success("イベント " + r.name + " を更新しました");

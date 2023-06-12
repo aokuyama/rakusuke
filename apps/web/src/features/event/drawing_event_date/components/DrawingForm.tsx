@@ -35,7 +35,7 @@ export const DrawingForm: FC<Props> = ({
 
   const submit = (d: DrawingFormSchema) => {
     loadingCtx.setAsLoading();
-    const loading = toast.loading("イベント更新中...");
+    const loading = toast.loading("更新中...");
     drawingEventDateApi(user, event, d.schedule, {
       success: (r) => {
         const held = r.event.heldDate();

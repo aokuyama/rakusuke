@@ -97,7 +97,7 @@ export const Event: FC<Props> = ({
   const decideHandler = user
     ? (date: Date | undefined) => {
         loadingCtx.setAsLoading();
-        const loading = toast.loading("イベント更新中...");
+        const loading = toast.loading("更新中...");
         const api = date
           ? (then: {
               success: (args: { event: CurrentEvent }) => void;

@@ -23,10 +23,10 @@ export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
 
   const submit = async (g: GuestUpsert) => {
     ctx.setAsLoading();
-    const loading = toast.loading("参加希望日入力中...");
+    const loading = toast.loading("作成中...");
     createGuestApi(event, g, {
       success: (r) => {
-        loading.success(r.guest.name + " として参加希望日を入力しました");
+        loading.success(r.guest.name + " として参加を受け付けました");
         guest.setGuestDefault(r.guest.toDefault());
         eventUpdatedHandler(r.event);
       },

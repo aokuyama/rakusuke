@@ -41,7 +41,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       throw new Error("user not found");
     }
     ctx.setAsLoading();
-    const loading = toast.loading("イベント作成中...");
+    const loading = toast.loading("作成中...");
     createEventApi(user, event, {
       success: (r) => {
         loading.success("イベント " + r.event.name + " を作成しました");
