@@ -31,15 +31,19 @@ export const NewSheet: FC<Props> = ({
     ctx.setAsLoading();
     const loading = toast.loading("作成中...");
     createGuestApi(event, g, {
-      submited: submitedHandler,
+      submited: (r) => {
+        eventUpdatedHandler(r.event);
+        submitedHandler ? submitedHandler() : undefined;
+      },
       success: (r) => {
         loading.success(r.guest.name + " として参加を受け付けました");
         guest.setGuestDefault(r.guest.toDefault());
         eventUpdatedHandler(r.event);
       },
-      error: (r) => {
+      error: (err, r) => {
+        eventUpdatedHandler(r.event);
         loading.error(Site.message.form.common.error);
-        console.error(r);
+        console.error(err);
       },
       finally: () => {
         ctx.setAsNotLoading();

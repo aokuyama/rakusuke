@@ -136,6 +136,27 @@ export class CurrentEvent extends StructValueObject<
       guests: this._guests.dateMap(this._schedules.dates()),
     };
   };
+  updatedEvent = (args: {
+    name: string;
+    description: string;
+    schedule: {
+      date: string;
+      value: string;
+      dateObj: Date;
+      held: boolean;
+    }[];
+  }): CurrentEvent => {
+    return new CurrentEvent({
+      uuid: this._uuid,
+      name: new EventName(args.name),
+      path: this._path,
+      isOrganizer: this._isOrganizer,
+      schedules: Schedules.new(args.schedule),
+      guests: this._guests,
+      description: new EventDescription(args.description),
+      created: this._created,
+    });
+  };
   pushGuest = (guest: EventGuest): CurrentEvent => {
     return new CurrentEvent({
       uuid: this._uuid,

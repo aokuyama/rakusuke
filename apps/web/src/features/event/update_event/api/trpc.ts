@@ -1,31 +1,42 @@
 import { RegisteredUser } from "domain/src/model/user";
 import { EventUpsert } from "../../create_event/hooks/useEventForm";
 import { client } from "infra/src/client/trpc";
-import { CurrentEvent, EventPath } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 
 export const updateEventApi = async (
   user: RegisteredUser,
-  eventPath: EventPath,
   event: EventUpsert,
+  currentEvent: CurrentEvent,
   then: {
-    submited?: () => void;
-    success: (event: CurrentEvent) => void;
-    error: (result: any) => void;
+    submited: (args: { event: CurrentEvent }) => void;
+    success: (args: { event: CurrentEvent }) => void;
+    error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
   }
 ) => {
+  const eventData = Object.assign(event, { path: currentEvent.path });
   if (then.submited) {
-    then.submited();
+    // 仮に全部が非開催日のデータとして作る
+    const tmpSchedule = event.schedule.map((s) => {
+      return Object.assign(s, { held: false });
+    });
+    then.submited({
+      event: currentEvent.updatedEvent({
+        name: event.name,
+        description: event.description,
+        schedule: tmpSchedule,
+      }),
+    });
   }
 
   const result = await client.event.updateEvent.mutate({
     user: user.getAuthInfo(),
-    event: Object.assign(event, { path: eventPath.value }),
+    event: eventData,
   });
   if (result.event) {
-    then.success(CurrentEvent.new(result.event));
+    then.success({ event: CurrentEvent.new(result.event) });
   } else {
-    then.error(result);
+    then.error(result, { event: currentEvent });
   }
   then.finally(result);
 };

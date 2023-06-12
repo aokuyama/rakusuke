@@ -8,19 +8,24 @@ export const updateGuestApi = async (
   number: GuestNumber,
   guest: GuestUpsert,
   then: {
-    submited?: () => void;
+    submited: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
-    error: (result: any) => void;
+    error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
   }
 ) => {
+  const guestData = Object.assign(guest, { number: number.value });
   if (then.submited) {
-    then.submited();
+    const tmpGuest = EventGuest.new(guestData);
+    then.submited({
+      event: event.replaceGuest(tmpGuest),
+      guest: tmpGuest,
+    });
   }
 
   const result = await client.event.updateAttendance.mutate({
     event: event.path,
-    guest: Object.assign(guest, { number: number.value }),
+    guest: guestData,
   });
 
   if (result.guest) {
@@ -30,7 +35,7 @@ export const updateGuestApi = async (
       guest: updatedGuest,
     });
   } else {
-    then.error(result);
+    then.error(result, { event });
   }
   then.finally(result);
 };

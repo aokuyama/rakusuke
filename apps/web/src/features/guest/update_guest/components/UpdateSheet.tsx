@@ -31,14 +31,18 @@ export const UpdateSheet: FC<Props> = ({
     ctx.setAsLoading();
     const loading = toast.loading("更新中...");
     updateGuestApi(event, guest.getNumber(), g, {
-      submited: submitedHandler,
+      submited: (r) => {
+        eventUpdatedHandler(r.event);
+        submitedHandler ? submitedHandler() : undefined;
+      },
       success: (r) => {
         loading.success(r.guest.name + " の情報を更新しました");
         eventUpdatedHandler(r.event);
       },
-      error: (r) => {
+      error: (err, r) => {
         loading.error(Site.message.form.common.error);
-        console.error(r);
+        eventUpdatedHandler(r.event);
+        console.error(err);
       },
       finally: () => {
         ctx.setAsNotLoading();

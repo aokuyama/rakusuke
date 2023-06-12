@@ -7,14 +7,19 @@ export const createGuestApi = async (
   event: CurrentEvent,
   guest: GuestUpsert,
   then: {
-    submited?: () => void;
+    submited?: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
-    error: (result: any) => void;
+    error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
   }
 ) => {
   if (then.submited) {
-    then.submited();
+    // 仮にidが99999のデータとして作る
+    const tmpGuest = EventGuest.new(Object.assign(guest, { number: 99999 }));
+    then.submited({
+      event: event.pushGuest(tmpGuest),
+      guest: tmpGuest,
+    });
   }
 
   const result = await client.event.respondAttendance.mutate({
@@ -29,7 +34,7 @@ export const createGuestApi = async (
       guest: newGuest,
     });
   } else {
-    then.error(result);
+    then.error(result, { event });
   }
   then.finally(result);
 };

@@ -45,15 +45,19 @@ export const EventUpdateForm: FC<Props> = ({
     }
     loadingCtx.setAsLoading();
     const loading = toast.loading("更新中...");
-    updateEventApi(user, event.getPath(), e, {
-      submited: submitedHandler,
-      success: (r) => {
-        loading.success("イベント " + r.name + " を更新しました");
-        eventUpdatedHandler(r);
+    updateEventApi(user, e, event, {
+      submited: (r) => {
+        eventUpdatedHandler(r.event);
+        submitedHandler ? submitedHandler() : undefined;
       },
-      error: (r) => {
+      success: (r) => {
+        loading.success("イベント " + r.event.name + " を更新しました");
+        eventUpdatedHandler(r.event);
+      },
+      error: (err, r) => {
+        eventUpdatedHandler(r.event);
         loading.error(Site.message.form.common.error);
-        console.error(r);
+        console.error(err);
       },
       finally: () => {
         loadingCtx.setAsNotLoading();
