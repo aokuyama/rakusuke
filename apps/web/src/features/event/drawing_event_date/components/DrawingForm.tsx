@@ -16,9 +16,14 @@ import { useToast } from "@/hooks/useToast";
 interface Props {
   event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
+  submitedHandler?: () => void;
 }
 
-export const DrawingForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
+export const DrawingForm: FC<Props> = ({
+  event,
+  eventUpdatedHandler,
+  submitedHandler,
+}) => {
   const toast = useToast();
   const { dates } = event.scheduleDateMap();
   const schedules = dates.map((d) => {
@@ -37,8 +42,11 @@ export const DrawingForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
 
   const submit = (d: DrawingFormSchema) => {
     loadingCtx.setAsLoading();
-    const loading = toast.loading("更新中...");
+    const loading = toast.loading("抽選中...");
     drawingEventDateApi(user, event, d.schedule, {
+      submited: () => {
+        submitedHandler ? submitedHandler() : undefined;
+      },
       success: (r) => {
         const held = r.event.heldDate();
         loading.success(

@@ -1,4 +1,4 @@
-import { FC, useState, useContext, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { EventUpdateFormModal } from "@/features/event/update_event/components/EventUpdateFormModal";
@@ -7,14 +7,7 @@ import { NewSheetModal } from "@/features/guest/join_as_guest/components/NewShee
 import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
 import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
 import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
-import { decideOnEventDateApi } from "@/features/event/decide_on_event_date/api/trpc";
-import { resetEventDateApi } from "@/features/event/reset_event_date/api/trpc";
-import { Date } from "domain/src/model/date";
-import { userContext } from "@/hooks/useUser";
-import { loadingContext } from "@/hooks/useLoading";
 import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";
-import { Site } from "infra/src/web/site";
-import { useToast } from "@/hooks/useToast";
 import { EventDate } from "@/features/event/decide_on_event_date/types";
 
 interface Props {
@@ -35,9 +28,6 @@ export const Event: FC<Props> = ({
     useState<boolean>(false);
   const [isDrawingFormOpen, setIsDrawingFormOpen] = useState<boolean>(false);
   const [focus, setFocus] = useState<EventDate>();
-  const user = useContext(userContext).user;
-  const loadingCtx = useContext(loadingContext);
-  const toast = useToast();
 
   const eventUpdatedHandler = (event: CurrentEvent) => {
     setEvent(event);
@@ -56,48 +46,6 @@ export const Event: FC<Props> = ({
     }
     setFocus(undefined);
   }, [event]);
-
-  const decideHandler = user
-    ? (date: Date | undefined) => {
-        loadingCtx.setAsLoading();
-        const loading = toast.loading("更新中...");
-        const api = date
-          ? (then: {
-              success: (args: { event: CurrentEvent }) => void;
-              error: (result: any) => void;
-              finally: (result: any) => void;
-            }) => {
-              decideOnEventDateApi(user, event, date, then);
-            }
-          : (then: {
-              success: (args: { event: CurrentEvent }) => void;
-              error: (result: any) => void;
-              finally: (result: any) => void;
-            }) => {
-              resetEventDateApi(user, event, then);
-            };
-
-        api({
-          success: (r) => {
-            const held = r.event.heldDate();
-            loading.success(
-              r.event.name +
-                " の開催日を " +
-                (held ? held.short() + " に" : "リセット") +
-                "しました"
-            );
-            eventUpdatedHandler(r.event);
-          },
-          error: (r) => {
-            loading.error(Site.message.form.common.error);
-            console.error(r);
-          },
-          finally: () => {
-            loadingCtx.setAsNotLoading();
-          },
-        });
-      }
-    : undefined;
 
   return (
     <>
@@ -132,7 +80,8 @@ export const Event: FC<Props> = ({
           closeHandler={() => {
             setFocus(undefined);
           }}
-          buttonClickHandler={event.isOrganizer ? decideHandler : undefined}
+          event={event}
+          eventUpdatedHandler={eventUpdatedHandler}
         />
       )}
       <GuestOverview

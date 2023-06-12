@@ -33,7 +33,9 @@ export const EventOverview: FC<Props> = ({
         <StickyNote>{event.description}</StickyNote>
       )}
       {onDrawing && event.scheduleLength() > 1 && (
-        <Button onClick={onDrawing}>開催日を抽選</Button>
+        <Button onClick={onDrawing} disabled={loadingCtx.loading}>
+          開催日を抽選
+        </Button>
       )}
     </EditBox>
   );

@@ -24,10 +24,8 @@ export const DrawingFormModal: FC<Props> = ({
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <DrawingForm
         event={event}
-        eventUpdatedHandler={(e) => {
-          eventUpdatedHandler(e);
-          onRequestClose();
-        }}
+        eventUpdatedHandler={eventUpdatedHandler}
+        submitedHandler={onRequestClose}
       />
     </Modal>
   );

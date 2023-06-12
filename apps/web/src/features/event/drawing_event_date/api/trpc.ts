@@ -10,6 +10,7 @@ export const drawingEventDateApi = async (
     enable: boolean;
   }[],
   then: {
+    submited: () => void;
     success: (args: { event: CurrentEvent }) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
@@ -18,6 +19,9 @@ export const drawingEventDateApi = async (
   const auth = user.getAuthInfo();
   if (!auth) {
     throw new Error("forbidden");
+  }
+  if (then.submited) {
+    then.submited();
   }
   const result = await client.event.drawingEventDate.mutate({
     user: auth,
