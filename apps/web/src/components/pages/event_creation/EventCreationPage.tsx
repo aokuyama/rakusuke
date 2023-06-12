@@ -7,8 +7,8 @@ import { Main } from "ui/src/components/layout/Main";
 import { Frame } from "ui/src/components/layout/Frame";
 import { Aside } from "ui/src/components/layout/Aside";
 import { OverviewRecentEvent } from "@/features/event/recently_viewed_events/components/OverviewRecentEvent";
-import { useEvents } from "@/features/event/recently_viewed_events/hooks/useEvents";
-import { CurrentEvent, CurrentEventArgs } from "domain/src/model/event";
+import { useRecentEvents } from "@/features/event/recently_viewed_events/hooks/useRecentEvents";
+import { CurrentEvent } from "domain/src/model/event";
 import { userContext } from "@/hooks/useUser";
 
 export const EventCreationPage: FC = () => {
@@ -25,7 +25,7 @@ export const EventCreationPage: FC = () => {
     });
     setEvents(args.event);
   };
-  const { events, setEvents } = useEvents();
+  const { events, setEvents } = useRecentEvents();
 
   return (
     <Frame isLoading={false}>

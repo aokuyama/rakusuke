@@ -3,7 +3,7 @@ import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 import { CurrentEvent } from "domain/src/model/event";
 import { storage } from "@/registry";
 
-export const useEvents = (): {
+export const useRecentEvents = (): {
   events: RecentlyViewedEvent | undefined;
   setEvents: (event: CurrentEvent) => void;
 } => {

@@ -4,11 +4,11 @@ import { FC } from "react";
 import { Site } from "infra/src/web/site";
 import { useEvent } from "@/hooks/useEvent";
 import { ViewEventPage } from "@/components/pages/view_event/ViewEventPage";
-import { useEvents } from "@/features/event/recently_viewed_events/hooks/useEvents";
+import { useRecentEvents } from "@/features/event/recently_viewed_events/hooks/useRecentEvents";
 import { CurrentEvent } from "domain/src/model/event";
 
 export const EventPage: FC = () => {
-  const { events, setEvents } = useEvents();
+  const { events, setEvents } = useRecentEvents();
   const { event, setEvent } = useEvent(setEvents);
 
   const setEventHandler = (event: CurrentEvent | null) => {
