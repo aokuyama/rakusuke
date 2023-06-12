@@ -8,11 +8,16 @@ export const updateEventApi = async (
   eventPath: EventPath,
   event: EventUpsert,
   then: {
+    submited?: () => void;
     success: (event: CurrentEvent) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
   }
 ) => {
+  if (then.submited) {
+    then.submited();
+  }
+
   const result = await client.event.updateEvent.mutate({
     user: user.getAuthInfo(),
     event: Object.assign(event, { path: eventPath.value }),

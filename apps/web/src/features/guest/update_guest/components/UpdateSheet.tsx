@@ -15,12 +15,14 @@ interface Props {
   guest: EventGuest;
   event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
+  submitedHandler?: () => void;
 }
 
 export const UpdateSheet: FC<Props> = ({
   guest,
   event,
   eventUpdatedHandler,
+  submitedHandler,
 }) => {
   const ctx = useContext(loadingContext);
   const toast = useToast();
@@ -29,6 +31,7 @@ export const UpdateSheet: FC<Props> = ({
     ctx.setAsLoading();
     const loading = toast.loading("更新中...");
     updateGuestApi(event, guest.getNumber(), g, {
+      submited: submitedHandler,
       success: (r) => {
         loading.success(r.guest.name + " の情報を更新しました");
         eventUpdatedHandler(r.event);

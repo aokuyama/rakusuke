@@ -15,9 +15,15 @@ interface Props {
     setGuestDefault: (guest: GuestDefault) => void;
   };
   eventUpdatedHandler: (event: CurrentEvent) => void;
+  submitedHandler?: () => void;
 }
 
-export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
+export const NewSheet: FC<Props> = ({
+  event,
+  guest,
+  eventUpdatedHandler,
+  submitedHandler,
+}) => {
   const ctx = useContext(loadingContext);
   const toast = useToast();
 
@@ -25,6 +31,7 @@ export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
     ctx.setAsLoading();
     const loading = toast.loading("作成中...");
     createGuestApi(event, g, {
+      submited: submitedHandler,
       success: (r) => {
         loading.success(r.guest.name + " として参加を受け付けました");
         guest.setGuestDefault(r.guest.toDefault());

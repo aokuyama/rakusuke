@@ -8,11 +8,16 @@ export const updateGuestApi = async (
   number: GuestNumber,
   guest: GuestUpsert,
   then: {
+    submited?: () => void;
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
   }
 ) => {
+  if (then.submited) {
+    then.submited();
+  }
+
   const result = await client.event.updateAttendance.mutate({
     event: event.path,
     guest: Object.assign(guest, { number: number.value }),

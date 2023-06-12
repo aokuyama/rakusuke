@@ -7,11 +7,16 @@ export const createGuestApi = async (
   event: CurrentEvent,
   guest: GuestUpsert,
   then: {
+    submited?: () => void;
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
   }
 ) => {
+  if (then.submited) {
+    then.submited();
+  }
+
   const result = await client.event.respondAttendance.mutate({
     event: event.path,
     guest: guest,

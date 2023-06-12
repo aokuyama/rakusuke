@@ -21,9 +21,14 @@ import { useToast } from "@/hooks/useToast";
 interface Props {
   event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
+  submitedHandler?: () => void;
 }
 
-export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
+export const EventUpdateForm: FC<Props> = ({
+  event,
+  eventUpdatedHandler,
+  submitedHandler,
+}) => {
   const user = useContext(userContext).user;
   const loadingCtx = useContext(loadingContext);
   const toast = useToast();
@@ -41,6 +46,7 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
     loadingCtx.setAsLoading();
     const loading = toast.loading("更新中...");
     updateEventApi(user, event.getPath(), e, {
+      submited: submitedHandler,
       success: (r) => {
         loading.success("イベント " + r.name + " を更新しました");
         eventUpdatedHandler(r);

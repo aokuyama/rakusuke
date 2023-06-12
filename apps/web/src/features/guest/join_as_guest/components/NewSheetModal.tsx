@@ -24,10 +24,8 @@ export const NewSheetModal: FC<Props> = ({
       <NewSheet
         event={event}
         guest={guest}
-        eventUpdatedHandler={(e) => {
-          eventUpdatedHandler(e);
-          onRequestClose();
-        }}
+        eventUpdatedHandler={eventUpdatedHandler}
+        submitedHandler={onRequestClose}
       />
     </Modal>
   );
