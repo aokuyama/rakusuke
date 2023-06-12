@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Date } from "domain/src/model/date";
 import { TextBox } from "ui/src/components/TextBox";
 import { FormError } from "ui/src/components/FormError";
@@ -14,6 +14,7 @@ import {
 } from "react-hook-form";
 import { Step } from "ui/src/components/Step";
 import { Site } from "infra/src/web/site";
+import { loadingContext } from "@/hooks/useLoading";
 
 interface Props {
   dateList: Date[];
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
+  const loadingCtx = useContext(loadingContext);
   const { register, handleSubmit, errors } = form;
 
   return (
@@ -67,7 +69,11 @@ export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
       <TextBox>
         <input type="text" {...register("memo")} />
       </TextBox>
-      <Submit label="決定" decorationRight="arrow-right" />
+      <Submit
+        label="決定"
+        decorationRight="arrow-right"
+        disabled={loadingCtx.loading}
+      />
     </form>
   );
 };

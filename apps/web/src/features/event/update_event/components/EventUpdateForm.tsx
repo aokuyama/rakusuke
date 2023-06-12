@@ -76,7 +76,7 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
       <Submit
         label="更新"
         decorationRight="arrow-right"
-        disabled={!event.isOrganizer}
+        disabled={!event.isOrganizer || loadingCtx.loading}
       />
       <Step number={3}>{Site.message.form.event.description}</Step>
       <TextArea>

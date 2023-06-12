@@ -32,7 +32,7 @@ type EventUpsert = {
 };
 
 export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
-  const ctx = useContext(loadingContext);
+  const loadingCtx = useContext(loadingContext);
   const user = useContext(userContext).user;
   const toast = useToast();
 
@@ -40,7 +40,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
     if (!user) {
       throw new Error("user not found");
     }
-    ctx.setAsLoading();
+    loadingCtx.setAsLoading();
     const loading = toast.loading("作成中...");
     createEventApi(user, event, {
       success: (r) => {
@@ -52,7 +52,7 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
         console.error(r);
       },
       finally: () => {
-        ctx.setAsNotLoading();
+        loadingCtx.setAsNotLoading();
       },
     });
   };
@@ -83,7 +83,11 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       <FormError>
         <ErrorMessage errors={errors} name="schedule" />
       </FormError>
-      <Submit label="作成" disabled={!user} decorationRight="arrow-right" />
+      <Submit
+        label="作成"
+        disabled={!user || loadingCtx.loading}
+        decorationRight="arrow-right"
+      />
       <Step number={3}>{Site.message.form.event.description}</Step>
       <TextArea>
         <textarea {...register("description")} />

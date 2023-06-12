@@ -3,7 +3,6 @@ import { global } from "ui/src/styles/global";
 import type { AppProps } from "next/app";
 import { userContext, useUser } from "@/hooks/useUser";
 import { loadingContext, useLoading } from "@/hooks/useLoading";
-import { OverviewLoading } from "ui/src/components/OverviewLoading";
 import { Toaster } from "react-hot-toast";
 
 const globalStyles = <Global styles={global} />;
@@ -16,7 +15,6 @@ export const App = ({ Component, pageProps }: AppProps) => {
       <loadingContext.Provider value={loadingCtx}>
         {globalStyles}
         <Toaster />
-        <OverviewLoading isLoading={loadingCtx.loading} />
         <Component {...pageProps} />
       </loadingContext.Provider>
     </userContext.Provider>

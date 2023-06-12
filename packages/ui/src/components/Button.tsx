@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 type Props = {
   children: React.ReactNode;
+  disabled?: boolean;
   isPrimary?: boolean;
   decorationRight?: "arrow-right";
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -12,12 +13,14 @@ type Props = {
 
 export const Button: FC<Props> = ({
   children,
+  disabled,
   isPrimary,
   onClick,
   decorationRight,
 }) => {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       css={[buttonStyles, isPrimary ? primaryColor : normalColor]}
     >
