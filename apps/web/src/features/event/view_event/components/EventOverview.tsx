@@ -5,20 +5,21 @@ import { Button } from "ui/src/components/Button";
 import { StickyNote } from "ui/src/components/StickyNote";
 import { loadingContext } from "@/hooks/useLoading";
 import { CurrentEvent } from "domain/src/model/event";
+import { EventDate } from "../../decide_on_event_date/types";
 
 interface Props {
   event: CurrentEvent;
   onEdit?: () => void;
   onDrawing?: () => void;
-  focusId: string | undefined;
-  setFocus: (id: string | undefined) => void;
+  focus: EventDate | undefined;
+  setFocus: (day: EventDate | undefined) => void;
 }
 
 export const EventOverview: FC<Props> = ({
   event,
   onEdit,
   onDrawing,
-  focusId,
+  focus,
   setFocus,
 }) => {
   const loadingCtx = useContext(loadingContext);
@@ -27,7 +28,7 @@ export const EventOverview: FC<Props> = ({
     : undefined;
   return (
     <EditBox name={event.name} button={button}>
-      <EventSummary event={event} setFocus={setFocus} focusId={focusId} />
+      <EventSummary event={event} setFocus={setFocus} focus={focus} />
       {event.description && event.description.length && (
         <StickyNote>{event.description}</StickyNote>
       )}

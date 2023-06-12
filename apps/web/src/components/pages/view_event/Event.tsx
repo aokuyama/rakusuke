@@ -15,6 +15,7 @@ import { loadingContext } from "@/hooks/useLoading";
 import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";
 import { Site } from "infra/src/web/site";
 import { useToast } from "@/hooks/useToast";
+import { EventDate } from "@/features/event/decide_on_event_date/types";
 
 interface Props {
   event: CurrentEvent;
@@ -33,43 +34,28 @@ export const Event: FC<Props> = ({
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
   const [isDrawingFormOpen, setIsDrawingFormOpen] = useState<boolean>(false);
-  const [focus, setFocus] = useState<{
-    id: string;
-    date: Date;
-    selected: boolean;
-    attendees: {
-      name: string;
-    }[];
-  }>();
+  const [focus, setFocus] = useState<EventDate>();
   const user = useContext(userContext).user;
   const loadingCtx = useContext(loadingContext);
   const toast = useToast();
-  const [focusDay, setFocusDay] = useState<string | undefined>();
 
   const eventUpdatedHandler = (event: CurrentEvent) => {
     setEvent(event);
   };
 
   useEffect(() => {
-    const d = event.heldDate();
-    if (d) {
-      setFocusDay(d.id());
-    }
-  }, [event]);
-
-  useEffect(() => {
-    if (!focusDay) {
-      setFocus(undefined);
-      return;
-    }
-    const { dates } = event.scheduleDateMap();
-    for (const d of dates) {
-      if (d.id === focusDay) {
-        setFocus(d);
-        return;
+    const held = event.heldDate();
+    if (held) {
+      const { dates } = event.scheduleDateMap();
+      for (const d of dates) {
+        if (held.equals(d.date)) {
+          setFocus(d);
+          return;
+        }
       }
     }
-  }, [event, focusDay]);
+    setFocus(undefined);
+  }, [event]);
 
   const decideHandler = user
     ? (date: Date | undefined) => {
@@ -131,8 +117,8 @@ export const Event: FC<Props> = ({
               }
             : undefined
         }
-        setFocus={setFocusDay}
-        focusId={focusDay}
+        setFocus={setFocus}
+        focus={focus}
       />
       <DrawingFormModal
         event={event}
@@ -144,7 +130,7 @@ export const Event: FC<Props> = ({
         <FocusDay
           args={focus}
           closeHandler={() => {
-            setFocusDay(undefined);
+            setFocus(undefined);
           }}
           buttonClickHandler={event.isOrganizer ? decideHandler : undefined}
         />

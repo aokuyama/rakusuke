@@ -1,7 +1,7 @@
 import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { Date } from "../date";
 import { EventDates } from "./date_list";
-import { EventGuestList } from "../guest";
+import { EventGuest, EventGuestList } from "../guest";
 
 interface ScheduleProps {
   readonly date: Date;
@@ -41,6 +41,14 @@ export class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
   }
   equalsDate = (date: Date) => this._date.equals(date);
 }
+
+type ScheduleMap = {
+  id: string;
+  date: Date;
+  attendees: EventGuest[];
+  strong: boolean;
+  selected: boolean;
+};
 
 export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   private _eventDates: EventDates | undefined = undefined;
@@ -183,7 +191,7 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     }
     return undefined;
   };
-  dateMap = (guests: EventGuestList) => {
+  dateMap = (guests: EventGuestList): ScheduleMap[] => {
     let max = 0;
     const dates = this._value.map((schedule) => {
       const attendees = guests.attendeesByDate(schedule._date);
