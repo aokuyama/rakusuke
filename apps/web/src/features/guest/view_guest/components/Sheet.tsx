@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Guest } from "./GuestBox";
 import { GuestList } from "./GuestList";
 import { Button } from "ui/src/components/Button";
+import { loadingContext } from "@/hooks/useLoading";
 
 type Props = {
   guests: Guest[];
@@ -10,9 +11,12 @@ type Props = {
 };
 
 export const Sheet: FC<Props> = ({ guests, onJoinHandler, clickIdHandler }) => {
+  const loadingCtx = useContext(loadingContext);
   return (
     <section>
-      <Button onClick={onJoinHandler}>入力</Button>
+      <Button onClick={onJoinHandler} disabled={loadingCtx.loading}>
+        入力
+      </Button>
       <GuestList guests={guests} clickIdHandler={clickIdHandler} />
     </section>
   );

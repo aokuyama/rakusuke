@@ -12,6 +12,7 @@ type Props = {
   remarks?: string;
   button?: {
     clickHandler: () => void;
+    disabled?: boolean;
   };
   children: React.ReactNode;
   closable?: { defaultIsClose: boolean };
@@ -39,7 +40,14 @@ export const EditBox: FC<Props> = ({
             {closable && <FontAwesomeIcon icon={faChevronRight} width={10} />}
           </div>
           <span>{name}</span>
-          <div>{button && <EditButton onClick={button.clickHandler} />}</div>
+          <div>
+            {button && (
+              <EditButton
+                onClick={button.clickHandler}
+                disabled={button.disabled}
+              />
+            )}
+          </div>
         </div>
         <p css={remarksStyle}>{remarks}</p>
       </summary>

@@ -5,11 +5,12 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   onClick: () => void;
+  disabled?: boolean;
 };
 
-export const EditButton: FC<Props> = ({ onClick }) => {
+export const EditButton: FC<Props> = ({ onClick, disabled }) => {
   return (
-    <button css={styles} onClick={onClick}>
+    <button css={styles} onClick={onClick} disabled={disabled}>
       <FontAwesomeIcon icon={faPenToSquare} width={20} />
     </button>
   );
@@ -17,4 +18,7 @@ export const EditButton: FC<Props> = ({ onClick }) => {
 
 const styles = css`
   display: inline-block;
+  &[disabled] {
+    opacity: 0.5;
+  }
 `;

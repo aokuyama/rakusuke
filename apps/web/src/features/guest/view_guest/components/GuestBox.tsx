@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { EditBox } from "ui/src/components/EditBox";
 import { CheckList } from "ui/src/components/CheckList";
+import { loadingContext } from "@/hooks/useLoading";
 
 interface Attendance {
   id: string;
@@ -26,6 +27,8 @@ export const GuestBox: FC<Props> = ({
   defaultIsClose,
   clickIdHandler,
 }) => {
+  const loadingCtx = useContext(loadingContext);
+
   return (
     <EditBox
       key={guest.id}
@@ -35,6 +38,7 @@ export const GuestBox: FC<Props> = ({
         clickHandler: () => {
           clickIdHandler(guest.id);
         },
+        disabled: loadingCtx.loading,
       }}
       closable={{ defaultIsClose }}
     >
