@@ -2,21 +2,18 @@ import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { Modal } from "ui/src/components/Modal";
 import { DrawingForm } from "./DrawingForm";
-import { Schedule } from "../../view_event/types/schedule";
 
 interface Props {
-  schedules: Schedule[];
+  event: CurrentEvent;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
 export const DrawingFormModal: FC<Props> = ({
-  schedules,
+  event,
   isOpen,
   setIsOpen,
-  event,
   eventUpdatedHandler,
 }) => {
   const onRequestClose = () => {
@@ -26,7 +23,6 @@ export const DrawingFormModal: FC<Props> = ({
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <DrawingForm
-        schedules={schedules}
         event={event}
         eventUpdatedHandler={(e) => {
           eventUpdatedHandler(e);

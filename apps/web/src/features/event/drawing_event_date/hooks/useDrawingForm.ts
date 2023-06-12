@@ -4,11 +4,11 @@ import { drawingSchema } from "infra/src/client/trpc/validation/event";
 import { Date } from "domain/src/model/date";
 
 export const useDrawingForm = (
-  schedules: { id: string; date: Date; length: number; strong: boolean }[]
+  schedules: { date: Date; enable: boolean }[]
 ) => {
   const defaultValues = {
     schedule: schedules.map((schedule) => {
-      return { date: schedule.date.toString(), enable: schedule.strong };
+      return { date: schedule.date.toString(), enable: schedule.enable };
     }),
   };
   const {

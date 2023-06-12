@@ -9,23 +9,25 @@ import { CurrentEvent } from "domain/src/model/event";
 import { drawingEventDateApi } from "../api/trpc";
 import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
-import { Schedule } from "../../view_event/types/schedule";
 import { Step } from "ui/src/components/Step";
 import { Site } from "infra/src/web/site";
 import { useToast } from "@/hooks/useToast";
 
 interface Props {
-  schedules: Schedule[];
   event: CurrentEvent;
   eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
-export const DrawingForm: FC<Props> = ({
-  schedules,
-  event,
-  eventUpdatedHandler,
-}) => {
+export const DrawingForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
   const toast = useToast();
+  const { dates } = event.scheduleDateMap();
+  const schedules = dates.map((d) => {
+    return {
+      date: d.date,
+      enable: d.strong,
+      length: d.attendees.length,
+    };
+  });
   const { register, handleSubmit, errors } = useDrawingForm(schedules);
   const user = useContext(userContext).user;
   const loadingCtx = useContext(loadingContext);

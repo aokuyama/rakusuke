@@ -62,7 +62,7 @@ export const Event: FC<Props> = ({
       setFocus(undefined);
       return;
     }
-    const { dates } = event.dateMap();
+    const { dates } = event.scheduleDateMap();
     for (const d of dates) {
       if (d.id === focusDay) {
         setFocus(d);
@@ -70,17 +70,6 @@ export const Event: FC<Props> = ({
       }
     }
   }, [event, focusDay]);
-
-  const { dates } = event.dateMap();
-  const summary = dates.map((d) => {
-    return {
-      id: d.id,
-      date: d.date,
-      length: d.attendees.length,
-      strong: d.strong,
-      selected: d.selected,
-    };
-  });
 
   const decideHandler = user
     ? (date: Date | undefined) => {
@@ -128,7 +117,6 @@ export const Event: FC<Props> = ({
     <>
       <EventOverview
         event={event}
-        summary={summary}
         onEdit={
           event.isOrganizer
             ? () => {
@@ -147,10 +135,9 @@ export const Event: FC<Props> = ({
         focusId={focusDay}
       />
       <DrawingFormModal
-        schedules={summary}
+        event={event}
         isOpen={isDrawingFormOpen}
         setIsOpen={setIsDrawingFormOpen}
-        event={event}
         eventUpdatedHandler={eventUpdatedHandler}
       />
       {focus && (

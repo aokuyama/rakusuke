@@ -115,7 +115,8 @@ export class CurrentEvent extends StructValueObject<
       })
     );
   };
-  dateMap = (): {
+  scheduleLength = (): number => this._schedules.length();
+  scheduleDateMap = (): {
     dates: {
       id: string;
       date: Date;
