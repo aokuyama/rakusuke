@@ -61,13 +61,12 @@ const detailsStyle = css`
     rotate: 90deg;
   }
   &[open] > summary > div > span {
-    white-space: wrap;
+    white-space: normal;
   }
   &[open] > summary > p {
     padding: 12px 12px 0;
     font-size: ${font.small}px;
-    white-space: wrap;
-    overflow: inherit;
+    white-space: normal;
   }
   &[open] > summary > p:empty {
     padding: 0;
