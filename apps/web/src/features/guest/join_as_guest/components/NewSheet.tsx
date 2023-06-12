@@ -23,14 +23,15 @@ export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
 
   const submit = async (g: GuestUpsert) => {
     ctx.setAsLoading();
+    const loading = toast.loading("参加希望日入力中...");
     createGuestApi(event, g, {
       success: (r) => {
-        toast.success(r.guest.name + " として希望日を入力しました");
+        loading.success(r.guest.name + " として参加希望日を入力しました");
         guest.setGuestDefault(r.guest.toDefault());
         eventUpdatedHandler(r.event);
       },
       error: (r) => {
-        toast.error(Site.message.form.common.error);
+        loading.error(Site.message.form.common.error);
         console.error(r);
       },
       finally: () => {

@@ -27,13 +27,14 @@ export const UpdateSheet: FC<Props> = ({
 
   const submit = async (g: GuestUpsert) => {
     ctx.setAsLoading();
+    const loading = toast.loading("更新中...");
     updateGuestApi(event, guest.getNumber(), g, {
       success: (r) => {
-        toast.success(r.guest.name + " の情報を更新しました");
+        loading.success(r.guest.name + " の情報を更新しました");
         eventUpdatedHandler(r.event);
       },
       error: (r) => {
-        toast.error(Site.message.form.common.error);
+        loading.error(Site.message.form.common.error);
         console.error(r);
       },
       finally: () => {

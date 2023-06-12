@@ -35,10 +35,11 @@ export const DrawingForm: FC<Props> = ({
 
   const submit = (d: DrawingFormSchema) => {
     loadingCtx.setAsLoading();
+    const loading = toast.loading("イベント更新中...");
     drawingEventDateApi(user, event, d.schedule, {
       success: (r) => {
         const held = r.event.heldDate();
-        toast.success(
+        loading.success(
           r.event.name +
             " の開催日を " +
             (held ? held.short() + " に" : "リセット") +
@@ -47,7 +48,7 @@ export const DrawingForm: FC<Props> = ({
         eventUpdatedHandler(r.event);
       },
       error: (r) => {
-        toast.error(Site.message.form.common.error);
+        loading.error(Site.message.form.common.error);
         console.error(r);
       },
       finally: () => {

@@ -13,17 +13,15 @@ import { eventMaxDate } from "domain/src/service/event";
 import { userContext } from "@/hooks/useUser";
 import { loadingContext } from "@/hooks/useLoading";
 import { useEventForm } from "../hooks/useEventForm";
-import { CurrentEventArgs } from "domain/src/model/event";
+import { CurrentEvent } from "domain/src/model/event";
 import { createEventApi } from "../api/trpc";
 import { useToast } from "@/hooks/useToast";
+import { RegisteredUser } from "domain/src/model/user";
 
 interface Props {
   eventCreatedHandler: (args: {
-    event: CurrentEventArgs;
-    user: {
-      uuid: string;
-      token: string;
-    };
+    event: CurrentEvent;
+    user: RegisteredUser;
   }) => void;
 }
 
@@ -43,13 +41,14 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       throw new Error("user not found");
     }
     ctx.setAsLoading();
+    const loading = toast.loading("イベント作成中...");
     createEventApi(user, event, {
       success: (r) => {
-        toast.success("イベント " + r.event.name + " を作成しました");
+        loading.success("イベント " + r.event.name + " を作成しました");
         eventCreatedHandler(r);
       },
       error: (r) => {
-        toast.error(Site.message.form.common.error);
+        loading.error(Site.message.form.common.error);
         console.error(r);
       },
       finally: () => {

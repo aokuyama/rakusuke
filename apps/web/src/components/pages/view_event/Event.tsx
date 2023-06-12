@@ -97,6 +97,7 @@ export const Event: FC<Props> = ({
   const decideHandler = user
     ? (date: Date | undefined) => {
         loadingCtx.setAsLoading();
+        const loading = toast.loading("イベント更新中...");
         const api = date
           ? (then: {
               success: (args: { event: CurrentEvent }) => void;
@@ -116,7 +117,7 @@ export const Event: FC<Props> = ({
         api({
           success: (r) => {
             const held = r.event.heldDate();
-            toast.success(
+            loading.success(
               r.event.name +
                 " の開催日を " +
                 (held ? held.short() + " に" : "リセット") +
@@ -125,7 +126,7 @@ export const Event: FC<Props> = ({
             eventUpdatedHandler(r.event);
           },
           error: (r) => {
-            toast.error(Site.message.form.common.error);
+            loading.error(Site.message.form.common.error);
             console.error(r);
           },
           finally: () => {

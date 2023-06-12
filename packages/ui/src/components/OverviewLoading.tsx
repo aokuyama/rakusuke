@@ -21,7 +21,7 @@ export const OverviewLoading: FC<Props> = ({ isLoading }) => {
 };
 
 const styles = css`
-  z-index: 99999;
+  z-index: 9998;
   position: fixed;
   height: 100%;
   width: 100%;

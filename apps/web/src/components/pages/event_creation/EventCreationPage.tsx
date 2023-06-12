@@ -16,15 +16,14 @@ export const EventCreationPage: FC = () => {
   const userCtx = useContext(userContext);
 
   const eventCreatedHandler = (args: {
-    user: { uuid: string; token: string };
-    event: CurrentEventArgs;
+    event: CurrentEvent;
+    user: RegisteredUser;
   }) => {
-    const event = CurrentEvent.new(args.event);
-    userCtx.setUser(RegisteredUser.new(args.user));
+    userCtx.setUser(args.user);
     router.push({
-      pathname: Site.getEventPagePath(event.path),
+      pathname: Site.getEventPagePath(args.event.path),
     });
-    setEvents(event);
+    setEvents(args.event);
   };
   const { events, setEvents } = useEvents();
 

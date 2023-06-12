@@ -39,13 +39,14 @@ export const EventUpdateForm: FC<Props> = ({ event, eventUpdatedHandler }) => {
       throw new Error("forbidden");
     }
     loadingCtx.setAsLoading();
+    const loading = toast.loading("イベント更新中...");
     updateEventApi(user, event.getPath(), e, {
       success: (r) => {
-        toast.success("イベント " + r.name + " を更新しました");
+        loading.success("イベント " + r.name + " を更新しました");
         eventUpdatedHandler(r);
       },
       error: (r) => {
-        toast.error(Site.message.form.common.error);
+        loading.error(Site.message.form.common.error);
         console.error(r);
       },
       finally: () => {
