@@ -1,12 +1,14 @@
 import { FC, useEffect, useState } from "react";
-import { Guest, GuestBox } from "./GuestBox";
+import { GuestBox } from "./GuestBox";
+import { CurrentEvent } from "domain/src/model/event";
 
 type Props = {
-  guests: Guest[];
+  event: CurrentEvent;
   clickIdHandler: (id: string | number) => void;
 };
 
-export const GuestList: FC<Props> = ({ guests, clickIdHandler }) => {
+export const GuestList: FC<Props> = ({ event, clickIdHandler }) => {
+  const { guests } = event.guestDateMap();
   const [defaultGuestNum, setDefaultGuestNum] = useState<number>(9999);
   useEffect(() => {
     // 画面ロード時のゲスト数を記憶。以降更新しない

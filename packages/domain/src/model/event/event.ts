@@ -129,7 +129,7 @@ export class CurrentEvent extends StructValueObject<
       dates: dates,
     };
   };
-  guestsDateMap = (): {
+  guestDateMap = (): {
     guests: EventGuestDateMap[];
   } => {
     return {

@@ -1,22 +1,22 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { CurrentEvent } from "domain/src/model/event";
-import { Sheet } from "./Sheet";
 import { EventGuest } from "domain/src/model/guest";
-import { Guest } from "./GuestBox";
+import { loadingContext } from "@/hooks/useLoading";
+import { Button } from "ui/src/components/Button";
+import { GuestList } from "./GuestList";
 
 interface Props {
-  guests: Guest[];
   event: CurrentEvent;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
   onJoinHandler: () => void;
 }
 
 export const GuestOverview: FC<Props> = ({
-  guests,
   event,
   setTargetGuest,
   onJoinHandler,
 }) => {
+  const loadingCtx = useContext(loadingContext);
   const tableTrClickIdHandler = (id: number | string) => {
     const number = parseInt(String(id));
     if (number) {
@@ -28,12 +28,11 @@ export const GuestOverview: FC<Props> = ({
   };
 
   return (
-    <>
-      <Sheet
-        guests={guests}
-        clickIdHandler={tableTrClickIdHandler}
-        onJoinHandler={onJoinHandler}
-      />
-    </>
+    <section>
+      <Button onClick={onJoinHandler} disabled={loadingCtx.loading}>
+        入力
+      </Button>
+      <GuestList event={event} clickIdHandler={tableTrClickIdHandler} />
+    </section>
   );
 };

@@ -2,22 +2,10 @@ import { FC, useContext } from "react";
 import { EditBox } from "ui/src/components/EditBox";
 import { CheckList } from "ui/src/components/CheckList";
 import { loadingContext } from "@/hooks/useLoading";
-
-interface Attendance {
-  id: string;
-  name: string;
-  enabled: boolean | undefined;
-}
-
-export interface Guest {
-  id: string;
-  name: string;
-  memo: string | undefined;
-  attendance: Attendance[];
-}
+import { EventGuestDateMap } from "domain/src/model/guest";
 
 type Props = {
-  guest: Guest;
+  guest: EventGuestDateMap;
   defaultIsClose: boolean;
   clickIdHandler: (id: string | number) => void;
 };
@@ -28,6 +16,13 @@ export const GuestBox: FC<Props> = ({
   clickIdHandler,
 }) => {
   const loadingCtx = useContext(loadingContext);
+  const items = guest.attendance.map((a) => {
+    return {
+      id: a.id,
+      name: a.date.md(),
+      enabled: a.attend,
+    };
+  });
 
   return (
     <EditBox
@@ -42,7 +37,7 @@ export const GuestBox: FC<Props> = ({
       }}
       closable={{ defaultIsClose }}
     >
-      <CheckList items={guest.attendance} />
+      <CheckList items={items} />
     </EditBox>
   );
 };

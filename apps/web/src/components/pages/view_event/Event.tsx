@@ -72,7 +72,6 @@ export const Event: FC<Props> = ({
   }, [event, focusDay]);
 
   const { dates } = event.dateMap();
-  const { guests } = event.guestsDateMap();
   const summary = dates.map((d) => {
     return {
       id: d.id,
@@ -81,17 +80,6 @@ export const Event: FC<Props> = ({
       strong: d.strong,
       selected: d.selected,
     };
-  });
-
-  const guestList = guests.map((g) => {
-    const attendance = g.attendance.map((a) => {
-      return {
-        id: a.id,
-        name: a.date.md(),
-        enabled: a.attend,
-      };
-    });
-    return { id: g.id, name: g.name, memo: g.memo, attendance: attendance };
   });
 
   const decideHandler = user
@@ -175,7 +163,6 @@ export const Event: FC<Props> = ({
         />
       )}
       <GuestOverview
-        guests={guestList}
         event={event}
         setTargetGuest={setTargetGuest}
         onJoinHandler={() => {
