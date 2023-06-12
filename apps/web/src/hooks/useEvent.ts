@@ -4,8 +4,12 @@ import { CurrentEvent, EventPath } from "domain/src/model/event";
 import { useEventQuery } from "./useEventQuery";
 import { User } from "domain/src/model/user";
 import { userContext } from "./useUser";
+import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
+import { loadingContext } from "./useLoading";
+import { useToast } from "./useToast";
 
 export const useEvent = (
+  recentEvents?: RecentlyViewedEvent | undefined,
   setFirstEventHandler?: (event: CurrentEvent) => void
 ): {
   event: CurrentEvent | null | undefined;
@@ -13,7 +17,9 @@ export const useEvent = (
     React.SetStateAction<CurrentEvent | null | undefined>
   >;
 } => {
+  const loadingCtx = useContext(loadingContext);
   const userCtx = useContext(userContext);
+  const toast = useToast();
   const [event, setEvent] = useState<CurrentEvent | null | undefined>(
     undefined
   );
@@ -28,8 +34,21 @@ export const useEvent = (
   useEffect(() => {
     const load = async () => {
       if (eq) {
+        const path = EventPath.newSafe(eq);
+        if (path) {
+          if (!event && recentEvents) {
+            const tmp = recentEvents.get(path);
+            if (tmp) {
+              setEvent(tmp);
+              loadingCtx.setAsLoading();
+              toast.loading("読み込み中...");
+            }
+          }
+        }
         const ev = await loadEventCallback();
         if (ev !== undefined) {
+          loadingCtx.setAsNotLoading();
+          toast.dismiss();
           setEvent(ev);
           if (ev && setFirstEventHandler) {
             setFirstEventHandler(ev);

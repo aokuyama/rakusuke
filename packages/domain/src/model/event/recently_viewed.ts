@@ -1,5 +1,6 @@
 import { CurrentEvent, CurrentEventArgs } from "./event";
 import { ArrayValueObject } from "../valueobject";
+import { EventPath } from "./path";
 
 export class RecentlyViewedEvent extends ArrayValueObject<
   CurrentEvent,
@@ -59,5 +60,12 @@ export class RecentlyViewedEvent extends ArrayValueObject<
       events = this._value.map((e) => e);
     }
     return new RecentlyViewedEvent(events.reverse());
+  };
+  get = (path: EventPath): CurrentEvent | undefined => {
+    for (const e of this._value) {
+      if (e.equalsPath(path)) {
+        return e;
+      }
+    }
   };
 }

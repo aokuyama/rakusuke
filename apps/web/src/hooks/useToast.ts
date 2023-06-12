@@ -17,4 +17,6 @@ class Toast {
     new Toast(toast.loading(message, this.options()));
 
   options = () => (this.parent ? { id: this.parent } : undefined);
+
+  dismiss = () => toast.dismiss(this.parent);
 }

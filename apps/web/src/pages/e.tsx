@@ -9,7 +9,7 @@ import { CurrentEvent } from "domain/src/model/event";
 
 export const EventPage: FC = () => {
   const { events, setEvents } = useRecentEvents();
-  const { event, setEvent } = useEvent(setEvents);
+  const { event, setEvent } = useEvent(events, setEvents);
 
   const setEventHandler = (event: CurrentEvent | null) => {
     setEvent(event);
