@@ -26,7 +26,7 @@ const styles = css`
   height: 100%;
   width: 100%;
   transition: 1s;
-  background-color: #fff;
+  background-color: #000;
   opacity: 0.33;
   cursor: wait;
   div {

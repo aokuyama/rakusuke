@@ -3,11 +3,15 @@ import { Date } from "domain/src/model/date";
 import { client } from "infra/src/client/trpc";
 import { User } from "domain/src/model/user";
 
-export const decideOnEventDate = async (
+export const decideOnEventDateApi = async (
   user: User,
   event: CurrentEvent,
   heldDate: Date,
-  eventUpdatedHandler: (event: CurrentEvent) => void
+  then: {
+    success: (args: { event: CurrentEvent }) => void;
+    error: (result: any) => void;
+    finally: (result: any) => void;
+  }
 ) => {
   const auth = user.getAuthInfo();
   if (!auth) {
@@ -17,9 +21,11 @@ export const decideOnEventDate = async (
     user: auth,
     event: { path: event.path, date: heldDate.toString() },
   });
+
   if (result.event) {
-    eventUpdatedHandler(CurrentEvent.new(result.event));
+    then.success({ event: CurrentEvent.new(result.event) });
   } else {
-    console.error(result);
+    then.error(result);
   }
+  then.finally(result);
 };

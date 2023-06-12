@@ -23,6 +23,6 @@ export const useDrawingForm = (
   return { register, handleSubmit, errors };
 };
 
-type DrawingFormSchema = {
+export type DrawingFormSchema = {
   schedule: { date: string; enable: boolean }[];
 };
