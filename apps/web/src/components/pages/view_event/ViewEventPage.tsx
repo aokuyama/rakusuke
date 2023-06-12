@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
-import { Loading } from "ui/src/components/Loading";
 import { Event } from "@/components/pages/view_event/Event";
 import { OverviewRecentEvent } from "@/features/event/recently_viewed_events/components/OverviewRecentEvent";
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";

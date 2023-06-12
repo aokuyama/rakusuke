@@ -14,7 +14,6 @@ import {
 } from "react-hook-form";
 import { Step } from "ui/src/components/Step";
 import { Site } from "infra/src/web/site";
-import { TextArea } from "ui/src/components/TextArea";
 
 interface Props {
   dateList: Date[];
@@ -30,7 +29,7 @@ export const GuestForm: FC<Props> = ({ dateList, onSubmit, form }) => {
   const { register, handleSubmit, errors } = form;
 
   return (
-    <form onSubmit={handleSubmit((d) => onSubmit(d))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Step number={1}>{Site.message.form.guest.name}</Step>
       <TextBox>
         <input type="text" {...register("name")} />

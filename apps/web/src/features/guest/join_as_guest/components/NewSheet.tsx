@@ -1,11 +1,12 @@
 import { FC, useContext } from "react";
 import { CurrentEvent } from "domain/src/model/event";
-import { client } from "infra/src/client/trpc";
-import { EventGuest } from "domain/src/model/guest";
 import { GuestForm } from "./GuestForm";
 import { loadingContext } from "@/hooks/useLoading";
 import { GuestUpsert, useGuestForm } from "../hooks/useGuestForm";
 import { GuestDefault } from "domain/src/model/guest/default";
+import { createGuestApi } from "../api/trpc";
+import { Site } from "infra/src/web/site";
+import { useToast } from "@/hooks/useToast";
 
 interface Props {
   event: CurrentEvent;
@@ -18,21 +19,24 @@ interface Props {
 
 export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
   const ctx = useContext(loadingContext);
+  const toast = useToast();
 
-  const publish = async (g: GuestUpsert) => {
+  const submit = async (g: GuestUpsert) => {
     ctx.setAsLoading();
-    const result = await client.event.respondAttendance.mutate({
-      event: event.path,
-      guest: g,
+    createGuestApi(event, g, {
+      success: (r) => {
+        toast.success(r.guest.name + " として希望日を入力しました");
+        guest.setGuestDefault(r.guest.toDefault());
+        eventUpdatedHandler(r.event);
+      },
+      error: (r) => {
+        toast.error(Site.message.form.common.error);
+        console.error(r);
+      },
+      finally: () => {
+        ctx.setAsNotLoading();
+      },
     });
-    ctx.setAsNotLoading();
-    if (result.guest) {
-      const newGuest = EventGuest.new(result.guest);
-      guest.setGuestDefault(newGuest.toDefault());
-      eventUpdatedHandler(event.pushGuest(newGuest));
-    } else {
-      console.error(result);
-    }
   };
 
   const defaultValues = {
@@ -44,7 +48,7 @@ export const NewSheet: FC<Props> = ({ event, guest, eventUpdatedHandler }) => {
   return (
     <GuestForm
       dateList={event._schedules.dates()}
-      onSubmit={publish}
+      onSubmit={submit}
       form={useGuestForm(defaultValues)}
     />
   );
