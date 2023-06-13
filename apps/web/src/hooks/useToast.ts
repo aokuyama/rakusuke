@@ -9,14 +9,18 @@ class Toast {
   constructor(parent?: string) {
     this.parent = parent;
   }
-  success = (message: string) => toast.success(message, this.options());
+  success = (message: string) =>
+    new Toast(toast.success(message, this.options()));
 
-  error = (message: string) => toast.error(message, this.options());
+  error = (message: string) => new Toast(toast.error(message, this.options()));
 
   loading = (message: string): Toast =>
     new Toast(toast.loading(message, this.options()));
 
   options = () => (this.parent ? { id: this.parent } : undefined);
 
-  dismiss = () => toast.dismiss(this.parent);
+  dismiss = () => {
+    toast.dismiss(this.parent);
+    return new Toast();
+  };
 }

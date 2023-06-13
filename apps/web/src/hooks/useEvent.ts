@@ -23,7 +23,7 @@ export const useEvent = (
 } => {
   const loadingCtx = useContext(loadingContext);
   const userCtx = useContext(userContext);
-  const toast = useToast();
+  const [toast, setToast] = useState(useToast());
   const [event, setEvent] = useState<CurrentEventView>(
     new CurrentEventLoading()
   );
@@ -42,22 +42,23 @@ export const useEvent = (
 
   useEffect(() => {
     const load = async () => {
-      if (eq) {
+      if (!eq) {
+        return;
+      }
+      if (event.isLoading()) {
+        loadingCtx.setAsLoading();
+        setToast(toast.loading("読み込み中..."));
         const path = EventPath.newSafe(eq);
-        if (path) {
-          if (event.isLoading() && recentEvents) {
-            const tmp = recentEvents.get(path);
-            if (tmp) {
-              setEvent(tmp);
-              loadingCtx.setAsLoading();
-              toast.loading("読み込み中...");
-            }
+        if (path && recentEvents) {
+          const tmp = recentEvents.get(path);
+          if (tmp) {
+            setEvent(tmp);
           }
         }
         const ev = await loadEventCallback();
         if (!ev.isLoading()) {
           loadingCtx.setAsNotLoading();
-          toast.dismiss();
+          setToast(toast.dismiss());
           setEvent(ev);
           if (ev.isExist() && setFirstEventHandler) {
             setFirstEventHandler(ev);
