@@ -3,7 +3,7 @@ import { global } from "ui/src/styles/global";
 import type { AppProps } from "next/app";
 import { userContext, useUser } from "@/hooks/useUser";
 import { loadingContext, useLoading } from "@/hooks/useLoading";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "ui/src/components/Toaster";
 
 const globalStyles = <Global styles={global} />;
 
