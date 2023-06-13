@@ -21,7 +21,7 @@ export const Site = {
     form: {
       event: {
         name: "イベントの名前を教えてください",
-        calendar: "開催希望日を選択してください",
+        calendar: "候補日を選択してください",
         description: "追加情報や参加者へのメッセージがあれば入力してください",
         drawing: "候補日を選択してください",
       },
