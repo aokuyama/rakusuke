@@ -13,16 +13,14 @@ export const EventPage: FC = () => {
 
   const setEventHandler = (event: CurrentEvent) => {
     setEvent(event);
-    if (event) {
-      setEvents(event);
-    }
+    setEvents(event);
   };
 
   return (
     <>
       <Head>
         <title>
-          {Site.getEventPageTitle(event?.isExist() ? event : undefined)}
+          {Site.getEventPageTitle(event.isExist() ? event : undefined)}
         </title>
         <meta name="robots" content="noindex,nofollow,noarchive" />
       </Head>

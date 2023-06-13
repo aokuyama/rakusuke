@@ -21,9 +21,9 @@ abstract class EventPathBase extends PrimitiveValueObject<string> {
 }
 
 export class EventPath extends EventPathBase {
-  static newSafe(value: string): EventPath | null {
+  static newSafe(value: string): EventPath | undefined {
     if (!EventPathBase.isValidLength(value)) {
-      return null;
+      return undefined;
     }
     return new EventPath(value);
   }

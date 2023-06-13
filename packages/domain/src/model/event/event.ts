@@ -36,10 +36,10 @@ interface CurrentEventProps {
   readonly created: Date;
 }
 
-export class CurrentEvent extends StructValueObject<
-  CurrentEventProps,
-  CurrentEventArgs
-> {
+export class CurrentEvent
+  extends StructValueObject<CurrentEventProps, CurrentEventArgs>
+  implements CurrentEventView
+{
   protected validate(value: CurrentEventProps): void {
     // throw new Error("Method not implemented.");
   }
@@ -56,6 +56,7 @@ export class CurrentEvent extends StructValueObject<
     });
   }
   sameIdAs = (event: CurrentEvent): boolean => this._uuid.equals(event._uuid);
+  samePathAs = (event: CurrentEvent): boolean => this._path.equals(event._path);
   protected get _uuid(): UUID {
     return this._value.uuid;
   }
@@ -201,21 +202,26 @@ export class CurrentEvent extends StructValueObject<
 }
 
 export interface CurrentEventView {
-  sameIdAs: (event: CurrentEvent) => boolean;
+  samePathAs: (event: CurrentEvent) => boolean;
   isExist: () => this is CurrentEvent;
   isLoading: () => this is CurrentEventLoading;
   isNotFound: () => this is CurrentEventNotFound;
 }
 
-export class CurrentEventLoading {
-  sameIdAs = () => false;
+export class CurrentEventLoading implements CurrentEventView {
+  private readonly path: EventPath | undefined;
+  constructor(path?: string) {
+    this.path = path ? EventPath.newSafe(path) : undefined;
+  }
+  samePathAs = (event: CurrentEvent) =>
+    this.path ? this.path.equals(event.getPath()) : false;
   isExist = (): this is CurrentEvent => false;
   isLoading = (): this is CurrentEventLoading => true;
   isNotFound = (): this is CurrentEventNotFound => false;
 }
 
-export class CurrentEventNotFound {
-  sameIdAs = () => false;
+export class CurrentEventNotFound implements CurrentEventView {
+  samePathAs = (event: CurrentEvent) => false;
   isExist = (): this is CurrentEvent => false;
   isLoading = (): this is CurrentEventLoading => false;
   isNotFound = (): this is CurrentEventNotFound => true;

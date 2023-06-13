@@ -18,13 +18,15 @@ export const useEvent = (
   recentEvents?: RecentlyViewedEvent | undefined,
   setFirstEventHandler?: (event: CurrentEvent) => void
 ): {
-  event: CurrentEventView | undefined;
-  setEvent: React.Dispatch<React.SetStateAction<CurrentEventView | undefined>>;
+  event: CurrentEventView;
+  setEvent: React.Dispatch<React.SetStateAction<CurrentEventView>>;
 } => {
   const loadingCtx = useContext(loadingContext);
   const userCtx = useContext(userContext);
   const toast = useToast();
-  const [event, setEvent] = useState<CurrentEventView | undefined>();
+  const [event, setEvent] = useState<CurrentEventView>(
+    new CurrentEventLoading()
+  );
   const eq = useEventQuery();
 
   const loadEventCallback = useCallback(async () => {
@@ -32,10 +34,10 @@ export const useEvent = (
       if (eq) {
         return await loadEvent(userCtx.user, eq);
       } else {
-        return new CurrentEventLoading();
+        return new CurrentEventLoading(eq);
       }
     }
-    return undefined;
+    return new CurrentEventLoading();
   }, [eq, userCtx.user]);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export const useEvent = (
       if (eq) {
         const path = EventPath.newSafe(eq);
         if (path) {
-          if ((event === undefined || event.isLoading()) && recentEvents) {
+          if (event.isLoading() && recentEvents) {
             const tmp = recentEvents.get(path);
             if (tmp) {
               setEvent(tmp);
@@ -53,7 +55,7 @@ export const useEvent = (
           }
         }
         const ev = await loadEventCallback();
-        if (ev !== undefined && !ev.isLoading()) {
+        if (!ev.isLoading()) {
           loadingCtx.setAsNotLoading();
           toast.dismiss();
           setEvent(ev);

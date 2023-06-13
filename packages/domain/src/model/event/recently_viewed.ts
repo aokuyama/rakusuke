@@ -52,7 +52,7 @@ export class RecentlyViewedEvent extends ArrayValueObject<
     let events = [];
     if (currentEvent) {
       for (const e of this._value) {
-        if (!currentEvent.sameIdAs(e)) {
+        if (!currentEvent.samePathAs(e)) {
           events.push(e);
         }
       }

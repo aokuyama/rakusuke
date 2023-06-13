@@ -11,7 +11,7 @@ import { EventLoading } from "@/features/event/view_event/components/EventLoadin
 import { EventNotFound } from "@/features/event/view_event/components/EventNotFound";
 
 interface Props {
-  event: CurrentEventView | undefined;
+  event: CurrentEventView;
   setEvent: (event: CurrentEvent) => void;
   events: RecentlyViewedEvent | undefined;
 }
@@ -22,7 +22,7 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
   return (
     <Frame>
       <Main>
-        {event?.isExist() && (
+        {event.isExist() && (
           <Event
             event={event}
             setEvent={setEvent}
@@ -30,8 +30,8 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
             setTargetGuest={setTargetGuest}
           />
         )}
-        {event?.isNotFound() && <EventNotFound />}
-        {(event === undefined || event.isLoading()) && <EventLoading />}
+        {event.isNotFound() && <EventNotFound />}
+        {event.isLoading() && <EventLoading />}
       </Main>
       <Aside>
         <OverviewRecentEvent events={events} currentEvent={event} />
