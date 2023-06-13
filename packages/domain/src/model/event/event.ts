@@ -195,4 +195,28 @@ export class CurrentEvent extends StructValueObject<
   heldDate = (): Date | undefined => this._schedules.heldDate();
   getPath = (): EventPath => this._path;
   equalsPath = (path: EventPath): boolean => this._path.equals(path);
+  isExist = (): this is CurrentEvent => true;
+  isLoading = (): this is CurrentEventLoading => false;
+  isNotFound = (): this is CurrentEventNotFound => false;
+}
+
+export interface CurrentEventView {
+  sameIdAs: (event: CurrentEvent) => boolean;
+  isExist: () => this is CurrentEvent;
+  isLoading: () => this is CurrentEventLoading;
+  isNotFound: () => this is CurrentEventNotFound;
+}
+
+export class CurrentEventLoading {
+  sameIdAs = () => false;
+  isExist = (): this is CurrentEvent => false;
+  isLoading = (): this is CurrentEventLoading => true;
+  isNotFound = (): this is CurrentEventNotFound => false;
+}
+
+export class CurrentEventNotFound {
+  sameIdAs = () => false;
+  isExist = (): this is CurrentEvent => false;
+  isLoading = (): this is CurrentEventLoading => false;
+  isNotFound = (): this is CurrentEventNotFound => true;
 }

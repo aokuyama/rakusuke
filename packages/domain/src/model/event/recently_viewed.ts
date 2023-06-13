@@ -1,4 +1,4 @@
-import { CurrentEvent, CurrentEventArgs } from "./event";
+import { CurrentEvent, CurrentEventArgs, CurrentEventView } from "./event";
 import { ArrayValueObject } from "../valueobject";
 import { EventPath } from "./path";
 
@@ -48,7 +48,7 @@ export class RecentlyViewedEvent extends ArrayValueObject<
     }
     return this;
   };
-  order = (currentEvent: CurrentEvent | null): RecentlyViewedEvent => {
+  order = (currentEvent: CurrentEventView | undefined): RecentlyViewedEvent => {
     let events = [];
     if (currentEvent) {
       for (const e of this._value) {

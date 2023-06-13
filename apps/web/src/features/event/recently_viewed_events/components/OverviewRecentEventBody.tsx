@@ -1,12 +1,12 @@
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 import { Event } from "./Event";
 import { FC } from "react";
-import { CurrentEvent } from "domain/src/model/event";
+import { CurrentEventView } from "domain/src/model/event";
 import { css } from "@emotion/react";
 
 interface Props {
   events: RecentlyViewedEvent;
-  currentEvent: CurrentEvent | null;
+  currentEvent: CurrentEventView | undefined;
 }
 
 export const OverviewRecentEventBody: FC<Props> = ({

@@ -28,12 +28,12 @@ export const EventCreationPage: FC = () => {
   const { events, setEvents } = useRecentEvents();
 
   return (
-    <Frame isLoading={false}>
+    <Frame>
       <Main>
         <EventCreateForm eventCreatedHandler={eventCreatedHandler} />
       </Main>
       <Aside>
-        <OverviewRecentEvent events={events} currentEvent={null} />
+        <OverviewRecentEvent events={events} currentEvent={undefined} />
       </Aside>
     </Frame>
   );

@@ -4,17 +4,14 @@ import { backgroundColor, textColor } from "../../styles/color";
 import { isNotSmall } from "../../styles/layout";
 import { headerHeight } from "./Header";
 import { footerHeight } from "./Footer";
-import { Loading } from "../Loading";
 
 type Props = {
-  isLoading: boolean;
   children: ReactNode;
 };
 
-export const Frame: FC<Props> = ({ isLoading, children }) => {
+export const Frame: FC<Props> = ({ children }) => {
   return (
-    <div aria-busy={isLoading} css={styles}>
-      {isLoading && <Loading />}
+    <div css={styles}>
       <div css={glidStyles}>{children}</div>
     </div>
   );

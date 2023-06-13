@@ -42,7 +42,7 @@ export const Site = {
     return Site.name;
   },
   getEventPageDescription: (
-    event: { name: string; description: string | undefined } | null
+    event: { name: string; description: string | null | undefined } | null
   ): string => {
     if (event) {
       if (event.description && event.description.length > 0) {

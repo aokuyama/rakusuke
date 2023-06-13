@@ -1,6 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { client } from "infra/src/client/trpc";
-import { CurrentEvent, EventPath } from "domain/src/model/event";
+import {
+  CurrentEvent,
+  CurrentEventLoading,
+  CurrentEventNotFound,
+  CurrentEventView,
+  EventPath,
+} from "domain/src/model/event";
 import { useEventQuery } from "./useEventQuery";
 import { User } from "domain/src/model/user";
 import { userContext } from "./useUser";
@@ -12,23 +18,24 @@ export const useEvent = (
   recentEvents?: RecentlyViewedEvent | undefined,
   setFirstEventHandler?: (event: CurrentEvent) => void
 ): {
-  event: CurrentEvent | null | undefined;
-  setEvent: React.Dispatch<
-    React.SetStateAction<CurrentEvent | null | undefined>
-  >;
+  event: CurrentEventView | undefined;
+  setEvent: React.Dispatch<React.SetStateAction<CurrentEventView | undefined>>;
 } => {
   const loadingCtx = useContext(loadingContext);
   const userCtx = useContext(userContext);
   const toast = useToast();
-  const [event, setEvent] = useState<CurrentEvent | null | undefined>(
-    undefined
-  );
+  const [event, setEvent] = useState<CurrentEventView | undefined>();
   const eq = useEventQuery();
 
   const loadEventCallback = useCallback(async () => {
-    if (userCtx.user && eq) {
-      return await loadEvent(userCtx.user, eq);
+    if (userCtx.user) {
+      if (eq) {
+        return await loadEvent(userCtx.user, eq);
+      } else {
+        return new CurrentEventLoading();
+      }
     }
+    return undefined;
   }, [eq, userCtx.user]);
 
   useEffect(() => {
@@ -36,7 +43,7 @@ export const useEvent = (
       if (eq) {
         const path = EventPath.newSafe(eq);
         if (path) {
-          if (!event && recentEvents) {
+          if ((event === undefined || event.isLoading()) && recentEvents) {
             const tmp = recentEvents.get(path);
             if (tmp) {
               setEvent(tmp);
@@ -46,11 +53,11 @@ export const useEvent = (
           }
         }
         const ev = await loadEventCallback();
-        if (ev !== undefined) {
+        if (ev !== undefined && !ev.isLoading()) {
           loadingCtx.setAsNotLoading();
           toast.dismiss();
           setEvent(ev);
-          if (ev && setFirstEventHandler) {
+          if (ev.isExist() && setFirstEventHandler) {
             setFirstEventHandler(ev);
           }
         }
@@ -65,9 +72,9 @@ export const useEvent = (
 const loadEvent = async (
   user: User,
   path: string
-): Promise<CurrentEvent | null | undefined> => {
+): Promise<CurrentEvent | CurrentEventNotFound> => {
   if (!EventPath.newSafe(path)) {
-    return null;
+    return new CurrentEventNotFound();
   }
   const result = await client.event.getEventByPath.query({
     user: user.getAuthInfo(),
@@ -75,7 +82,7 @@ const loadEvent = async (
   });
 
   if (!result.event) {
-    return null;
+    return new CurrentEventNotFound();
   }
 
   return CurrentEvent.new(result.event);

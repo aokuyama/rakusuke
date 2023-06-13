@@ -11,7 +11,7 @@ export const EventPage: FC = () => {
   const { events, setEvents } = useRecentEvents();
   const { event, setEvent } = useEvent(events, setEvents);
 
-  const setEventHandler = (event: CurrentEvent | null) => {
+  const setEventHandler = (event: CurrentEvent) => {
     setEvent(event);
     if (event) {
       setEvents(event);
@@ -21,7 +21,9 @@ export const EventPage: FC = () => {
   return (
     <>
       <Head>
-        <title>{Site.getEventPageTitle(event)}</title>
+        <title>
+          {Site.getEventPageTitle(event?.isExist() ? event : undefined)}
+        </title>
         <meta name="robots" content="noindex,nofollow,noarchive" />
       </Head>
       <Layout>
