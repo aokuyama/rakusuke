@@ -21,7 +21,7 @@ interface Props {
   };
   closeHandler: () => void;
   event: CurrentEvent;
-  eventUpdatedHandler: (date: CurrentEvent) => void;
+  eventUpdatedHandler: (event: CurrentEvent) => void;
 }
 
 export const FocusDay: FC<Props> = ({

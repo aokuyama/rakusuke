@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { colorSet, mainColor, white, black } from "../styles/color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+
 type Props = {
   children: React.ReactNode;
   disabled?: boolean;

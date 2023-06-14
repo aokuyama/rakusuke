@@ -20,13 +20,14 @@ export const Box: FC<Props> = ({ name, button, icon, children }) => {
   return (
     <div css={boxStyle}>
       <div css={titleStyle}>
-        <div css={iconStyle} />
-        <span css={nameStyle}>{name}</span>
         <div css={iconStyle}>
-          {button && <CloseButton onClick={button.handler} />}
           {icon === "editUser" && (
             <FontAwesomeIcon icon={faUserPen} width={20} />
           )}
+        </div>
+        <span css={nameStyle}>{name}</span>
+        <div css={iconStyle}>
+          {button && <CloseButton onClick={button.handler} />}
         </div>
       </div>
       <div css={contentStyle}>{children}</div>
@@ -52,13 +53,14 @@ const contentStyle = css`
 `;
 
 const iconStyle = css`
+  text-align: center;
   display: inline-block;
   width: 32px;
+  margin: 0 4px;
 `;
 
 const nameStyle = css`
   display: inline-block;
   text-align: center;
   width: ${boxSize.default - 32 - 32}px;
-  margin: 0 4px;
 `;
