@@ -4,23 +4,29 @@ import { backgroundColor } from "../styles/color";
 import { boxLayout } from "../styles/layout";
 import { CloseButton } from "./CloseButton";
 import { boxSize } from "../styles/size";
+import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
   name: ReactNode;
   button?: {
-    closeHandler: () => void;
+    handler: () => void;
   };
+  icon?: "editUser";
   children: React.ReactNode;
 };
 
-export const Box: FC<Props> = ({ name, button, children }) => {
+export const Box: FC<Props> = ({ name, button, icon, children }) => {
   return (
     <div css={boxStyle}>
       <div css={titleStyle}>
         <div css={iconStyle} />
         <span css={nameStyle}>{name}</span>
         <div css={iconStyle}>
-          {button && <CloseButton onClick={button.closeHandler} />}
+          {button && <CloseButton onClick={button.handler} />}
+          {icon === "editUser" && (
+            <FontAwesomeIcon icon={faUserPen} width={20} />
+          )}
         </div>
       </div>
       <div css={contentStyle}>{children}</div>
@@ -54,4 +60,5 @@ const nameStyle = css`
   display: inline-block;
   text-align: center;
   width: ${boxSize.default - 32 - 32}px;
+  margin: 0 4px;
 `;

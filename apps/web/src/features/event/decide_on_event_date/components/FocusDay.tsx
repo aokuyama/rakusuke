@@ -80,7 +80,7 @@ export const FocusDay: FC<Props> = ({
     <Box
       name={args.date.short() + (args.selected ? " 開催決定" : "")}
       button={{
-        closeHandler: closeHandler,
+        handler: closeHandler,
       }}
     >
       {args.attendees.map((attendee, index) => {

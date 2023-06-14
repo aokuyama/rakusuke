@@ -49,7 +49,9 @@ export const EditBox: FC<Props> = ({
             )}
           </div>
         </div>
-        <p css={remarksStyle}>{remarks}</p>
+        <p css={remarksStyle} onClick={(e) => e.preventDefault()}>
+          {remarks}
+        </p>
       </summary>
       <div css={contentStyle}>{children}</div>
     </details>
