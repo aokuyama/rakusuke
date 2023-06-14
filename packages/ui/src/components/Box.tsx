@@ -56,7 +56,7 @@ const iconStyle = css`
   text-align: center;
   display: inline-block;
   width: 32px;
-  margin: 0 4px;
+  margin: 0 8px;
 `;
 
 const nameStyle = css`

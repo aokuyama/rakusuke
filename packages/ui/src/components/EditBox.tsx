@@ -66,7 +66,7 @@ const detailsStyle = css`
     white-space: normal;
   }
   &[open] > summary > p {
-    padding: 12px 12px 0;
+    padding: 0 12px 8px;
     font-size: ${font.small}px;
     white-space: normal;
   }
@@ -85,7 +85,7 @@ const summaryTitleStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   div {
     font-size: 20px;
     line-height: 20px;
@@ -93,6 +93,7 @@ const summaryTitleStyle = css`
     text-align: center;
     display: inline-block;
     width: 32px;
+    margin: 0 4px;
     flex-shrink: 0;
   }
   span {
