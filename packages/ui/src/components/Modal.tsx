@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import { CloseButton } from "./CloseButton";
 import { css } from "@emotion/react";
 import { backgroundColor, textColor } from "../styles/color";
-import { boxSize } from "../styles/size";
+import { mordalSize } from "../styles/size";
 
 type Props = {
   children: ReactNode;
@@ -23,7 +23,7 @@ export const Modal: FC<Props> = ({ isOpen, children, onRequestClose }) => {
         <div css={buttonStyles}>
           <CloseButton onClick={() => onRequestClose()} />
         </div>
-        <div css={bodyStyles}>
+        <div css={[bodyStyles, modalSize]}>
           <div>{children}</div>
         </div>
       </ReactModal>
@@ -39,11 +39,11 @@ const reactModalStyle = {
   },
   content: {
     position: "absolute",
-    top: "20px",
+    top: "32px",
     bottom: 0,
     left: 0,
     right: 0,
-    maxWidth: boxSize.default + "px",
+    width: "fit-content",
     margin: "auto",
     overflow: "inherit",
   },
@@ -56,13 +56,20 @@ const modalStyles = css`
 
 const buttonStyles = css`
   text-align: right;
-  margin: 8px 8px 0;
+  margin: 16px 16px 0;
 `;
 const bodyStyles = css`
   overflow: scroll;
   height: 100%;
   > div {
-    margin: 0 16px 16px;
-    padding: 0 0 16px;
+    margin: 0 20px 20px;
+    padding: 0 0 20px;
+  }
+`;
+
+const modalSize = css`
+  max-width: ${mordalSize.default}px;
+  @media screen and (min-width: ${mordalSize.smart1}px) {
+    max-width: ${mordalSize.smart1}px;
   }
 `;

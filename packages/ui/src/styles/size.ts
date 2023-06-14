@@ -7,3 +7,7 @@ export const font = {
   small: 12,
   tiny: 8,
 };
+export const mordalSize = {
+  default: 320,
+  smart1: 360,
+};
