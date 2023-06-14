@@ -85,6 +85,7 @@ const summaryTitleStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 12px;
   div {
     font-size: 20px;
     line-height: 20px;
@@ -107,7 +108,7 @@ const remarksStyle = css`
   display: block;
   text-align: center;
   font-size: ${font.tiny}px;
-  padding: 8px 64px;
+  padding: 0 64px 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

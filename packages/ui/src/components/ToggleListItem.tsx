@@ -19,14 +19,16 @@ type Props = {
 export const ToggleListItem: FC<Props> = ({ name, color, children }) => {
   return (
     <li css={styles}>
-      <div
+      <span
         css={css`
           color: ${color};
         `}
       >
         {name}
+      </span>
+      <div>
+        <Toggle>{children}</Toggle>
       </div>
-      <Toggle>{children}</Toggle>
     </li>
   );
 };
@@ -39,11 +41,12 @@ const styles = css`
   padding: 0 4px;
   margin: 8px 0;
   width: 50%;
-  div {
+  > span {
     width: 40%;
     text-align: center;
   }
-  label {
+  > div {
     width: 60%;
+    text-align: center;
   }
 `;
