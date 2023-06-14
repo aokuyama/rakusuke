@@ -13,17 +13,21 @@ type Props = {
 
 export const Modal: FC<Props> = ({ isOpen, children, onRequestClose }) => {
   return (
-    <ReactModal
-      css={modalStyles}
-      style={reactModalStyle}
-      isOpen={isOpen}
-      onRequestClose={() => onRequestClose()}
-    >
-      <div css={buttonStyles}>
-        <CloseButton onClick={() => onRequestClose()} />
-      </div>
-      {children}
-    </ReactModal>
+    <>
+      <ReactModal
+        css={modalStyles}
+        style={reactModalStyle}
+        isOpen={isOpen}
+        onRequestClose={() => onRequestClose()}
+      >
+        <div css={buttonStyles}>
+          <CloseButton onClick={() => onRequestClose()} />
+        </div>
+        <div css={bodyStyles}>
+          <div>{children}</div>
+        </div>
+      </ReactModal>
+    </>
   );
 };
 
@@ -36,13 +40,12 @@ const reactModalStyle = {
   content: {
     position: "absolute",
     top: "20px",
-    bottom: "20px",
+    bottom: 0,
     left: 0,
     right: 0,
-    padding: "0 1rem 1rem",
     maxWidth: boxSize.default + "px",
     margin: "auto",
-    overflow: "scroll",
+    overflow: "inherit",
   },
 } as const;
 
@@ -53,5 +56,13 @@ const modalStyles = css`
 
 const buttonStyles = css`
   text-align: right;
-  padding-top: 0.5rem;
+  margin: 8px 8px 0;
+`;
+const bodyStyles = css`
+  overflow: scroll;
+  height: 100%;
+  > div {
+    margin: 0 16px 16px;
+    padding: 0 0 16px;
+  }
 `;

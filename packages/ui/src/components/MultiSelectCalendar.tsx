@@ -85,6 +85,10 @@ const styles = css`
     width: ${boxSize.default}px;
     line-height: 1.125em;
     ${backgroundColor.default};
+    button,
+    [type="button"] {
+      cursor: inherit;
+    }
   }
 
   .react-calendar--doubleView {
@@ -197,10 +201,6 @@ const styles = css`
   }
   .react-calendar__month-view__days__day--weekend:nth-of-type(7n + 1) {
     color: ${dayOfWeek.sunday};
-  }
-  button,
-  [type="button"] {
-    cursor: inherit;
   }
 `;
 
