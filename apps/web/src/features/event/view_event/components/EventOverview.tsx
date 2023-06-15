@@ -27,7 +27,7 @@ export const EventOverview: FC<Props> = ({
     ? { clickHandler: onEdit, disabled: loadingCtx.loading }
     : undefined;
   return (
-    <EditBox name={event.name} button={button}>
+    <EditBox name={"日程候補"} button={button}>
       <EventSummary event={event} setFocus={setFocus} focus={focus} />
       {event.description && event.description.length && (
         <StickyNote>{event.description}</StickyNote>

@@ -3,7 +3,6 @@ import { Site } from "infra/src/web/site";
 import { FC } from "react";
 import { Box } from "ui/src/components/Box";
 import { Anchor } from "ui/src/components/Anchor";
-import { type } from "os";
 import { css } from "@emotion/react";
 
 interface Props {

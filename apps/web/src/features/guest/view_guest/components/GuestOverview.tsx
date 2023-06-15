@@ -1,22 +1,15 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
-import { loadingContext } from "@/hooks/useLoading";
-import { Button } from "ui/src/components/Button";
 import { GuestList } from "./GuestList";
+import { SideTitle } from "ui/src/components/SideTitle";
 
 interface Props {
   event: CurrentEvent;
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
-  onJoinHandler: () => void;
 }
 
-export const GuestOverview: FC<Props> = ({
-  event,
-  setTargetGuest,
-  onJoinHandler,
-}) => {
-  const loadingCtx = useContext(loadingContext);
+export const GuestOverview: FC<Props> = ({ event, setTargetGuest }) => {
   const tableTrClickIdHandler = (id: number | string) => {
     const number = parseInt(String(id));
     if (number) {
@@ -28,11 +21,9 @@ export const GuestOverview: FC<Props> = ({
   };
 
   return (
-    <section>
-      <Button onClick={onJoinHandler} disabled={loadingCtx.loading}>
-        入力
-      </Button>
+    <>
+      <SideTitle>参加者</SideTitle>
       <GuestList event={event} clickIdHandler={tableTrClickIdHandler} />
-    </section>
+    </>
   );
 };

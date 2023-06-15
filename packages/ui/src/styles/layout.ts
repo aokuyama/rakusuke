@@ -15,3 +15,4 @@ export const boxLayout = {
 };
 
 export const isNotSmall = `@media (min-width: 640px)`;
+export const isWide = `@media (min-width: 960px)`;
