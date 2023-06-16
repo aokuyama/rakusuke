@@ -10,6 +10,7 @@ import { OverviewRecentEvent } from "@/features/event/recently_viewed_events/com
 import { useRecentEvents } from "@/features/event/recently_viewed_events/hooks/useRecentEvents";
 import { CurrentEvent } from "domain/src/model/event";
 import { userContext } from "@/hooks/useUser";
+import { SectionR } from "ui/src/components/layout/Section";
 
 export const EventCreationPage: FC = () => {
   const router = useRouter();
@@ -30,7 +31,9 @@ export const EventCreationPage: FC = () => {
   return (
     <Frame>
       <Main>
-        <EventCreateForm eventCreatedHandler={eventCreatedHandler} />
+        <SectionR>
+          <EventCreateForm eventCreatedHandler={eventCreatedHandler} />
+        </SectionR>
       </Main>
       <Aside>
         <OverviewRecentEvent events={events} currentEvent={undefined} />

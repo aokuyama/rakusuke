@@ -25,24 +25,26 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
   return (
     <Frame>
       <Main>
-        {event.isExist() && (
-          <>
-            <SectionR>
+        <SectionR>
+          {event.isExist() && (
+            <>
               <EventTitle event={event} setEvent={setEvent} />
               <EventColumn event={event} setEvent={setEvent} />
-            </SectionR>
-            <SectionL>
-              <GuestColumn
-                event={event}
-                setEvent={setEvent}
-                targetGuest={targetGuest}
-                setTargetGuest={setTargetGuest}
-              />
-            </SectionL>
-          </>
-        )}
-        {event.isNotFound() && <EventNotFound />}
-        {event.isLoading() && <EventLoading />}
+            </>
+          )}
+          {event.isNotFound() && <EventNotFound />}
+          {event.isLoading() && <EventLoading />}
+        </SectionR>
+        <SectionL>
+          {event.isExist() && (
+            <GuestColumn
+              event={event}
+              setEvent={setEvent}
+              targetGuest={targetGuest}
+              setTargetGuest={setTargetGuest}
+            />
+          )}
+        </SectionL>
       </Main>
       <Aside>
         <OverviewRecentEvent events={events} currentEvent={event} />
