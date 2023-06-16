@@ -43,7 +43,7 @@ const boxStyle = css`
 const titleStyle = css`
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 12px 0;
 `;
@@ -62,5 +62,4 @@ const iconStyle = css`
 const nameStyle = css`
   display: inline-block;
   text-align: center;
-  width: ${boxSize.default - 32 - 32}px;
 `;
