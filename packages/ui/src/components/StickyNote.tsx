@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { mainColor, white } from "../styles/color";
+import { backgroundColor, mainColor, textColor } from "../styles/color";
 import { boxLayout } from "../styles/layout";
 import { font } from "../styles/size";
 
@@ -18,5 +18,6 @@ export const styles = css`
   white-space: pre-wrap;
   padding: 16px;
   border-left: 4px solid ${mainColor.brighter};
-  background-color: ${white.default};
+  ${backgroundColor.default}
+  ${textColor.default}
 `;
