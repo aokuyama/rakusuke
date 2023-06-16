@@ -7,8 +7,8 @@ type Props = {
 
 export const Skeleton: FC<Props> = ({ height }) => {
   return (
-    <div css={styles}>
-      <div
+    <span css={styles}>
+      <span
         css={[
           css`
             height: ${height}px;
@@ -16,7 +16,7 @@ export const Skeleton: FC<Props> = ({ height }) => {
           body,
         ]}
       />
-    </div>
+    </span>
   );
 };
 
@@ -24,7 +24,7 @@ const styles = css`
   display: flex;
   flex-direction: column;
 
-  div {
+  span {
     border-radius: 1px;
     background-color: #eeeeee;
     background-image: linear-gradient(

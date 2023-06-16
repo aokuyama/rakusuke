@@ -2,7 +2,7 @@ import { FC } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { UpdateSheetModal } from "@/features/guest/update_guest/components/UpdateSheetModal";
-import { GuestOverview } from "@/features/guest/view_guest/components/GuestOverview";
+import { GuestViewBody } from "./GuestViewBody";
 
 interface Props {
   event: CurrentEvent;
@@ -11,7 +11,7 @@ interface Props {
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
-export const GuestColumn: FC<Props> = ({
+export const GuestView: FC<Props> = ({
   event,
   setEvent,
   targetGuest,
@@ -23,7 +23,7 @@ export const GuestColumn: FC<Props> = ({
 
   return (
     <>
-      <GuestOverview event={event} setTargetGuest={setTargetGuest} />
+      <GuestViewBody event={event} setTargetGuest={setTargetGuest} />
       {targetGuest && (
         <UpdateSheetModal
           guest={targetGuest}

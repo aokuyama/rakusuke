@@ -1,15 +1,12 @@
 import { FC } from "react";
-import { css } from "@emotion/react";
-import { Box } from "ui/src/components/Box";
+import { Subtitle } from "ui/src/components/Subtitle";
+import { Message } from "ui/src/components/Message";
 
 export const EventNotFound: FC = () => {
   return (
-    <Box name={"イベントが見つかりません"}>
-      <div css={styles}>URLが間違っているか、表示期限が切れています</div>
-    </Box>
+    <>
+      <Subtitle>イベントが見つかりません</Subtitle>
+      <Message>URLが間違っているか、表示期限が切れています</Message>
+    </>
   );
 };
-
-const styles = css`
-  height: 73px;
-`;

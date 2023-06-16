@@ -10,7 +10,7 @@ interface Props {
   setTargetGuest: React.Dispatch<React.SetStateAction<EventGuest | null>>;
 }
 
-export const GuestOverview: FC<Props> = ({ event, setTargetGuest }) => {
+export const GuestViewBody: FC<Props> = ({ event, setTargetGuest }) => {
   const tableTrClickIdHandler = (id: number | string) => {
     const number = parseInt(String(id));
     if (number) {

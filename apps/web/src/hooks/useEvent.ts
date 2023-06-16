@@ -79,6 +79,9 @@ const loadEvent = async (
   if (!EventPath.newSafe(path)) {
     return new CurrentEventNotFound();
   }
+  if (path === "eventloadingtest") {
+    return new CurrentEventLoading();
+  }
   const result = await client.event.getEventByPath.query({
     user: user.getAuthInfo(),
     path: path,

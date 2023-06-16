@@ -71,7 +71,7 @@ export const normalColor = css`
   background-color: ${white.default};
   color: ${black.default};
   border: 1px solid ${black.default};
-  :hover {
+  :not(:disabled):hover {
     border: 1px solid ${mainColor.darker};
     color: ${mainColor.darker};
   }
@@ -79,7 +79,7 @@ export const normalColor = css`
 
 export const primaryColor = css`
   ${colorSet.main}
-  :hover {
+  :not(:disabled):hover {
     background-color: ${mainColor.brighter};
   }
 `;

@@ -13,7 +13,7 @@ type Props = {
 export const EventTitle: FC<Props> = ({ event, setEvent }) => {
   return (
     <>
-      <Subtitle>{event.name}</Subtitle>
+      <Subtitle isHeadline={true}>{event.name}</Subtitle>
       {event.description && event.description.length && (
         <StickyNote>{event.description}</StickyNote>
       )}

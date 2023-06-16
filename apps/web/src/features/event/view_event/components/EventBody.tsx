@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventUpdateFormModal } from "@/features/event/update_event/components/EventUpdateFormModal";
-import { EventOverview } from "@/features/event/view_event/components/EventOverview";
+import { EventOverview } from "./EventOverview";
 import { FocusDay } from "@/features/event/decide_on_event_date/components/FocusDay";
 import { DrawingFormModal } from "@/features/event/drawing_event_date/components/DrawingFormModal";
 import { EventDate } from "@/features/event/decide_on_event_date/types";
@@ -11,7 +11,7 @@ interface Props {
   setEvent: (event: CurrentEvent) => void;
 }
 
-export const EventColumn: FC<Props> = ({ event, setEvent }) => {
+export const EventBody: FC<Props> = ({ event, setEvent }) => {
   const [isEventUpdateFormOpen, setIsEventUpdateFormOpen] =
     useState<boolean>(false);
   const [isDrawingFormOpen, setIsDrawingFormOpen] = useState<boolean>(false);

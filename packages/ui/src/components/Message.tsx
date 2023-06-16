@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { textColor } from "../styles/color";
+import { boxLayout } from "../styles/layout";
 
 type Props = {
   children: React.ReactNode;
@@ -24,5 +25,5 @@ export const Message: FC<Props> = ({ children, type }) => {
 
 export const styles = css`
   text-align: center;
-  margin: 16px auto;
+  ${boxLayout.default};
 `;
