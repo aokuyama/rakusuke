@@ -1,9 +1,10 @@
+import { arrayMax } from "../../util";
 import { PrimitiveValueObject } from "../valueobject";
 
 export class GuestNumber extends PrimitiveValueObject<number> {
   static readonly MIN: number = 1;
   static generate(numbers: number[]): GuestNumber {
-    const max = numbers.length ? Math.max.apply(null, numbers) : 0;
+    const max = arrayMax(numbers);
     return new GuestNumber(max + 1);
   }
   protected validate(value: number): void {

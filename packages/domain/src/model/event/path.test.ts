@@ -34,8 +34,8 @@ describe("イベントパスのセーフモード", () => {
       )
     ).toBe(true);
   });
-  it("生成できない場合はnullを返す", () => {
-    expect(EventPath.newSafe("1234567890abcde")).toBe(null);
-    expect(EventPath.newSafe("1234567890abcdefg")).toBe(null);
+  it("生成できない場合はundefinedを返す", () => {
+    expect(EventPath.newSafe("1234567890abcde")).toBe(undefined);
+    expect(EventPath.newSafe("1234567890abcdefg")).toBe(undefined);
   });
 });
