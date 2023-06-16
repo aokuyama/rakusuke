@@ -2,7 +2,7 @@ import { Head } from "@/components/Head";
 import { Layout } from "@/components/Layout";
 import { FC } from "react";
 import { Site } from "infra/src/web/site";
-import { EventCreationPage } from "@/components/pages/event_creation/EventCreationPage";
+import { EventCreationPage } from "@/components/pages/EventCreationPage";
 
 export const Top: FC = () => {
   return (

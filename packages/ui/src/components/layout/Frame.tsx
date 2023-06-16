@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
 import { backgroundColor, textColor } from "../../styles/color";
-import { isNotSmall } from "../../styles/layout";
+import { screenSize } from "../../styles/layout";
 import { headerHeight } from "./Header";
 import { footerHeight } from "./Footer";
 
@@ -23,11 +23,6 @@ const styles = css`
   ${backgroundColor.background}
 `;
 const glidStyles = css`
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 16px auto 0;
-  display: grid;
-  ${isNotSmall} {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 340px;
-  }
 `;

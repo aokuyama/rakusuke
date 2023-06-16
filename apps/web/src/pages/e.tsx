@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 import { FC } from "react";
 import { Site } from "infra/src/web/site";
 import { useEvent } from "@/hooks/useEvent";
-import { ViewEventPage } from "@/components/pages/view_event/ViewEventPage";
+import { ViewEventPage } from "@/components/pages/ViewEventPage";
 import { useRecentEvents } from "@/features/event/recently_viewed_events/hooks/useRecentEvents";
 import { CurrentEvent } from "domain/src/model/event";
 

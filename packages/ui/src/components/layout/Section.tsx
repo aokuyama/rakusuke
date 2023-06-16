@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
-import { isWide } from "../../styles/layout";
+import { screenSize } from "../../styles/layout";
 import { boxSize } from "../../styles/size";
 
 type Props = {
@@ -13,9 +13,11 @@ export const SectionL: FC<Props> = ({ children }) => {
 
 const stylesL = css`
   margin: 16px auto 0;
-  ${isWide} {
-    grid-row: 1 / 1;
+  width: ${boxSize.default}px;
+  ${screenSize.isNotSmall} {
     grid-column: 1 / 2;
+  }
+  ${screenSize.isWide} {
     width: ${boxSize.side}px;
   }
 `;
@@ -26,7 +28,14 @@ export const SectionR: FC<Props> = ({ children }) => {
 
 const stylesR = css`
   margin: 16px auto 0;
-  ${isWide} {
+  width: ${boxSize.default}px;
+  ${screenSize.isNotSmall} {
+    grid-column: 1 / 2;
+  }
+  ${screenSize.isMiddle} {
+    width: ${boxSize.middle}px;
+  }
+  ${screenSize.isWide} {
     grid-row: 1 / 1;
     grid-column: 2 / 3;
   }

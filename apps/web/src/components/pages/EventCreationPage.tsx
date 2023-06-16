@@ -34,10 +34,10 @@ export const EventCreationPage: FC = () => {
         <SectionR>
           <EventCreateForm eventCreatedHandler={eventCreatedHandler} />
         </SectionR>
+        <Aside>
+          <OverviewRecentEvent events={events} currentEvent={undefined} />
+        </Aside>
       </Main>
-      <Aside>
-        <OverviewRecentEvent events={events} currentEvent={undefined} />
-      </Aside>
     </Frame>
   );
 };

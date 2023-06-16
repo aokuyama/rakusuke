@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
-import { isNotSmall, isWide } from "../../styles/layout";
+import { screenSize } from "../../styles/layout";
+import { boxSize } from "../../styles/size";
 
 type Props = {
   children: ReactNode;
@@ -11,14 +12,17 @@ export const Main: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
-  ${isNotSmall} {
-    grid-row: 1 / 1;
-    grid-column: 1 / 2;
+  margin: 0 auto;
+  ${screenSize.isSmall} {
+    width: ${boxSize.default}px;
   }
-  ${isWide} {
+  ${screenSize.isNotSmall} {
     display: grid;
     justify-content: center;
     grid-template-rows: 1fr;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 1fr 320px;
+  }
+  ${screenSize.isWide} {
+    grid-template-columns: 320px 1fr 320px;
   }
 `;

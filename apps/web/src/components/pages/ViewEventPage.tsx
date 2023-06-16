@@ -39,10 +39,10 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
             />
           )}
         </SectionL>
+        <Aside>
+          <OverviewRecentEvent events={events} currentEvent={event} />
+        </Aside>
       </Main>
-      <Aside>
-        <OverviewRecentEvent events={events} currentEvent={event} />
-      </Aside>
     </Frame>
   );
 };
