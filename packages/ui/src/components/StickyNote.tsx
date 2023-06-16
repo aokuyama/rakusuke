@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { backgroundColor, mainColor } from "../styles/color";
+import { mainColor, white } from "../styles/color";
+import { boxLayout } from "../styles/layout";
+import { font } from "../styles/size";
 
 type Props = {
   children: React.ReactNode;
@@ -11,10 +13,10 @@ export const StickyNote: FC<Props> = ({ children }) => {
 };
 
 export const styles = css`
+  ${boxLayout.default}
+  line-height: ${font.default}px;
   white-space: pre-wrap;
-  width: 100%;
-  margin: 16px 0;
-  padding: 12px 16px;
+  padding: 16px;
   border-left: 4px solid ${mainColor.brighter};
-  ${backgroundColor.background}
+  background-color: ${white.default};
 `;

@@ -20,8 +20,9 @@ export const JoinForm: FC<Props> = ({ event, setEvent }) => {
           setIsNewGuestFormOpen(true);
         }}
         disabled={loadingCtx.loading}
+        decorationRight="pen"
       >
-        参加入力
+        スケジュール入力
       </Button>
       <NewSheetModal
         isOpen={isNewGuestFormOpen}

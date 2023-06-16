@@ -10,7 +10,7 @@ type Props = {
   setFocus: (day: EventDate | undefined) => void;
 };
 
-export const EventSummary: FC<Props> = ({ event, focus, setFocus }) => {
+export const ScheduleSummary: FC<Props> = ({ event, focus, setFocus }) => {
   const { dates } = event.scheduleDateMap();
 
   return (

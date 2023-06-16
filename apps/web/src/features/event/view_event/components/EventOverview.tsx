@@ -1,8 +1,7 @@
 import { FC, useContext } from "react";
 import { EditBox } from "ui/src/components/EditBox";
-import { EventSummary } from "./EventSummary";
+import { ScheduleSummary } from "./ScheduleSummary";
 import { Button } from "ui/src/components/Button";
-import { StickyNote } from "ui/src/components/StickyNote";
 import { loadingContext } from "@/hooks/useLoading";
 import { CurrentEvent } from "domain/src/model/event";
 import { EventDate } from "../../decide_on_event_date/types";
@@ -28,10 +27,7 @@ export const EventOverview: FC<Props> = ({
     : undefined;
   return (
     <EditBox name={"日程候補"} button={button}>
-      <EventSummary event={event} setFocus={setFocus} focus={focus} />
-      {event.description && event.description.length && (
-        <StickyNote>{event.description}</StickyNote>
-      )}
+      <ScheduleSummary event={event} setFocus={setFocus} focus={focus} />
       {onDrawing && event.scheduleLength() > 1 && (
         <Button onClick={onDrawing} disabled={loadingCtx.loading}>
           開催日を抽選

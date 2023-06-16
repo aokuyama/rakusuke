@@ -3,6 +3,7 @@ import { CurrentEvent } from "domain/src/model/event";
 import { EventGuest } from "domain/src/model/guest";
 import { GuestList } from "./GuestList";
 import { SideTitle } from "ui/src/components/SideTitle";
+import { Message } from "ui/src/components/Message";
 
 interface Props {
   event: CurrentEvent;
@@ -22,8 +23,12 @@ export const GuestOverview: FC<Props> = ({ event, setTargetGuest }) => {
 
   return (
     <>
-      <SideTitle>参加者</SideTitle>
-      <GuestList event={event} clickIdHandler={tableTrClickIdHandler} />
+      <SideTitle>参加者スケジュール</SideTitle>
+      {event.guests.length ? (
+        <GuestList event={event} clickIdHandler={tableTrClickIdHandler} />
+      ) : (
+        <Message type={"unavailable"}>まだ参加希望者がいません</Message>
+      )}
     </>
   );
 };

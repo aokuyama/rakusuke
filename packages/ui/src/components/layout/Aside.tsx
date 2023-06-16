@@ -14,6 +14,7 @@ export const Aside: FC<Props> = ({ children }) => {
 const styles = css`
   margin: 0 auto;
   ${isNotSmall} {
+    margin-top: 16px;
     grid-row: 1 / 1;
     grid-column: 2 / 3;
     width: ${boxSize.side}px;

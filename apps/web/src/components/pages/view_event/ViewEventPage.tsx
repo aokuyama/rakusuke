@@ -11,8 +11,7 @@ import { Frame } from "ui/src/components/layout/Frame";
 import { SectionL, SectionR } from "ui/src/components/layout/Section";
 import { EventLoading } from "@/features/event/view_event/components/EventLoading";
 import { EventNotFound } from "@/features/event/view_event/components/EventNotFound";
-import { JoinForm } from "@/features/guest/join_as_guest/components/JoinForm";
-import { SideTitle } from "ui/src/components/SideTitle";
+import { EventTitle } from "@/features/event/view_event/components/EventTitle";
 
 interface Props {
   event: CurrentEventView;
@@ -29,8 +28,7 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
         {event.isExist() && (
           <>
             <SectionR>
-              <SideTitle>{event.name}</SideTitle>
-              <JoinForm event={event} setEvent={setEvent} />
+              <EventTitle event={event} setEvent={setEvent} />
               <EventColumn event={event} setEvent={setEvent} />
             </SectionR>
             <SectionL>

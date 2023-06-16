@@ -2,13 +2,13 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { colorSet, mainColor, white, black } from "../styles/color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   children: React.ReactNode;
   disabled?: boolean;
   isPrimary?: boolean;
-  decorationRight?: "arrow-right";
+  decorationRight?: "arrow-right" | "pen";
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
@@ -31,6 +31,9 @@ export const Button: FC<Props> = ({
         <div>
           {decorationRight == "arrow-right" && (
             <FontAwesomeIcon icon={faAngleRight} width={12} />
+          )}
+          {decorationRight == "pen" && (
+            <FontAwesomeIcon icon={faPenToSquare} width={20} />
           )}
         </div>
       </div>

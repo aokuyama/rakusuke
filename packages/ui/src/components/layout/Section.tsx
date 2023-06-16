@@ -12,7 +12,7 @@ export const SectionL: FC<Props> = ({ children }) => {
 };
 
 const stylesL = css`
-  margin: 0 auto;
+  margin: 16px auto 0;
   ${isWide} {
     grid-row: 1 / 1;
     grid-column: 1 / 2;
@@ -25,7 +25,7 @@ export const SectionR: FC<Props> = ({ children }) => {
 };
 
 const stylesR = css`
-  margin: 0 auto;
+  margin: 16px auto 0;
   ${isWide} {
     grid-row: 1 / 1;
     grid-column: 2 / 3;

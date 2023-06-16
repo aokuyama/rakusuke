@@ -24,11 +24,10 @@ const styles = css`
 `;
 const glidStyles = css`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 16px auto 0;
   display: grid;
   ${isNotSmall} {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 340px;
   }
-  padding: 16px 0;
 `;

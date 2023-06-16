@@ -7,10 +7,12 @@ type Props = {
 };
 
 export const SideTitle: FC<Props> = ({ children }) => {
-  return <p css={styles}>{children}</p>;
+  return <h3 css={styles}>{children}</h3>;
 };
 
 const styles = css`
+  height: 36px;
+  line-height: 36px;
   display: block;
   text-align: center;
   ${boxLayout.default}

@@ -2,7 +2,7 @@ import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 import { Event } from "./Event";
 import { FC } from "react";
 import { CurrentEventView } from "domain/src/model/event";
-import { css } from "@emotion/react";
+import { Message } from "ui/src/components/Message";
 
 interface Props {
   events: RecentlyViewedEvent;
@@ -16,13 +16,7 @@ export const OverviewRecentEventBody: FC<Props> = ({
   const ordered = events.order(currentEvent);
   if (!ordered.length()) {
     return (
-      <p
-        css={css`
-          text-align: center;
-        `}
-      >
-        表示できるイベントがありません
-      </p>
+      <Message type={"unavailable"}>表示できるイベントがありません</Message>
     );
   }
   return (
