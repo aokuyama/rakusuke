@@ -143,4 +143,6 @@ export class ExistingEvent extends StructValueObject<
       description: this._description,
       created: this._created,
     });
+
+  isGuestLimit = (): boolean => this._guests.isLimit();
 }

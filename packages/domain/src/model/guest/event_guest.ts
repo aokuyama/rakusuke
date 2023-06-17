@@ -103,6 +103,7 @@ export class EventGuestList extends ArrayValueObject<
   EventGuest,
   EventGuestArgs
 > {
+  static readonly MAX: number = 30;
   static new(args: EventGuestArgs[]) {
     return new EventGuestList(args.map((v) => EventGuest.new(v)));
   }
@@ -110,7 +111,12 @@ export class EventGuestList extends ArrayValueObject<
     if (new Set(value.map((g) => g.number)).size != value.length) {
       throw new Error("duplicate number");
     }
+    if (EventGuestList.limitOver(value.length)) {
+      throw new Error("guest limit over");
+    }
   }
+  static limitOver = (length: number): boolean => length > EventGuestList.MAX;
+  isLimit = (): boolean => EventGuestList.limitOver(this._value.length + 1);
   getByNumber(number: number): EventGuest {
     const n = new GuestNumber(number);
     for (const guest of this._value) {

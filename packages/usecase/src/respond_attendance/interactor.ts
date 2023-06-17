@@ -26,6 +26,9 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
     if (!event) {
       throw new Error("event not found");
     }
+    if (event.isGuestLimit()) {
+      throw new Error("guest limit over");
+    }
     const newGuest = NewGuest.new({
       number: event.makeNewGuestNumber(),
       name: input.name,

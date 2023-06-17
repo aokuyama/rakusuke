@@ -105,6 +105,14 @@ describe("ゲストのリスト", () => {
       EventGuestList.new([guest1s, guest1s]);
     }).toThrow("duplicate number");
   });
+  it("制限数を超えるとエラーになる", () => {
+    const guests = Array.from(Array(31), (v, k) => {
+      return { name: "guest" + (k + 1), number: k + 1, attendance: [] };
+    });
+    expect(() => {
+      EventGuestList.new(guests);
+    }).toThrow("guest limit over");
+  });
 });
 
 describe("ゲストを追加できる", () => {
@@ -139,6 +147,20 @@ describe("ゲストを追加できる", () => {
     expect(() => {
       guests.push(guest2New);
     }).toThrow("duplicate number");
+  });
+  it("制限数を超えるとエラーになる", () => {
+    const rows = Array.from(Array(30), (v, k) => {
+      return { name: "guest" + (k + 1), number: k + 1, attendance: [] };
+    });
+    const guests = EventGuestList.new(rows);
+    const guestNew = EventGuest.new({
+      attendance: [],
+      name: "guest32",
+      number: 32,
+    });
+    expect(() => {
+      guests.push(guestNew);
+    }).toThrow("guest limit over");
   });
 });
 describe("同じIDのゲストを差し替える", () => {
