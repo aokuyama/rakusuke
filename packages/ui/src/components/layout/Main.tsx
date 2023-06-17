@@ -13,6 +13,7 @@ export const Main: FC<Props> = ({ children }) => {
 
 const styles = css`
   margin: 0 auto;
+  padding: 0.1px 0 0.1px;
   ${screenSize.isSmall} {
     width: ${boxSize.default}px;
   }
