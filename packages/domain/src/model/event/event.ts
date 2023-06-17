@@ -199,6 +199,7 @@ export class CurrentEvent
   isExist = (): this is CurrentEvent => true;
   isLoading = (): this is CurrentEventLoading => false;
   isNotFound = (): this is CurrentEventNotFound => false;
+  isGuestLimit = (): boolean => this._guests.isLimit();
 }
 
 export interface CurrentEventView {

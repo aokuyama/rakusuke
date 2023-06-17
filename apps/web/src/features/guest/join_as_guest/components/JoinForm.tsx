@@ -19,7 +19,7 @@ export const JoinForm: FC<Props> = ({ event, setEvent }) => {
         onClick={() => {
           setIsNewGuestFormOpen(true);
         }}
-        disabled={loadingCtx.loading}
+        disabled={event.isGuestLimit() || loadingCtx.loading}
         decorationRight="pen"
       >
         スケジュール入力

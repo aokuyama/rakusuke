@@ -4,6 +4,7 @@ import { Subtitle } from "ui/src/components/Subtitle";
 import { StickyNote } from "ui/src/components/StickyNote";
 import { JoinForm } from "@/features/guest/join_as_guest/components/JoinForm";
 import { Message } from "ui/src/components/Message";
+import { FormError } from "ui/src/components/FormError";
 
 type Props = {
   event: CurrentEvent;
@@ -21,6 +22,7 @@ export const EventTitle: FC<Props> = ({ event, setEvent }) => {
         {event.guests.length
           ? event.guests.length + " 人が日程調整中です"
           : "まだ参加希望者がいません"}
+        {event.isGuestLimit() && <FormError>これ以上登録できません</FormError>}
       </Message>
       <JoinForm event={event} setEvent={setEvent} />
     </>
