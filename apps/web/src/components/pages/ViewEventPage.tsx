@@ -4,9 +4,12 @@ import { EventGuest } from "domain/src/model/guest";
 import { OverviewRecentEvent } from "@/features/event/recently_viewed_events/components/OverviewRecentEvent";
 import { RecentlyViewedEvent } from "domain/src/model/event/recently_viewed";
 import { Main } from "ui/src/components/layout/Main";
-import { Aside } from "ui/src/components/layout/Aside";
 import { Frame } from "ui/src/components/layout/Frame";
-import { SectionL, SectionR } from "ui/src/components/layout/Section";
+import {
+  SectionLeft,
+  SectionMain,
+  SectionRight,
+} from "ui/src/components/layout/Section";
 import { EventLoading } from "@/features/event/view_event/components/EventLoading";
 import { EventNotFound } from "@/features/event/view_event/components/EventNotFound";
 import { EventFound } from "@/features/event/view_event/components/EventFound";
@@ -24,12 +27,12 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
   return (
     <Frame>
       <Main>
-        <SectionR>
+        <SectionMain>
           {event.isExist() && <EventFound event={event} setEvent={setEvent} />}
           {event.isNotFound() && <EventNotFound />}
           {event.isLoading() && <EventLoading />}
-        </SectionR>
-        <SectionL>
+        </SectionMain>
+        <SectionLeft>
           {event.isExist() && (
             <GuestView
               event={event}
@@ -38,10 +41,10 @@ export const ViewEventPage: FC<Props> = ({ event, setEvent, events }) => {
               setTargetGuest={setTargetGuest}
             />
           )}
-        </SectionL>
-        <Aside>
+        </SectionLeft>
+        <SectionRight>
           <OverviewRecentEvent events={events} currentEvent={event} />
-        </Aside>
+        </SectionRight>
       </Main>
     </Frame>
   );

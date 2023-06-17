@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
 import { backgroundColor, textColor } from "../../styles/color";
-import { screenSize } from "../../styles/layout";
 import { headerHeight } from "./Header";
 import { footerHeight } from "./Footer";
 

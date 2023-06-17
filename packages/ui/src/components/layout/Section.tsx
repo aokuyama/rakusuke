@@ -7,11 +7,17 @@ type Props = {
   children: ReactNode;
 };
 
-export const SectionL: FC<Props> = ({ children }) => {
-  return <section css={stylesL}>{children}</section>;
+export const SectionLeft: FC<Props> = ({ children }) => {
+  return <section css={stylesLeft}>{children}</section>;
+};
+export const SectionMain: FC<Props> = ({ children }) => {
+  return <section css={stylesMain}>{children}</section>;
+};
+export const SectionRight: FC<Props> = ({ children }) => {
+  return <aside css={stylesRight}>{children}</aside>;
 };
 
-const stylesL = css`
+const stylesLeft = css`
   margin: 16px auto 0;
   width: ${boxSize.default}px;
   ${screenSize.isNotSmall} {
@@ -22,11 +28,7 @@ const stylesL = css`
   }
 `;
 
-export const SectionR: FC<Props> = ({ children }) => {
-  return <section css={stylesR}>{children}</section>;
-};
-
-const stylesR = css`
+const stylesMain = css`
   margin: 16px auto 0;
   width: ${boxSize.default}px;
   ${screenSize.isNotSmall} {
@@ -38,5 +40,19 @@ const stylesR = css`
   ${screenSize.isWide} {
     grid-row: 1 / 1;
     grid-column: 2 / 3;
+  }
+`;
+
+const stylesRight = css`
+  margin: 0 auto;
+  width: ${boxSize.default}px;
+  ${screenSize.isNotSmall} {
+    margin-top: 16px;
+    grid-row: 1 / 1;
+    grid-column: 2 / 3;
+    width: ${boxSize.side}px;
+  }
+  ${screenSize.isWide} {
+    grid-column: 3 / 4;
   }
 `;

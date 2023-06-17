@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { backgroundColor } from "../styles/color";
 import { boxLayout } from "../styles/layout";
 import { CloseButton } from "./CloseButton";
-import { boxSize } from "../styles/size";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
