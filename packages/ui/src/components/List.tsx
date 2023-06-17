@@ -22,7 +22,7 @@ export const List: FC<Props> = ({ items }) => {
 const list = css`
   display: flex;
   flex-wrap: wrap;
-  :has(:nth-child(1)) {
+  :has(li) {
     padding: 16px 0;
   }
   border-radius: 3px;

@@ -59,7 +59,7 @@ export const EditBox: FC<Props> = ({
 };
 
 const detailsStyle = css`
-  &[open] > summary > div > div:first-child {
+  &[open] > summary > div > div:first-of-type {
     rotate: 90deg;
   }
   &[open] > summary > div > span {
