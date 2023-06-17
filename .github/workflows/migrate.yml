@@ -36,7 +36,7 @@ jobs:
       - name: Install Dependencies
 
         run: |
-          yarn global add turbo prisma@4.15.0
+          yarn global add turbo@1.10.3 prisma@4.15.0
           rm -rf ./apps
           rm -rf ./packages
           yarn install

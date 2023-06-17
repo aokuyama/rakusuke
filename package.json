@@ -24,7 +24,7 @@
     "lint-staged": ">=10",
     "prettier": "latest",
     "prisma": "^4.15.0",
-    "turbo": "^1.6.3"
+    "turbo": "^1.10.3"
   },
   "engines": {
     "node": ">=14.0.0"
