@@ -1,4 +1,4 @@
-name: Push Server Image
+name: Push Lambda Server Image
 on: workflow_dispatch
 
 jobs:
