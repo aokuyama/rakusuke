@@ -23,16 +23,13 @@ export class PrismaGuestRepository implements GuestRepository {
       if (!event) {
         throw new Error("event not found");
       }
-      const guestNumber = GuestNumber.generate(
-        event.guests.map((g) => g.guest_number)
-      );
       const attendance = pickAnswered(guest, event.schedules);
       const newGuest = await prisma.guest.create({
         data: {
           event_id: event.id,
           name: guest.name,
           memo: emptyToNull(guest.memo),
-          guest_number: guestNumber.value,
+          guest_number: guest.number,
         },
       });
       await prisma.attendance.createMany({

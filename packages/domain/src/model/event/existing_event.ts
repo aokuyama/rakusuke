@@ -1,4 +1,4 @@
-import { EventGuestArgs, EventGuestList } from "../guest";
+import { EventGuestArgs, EventGuestList, GuestNumber } from "../guest";
 import { UserID } from "../user";
 import { StructValueObject } from "../valueobject";
 import { EventName } from "./name";
@@ -100,8 +100,9 @@ export class ExistingEvent extends StructValueObject<
     return this._value.created;
   }
   schedules = (): Schedules => this._schedules;
-
   isOrganizer = (userId: UserID) => this._organizerId.equals(userId);
+  makeNewGuestNumber = () =>
+    GuestNumber.generate(this._guests.map((g) => g.number));
   makeUpdateEvent = (args: {
     name?: EventName;
     schedules: Schedules;

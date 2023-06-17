@@ -6,22 +6,31 @@ import {
 } from "../event/attendance";
 import { Date } from "../date";
 import { GuestMemo } from "./memo";
+import { GuestNumber } from "./number";
 
 interface GuestProps {
+  readonly number: GuestNumber;
   readonly name: GuestName;
   readonly memo: GuestMemo;
   readonly attendance: NewAttendanceList;
 }
 
 interface GuestArgs {
+  readonly number: number;
   readonly name: string;
   readonly attendance: AttendanceArgs[];
   readonly memo?: string | undefined;
 }
 
 export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
-  static new(args: GuestArgs): NewGuest {
+  static new(args: {
+    number: GuestNumber;
+    name: string;
+    attendance: AttendanceArgs[];
+    memo?: string | undefined;
+  }): NewGuest {
     return new NewGuest({
+      number: args.number,
       name: new GuestName(args.name),
       memo: new GuestMemo(args.memo),
       attendance: NewAttendanceList.new(args.attendance),
@@ -29,6 +38,9 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
   }
   protected validate(value: GuestProps): void {
     // throw new Error("Method not implemented.");
+  }
+  get number(): number {
+    return this._value.number.value;
   }
   get name(): string {
     return this._value.name.value;

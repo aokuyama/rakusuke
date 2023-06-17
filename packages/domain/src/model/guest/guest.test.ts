@@ -1,9 +1,11 @@
 import { NewGuest } from "./guest";
 import { Date } from "../date";
-
+import { GuestNumber } from "./number";
+const number = new GuestNumber(1);
 describe("ゲスト", () => {
   it("正しく生成できる", () => {
     const guest = NewGuest.new({
+      number: number,
       name: "ゲスト",
       attendance: [
         {
@@ -28,6 +30,7 @@ describe("ゲスト", () => {
         },
       ],
       name: "ゲスト",
+      number: 1,
       memo: undefined,
     });
   });
@@ -35,6 +38,7 @@ describe("ゲスト", () => {
   it("名前がない場合失敗する", () => {
     expect(() => {
       NewGuest.new({
+        number: number,
         name: "",
         attendance: [
           {
@@ -53,6 +57,7 @@ describe("ゲスト", () => {
   it("回答がひとつもない場合失敗する", () => {
     expect(() => {
       NewGuest.new({
+        number: number,
         name: "guest",
         attendance: [],
       });
@@ -62,6 +67,7 @@ describe("ゲスト", () => {
 
 describe("回答が存在するか", () => {
   const guest = NewGuest.new({
+    number: number,
     name: "ゲスト",
     attendance: [
       {
@@ -86,6 +92,7 @@ describe("回答が存在するか", () => {
 
 describe("回答を取得", () => {
   const guest = NewGuest.new({
+    number: number,
     name: "ゲスト",
     attendance: [
       {
