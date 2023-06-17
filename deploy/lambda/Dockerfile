@@ -1,7 +1,7 @@
 FROM public.ecr.aws/lambda/nodejs:16 as build
 
 RUN npm install -g yarn
-RUN yarn global add turbo prisma
+RUN yarn global add turbo prisma@4.15.0
 
 WORKDIR /build
 COPY ./ ./
