@@ -2,6 +2,7 @@ import { ArrayValueObject, StructValueObject } from "../valueobject";
 import { Date } from "../date";
 import { EventDates } from "./date_list";
 import { EventGuest, EventGuestList } from "../guest";
+import { arrayMax } from "../../util";
 
 interface ScheduleProps {
   readonly date: Date;
@@ -191,11 +192,15 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     }
     return undefined;
   };
+
   dateMap = (guests: EventGuestList): ScheduleMap[] => {
-    let max = 0;
-    const dates = this._value.map((schedule) => {
+    const dateMap = this.dateScheduleMap(guests);
+    return this.makeStrong(dateMap);
+  };
+
+  dateScheduleMap = (guests: EventGuestList): ScheduleMap[] => {
+    return this._value.map((schedule) => {
       const attendees = guests.attendeesByDate(schedule._date);
-      max = max < attendees.length ? attendees.length : max;
       return {
         id: schedule._date.id(),
         date: schedule._date,
@@ -204,8 +209,19 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
         selected: schedule.held,
       };
     });
-    return dates.map((d) => {
-      d.strong = d.attendees.length == max && max > 0;
+  };
+  makeStrong = (dateMap: ScheduleMap[]): ScheduleMap[] => {
+    const lengths = dateMap.map((d) => {
+      return d.attendees.length;
+    });
+    // 1人以上の参加者がいる日が複数パターンある場合、最も参加人数の多い日を強調する
+    const counts = Array.from(new Set(lengths)).filter((v) => v);
+    if (counts.length < 2) {
+      return dateMap;
+    }
+    const max = arrayMax(counts);
+    return dateMap.map((d) => {
+      d.strong = d.attendees.length == max;
       return d;
     });
   };
