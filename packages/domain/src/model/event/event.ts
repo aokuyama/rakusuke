@@ -96,6 +96,7 @@ export class CurrentEvent
   private get _created(): Date {
     return this._value.created;
   }
+  nameAndCount = (): string => this.name + " (" + this.guests.length + ")";
   newAttendance = () =>
     NewAttendanceList.newByDates(
       this._value.schedules.dates().map((date) => {

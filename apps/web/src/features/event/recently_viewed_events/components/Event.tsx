@@ -13,7 +13,9 @@ export const Event: FC<Props> = ({ event }) => {
   return (
     <Box
       name={
-        <Anchor href={Site.getEventPagePath(event.path)}>{event.name}</Anchor>
+        <Anchor href={Site.getEventPagePath(event.path)}>
+          {event.nameAndCount()}
+        </Anchor>
       }
       icon={event.isOrganizer ? "editUser" : undefined}
     >
