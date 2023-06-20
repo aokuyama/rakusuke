@@ -23,6 +23,7 @@ export const Subtitle: FC<Props> = ({ children, isHeadline }) => {
 };
 
 const styles = css`
+  font-weight: 800;
   ${boxLayout.default}
   margin: -12px auto 22px;
   min-height: 36px;

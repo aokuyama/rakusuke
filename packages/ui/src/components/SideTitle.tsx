@@ -11,6 +11,7 @@ export const SideTitle: FC<Props> = ({ children }) => {
 };
 
 const styles = css`
+  font-weight: 800;
   height: 36px;
   line-height: 36px;
   display: block;
