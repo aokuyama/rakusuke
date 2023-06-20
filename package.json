@@ -27,7 +27,7 @@
     "turbo": "^1.10.3"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.16.0"
   },
   "dependencies": {
     "date-fns": "^2.29.3"
