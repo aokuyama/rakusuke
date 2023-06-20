@@ -21,7 +21,7 @@
     "@prisma/client": "^4.15.0",
     "eslint-config-custom": "*",
     "husky": ">=6",
-    "lint-staged": ">=10",
+    "lint-staged": "^13.2.2",
     "prettier": "latest",
     "prisma": "^4.15.0",
     "turbo": "^1.10.3"
