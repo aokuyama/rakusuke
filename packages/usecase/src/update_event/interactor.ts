@@ -8,10 +8,13 @@ import type {
 import { EventRepository } from "domain/src/model/event/repository";
 import { UpdateEventAndDate, EventPath } from "domain/src/model/event";
 import { UserID } from "domain/src/model/user";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class UpdateEventInteractor implements UpdateEventUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("UpdateEventPresenter")
     private readonly presenter: UpdateEventPresenter,
     @inject("EventRepository")

@@ -9,10 +9,13 @@ import { EventRepository } from "domain/src/model/event/repository";
 import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
 import { UpdateEventHeld, EventPath } from "domain/src/model/event";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class DecideOnEventDateInteractor implements DecideOnEventDateUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("DecideOnEventDatePresenter")
     private readonly presenter: DecideOnEventDatePresenter,
     @inject("EventRepository")

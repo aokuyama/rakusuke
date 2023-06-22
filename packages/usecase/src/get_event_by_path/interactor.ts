@@ -7,10 +7,13 @@ import type {
 } from ".";
 import { EventRepository } from "domain/src/model/event/repository";
 import { EventPath } from "domain/src/model/event/path";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class GetEventByPathInteractor implements GetEventByPathUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("GetEventByPathPresenter")
     private readonly presenter: GetEventByPathPresenter,
     @inject("EventRepository")

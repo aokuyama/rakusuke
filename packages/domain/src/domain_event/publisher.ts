@@ -1,15 +1,15 @@
 import { Subscriber } from "./subscriber";
 import { DomainEvent } from "./event";
 
-export class Publisher {
+export class DomainEventPublisher {
   private readonly subscribers: readonly Subscriber[];
   constructor(subscribers: Subscriber[]) {
     this.subscribers = Object.freeze(subscribers);
   }
 
-  register(subscriber: Subscriber | Subscriber[]): Publisher {
+  register(subscriber: Subscriber | Subscriber[]): DomainEventPublisher {
     const subs = Array.isArray(subscriber) ? subscriber : [subscriber];
-    return new Publisher(subs);
+    return new DomainEventPublisher(subs);
   }
 
   async publish(event: DomainEvent): Promise<void> {

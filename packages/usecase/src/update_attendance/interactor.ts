@@ -7,10 +7,13 @@ import type {
 } from ".";
 import { GuestRepository, EventGuest } from "domain/src/model/guest";
 import { EventPath } from "domain/src/model/event/path";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("UpdateAttendancePresenter")
     private readonly presenter: UpdateAttendancePresenter,
     @inject("GuestRepository")

@@ -8,10 +8,13 @@ import type {
 import { EventRepository } from "domain/src/model/event/repository";
 import { UserID } from "domain/src/model/user";
 import { UpdateEventNoHeld, EventPath } from "domain/src/model/event";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class ResetEventDateInteractor implements ResetEventDateUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("ResetEventDatePresenter")
     private readonly presenter: ResetEventDatePresenter,
     @inject("EventRepository")

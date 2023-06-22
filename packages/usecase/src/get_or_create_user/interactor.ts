@@ -8,10 +8,13 @@ import type {
 import { UserEntity, UserRepository } from "domain/src/model/user";
 import { NewUserToken, UserToken } from "domain/src/model/user/token";
 import { NewUUID, UUID } from "domain/src/model/uuid";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("GetOrCreateUserPresenter")
     private readonly presenter: GetOrCreateUserPresenter,
     @inject("UserRepository")

@@ -9,10 +9,13 @@ import { EventRepository } from "domain/src/model/event/repository";
 import { NewEvent } from "domain/src/model/event";
 import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class CreateEventInteractor implements CreateEventUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("CreateEventPresenter")
     private readonly presenter: CreateEventPresenter,
     @inject("EventRepository")

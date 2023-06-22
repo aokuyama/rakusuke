@@ -4,10 +4,13 @@ import type { GetUserInput, GetUserPresenter, GetUserUsecase } from ".";
 import { UserRepository } from "domain/src/model/user";
 import { UserToken } from "domain/src/model/user/token";
 import { UUID } from "domain/src/model/uuid";
+import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
 export class GetUserInteractor implements GetUserUsecase {
   constructor(
+    @inject("DomainEventPublisher")
+    private readonly eventPublisher: DomainEventPublisher,
     @inject("GetUserPresenter")
     private readonly presenter: GetUserPresenter,
     @inject("UserRepository")
