@@ -37,9 +37,6 @@ export class ExistingEvent extends StructValueObject<
   ExistingEventProps,
   ExistingEventArgs
 > {
-  protected validate(value: ExistingEventProps): void {
-    // throw new Error("Method not implemented.");
-  }
   static new(args: {
     uuid: string;
     id: number;

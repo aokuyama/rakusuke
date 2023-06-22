@@ -18,9 +18,6 @@ export class GuestDefault extends StructValueObject<
       name: new GuestName(args.name),
     });
   }
-  protected validate(value: GuestDefaultProps): void {
-    // throw new Error("Method not implemented.");
-  }
   get name(): string {
     return this._value.name.value;
   }

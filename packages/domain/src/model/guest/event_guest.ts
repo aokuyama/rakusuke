@@ -40,9 +40,6 @@ export class EventGuest extends StructValueObject<
       attendance: CurrentAttendanceList.new(args.attendance),
     });
   }
-  protected validate(value: EventGuestProps): void {
-    // throw new Error("Method not implemented.");
-  }
   get number(): number {
     return this._value.number.value;
   }

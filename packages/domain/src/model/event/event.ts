@@ -40,9 +40,6 @@ export class CurrentEvent
   extends StructValueObject<CurrentEventProps, CurrentEventArgs>
   implements CurrentEventView
 {
-  protected validate(value: CurrentEventProps): void {
-    // throw new Error("Method not implemented.");
-  }
   static new(args: CurrentEventArgs): CurrentEvent {
     return new CurrentEvent({
       uuid: new UUID(args.uuid),

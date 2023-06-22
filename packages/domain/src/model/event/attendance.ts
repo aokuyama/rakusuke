@@ -20,9 +20,6 @@ export class Attendance extends StructValueObject<
       attend: args.attend,
     });
   }
-  protected validate(value: AttendanceProps): void {
-    // throw new Error("Method not implemented.");
-  }
   get _date(): Date {
     return this._value.date;
   }

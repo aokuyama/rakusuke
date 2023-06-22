@@ -28,9 +28,6 @@ export class Schedule extends StructValueObject<ScheduleProps, ScheduleArgs> {
     });
   }
 
-  protected validate(value: ScheduleProps): void {
-    // throw new Error("Method not implemented.");
-  }
   get date(): string {
     return this._date.toString();
   }

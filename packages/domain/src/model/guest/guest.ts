@@ -36,9 +36,6 @@ export class NewGuest extends StructValueObject<GuestProps, GuestArgs> {
       attendance: NewAttendanceList.new(args.attendance),
     });
   }
-  protected validate(value: GuestProps): void {
-    // throw new Error("Method not implemented.");
-  }
   get number(): number {
     return this._value.number.value;
   }

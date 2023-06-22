@@ -39,9 +39,6 @@ export class RegisteredUser extends StructValueObject<UserProps, UserArgs> {
       token: new UserToken(args.token),
     });
   }
-  protected validate(value: UserProps): void {
-    // throw new Error("Method not implemented.");
-  }
   getUUID = (): string => this._value.uuid.value;
   getAuthInfo = (): { uuid: string; token: string } => {
     return {
@@ -79,9 +76,6 @@ export class UserEntity extends StructValueObject<
       uuid: args.uuid,
       token: args.token,
     });
-  }
-  protected validate(value: UserEntityProps): void {
-    // throw new Error("Method not implemented.");
   }
   get _id(): UserID {
     return this._value.id;

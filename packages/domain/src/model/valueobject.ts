@@ -12,7 +12,8 @@ export abstract class AbstractValueObject<T> extends AbstractValueObjectIf {
   }
   equals = (value: AbstractValueObject<T>): boolean =>
     this._value === value._value;
-  protected abstract validate(value: T): void;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected validate(value: T): void {}
 }
 
 interface StructValueObjectProps {
