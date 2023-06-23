@@ -8,6 +8,7 @@ import type {
 import { GuestRepository, EventGuest } from "domain/src/model/guest";
 import { EventPath } from "domain/src/model/event/path";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
+import { UpdateGuestEvent } from "domain/src/model/guest/domain_event";
 
 @injectable()
 export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
@@ -29,6 +30,7 @@ export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
     });
     const eventPath = new EventPath(input.eventPath);
     const updatedGuest = await this.repository.update(eventPath, guest);
+    this.eventPublisher.publish(new UpdateGuestEvent(updatedGuest));
     await this.presenter.render({ guest: updatedGuest });
   };
 }

@@ -9,6 +9,7 @@ import { EventRepository } from "domain/src/model/event/repository";
 import { NewEvent } from "domain/src/model/event";
 import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
+import { CreateEventEvent } from "domain/src/model/event/domain_event";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
@@ -33,6 +34,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
       today: Date.todayString(),
     });
     const createdEvent = await this.repository.createEvent(event);
+    this.eventPublisher.publish(new CreateEventEvent(createdEvent));
     await this.presenter.render({ event: createdEvent });
   };
 }

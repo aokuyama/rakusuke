@@ -8,6 +8,7 @@ import type {
 import { UserEntity, UserRepository } from "domain/src/model/user";
 import { NewUserToken, UserToken } from "domain/src/model/user/token";
 import { NewUUID, UUID } from "domain/src/model/uuid";
+import { CreateUserEvent } from "domain/src/model/user/domain_event";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
 
 @injectable()
@@ -36,10 +37,13 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
       new UUID(uuid),
       new UserToken(token)
     );
-  private createUser = async (): Promise<UserEntity> =>
+  private createUser = async (): Promise<UserEntity> => {
     // TODO 天文学的な確率で失敗した時のリトライを入れる
-    await this.repository.createByUUIDAndToken(
+    const user = await this.repository.createByUUIDAndToken(
       NewUUID.create(),
       NewUserToken.create()
     );
+    this.eventPublisher.publish(new CreateUserEvent(user));
+    return user;
+  };
 }

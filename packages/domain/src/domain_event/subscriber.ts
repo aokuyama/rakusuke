@@ -1,6 +1,6 @@
 import { DomainEvent } from "./event";
 
-export interface Subscriber {
+export interface DomainEventSubscriber {
   isSubscribe(event: DomainEvent): boolean;
   subscribe(event: DomainEvent): Promise<void>;
 }

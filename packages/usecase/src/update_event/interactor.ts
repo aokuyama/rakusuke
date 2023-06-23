@@ -9,6 +9,7 @@ import { EventRepository } from "domain/src/model/event/repository";
 import { UpdateEventAndDate, EventPath } from "domain/src/model/event";
 import { UserID } from "domain/src/model/user";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
+import { UpdateEventEvent } from "domain/src/model/event/domain_event";
 
 @injectable()
 export class UpdateEventInteractor implements UpdateEventUsecase {
@@ -41,6 +42,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
       existingEvent,
       after
     );
+    this.eventPublisher.publish(new UpdateEventEvent(updatedEvent));
     await this.presenter.render({ event: updatedEvent });
   };
 }

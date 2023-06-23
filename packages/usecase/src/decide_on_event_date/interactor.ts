@@ -10,6 +10,7 @@ import { Date } from "domain/src/model/date";
 import { UserID } from "domain/src/model/user";
 import { UpdateEventHeld, EventPath } from "domain/src/model/event";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
+import { UpdateEventDateEvent } from "domain/src/model/event/domain_event";
 
 @injectable()
 export class DecideOnEventDateInteractor implements DecideOnEventDateUsecase {
@@ -39,6 +40,7 @@ export class DecideOnEventDateInteractor implements DecideOnEventDateUsecase {
       existingEvent,
       after
     );
+    this.eventPublisher.publish(new UpdateEventDateEvent(updatedEvent));
     await this.presenter.render({ event: updatedEvent });
   };
 }

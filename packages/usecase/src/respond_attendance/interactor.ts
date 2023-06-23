@@ -9,6 +9,7 @@ import { NewGuest, GuestRepository } from "domain/src/model/guest";
 import { EventPath } from "domain/src/model/event/path";
 import { EventRepository } from "domain/src/model/event/repository";
 import { DomainEventPublisher } from "domain/src/domain_event/publisher";
+import { CreateGuestEvent } from "domain/src/model/guest/domain_event";
 
 @injectable()
 export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
@@ -39,6 +40,7 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
       attendance: input.attendance,
     });
     const guest = await this.guestRepository.create(eventPath, newGuest);
+    this.eventPublisher.publish(new CreateGuestEvent(guest));
     await this.presenter.render({ guest });
   };
 }
