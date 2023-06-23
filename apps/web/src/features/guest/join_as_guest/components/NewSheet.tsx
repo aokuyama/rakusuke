@@ -54,7 +54,7 @@ export const NewSheet: FC<Props> = ({
   const defaultValues = {
     name: guest.guestDefault ? guest.guestDefault.name : "",
     memo: "",
-    attendance: event.newAttendance().value,
+    attendance: event.newAttendance().serialize(),
   };
 
   return (

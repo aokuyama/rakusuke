@@ -82,7 +82,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
     return this._value.path;
   }
   get dates(): string[] {
-    return this._value.dates.value;
+    return this._value.dates.serialize();
   }
   get _dates(): EventDates {
     return this._value.dates;

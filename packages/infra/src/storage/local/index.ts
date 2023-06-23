@@ -25,7 +25,10 @@ export class LocalStorage {
       : RecentlyViewedEvent.createEmpty();
   };
   saveRecentEvents = (events: RecentlyViewedEvent) => {
-    window.localStorage.setItem("recent_events", JSON.stringify(events.value));
+    window.localStorage.setItem(
+      "recent_events",
+      JSON.stringify(events.serialize())
+    );
   };
 
   getGuestDefault = (): GuestDefault | undefined => {

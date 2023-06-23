@@ -31,10 +31,10 @@ describe("出席票", () => {
         attend: false,
       },
     ]);
-    expect(attendanceList.value[0].date).toBe(date1.toString());
-    expect(attendanceList.value[0].attend).toBe(true);
-    expect(attendanceList.value[1].date).toBe(date2.toString());
-    expect(attendanceList.value[1].attend).toBe(false);
+    expect(attendanceList.serialize()[0].date).toBe(date1.toString());
+    expect(attendanceList.serialize()[0].attend).toBe(true);
+    expect(attendanceList.serialize()[1].date).toBe(date2.toString());
+    expect(attendanceList.serialize()[1].attend).toBe(false);
   });
 
   it("回答が空の場合失敗する", () => {
@@ -82,31 +82,31 @@ describe("出席票スイッチ", () => {
     },
   ]);
   it("正しくオンオフできる", () => {
-    expect(attendanceList.value).toStrictEqual([
+    expect(attendanceList.serialize()).toStrictEqual([
       { attend: false, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: false, date: "2023/04/18" },
     ]);
     let newList = attendanceList.switch({ id: "20230415", attend: true });
-    expect(newList.value).toStrictEqual([
+    expect(newList.serialize()).toStrictEqual([
       { attend: true, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: false, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230418", attend: true });
-    expect(newList.value).toStrictEqual([
+    expect(newList.serialize()).toStrictEqual([
       { attend: true, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: true, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230415", attend: false });
-    expect(newList.value).toStrictEqual([
+    expect(newList.serialize()).toStrictEqual([
       { attend: false, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: true, date: "2023/04/18" },
     ]);
 
-    expect(attendanceList.value).toStrictEqual([
+    expect(attendanceList.serialize()).toStrictEqual([
       { attend: false, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: false, date: "2023/04/18" },
@@ -115,14 +115,14 @@ describe("出席票スイッチ", () => {
 
   it("二重押ししてもエラーにはならない", () => {
     let newList = attendanceList.switch({ id: "20230415", attend: false });
-    expect(newList.value).toStrictEqual([
+    expect(newList.serialize()).toStrictEqual([
       { attend: false, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: false, date: "2023/04/18" },
     ]);
     newList = newList.switch({ id: "20230418", attend: true });
     newList = newList.switch({ id: "20230418", attend: true });
-    expect(newList.value).toStrictEqual([
+    expect(newList.serialize()).toStrictEqual([
       { attend: false, date: "2023/04/15" },
       { attend: false, date: "2023/04/16" },
       { attend: true, date: "2023/04/18" },

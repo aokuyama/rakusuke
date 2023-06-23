@@ -88,7 +88,7 @@ export class CurrentEvent
     return this._value.schedules;
   }
   get guests() {
-    return this._value.guests.value;
+    return this._value.guests.serialize();
   }
   protected get _guests(): EventGuestList {
     return this._value.guests;

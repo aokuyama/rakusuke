@@ -48,9 +48,6 @@ export abstract class ArrayValueObject<
   T extends AbstractValueObjectIf,
   U
 > extends AbstractValueObject<T[]> {
-  get value(): U[] {
-    return this._value.map((v) => serialize(v));
-  }
   serialize(): U[] {
     return this._value.map((v) => serialize(v));
   }

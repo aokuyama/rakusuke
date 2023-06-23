@@ -55,7 +55,7 @@ describe("開催日決定", () => {
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
       new Date("2023/04/15")
     );
-    expect(schedules.value).toStrictEqual([
+    expect(schedules.serialize()).toStrictEqual([
       { date: "2023/04/15", held: true },
       { date: "2023/04/16", held: false },
       { date: "2023/04/17", held: false },
@@ -66,7 +66,7 @@ describe("開催日決定", () => {
     });
 
     const d2 = event.makeHeldUpdatedSchedules(new Date("2023/04/16"));
-    expect(d2.schedules.value).toStrictEqual([
+    expect(d2.schedules.serialize()).toStrictEqual([
       { date: "2023/04/15", held: false },
       { date: "2023/04/16", held: true },
       { date: "2023/04/17", held: false },
@@ -85,7 +85,7 @@ describe("開催日決定", () => {
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
       new Date("2023/06/16")
     );
-    expect(schedules.value).toStrictEqual([
+    expect(schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: false },
       { date: "2023/06/16", held: true },
       { date: "2023/06/17", held: false },
@@ -96,7 +96,7 @@ describe("開催日決定", () => {
     ]);
 
     const d2 = event.makeHeldUpdatedSchedules(new Date("2023/06/15"));
-    expect(d2.schedules.value).toStrictEqual([
+    expect(d2.schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: true },
       { date: "2023/06/16", held: false },
       { date: "2023/06/17", held: false },
@@ -116,7 +116,7 @@ describe("開催日決定", () => {
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
       new Date("2023/06/15")
     );
-    expect(schedules.value).toStrictEqual([
+    expect(schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: true },
       { date: "2023/06/16", held: false },
       { date: "2023/06/17", held: false },
@@ -141,7 +141,7 @@ describe("開催日決定", () => {
       { date: "2023/06/17", held: false },
     ]);
     const { schedules, updatedSchedules } = event.makeNoHeldSchedules();
-    expect(schedules.value).toStrictEqual([
+    expect(schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: false },
       { date: "2023/06/16", held: false },
       { date: "2023/06/17", held: false },
@@ -155,7 +155,7 @@ describe("開催日決定", () => {
       { date: "2023/06/16", held: false },
     ]);
     const r2 = event2.makeNoHeldSchedules();
-    expect(r2.schedules.value).toStrictEqual([
+    expect(r2.schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: false },
       { date: "2023/06/16", held: false },
     ]);
