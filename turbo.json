@@ -22,7 +22,9 @@
         "PEPPER_USER",
         "PEPPER_EVENT",
         "URL_APP",
-        "NEXT_PUBLIC_URL_API"
+        "NEXT_PUBLIC_URL_API",
+        "AWS_SNS_DOMAIN_EVENT_REGION",
+        "AWS_SNS_DOMAIN_EVENT_TOPIC"
       ]
     },
     "lint": {
