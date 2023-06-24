@@ -3,9 +3,7 @@ export abstract class DomainEvent {
   constructor(rawBody: unknown) {
     this.rawBody = Object.freeze(rawBody);
   }
-  name = (): string => {
-    return this.constructor.name;
-  };
+  abstract get name(): string;
   body(): string {
     if (typeof this.rawBody === "string") {
       return this.rawBody;
