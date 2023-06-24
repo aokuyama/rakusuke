@@ -43,7 +43,7 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
       NewUUID.create(),
       NewUserToken.create()
     );
-    this.eventPublisher.publish(new CreateUserEvent(user));
+    await this.eventPublisher.publish(new CreateUserEvent(user));
     return user;
   };
 }

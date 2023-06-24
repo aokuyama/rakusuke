@@ -30,7 +30,7 @@ export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
     });
     const eventPath = new EventPath(input.eventPath);
     const updatedGuest = await this.repository.update(eventPath, guest);
-    this.eventPublisher.publish(new UpdateGuestEvent(updatedGuest));
+    await this.eventPublisher.publish(new UpdateGuestEvent(updatedGuest));
     await this.presenter.render({ guest: updatedGuest });
   };
 }

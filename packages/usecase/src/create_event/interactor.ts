@@ -34,7 +34,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
       today: Date.todayString(),
     });
     const createdEvent = await this.repository.createEvent(event);
-    this.eventPublisher.publish(new CreateEventEvent(createdEvent));
+    await this.eventPublisher.publish(new CreateEventEvent(createdEvent));
     await this.presenter.render({ event: createdEvent });
   };
 }

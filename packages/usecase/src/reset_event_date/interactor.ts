@@ -37,7 +37,7 @@ export class ResetEventDateInteractor implements ResetEventDateUsecase {
       existingEvent,
       after
     );
-    this.eventPublisher.publish(new UpdateEventDateEvent(updatedEvent));
+    await this.eventPublisher.publish(new UpdateEventDateEvent(updatedEvent));
     await this.presenter.render({ event: updatedEvent });
   };
 }

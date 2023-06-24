@@ -42,7 +42,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
       existingEvent,
       after
     );
-    this.eventPublisher.publish(new UpdateEventEvent(updatedEvent));
+    await this.eventPublisher.publish(new UpdateEventEvent(updatedEvent));
     await this.presenter.render({ event: updatedEvent });
   };
 }

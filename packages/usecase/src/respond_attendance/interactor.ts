@@ -40,7 +40,7 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
       attendance: input.attendance,
     });
     const guest = await this.guestRepository.create(eventPath, newGuest);
-    this.eventPublisher.publish(new CreateGuestEvent(guest));
+    await this.eventPublisher.publish(new CreateGuestEvent(guest));
     await this.presenter.render({ guest });
   };
 }

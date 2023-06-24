@@ -18,7 +18,7 @@ export class DomainEventPublisher {
     await Promise.all(
       this.subscribers.map(async (subscriber) => {
         if (subscriber.isSubscribe(event)) {
-          return subscriber.subscribe(event);
+          return await subscriber.subscribe(event);
         }
       })
     );
