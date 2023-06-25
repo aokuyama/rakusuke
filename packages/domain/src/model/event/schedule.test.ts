@@ -181,4 +181,42 @@ describe("スケジュール更新", () => {
 
     expect(current.serialize()).toStrictEqual(schedulesRows);
   });
+
+  it("すでに開催日があった場合、オフになる", () => {
+    const helds = Schedules.new([
+      { date: "2023/04/15", held: false },
+      { date: "2023/04/16", held: true },
+      { date: "2023/04/18", held: false },
+    ]);
+
+    const newDates1 = EventDates.new([
+      "2023/04/14",
+      "2023/04/16",
+      "2023/04/19",
+      "2023/04/21",
+    ]);
+    const newschedules1 = helds.updateDates(newDates1);
+    expect(newschedules1.schedules.serialize()).toStrictEqual([
+      { date: "2023/04/14", held: false },
+      { date: "2023/04/16", held: false },
+      { date: "2023/04/19", held: false },
+      { date: "2023/04/21", held: false },
+    ]);
+    expect(
+      newschedules1.updatedSchedules.map((s) => s.serialize())
+    ).toStrictEqual([{ date: "2023/04/16", held: false }]);
+
+    const newDates2 = EventDates.new([
+      "2023/04/14",
+      "2023/04/19",
+      "2023/04/21",
+    ]);
+    const newschedules2 = helds.updateDates(newDates2);
+    expect(newschedules2.schedules.serialize()).toStrictEqual([
+      { date: "2023/04/14", held: false },
+      { date: "2023/04/19", held: false },
+      { date: "2023/04/21", held: false },
+    ]);
+    expect(newschedules2.updatedSchedules.length).toBe(0);
+  });
 });

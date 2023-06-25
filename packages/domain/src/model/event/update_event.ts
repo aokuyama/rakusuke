@@ -2,7 +2,7 @@ import { StructValueObject } from "../valueobject";
 import { EventDates } from "./date_list";
 import { EventName } from "./name";
 import { Date } from "../date";
-import { Schedule, Schedules } from "./schedule";
+import { Schedule } from "./schedule";
 import { validateMaxDate } from "../../service/event";
 import { ExistingEvent } from "./existing_event";
 import { EventDescription } from "./description";
@@ -69,11 +69,8 @@ export class UpdateEventAndDate
     removedDates: Date[];
     updatedSchedules: Schedule[];
   } => {
-    const { schedules, addedDates, removedDates } = beforeEvent
-      .schedules()
-      .updateDates(this._dates);
-    // 日付の増減のみなので、Schedule自体の更新はない
-    const updatedSchedules: Schedule[] = [];
+    const { schedules, addedDates, removedDates, updatedSchedules } =
+      beforeEvent.schedules().updateDates(this._dates);
     return {
       updatedEvent: beforeEvent.makeUpdateEvent({
         name: this._name,

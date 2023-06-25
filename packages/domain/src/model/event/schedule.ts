@@ -90,9 +90,11 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     schedules: Schedules;
     addedDates: Date[];
     removedDates: Date[];
+    updatedSchedules: Schedule[];
   } => {
     const addedDates = [];
     const removedDates = [];
+    const updatedSchedules = [];
     for (const date of newDates._dates) {
       if (!this.eventDates().includes(date)) {
         addedDates.push(date);
@@ -107,7 +109,16 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     for (const date of newDates._dates) {
       const schedule = this.getByDate(date);
       if (schedule) {
-        schedules.push(schedule);
+        if (schedule.held) {
+          const noHeldSchedule = new Schedule({
+            date: schedule._date,
+            held: false,
+          });
+          schedules.push(noHeldSchedule);
+          updatedSchedules.push(noHeldSchedule);
+        } else {
+          schedules.push(schedule);
+        }
       } else {
         schedules.push(Schedule.create({ date: date }));
       }
@@ -116,6 +127,7 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
       schedules: new Schedules(schedules),
       addedDates: addedDates,
       removedDates: removedDates,
+      updatedSchedules: updatedSchedules,
     };
   };
   makeHeldUpdatedSchedules = (
