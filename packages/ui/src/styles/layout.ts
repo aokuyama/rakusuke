@@ -2,8 +2,13 @@ import { css } from "@emotion/react";
 
 export const boxLayout = {
   default: css`
-    max-width: 100%;
     margin: 0 auto 16px;
+  `,
+  cancel: css`
+    margin: 0 auto -16px;
+  `,
+  long: css`
+    margin: 0 auto 32px;
   `,
 };
 

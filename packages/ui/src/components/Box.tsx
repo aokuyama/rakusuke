@@ -19,13 +19,12 @@ export const Box: FC<Props> = ({ name, button, icon, children }) => {
   return (
     <div css={boxStyle}>
       <div css={titleStyle}>
+        <div css={iconStyle}></div>
+        <span css={nameStyle}>{name}</span>
         <div css={iconStyle}>
           {icon === "editUser" && (
             <FontAwesomeIcon icon={faUserPen} width={20} />
           )}
-        </div>
-        <span css={nameStyle}>{name}</span>
-        <div css={iconStyle}>
           {button && <CloseButton onClick={button.handler} />}
         </div>
       </div>

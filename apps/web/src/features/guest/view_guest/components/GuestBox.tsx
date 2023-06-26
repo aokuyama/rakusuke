@@ -3,6 +3,8 @@ import { EditBox } from "ui/src/components/EditBox";
 import { CheckList } from "ui/src/components/CheckList";
 import { loadingContext } from "@/hooks/useLoading";
 import { EventGuestDateMap } from "domain/src/model/guest";
+import { css } from "@emotion/react";
+import { boxLayout } from "ui/src/styles/layout";
 
 type Props = {
   guest: EventGuestDateMap;
@@ -25,19 +27,25 @@ export const GuestBox: FC<Props> = ({
   });
 
   return (
-    <EditBox
-      key={guest.id}
-      name={guest.name}
-      remarks={guest.memo}
-      button={{
-        clickHandler: () => {
-          clickIdHandler(guest.id);
-        },
-        disabled: loadingCtx.loading,
-      }}
-      closable={{ defaultIsClose }}
+    <div
+      css={css`
+        ${boxLayout.cancel}
+      `}
     >
-      <CheckList items={items} />
-    </EditBox>
+      <EditBox
+        key={guest.id}
+        name={guest.name}
+        remarks={guest.memo}
+        button={{
+          clickHandler: () => {
+            clickIdHandler(guest.id);
+          },
+          disabled: loadingCtx.loading,
+        }}
+        closable={{ defaultIsClose }}
+      >
+        <CheckList items={items} />
+      </EditBox>
+    </div>
   );
 };

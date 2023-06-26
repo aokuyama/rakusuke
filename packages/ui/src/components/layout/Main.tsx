@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { FC, ReactNode } from "react";
-import { screenSize } from "../../styles/layout";
+import { boxLayout, screenSize } from "../../styles/layout";
 import { boxSize } from "../../styles/size";
 
 type Props = {
@@ -13,7 +13,7 @@ export const Main: FC<Props> = ({ children }) => {
 
 const styles = css`
   margin: 0 auto;
-  padding: 0.1px 0 0.1px;
+  padding: 0.1px 0 16px;
   ${screenSize.isSmall} {
     width: ${boxSize.default}px;
   }
