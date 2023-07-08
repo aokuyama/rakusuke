@@ -90,7 +90,10 @@ export const EventCreateForm: FC<Props> = ({ eventCreatedHandler }) => {
       />
       <Step number={3}>{Site.message.form.event.description}</Step>
       <TextArea>
-        <textarea {...register("description")} />
+        <textarea
+          {...register("description")}
+          placeholder={Site.message.form.event.descriptionPlaceholder}
+        />
       </TextArea>
       <PickedDates dateList={dateList} />
     </form>
