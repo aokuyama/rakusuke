@@ -22,7 +22,7 @@
     "eslint-config-custom": "*",
     "husky": ">=6",
     "lint-staged": "^13.2.2",
-    "prettier": "latest",
+    "prettier": "^3.1.0",
     "prisma": "^4.15.0",
     "turbo": "^1.10.3"
   },
