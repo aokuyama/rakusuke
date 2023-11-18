@@ -6,6 +6,6 @@ export interface EventRepository {
   loadEventByPath: (path: EventPath) => Promise<ExistingEvent | null>;
   updateEvent: (
     before: ExistingEvent,
-    after: UpdateEvent
+    after: UpdateEvent,
   ) => Promise<ExistingEvent>;
 }

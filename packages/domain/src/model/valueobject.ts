@@ -22,7 +22,7 @@ interface StructValueObjectProps {
 
 export abstract class StructValueObject<
   T extends StructValueObjectProps,
-  U
+  U,
 > extends AbstractValueObject<T> {
   serialize(): U {
     const obj: any = {};
@@ -47,7 +47,7 @@ export abstract class PrimitiveValueObject<T> extends AbstractValueObject<T> {
 
 export abstract class ArrayValueObject<
   T extends AbstractValueObjectIf,
-  U
+  U,
 > extends AbstractValueObject<T[]> {
   serialize(): U[] {
     return this._value.map((v) => serialize(v));

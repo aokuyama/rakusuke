@@ -24,7 +24,7 @@ module.exports = {
   async viteFinal(config) {
     config.plugins = config.plugins.filter(
       (plugin) =>
-        !(Array.isArray(plugin) && plugin[0]?.name.includes("vite:react"))
+        !(Array.isArray(plugin) && plugin[0]?.name.includes("vite:react")),
     );
     config.plugins.push(
       react({
@@ -33,7 +33,7 @@ module.exports = {
         babel: {
           plugins: ["@emotion/babel-plugin"],
         },
-      })
+      }),
     );
     config.esbuild = {
       // Fixed: [vite] warning: Top-level "this" will be replaced with undefined since this file is an ECMAScript module

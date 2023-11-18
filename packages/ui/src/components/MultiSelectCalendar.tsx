@@ -1,10 +1,11 @@
 import { FC } from "react";
-import { Calendar as ReactCalendar } from "react-calendar";
-import { OnChangeFunc } from "react-calendar/dist/cjs/shared/types";
+import { OnClickFunc, Calendar as ReactCalendar } from "react-calendar";
 import { css, Global } from "@emotion/react";
 import { backgroundColor, dayOfWeek, mainColor } from "../styles/color";
 import { format } from "date-fns";
 import { boxSize } from "../styles/size";
+
+export type OnChangeFunc = OnClickFunc;
 
 type Props = {
   selectedDates: Date[];
@@ -24,7 +25,7 @@ export const MultiSelectCalendar: FC<Props> = ({
   maxDate,
 }) => {
   const cssList = selectedDates.map((date) =>
-    selected(dateLabelFormat(undefined, date))
+    selected(dateLabelFormat(undefined, date)),
   );
   return (
     <>

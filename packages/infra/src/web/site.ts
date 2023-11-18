@@ -42,7 +42,7 @@ export const Site = {
     return Site.name;
   },
   getEventPageDescription: (
-    event: { name: string; description: string | null | undefined } | null
+    event: { name: string; description: string | null | undefined } | null,
   ): string => {
     if (event) {
       if (event.description && event.description.length > 0) {
@@ -82,7 +82,7 @@ export const Site = {
   },
 
   parseEventPathByQueryArray: (
-    queryArray: queryString.ParsedQuery<string>
+    queryArray: queryString.ParsedQuery<string>,
   ): string | null => {
     const q = queryArray[eventQueryKey];
     return q ? (Array.isArray(q) ? q[0] : q) : null;

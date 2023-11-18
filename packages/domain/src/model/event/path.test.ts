@@ -5,7 +5,7 @@ describe("イベントパス", () => {
     const path = new EventPath("1234567890abcdef");
     expect(path.rawValue()).toBe("1234567890abcdef");
     expect(new EventPath("1234567890123456").rawValue()).toBe(
-      "1234567890123456"
+      "1234567890123456",
     );
   });
   it("パスは16文字", () => {
@@ -25,13 +25,13 @@ describe("イベントパスのセーフモード", () => {
   it("正しく生成できる", () => {
     expect(
       EventPath.newSafe("1234567890123456")?.equals(
-        new EventPath("1234567890123456")
-      )
+        new EventPath("1234567890123456"),
+      ),
     ).toBe(true);
     expect(
       EventPath.newSafe("1234567890abcdef")?.equals(
-        new EventPath("1234567890abcdef")
-      )
+        new EventPath("1234567890abcdef"),
+      ),
     ).toBe(true);
   });
   it("生成できない場合はundefinedを返す", () => {

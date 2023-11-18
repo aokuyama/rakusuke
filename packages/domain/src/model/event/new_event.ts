@@ -92,7 +92,7 @@ export class NewEvent extends StructValueObject<NewEventProps, NewEventArgs> {
   toExisting = (
     id: number,
     scheduleDates: { date: string }[],
-    created: Date
+    created: Date,
   ): ExistingEvent =>
     new ExistingEvent({
       id: id,

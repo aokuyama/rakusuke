@@ -120,7 +120,7 @@ export class ExistingEvent extends StructValueObject<
   };
 
   makeHeldUpdatedSchedules = (
-    held: Date
+    held: Date,
   ): { schedules: Schedules; updatedSchedules: Schedule[] } =>
     this.schedules().makeHeldUpdatedSchedules(held);
 

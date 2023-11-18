@@ -5,10 +5,10 @@ import { UUID, NewUUID } from "../uuid";
 export interface UserRepository {
   createByUUIDAndToken: (
     uuid: NewUUID,
-    token: NewUserToken
+    token: NewUserToken,
   ) => Promise<UserEntity>;
   getByUUIDAndToken: (
     uuid: UUID,
-    token: UserToken
+    token: UserToken,
   ) => Promise<UserEntity | null>;
 }

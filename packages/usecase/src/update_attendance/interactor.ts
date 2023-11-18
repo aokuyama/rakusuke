@@ -14,7 +14,7 @@ export class UpdateAttendanceInteractor implements UpdateAttendanceUsecase {
     @inject("UpdateAttendancePresenter")
     private readonly presenter: UpdateAttendancePresenter,
     @inject("GuestRepository")
-    private readonly repository: GuestRepository
+    private readonly repository: GuestRepository,
   ) {}
 
   handle = async (input: UpdateAttendanceInput) => {

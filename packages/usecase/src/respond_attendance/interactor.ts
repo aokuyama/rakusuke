@@ -17,7 +17,7 @@ export class RespondAttendanceInteractor implements RespondAttendanceUsecase {
     @inject("EventRepository")
     private readonly eventRepository: EventRepository,
     @inject("GuestRepository")
-    private readonly guestRepository: GuestRepository
+    private readonly guestRepository: GuestRepository,
   ) {}
 
   handle = async (input: RespondAttendanceInput) => {

@@ -19,7 +19,7 @@ export const drawingEventDate = publicProcedure
     z.object({
       user: userSchema,
       event: drawingEventDateSchema,
-    })
+    }),
   )
   .mutation(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
     const { input } = opts;

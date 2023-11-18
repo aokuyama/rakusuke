@@ -14,7 +14,7 @@ export class GetEventByPathInteractor implements GetEventByPathUsecase {
     @inject("GetEventByPathPresenter")
     private readonly presenter: GetEventByPathPresenter,
     @inject("EventRepository")
-    private readonly repository: EventRepository
+    private readonly repository: EventRepository,
   ) {}
 
   handle = async (input: GetEventByPathInput) => {

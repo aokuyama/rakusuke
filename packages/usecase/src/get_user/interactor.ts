@@ -11,13 +11,13 @@ export class GetUserInteractor implements GetUserUsecase {
     @inject("GetUserPresenter")
     private readonly presenter: GetUserPresenter,
     @inject("UserRepository")
-    private readonly repository: UserRepository
+    private readonly repository: UserRepository,
   ) {}
 
   handle = async (input: GetUserInput) => {
     const user = await this.repository.getByUUIDAndToken(
       new UUID(input.uuid),
-      new UserToken(input.token)
+      new UserToken(input.token),
     );
     await this.presenter.render({ user: user });
   };

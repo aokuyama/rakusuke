@@ -53,7 +53,7 @@ describe("開催日決定", () => {
   it("指定した開催日の差分が作られる", () => {
     const event = newEvent();
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
-      new Date("2023/04/15")
+      new Date("2023/04/15"),
     );
     expect(schedules.serialize()).toStrictEqual([
       { date: "2023/04/15", held: true },
@@ -83,7 +83,7 @@ describe("開催日決定", () => {
       { date: "2023/06/17", held: true },
     ]);
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
-      new Date("2023/06/16")
+      new Date("2023/06/16"),
     );
     expect(schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: false },
@@ -114,7 +114,7 @@ describe("開催日決定", () => {
       { date: "2023/06/17", held: false },
     ]);
     const { schedules, updatedSchedules } = event.makeHeldUpdatedSchedules(
-      new Date("2023/06/15")
+      new Date("2023/06/15"),
     );
     expect(schedules.serialize()).toStrictEqual([
       { date: "2023/06/15", held: true },

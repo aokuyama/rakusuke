@@ -4,7 +4,7 @@ import { drawingSchema } from "infra/src/client/trpc/validation/event";
 import { Date } from "domain/src/model/date";
 
 export const useDrawingForm = (
-  schedules: { date: Date; enable: boolean }[]
+  schedules: { date: Date; enable: boolean }[],
 ) => {
   const defaultValues = {
     schedule: schedules.map((schedule) => {

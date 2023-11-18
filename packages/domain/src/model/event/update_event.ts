@@ -62,7 +62,7 @@ export class UpdateEventAndDate
     return this._value.dates;
   }
   makeUpdateSchedules = (
-    beforeEvent: ExistingEvent
+    beforeEvent: ExistingEvent,
   ): {
     updatedEvent: ExistingEvent;
     addedDates: Date[];
@@ -93,7 +93,7 @@ export class UpdateEventHeld {
     return new UpdateEventHeld(args.held);
   }
   makeUpdateSchedules = (
-    beforeEvent: ExistingEvent
+    beforeEvent: ExistingEvent,
   ): {
     updatedEvent: ExistingEvent;
     addedDates: Date[];
@@ -121,7 +121,7 @@ export class UpdateEventNoHeld {
     return new UpdateEventNoHeld();
   }
   makeUpdateSchedules = (
-    beforeEvent: ExistingEvent
+    beforeEvent: ExistingEvent,
   ): {
     updatedEvent: ExistingEvent;
     addedDates: Date[];

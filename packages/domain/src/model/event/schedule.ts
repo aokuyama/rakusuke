@@ -59,7 +59,7 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
   }
   static create(value: { date: string }[]): Schedules {
     return new Schedules(
-      value.map((v) => Schedule.new(Object.assign(v, { held: false })))
+      value.map((v) => Schedule.new(Object.assign(v, { held: false }))),
     );
   }
   protected validate(value: Schedule[]): void {
@@ -85,7 +85,7 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     return null;
   };
   updateDates = (
-    newDates: EventDates
+    newDates: EventDates,
   ): {
     schedules: Schedules;
     addedDates: Date[];
@@ -131,7 +131,7 @@ export class Schedules extends ArrayValueObject<Schedule, ScheduleArgs> {
     };
   };
   makeHeldUpdatedSchedules = (
-    held: Date
+    held: Date,
   ): { schedules: Schedules; updatedSchedules: Schedule[] } => {
     let found = false;
     const updatedSchedules: Schedule[] = [];

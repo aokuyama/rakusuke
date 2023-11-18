@@ -10,7 +10,7 @@ import { client } from "./client";
 export class PrismaUserRepository implements UserRepository {
   createByUUIDAndToken = async (
     uuid: NewUUID,
-    token: NewUserToken
+    token: NewUserToken,
   ): Promise<UserEntity> => {
     const r = await client.$transaction(async (prisma) => {
       const saveEvent = await prisma.user.create({
@@ -30,7 +30,7 @@ export class PrismaUserRepository implements UserRepository {
 
   getByUUIDAndToken = async (
     uuid: UUID,
-    token: UserToken
+    token: UserToken,
   ): Promise<UserEntity | null> => {
     const r = await client.user.findUnique({
       where: {

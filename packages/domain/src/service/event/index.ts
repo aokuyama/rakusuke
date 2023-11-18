@@ -14,7 +14,7 @@ export const validateMaxDate = (schedule: Date[], start: Date): boolean => {
 };
 
 export const drawingEventDate = (
-  schedule: { date: string; enable: boolean }[]
+  schedule: { date: string; enable: boolean }[],
 ): string => {
   const enables = schedule
     .map((s) => (s.enable ? s.date : null))

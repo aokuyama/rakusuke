@@ -30,7 +30,7 @@ export class PrismaEventRepository implements EventRepository {
     return event.toExisting(
       savedEvent.id,
       schedules,
-      Date.convert(savedEvent.created_at)
+      Date.convert(savedEvent.created_at),
     );
   };
 
@@ -89,7 +89,7 @@ export class PrismaEventRepository implements EventRepository {
 
   updateEvent = async (
     before: ExistingEvent,
-    after: UpdateEvent
+    after: UpdateEvent,
   ): Promise<ExistingEvent> => {
     const { updatedEvent, addedDates, removedDates, updatedSchedules } =
       after.makeUpdateSchedules(before);

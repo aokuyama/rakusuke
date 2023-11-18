@@ -14,7 +14,7 @@ export class GetEventByPathPresenter {
   };
   getHtml = (
     imageURL: string,
-    url: string
+    url: string,
   ): {
     status: string;
     statusDescription: string;

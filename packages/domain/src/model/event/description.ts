@@ -8,7 +8,7 @@ export class EventDescription extends PrimitiveValueObject<string | undefined> {
     }
     if (value.length > EventDescription.MAX) {
       throw new Error(
-        "description must be " + EventDescription.MAX + " characters or less"
+        "description must be " + EventDescription.MAX + " characters or less",
       );
     }
   }

@@ -16,7 +16,7 @@ import { useToast } from "./useToast";
 
 export const useEvent = (
   recentEvents?: RecentlyViewedEvent | undefined,
-  setFirstEventHandler?: (event: CurrentEvent) => void
+  setFirstEventHandler?: (event: CurrentEvent) => void,
 ): {
   event: CurrentEventView;
   setEvent: React.Dispatch<React.SetStateAction<CurrentEventView>>;
@@ -25,7 +25,7 @@ export const useEvent = (
   const userCtx = useContext(userContext);
   const [toast, setToast] = useState(useToast());
   const [event, setEvent] = useState<CurrentEventView>(
-    new CurrentEventLoading()
+    new CurrentEventLoading(),
   );
   const eq = useEventQuery();
 
@@ -74,7 +74,7 @@ export const useEvent = (
 
 const loadEvent = async (
   user: User,
-  path: string
+  path: string,
 ): Promise<CurrentEvent | CurrentEventNotFound> => {
   if (!EventPath.newSafe(path)) {
     return new CurrentEventNotFound();

@@ -15,7 +15,7 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
     @inject("GetOrCreateUserPresenter")
     private readonly presenter: GetOrCreateUserPresenter,
     @inject("UserRepository")
-    private readonly repository: UserRepository
+    private readonly repository: UserRepository,
   ) {}
 
   handle = async (input: GetOrCreateUserInput) => {
@@ -27,16 +27,16 @@ export class GetOrCreateUserInteractor implements GetOrCreateUserUsecase {
   };
   private getUser = async (
     uuid: string,
-    token: string
+    token: string,
   ): Promise<UserEntity | null> =>
     await this.repository.getByUUIDAndToken(
       new UUID(uuid),
-      new UserToken(token)
+      new UserToken(token),
     );
   private createUser = async (): Promise<UserEntity> =>
     // TODO 天文学的な確率で失敗した時のリトライを入れる
     await this.repository.createByUUIDAndToken(
       NewUUID.create(),
-      NewUserToken.create()
+      NewUserToken.create(),
     );
 }

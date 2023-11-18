@@ -66,7 +66,7 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/17", attend: false },
     ]);
     expect(
-      event.newAttendanceByCurrentAttendance(attendance).serialize()
+      event.newAttendanceByCurrentAttendance(attendance).serialize(),
     ).toStrictEqual([
       { date: "2023/04/15", attend: false },
       { date: "2023/04/16", attend: true },
@@ -78,7 +78,7 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/17", attend: true },
     ]);
     expect(
-      event.newAttendanceByCurrentAttendance(attendance2).serialize()
+      event.newAttendanceByCurrentAttendance(attendance2).serialize(),
     ).toStrictEqual([
       { date: "2023/04/15", attend: true },
       { date: "2023/04/16", attend: true },
@@ -92,7 +92,7 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/17", attend: false },
     ]);
     expect(
-      event.newAttendanceByCurrentAttendance(attendance).serialize()
+      event.newAttendanceByCurrentAttendance(attendance).serialize(),
     ).toStrictEqual([
       { date: "2023/04/15", attend: true },
       { date: "2023/04/16", attend: false },
@@ -102,7 +102,7 @@ describe("チェックリスト作成", () => {
       { date: "2023/04/14", attend: true },
     ]);
     expect(
-      event.newAttendanceByCurrentAttendance(attendance2).serialize()
+      event.newAttendanceByCurrentAttendance(attendance2).serialize(),
     ).toStrictEqual([
       { date: "2023/04/15", attend: false },
       { date: "2023/04/16", attend: false },

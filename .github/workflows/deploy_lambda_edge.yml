@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deployment environment'
+        description: "Deployment environment"
         required: true
         type: choice
         options:
-        - staging
-        - production
+          - staging
+          - production
 
 jobs:
   update-distribution:
@@ -54,7 +54,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1"
         run: aws cloudfront update-distribution --id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --distribution-config file://config.json --if-match ${{ env.ETAG }}
-      
+
       - name: Wait for update-distribution completion
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ENV_AWS_ACCESS_KEY_ID }}

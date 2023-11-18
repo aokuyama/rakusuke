@@ -9,7 +9,7 @@ export const useRecentEvents = (): {
 } => {
   const [events, setEventsBase] = useState<RecentlyViewedEvent>();
   const [eventsTmp, setEventsTmp] = useState<RecentlyViewedEvent>(
-    RecentlyViewedEvent.createEmpty()
+    RecentlyViewedEvent.createEmpty(),
   );
 
   const setEvents = (event: CurrentEvent) => {

@@ -15,7 +15,7 @@ export const updateAttendance = publicProcedure
     z.object({
       event: z.string(),
       guest: guestUpdateSchema,
-    })
+    }),
   )
   .mutation(async (opts) => {
     const { input } = opts;

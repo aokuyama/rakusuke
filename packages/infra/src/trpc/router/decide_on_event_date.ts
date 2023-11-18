@@ -18,7 +18,7 @@ export const decideOnEventDate = publicProcedure
     z.object({
       user: userSchema,
       event: decideOnEventDateSchema,
-    })
+    }),
   )
   .mutation(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
     const { input } = opts;

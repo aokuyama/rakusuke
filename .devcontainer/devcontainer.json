@@ -34,12 +34,12 @@
   "customizations": {
     "vscode": {
       "extensions": [
-		"styled-components.vscode-styled-components",
-		"dbaeumer.vscode-eslint",
-		"rvest.vs-code-prettier-eslint",
-		"Prisma.prisma",
-		"esbenp.prettier-vscode"
-	]
+        "styled-components.vscode-styled-components",
+        "dbaeumer.vscode-eslint",
+        "rvest.vs-code-prettier-eslint",
+        "Prisma.prisma",
+        "esbenp.prettier-vscode"
+      ]
     }
   }
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.

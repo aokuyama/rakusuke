@@ -16,7 +16,7 @@ export class CreateEventInteractor implements CreateEventUsecase {
     @inject("CreateEventPresenter")
     private readonly presenter: CreateEventPresenter,
     @inject("EventRepository")
-    private readonly repository: EventRepository
+    private readonly repository: EventRepository,
   ) {}
 
   handle = async (input: CreateEventInput) => {

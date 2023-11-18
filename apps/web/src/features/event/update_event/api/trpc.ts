@@ -12,7 +12,7 @@ export const updateEventApi = async (
     success: (args: { event: CurrentEvent }) => void;
     error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
-  }
+  },
 ) => {
   const eventData = Object.assign(event, { path: currentEvent.path });
   if (then.submited) {

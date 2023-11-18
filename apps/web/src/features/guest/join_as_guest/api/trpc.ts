@@ -11,7 +11,7 @@ export const createGuestApi = async (
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
-  }
+  },
 ) => {
   if (then.submited) {
     // 仮にidが99999のデータとして作る

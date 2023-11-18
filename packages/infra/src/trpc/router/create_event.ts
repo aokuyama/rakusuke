@@ -21,7 +21,7 @@ export const createEvent = publicProcedure
     z.object({
       user: userSchema.nullable(),
       event: eventCreateSchema,
-    })
+    }),
   )
   .mutation(async (opts) => {
     const { input } = opts;

@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deployment environment'
+        description: "Deployment environment"
         required: true
         type: choice
         options:
-        - staging
-        - production
+          - staging
+          - production
 
 jobs:
   update-lambda:
@@ -39,7 +39,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1"
         run: aws lambda update-function-code --function-name ${{ env.AWS_LAMBDA_FUNCTION_ARN }} --image-uri ${{ secrets.ENV_AWS_ECR_HOST }}/${{ secrets.ENV_REGISTRY_NAME }}:deploy
-      
+
       - name: Wait for update-function-code completion
         timeout-minutes: 10
         env:

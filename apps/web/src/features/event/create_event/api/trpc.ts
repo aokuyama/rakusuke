@@ -10,7 +10,7 @@ export const createEventApi = async (
     success: (args: { event: CurrentEvent; user: RegisteredUser }) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
-  }
+  },
 ) => {
   const result = await client.event.createEvent.mutate({
     user: user.getAuthInfo(),

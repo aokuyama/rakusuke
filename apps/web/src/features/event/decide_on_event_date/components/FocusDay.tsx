@@ -61,7 +61,7 @@ export const FocusDay: FC<Props> = ({
               r.event.name +
                 " の開催日を " +
                 (held ? held.short() + " に" : "リセット") +
-                "しました"
+                "しました",
             );
             eventUpdatedHandler(r.event);
           },

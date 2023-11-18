@@ -9,7 +9,7 @@ export const resetEventDateApi = async (
     success: (args: { event: CurrentEvent }) => void;
     error: (result: any) => void;
     finally: (result: any) => void;
-  }
+  },
 ) => {
   const auth = user.getAuthInfo();
   if (!auth) {

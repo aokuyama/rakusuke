@@ -13,7 +13,7 @@ import { emptyToNull, nullToUndefined } from ".";
 export class PrismaGuestRepository implements GuestRepository {
   create = async (
     eventPath: EventPath,
-    guest: NewGuest
+    guest: NewGuest,
   ): Promise<EventGuest> => {
     const r = await client.$transaction(async (prisma) => {
       const event = await prisma.event.findUnique({
@@ -52,7 +52,7 @@ export class PrismaGuestRepository implements GuestRepository {
   };
   update = async (
     eventPath: EventPath,
-    guest: EventGuest
+    guest: EventGuest,
   ): Promise<EventGuest> => {
     const r = await client.$transaction(async (prisma) => {
       const currentGuest = await prisma.guest.findFirstOrThrow({
@@ -145,7 +145,7 @@ const pickAnswered = (guest: NewGuest | EventGuest, schedules: schedule[]) => {
 
 const isUpdatedAnswer = (
   newAnswer: Attendance,
-  currentAnswers: attendance[]
+  currentAnswers: attendance[],
 ): boolean | null => {
   for (const currentAnswer of currentAnswers) {
     if (newAnswer.scheduleId == currentAnswer.schedule_id) {

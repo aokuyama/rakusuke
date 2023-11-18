@@ -15,7 +15,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
     @inject("UpdateEventPresenter")
     private readonly presenter: UpdateEventPresenter,
     @inject("EventRepository")
-    private readonly repository: EventRepository
+    private readonly repository: EventRepository,
   ) {}
 
   handle = async (input: UpdateEventInput) => {
@@ -36,7 +36,7 @@ export class UpdateEventInteractor implements UpdateEventUsecase {
     });
     const updatedEvent = await this.repository.updateEvent(
       existingEvent,
-      after
+      after,
     );
     await this.presenter.render({ event: updatedEvent });
   };

@@ -12,7 +12,7 @@ export const updateGuestApi = async (
     success: (args: { event: CurrentEvent; guest: EventGuest }) => void;
     error: (result: any, args: { event: CurrentEvent }) => void;
     finally: (result: any) => void;
-  }
+  },
 ) => {
   const guestData = Object.assign(guest, { number: number.value });
   if (then.submited) {

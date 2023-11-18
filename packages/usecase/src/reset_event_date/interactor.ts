@@ -15,7 +15,7 @@ export class ResetEventDateInteractor implements ResetEventDateUsecase {
     @inject("ResetEventDatePresenter")
     private readonly presenter: ResetEventDatePresenter,
     @inject("EventRepository")
-    private readonly repository: EventRepository
+    private readonly repository: EventRepository,
   ) {}
 
   handle = async (input: ResetEventDateInput) => {
@@ -31,7 +31,7 @@ export class ResetEventDateInteractor implements ResetEventDateUsecase {
     const after = UpdateEventNoHeld.new();
     const updatedEvent = await this.repository.updateEvent(
       existingEvent,
-      after
+      after,
     );
     await this.presenter.render({ event: updatedEvent });
   };

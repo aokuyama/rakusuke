@@ -21,7 +21,7 @@ export const getEventByPath = publicProcedure
         })
         .nullable(),
       path: z.string(),
-    })
+    }),
   )
   .query(async (opts): Promise<{ event: CurrentEventArgs | null }> => {
     const { input } = opts;

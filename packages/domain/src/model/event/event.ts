@@ -98,20 +98,20 @@ export class CurrentEvent
     NewAttendanceList.newByDates(
       this._value.schedules.dates().map((date) => {
         return { date: date, attend: false };
-      })
+      }),
     );
   newAttendanceByGuest = (guest: EventGuest) =>
     this.newAttendanceByCurrentAttendance(guest.getAttendance());
 
   newAttendanceByCurrentAttendance = (
-    attendance: NewAttendanceList | CurrentAttendanceList
+    attendance: NewAttendanceList | CurrentAttendanceList,
   ) => {
     return NewAttendanceList.newByDates(
       this._value.schedules.dates().map((date) => {
         const checked =
           attendance.existsDate(date) && attendance.isAttend(date);
         return { date: date, attend: checked };
-      })
+      }),
     );
   };
   scheduleLength = (): number => this._schedules.length();

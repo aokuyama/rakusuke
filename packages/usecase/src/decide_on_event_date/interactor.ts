@@ -16,7 +16,7 @@ export class DecideOnEventDateInteractor implements DecideOnEventDateUsecase {
     @inject("DecideOnEventDatePresenter")
     private readonly presenter: DecideOnEventDatePresenter,
     @inject("EventRepository")
-    private readonly repository: EventRepository
+    private readonly repository: EventRepository,
   ) {}
 
   handle = async (input: DecideOnEventDateInput) => {
@@ -34,7 +34,7 @@ export class DecideOnEventDateInteractor implements DecideOnEventDateUsecase {
     });
     const updatedEvent = await this.repository.updateEvent(
       existingEvent,
-      after
+      after,
     );
     await this.presenter.render({ event: updatedEvent });
   };

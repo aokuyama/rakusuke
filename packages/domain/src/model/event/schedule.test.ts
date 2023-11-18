@@ -45,7 +45,7 @@ describe("スケジュール作成", () => {
           "2023/05/04",
         ].map((d) => {
           return { date: d };
-        })
+        }),
       );
     }).toThrow("dates must be 20 num or less");
   });
@@ -203,7 +203,7 @@ describe("スケジュール更新", () => {
       { date: "2023/04/21", held: false },
     ]);
     expect(
-      newschedules1.updatedSchedules.map((s) => s.serialize())
+      newschedules1.updatedSchedules.map((s) => s.serialize()),
     ).toStrictEqual([{ date: "2023/04/16", held: false }]);
 
     const newDates2 = EventDates.new([
