@@ -4,7 +4,6 @@ import { PrimitiveValueObject } from "./valueobject";
 abstract class UUIDBase extends PrimitiveValueObject<string> {
   protected validate(value: string): void {
     if (!validate(value)) {
-      console.error(value);
       throw new Error("invalid uuid");
     }
   }
