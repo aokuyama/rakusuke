@@ -12,7 +12,7 @@ RUN rm -rf /build/packages/ui
 RUN npm ci --only=production --ignore-scripts -workspace=server
 RUN prisma generate
 ENV NODE_ENV=production
-RUN npm build-lambda -workspace=server
+RUN npm run build-lambda -workspace=server
 
 FROM public.ecr.aws/lambda/nodejs:18
 WORKDIR ${LAMBDA_TASK_ROOT}

@@ -46,7 +46,7 @@ jobs:
 
       - name: Build
         run: |
-          npm build-static -workspace=web
+          npm run build-static -workspace=web
           rm -rf ./apps/web/out/e/\[p\]/
 
       - name: Deploy

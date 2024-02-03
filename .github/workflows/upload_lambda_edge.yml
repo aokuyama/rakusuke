@@ -50,7 +50,7 @@ jobs:
         run: npm ci --only=production --ignore-scripts -workspace=edge
 
       - name: Build
-        run: npm build-lambda -workspace=edge
+        run: npm run build-lambda -workspace=edge
 
       - name: Pur ENV
         run: echo -e "DATABASE_URL=\"${{ env.DATABASE_URL }}\"\nPEPPER_EVENT=\"${{ env.PEPPER_EVENT }}\"\nSITE_DOMAIN=\"${{ env.SITE_DOMAIN }}\"" > ./apps/edge/dist/.env
