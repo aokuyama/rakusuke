@@ -12,16 +12,16 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "esbuild": "^0.17.18"
-  },
-  "dependencies": {
-    "dotenv": "^16.0.3",
     "eslint-config-custom": "*",
-    "infra": "*",
-    "usecase": "*",
-    "domain": "*",
     "ts-node": "^10.9.1",
     "tsconfig": "*",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "esbuild": "^0.17.18",
+    "dotenv": "^16.0.3",
+    "infra": "*",
+    "usecase": "*",
+    "domain": "*"
   }
 }

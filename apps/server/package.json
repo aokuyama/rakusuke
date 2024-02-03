@@ -13,15 +13,15 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
-    "esbuild": "^0.17.18"
+    "eslint-config-custom": "*",
+    "ts-node": "^10.9.1",
+    "tsconfig": "*",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@trpc/server": "^10.20.0",
     "cors": "^2.8.5",
-    "eslint-config-custom": "*",
-    "infra": "*",
-    "ts-node": "^10.9.1",
-    "tsconfig": "*",
-    "typescript": "^4.9.5"
+    "esbuild": "^0.17.18",
+    "infra": "*"
   }
 }

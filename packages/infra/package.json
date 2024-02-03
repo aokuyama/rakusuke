@@ -11,20 +11,20 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
+    "eslint-config-custom": "*",
     "jest": "^29.5.0",
-    "ts-jest": "^29.1.0"
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^29.1.0",
+    "tsconfig": "*",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@trpc/client": "^10.20.0",
     "@trpc/server": "^10.20.0",
     "domain": "*",
-    "eslint-config-custom": "*",
     "postgres": "^3.3.4",
     "query-string-esm": "^6.13.6",
-    "reflect-metadata": "^0.1.13",
-    "tsconfig": "*",
     "tsyringe": "^4.7.0",
-    "typescript": "^4.9.5",
     "zod": "^3.21.4"
   }
 }

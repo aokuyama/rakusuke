@@ -14,7 +14,6 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-modal": "^3.16.0",
     "eslint-config-custom": "*",
-    "react": "^18.2.0",
     "tsconfig": "*",
     "typescript": "^4.9.5"
   },
@@ -25,6 +24,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "destyle.css": "^4.0.0",
+    "react": "^18.2.0",
     "react-calendar": "^4.3.0",
     "react-hot-toast": "^2.4.1",
     "react-modal": "^3.16.1"
