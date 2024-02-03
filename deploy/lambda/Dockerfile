@@ -1,7 +1,6 @@
 FROM public.ecr.aws/lambda/nodejs:18 as build
 
-RUN npm install -g yarn
-RUN yarn global add turbo@1.10.3 prisma@4.15.0
+RUN npm install -g turbo@1.10.3 prisma@4.15.0
 
 WORKDIR /build
 COPY ./ ./
@@ -10,10 +9,10 @@ RUN rm -rf /build/apps/workshop
 RUN rm -rf /build/apps/web
 RUN rm -rf /build/packages/ui
 
-RUN yarn workspace server install
+RUN npm ci --only=production --ignore-scripts -workspace=server
 RUN prisma generate
 ENV NODE_ENV=production
-RUN yarn workspace server build-lambda
+RUN npm build-lambda -workspace=server
 
 FROM public.ecr.aws/lambda/nodejs:18
 WORKDIR ${LAMBDA_TASK_ROOT}

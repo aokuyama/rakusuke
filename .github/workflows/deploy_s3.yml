@@ -42,11 +42,11 @@ jobs:
           rm -rf ./apps/edge
 
       - name: Install Dependencies
-        run: yarn workspace web install
+        run: npm ci --only=production --ignore-scripts -workspace=web
 
       - name: Build
         run: |
-          yarn workspace web build-static
+          npm build-static -workspace=web
           rm -rf ./apps/web/out/e/\[p\]/
 
       - name: Deploy

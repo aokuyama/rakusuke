@@ -14,8 +14,7 @@
     "format": "prettier --write .",
     "fix": "turbo run lint -- --fix",
     "type-check": "turbo run type-check",
-    "prepare": "husky install",
-    "w": "yarn workspace"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@prisma/client": "^4.15.0",
@@ -32,10 +31,10 @@
   "dependencies": {
     "date-fns": "^2.29.3"
   },
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "npm@9.5.1",
   "lint-staged": {
     "**/*.ts*": [
-      "bash -c 'yarn type-check'"
+      "bash -c 'npm run type-check'"
     ],
     "*.{js,jsx,ts,tsx,css,md}": [
       "eslint --fix"

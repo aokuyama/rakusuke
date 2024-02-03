@@ -6,4 +6,4 @@ RUN echo "deb http://ftp.us.debian.org/debian buster main non-free" >> /etc/apt/
 
 RUN apt install -y git
 
-RUN yarn global add turbo@1.10.3 prisma@4.15.0 nodemon
+RUN npm install -g turbo@1.10.3 prisma@4.15.0 nodemon

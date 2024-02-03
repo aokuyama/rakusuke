@@ -1,6 +1,6 @@
 import { Date } from "domain/src/model/date";
 import { useEventForm } from "./useEventForm";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react";
 
 describe("日付ピックアップ", () => {
   let result = renderHook(() => useEventForm()).result;
