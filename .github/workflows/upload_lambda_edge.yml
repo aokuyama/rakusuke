@@ -47,9 +47,11 @@ jobs:
           rm -rf ./apps/web
 
       - name: Install Dependencies
-        run: npm ci --only=production --ignore-scripts -workspace=edge
+        run: npm ci --ignore-scripts -workspace=edge
 
       - name: Build
+        env:
+          NODE_ENV: production
         run: npm run build-lambda -workspace=edge
 
       - name: Pur ENV

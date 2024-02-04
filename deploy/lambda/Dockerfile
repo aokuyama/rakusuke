@@ -9,7 +9,7 @@ RUN rm -rf /build/apps/workshop
 RUN rm -rf /build/apps/web
 RUN rm -rf /build/packages/ui
 
-RUN npm ci --only=production --ignore-scripts -workspace=server
+RUN npm ci --ignore-scripts -workspace=server
 RUN prisma generate
 ENV NODE_ENV=production
 RUN npm run build-lambda -workspace=server

@@ -39,7 +39,7 @@ jobs:
           npm install -g turbo@1.10.3 prisma@4.15.0
           rm -rf ./apps
           rm -rf ./packages
-          npm ci --only=production --ignore-scripts
+          npm ci --ignore-scripts
 
       - name: Build
         env:

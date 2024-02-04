@@ -42,7 +42,7 @@ jobs:
           rm -rf ./apps/edge
 
       - name: Install Dependencies
-        run: npm ci --only=production --ignore-scripts -workspace=web
+        run: npm ci --ignore-scripts -workspace=web
 
       - name: Build
         env:
