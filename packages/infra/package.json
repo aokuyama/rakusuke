@@ -25,6 +25,7 @@
     "postgres": "^3.3.4",
     "query-string-esm": "^6.13.6",
     "tsyringe": "^4.7.0",
+    "usecase": "*",
     "zod": "^3.21.4"
   }
 }
