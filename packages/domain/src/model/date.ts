@@ -1,6 +1,6 @@
 import { parse, format, isSameDay, parseISO, addDays, isAfter } from "date-fns";
+import { ja } from "date-fns/locale";
 import { AbstractValueObject } from "./valueobject";
-import ja from "date-fns/locale/ja";
 
 const referenceDate = new globalThis.Date();
 
