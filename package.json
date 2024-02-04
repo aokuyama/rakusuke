@@ -28,9 +28,7 @@
   "engines": {
     "node": "18.16.x"
   },
-  "dependencies": {
-    "date-fns": "^2.29.3"
-  },
+  "dependencies": {},
   "packageManager": "npm@9.5.1",
   "lint-staged": {
     "**/*.ts*": [
