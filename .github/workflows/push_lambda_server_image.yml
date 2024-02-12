@@ -36,7 +36,7 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
-          file: ./deploy/aws/lambda/Dockerfile
+          file: ./deploy/lambda/Dockerfile
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
           tags: |
