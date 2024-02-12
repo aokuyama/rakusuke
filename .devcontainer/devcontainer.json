@@ -38,10 +38,11 @@
         "dbaeumer.vscode-eslint",
         "rvest.vs-code-prettier-eslint",
         "Prisma.prisma",
-        "esbenp.prettier-vscode"
-      ]
-    }
-  }
+        "esbenp.prettier-vscode",
+        "github.vscode-github-actions",
+      ],
+    },
+  },
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "devcontainer"
 }
