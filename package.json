@@ -20,7 +20,7 @@
     "@prisma/client": "^4.15.0",
     "eslint-config-custom": "*",
     "husky": ">=6",
-    "lint-staged": "^13.2.2",
+    "lint-staged": "^15.2.9",
     "prettier": "^3.1.0",
     "prisma": "^4.15.0",
     "turbo": "^1.10.3"
@@ -28,7 +28,6 @@
   "engines": {
     "node": "18.20.x"
   },
-  "dependencies": {},
   "packageManager": "npm@9.5.1",
   "lint-staged": {
     "**/*.ts*": [
