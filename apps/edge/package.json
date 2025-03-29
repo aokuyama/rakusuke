@@ -18,10 +18,10 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "esbuild": "^0.17.18",
+    "domain": "*",
     "dotenv": "^16.0.3",
+    "esbuild": "^0.25.1",
     "infra": "*",
-    "usecase": "*",
-    "domain": "*"
+    "usecase": "*"
   }
 }

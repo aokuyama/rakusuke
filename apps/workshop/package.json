@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "esbuild": "0.25.1",
     "next": "^14.2.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,23 +23,23 @@
     "@babel/core": "^7.22.5",
     "@emotion/babel-plugin": "^11.10.5",
     "@storybook/addon-actions": "^7.0.23",
-    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/addon-essentials": "^8.6.11",
     "@storybook/addon-interactions": "^7.0.23",
     "@storybook/addon-links": "^7.0.23",
     "@storybook/addon-mdx-gfm": "^7.0.23",
     "@storybook/jest": "^0.1.0",
-    "@storybook/react": "^7.0.23",
-    "@storybook/react-vite": "^7.0.23",
+    "@storybook/react": "^8.6.11",
+    "@storybook/react-vite": "^8.6.11",
     "@storybook/test-runner": "^0.18.2",
     "@storybook/testing-library": "^0.2.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "babel-loader": "^9.1.2",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "tsconfig": "*",
     "typescript": "^4.9.5",
-    "vite": "^4.3.9"
+    "vite": "^6.2.3"
   }
 }
