@@ -1,4 +1,4 @@
-FROM node:18.20.3-bookworm-slim
+FROM node:18.20.8-bookworm-slim
 
 RUN echo "deb http://ftp.us.debian.org/debian buster main non-free" >> /etc/apt/sources.list.d/fonts.list && \
     npx playwright install-deps chromium && \
